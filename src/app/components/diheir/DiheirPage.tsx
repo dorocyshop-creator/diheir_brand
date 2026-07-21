@@ -59,7 +59,7 @@ const SANS = "font-sans";
 
 /* ---------------------------------- Nav ---------------------------------- */
 
-import imgDiheirLogoOg1 from "../../../imports/DiheirPage/6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
+import imgDiheirLogoOg1 from "../../../imports/DiheirPage/Diheir_Logo.png";
 
 function NavLogo({ className = "", onClick }: { className?: string; onClick?: () => void }) {
   return (
@@ -171,7 +171,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
           ))}
         </div>
       </div>
-      <p className={`${SERIF} capitalize ${isLight ? "text-[#444429]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`} style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}>
+      <p className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`} style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}>
         Contact
       </p>
     </motion.nav>
