@@ -59,7 +59,7 @@ const SANS = "font-sans";
 
 /* ---------------------------------- Nav ---------------------------------- */
 
-function NavLogo({ className = "" }: { className?: string }) {
+function NavLogo({ className = "", onClick }: { className?: string; onClick?: () => void }) {
   return (
     <svg
       className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto ${className}`}
@@ -67,6 +67,7 @@ function NavLogo({ className = "" }: { className?: string }) {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 190 59"
       aria-label="DIHEIR"
+      onClick={onClick}
     >
       <g clipPath="url(#clip0_1_336)" id="logo">
         <g id="Group">
@@ -112,7 +113,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       }}
     >
       <div className="relative group">
-        <NavLogo className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`} />
+        <NavLogo className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
         <div className="absolute left-0 top-[100%] mt-4 flex flex-col gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
           {["home", "brand", "Services", "Reservation"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}>

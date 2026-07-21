@@ -1692,9 +1692,9 @@ function Footer() {
   );
 }
 
-function Logo1() {
+function Logo1({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="h-[59px] relative shrink-0 w-[190px]" data-name="logo">
+    <div className="h-[59px] relative shrink-0 w-[190px] cursor-pointer" data-name="logo" onClick={onClick}>
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 190 59">
         <g clipPath="url(#clip0_1_336)" id="logo">
           <g id="Group">
@@ -1725,7 +1725,7 @@ function Frame58() {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full z-50">
       <div className="relative group cursor-pointer z-50">
-        <Logo1 />
+        <Logo1 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
         <div className="absolute left-0 top-[100%] mt-4 flex flex-col gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
           {["home", "brand", "Services", "Reservation"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className="font-dream capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer">
