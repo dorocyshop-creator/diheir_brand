@@ -1082,7 +1082,7 @@ function Frame49() {
         className="content-stretch cursor-pointer flex h-[606px] items-center justify-center relative shrink-0 w-full group"
       >
         <motion.div
-          animate={{ x: isOpen ? -580 : -10, y: isOpen ? 0 : 5, rotate: isOpen ? 0 : -5 }}
+          animate={{ x: isOpen ? -580 : -15, y: "0%", rotate: isOpen ? 0 : -3, scale: isOpen ? 1 : 0.98 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
           className="absolute z-10"
         >
@@ -1092,7 +1092,7 @@ function Frame49() {
         </motion.div>
 
         <motion.div
-          animate={{ x: isOpen ? 580 : 10, y: isOpen ? 0 : -5, rotate: isOpen ? 0 : 6 }}
+          animate={{ x: isOpen ? 580 : 15, y: "0%", rotate: isOpen ? 0 : 3, scale: isOpen ? 1 : 0.98 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
           className="absolute z-10"
         >

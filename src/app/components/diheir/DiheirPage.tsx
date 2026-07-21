@@ -1287,7 +1287,7 @@ function Collection() {
           
           {/* Left image (02) */}
           <motion.div
-            animate={{ x: isOpen ? "calc(-100% - 16px)" : "-4%", y: isOpen ? "0%" : "2%", rotate: isOpen ? 0 : -5, scale: isOpen ? 1 : 0.95 }}
+            animate={{ x: isOpen ? "calc(-100% - 16px)" : "-2%", y: "0%", rotate: isOpen ? 0 : -3, scale: isOpen ? 1 : 0.98 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="absolute inset-0 z-10"
           >
@@ -1296,7 +1296,7 @@ function Collection() {
 
           {/* Right image (03) */}
           <motion.div
-            animate={{ x: isOpen ? "calc(100% + 16px)" : "4%", y: isOpen ? "0%" : "-2%", rotate: isOpen ? 0 : 6, scale: isOpen ? 1 : 0.95 }}
+            animate={{ x: isOpen ? "calc(100% + 16px)" : "2%", y: "0%", rotate: isOpen ? 0 : 3, scale: isOpen ? 1 : 0.98 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="absolute inset-0 z-10"
           >
