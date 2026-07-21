@@ -95,11 +95,7 @@ function NavLogo({ className = "", onClick }: { className?: string; onClick?: ()
   );
 }
 
-export function Nav({ hideLogo }: { hideLogo?: boolean }) {
-  const { scrollY } = useScroll();
-  const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
-  const pointerEvents = useTransform(scrollY, [0, 100], ["none", "auto"]);
-
+function useLightNav() {
   const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
@@ -129,6 +125,16 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       window.removeEventListener('resize', handleScroll);
     };
   }, []);
+
+  return isLight;
+}
+
+export function Nav({ hideLogo }: { hideLogo?: boolean }) {
+  const { scrollY } = useScroll();
+  const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const pointerEvents = useTransform(scrollY, [0, 100], ["none", "auto"]);
+
+  const isLight = useLightNav();
 
   return (
     <motion.nav
@@ -210,6 +216,7 @@ function HeroLogo({ className = "" }: { className?: string }) {
 export function ScrollAnimatedLogo() {
   const { scrollY } = useScroll();
   const [bounds, setBounds] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1920, h: typeof window !== "undefined" ? window.innerHeight : 1080 });
+  const isLight = useLightNav();
 
   useEffect(() => {
     const update = () => setBounds({ w: window.innerWidth, h: window.innerHeight });
@@ -245,9 +252,13 @@ export function ScrollAnimatedLogo() {
         width,
         zIndex: 60,
       }}
-      className="pointer-events-none"
+      className="pointer-events-none flex items-center justify-center"
     >
-      <HeroLogo className="w-full h-auto" />
+      {isLight ? (
+        <img src={imgDiheirLogoOg1} alt="DIHEIR" className="w-full h-auto object-contain transition-opacity duration-300" />
+      ) : (
+        <HeroLogo className="w-full h-auto transition-opacity duration-300" />
+      )}
     </motion.div>
   );
 }
