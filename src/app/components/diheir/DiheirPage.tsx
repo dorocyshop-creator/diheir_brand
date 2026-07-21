@@ -59,6 +59,8 @@ const SANS = "font-sans";
 
 /* ---------------------------------- Nav ---------------------------------- */
 
+import imgDiheirLogoOg1 from "../../../imports/DiheirPage/6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
+
 function NavLogo({ className = "", onClick }: { className?: string; onClick?: () => void }) {
   return (
     <svg
@@ -98,6 +100,36 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
   const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
   const pointerEvents = useTransform(scrollY, [0, 100], ["none", "auto"]);
 
+  const [isLight, setIsLight] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.elementsFromPoint(window.innerWidth / 2, 40);
+      const isLightSection = elements.some(el => el.classList.contains('light-section') || el.closest('.light-section'));
+      setIsLight(isLightSection);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
   return (
     <motion.nav
       className="glass fixed top-0 left-0 z-50 flex w-full items-center justify-between px-[clamp(min(20px,2.6042vw),5vw,80px)] py-4"
@@ -115,7 +147,16 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       }}
     >
       <div className="relative group">
-        <NavLogo className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+        {isLight ? (
+          <img 
+            src={imgDiheirLogoOg1} 
+            alt="DIHEIR" 
+            className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto cursor-pointer object-contain ${hideLogo ? "opacity-0" : ""}`} 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          />
+        ) : (
+          <NavLogo className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+        )}
         <div className="absolute left-0 top-[100%] mt-4 flex flex-col gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
           {["home", "brand", "Services", "Reservation"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}>
@@ -124,7 +165,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
           ))}
         </div>
       </div>
-      <p className={`${SERIF} capitalize text-white tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`} style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}>
+      <p className={`${SERIF} capitalize ${isLight ? "text-[#444429]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`} style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}>
         Contact
       </p>
     </motion.nav>
@@ -616,7 +657,7 @@ function GraceBadge() {
 
 function BrandIdentity() {
   return (
-    <section id="brand" className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,40px)] py-[clamp(min(60px,7.8125vw),12vw,140px)] flex flex-col gap-[clamp(min(40px,5.2083vw),10vw,80px)]" data-name="brand_identity">
+    <section id="brand" className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,40px)] py-[clamp(min(60px,7.8125vw),12vw,140px)] flex flex-col gap-[clamp(min(40px,5.2083vw),10vw,80px)] light-section" data-name="brand_identity">
       {/* 1. Top title */}
       <div className="relative w-full flex flex-col pt-[20px] pb-[40px]">
         {/* Background Logo */}
@@ -777,7 +818,7 @@ function GenerationCard({ data, index }: { data: GenerationCardData; index: numb
 
 function BrandHeritage() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,100px)] py-[clamp(min(60px,7.8125vw),15vw,120px)]" data-name="brand_heritage">
+    <section className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,100px)] py-[clamp(min(60px,7.8125vw),15vw,120px)] light-section" data-name="brand_heritage">
       {/* 80 years background text */}
       <div className="pointer-events-none absolute inset-x-0 top-[10vh] w-full flex justify-center z-0">
         <div className="relative flex items-end justify-center w-full max-w-[1720px]">

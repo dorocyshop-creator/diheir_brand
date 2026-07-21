@@ -308,7 +308,7 @@ function Frame11() {
 
 function BrandIdentity() {
   return (
-    <div id="brand" className="bg-[#f7f7ec] h-[2756px] overflow-clip relative shrink-0 w-[1920px]" data-name="brand_identity">
+    <div id="brand" className="bg-[#f7f7ec] h-[2756px] overflow-clip relative shrink-0 w-[1920px] light-section" data-name="brand_identity">
       <p className="[word-break:break-word] absolute capitalize font-dream leading-none left-[25px] not-italic text-[300px] text-[rgba(189,190,167,0.2)] top-[2088px] tracking-[-6px] whitespace-nowrap">Timeless</p>
       <p className="[word-break:break-word] absolute capitalize font-dream leading-none left-[360px] not-italic text-[300px] text-[rgba(189,190,167,0.2)] top-[2406px] tracking-[-6px] whitespace-nowrap">Green Grove</p>
       <div className="absolute h-[634px] left-[172px] top-[226px] w-[1748px]" data-name="Diheir_Logo_og 1">
@@ -480,7 +480,7 @@ function Frame13() {
 
 function BrandHeritage() {
   return (
-    <div className="bg-[#f7f7ec] h-[2339px] overflow-visible relative shrink-0 w-[1920px]" data-name="brand_heritage">
+    <div className="bg-[#f7f7ec] h-[2339px] overflow-visible relative shrink-0 w-[1920px] light-section" data-name="brand_heritage">
       <p className="-translate-x-1/2 [word-break:break-word] absolute capitalize font-serif leading-[1.3] left-[calc(50%+576.5px)] not-italic opacity-24 text-[#bdbea7] text-[340px] text-center top-[401px] whitespace-nowrap">years</p>
       <p className="-translate-x-1/2 [word-break:break-word] absolute capitalize font-serif leading-[1.3] left-[calc(50%-533px)] not-italic opacity-24 text-[#bdbea7] text-[820px] text-center top-[-31px] tracking-[-41px] whitespace-nowrap">80</p>
       <FadeUp className="-translate-x-full [word-break:break-word] absolute capitalize font-serif leading-[1.3] left-[1818px] not-italic text-[#787957] text-[30px] text-right top-[171px] tracking-[-0.6px] whitespace-nowrap">
@@ -745,7 +745,7 @@ function Frame() {
 
 function ServicesDesigner() {
   return (
-    <div id="services" className="bg-[#f7f7ec] h-[2550px] relative shrink-0 w-[1920px]" data-name="Services_Designer">
+    <div id="services" className="bg-[#f7f7ec] h-[2550px] relative shrink-0 w-[1920px] light-section" data-name="Services_Designer">
       <div className="absolute h-[1224px] left-[calc(50%-2000px)] top-0 w-[4000px]">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute h-full left-1/2 -translate-x-1/2 min-w-[1920px] w-full object-cover top-0" src={imgService} />
@@ -966,7 +966,7 @@ function ServicesCore() {
   }, []);
 
   return (
-    <div ref={containerRef} className="h-[3500px] relative shrink-0 w-[1920px]" data-name="Services_core">
+    <div ref={containerRef} className="h-[3500px] relative shrink-0 w-[1920px] light-section" data-name="Services_core">
       <div className="sticky top-0 w-[1920px] overflow-visible" style={{ height: `${vh}px`, backgroundImage: "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)" }}>
         <Group6 scrollYProgress={scrollYProgress} vh={vh} actualWidth={actualWidth} />
       </div>
