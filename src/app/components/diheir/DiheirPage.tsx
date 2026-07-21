@@ -96,6 +96,7 @@ function NavLogo({ className = "", onClick }: { className?: string; onClick?: ()
 export function Nav({ hideLogo }: { hideLogo?: boolean }) {
   const { scrollY } = useScroll();
   const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const pointerEvents = useTransform(scrollY, [0, 100], ["none", "auto"]);
 
   return (
     <motion.nav
@@ -103,6 +104,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       data-name="nav"
       style={{
         opacity: navOpacity,
+        pointerEvents: pointerEvents as any,
         background:
           "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
         backdropFilter: "blur(40px) saturate(180%)",
