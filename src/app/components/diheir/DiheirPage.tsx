@@ -227,8 +227,8 @@ export function HomeSection() {
     
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
-      // public/frames/0001.webp 형태
-      img.src = `/frames/${i.toString().padStart(4, '0')}.webp`;
+      // import.meta.env.BASE_URL을 사용하여 GitHub Pages 배포 시 하위 경로 문제 해결
+      img.src = `${import.meta.env.BASE_URL}frames/${i.toString().padStart(4, '0')}.webp`;
       images.push(img);
     }
 
