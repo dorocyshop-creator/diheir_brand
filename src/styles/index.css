@@ -1,0 +1,50 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+@import './glass.css';
+
+body {
+  overflow-x: hidden;
+}
+
+@keyframes dustMove {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: -400px -400px;
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* Background stretchers for 1920px sections */
+[data-name="brand_identity"],
+[data-name="brand_heritage"],
+[data-name="Services_Designer"] {
+  box-shadow: 1920px 0 0 0 #f7f7ec, -1920px 0 0 0 #f7f7ec;
+}
+
+[data-name="collection"],
+[data-name="diheirspace"],
+[data-name="footer"] {
+  box-shadow: 1920px 0 0 0 #383629, -1920px 0 0 0 #383629;
+}
+
+[data-name="Services_core"] > .sticky {
+  box-shadow: 1920px 0 0 0 rgb(159, 159, 139), -1920px 0 0 0 rgb(159, 159, 139);
+}
+
+/* Mobile minimum font size: never go below 12px */
+@media (max-width: 768px) {
+  :where(p, span, a, label, button, input, textarea, select, li, td, th, h1, h2, h3, h4, h5, h6) {
+    font-size: max(12px, 1em);
+  }
+}
