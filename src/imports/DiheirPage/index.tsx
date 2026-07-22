@@ -1737,7 +1737,7 @@ function Frame46() {
   return (
     <div className="content-stretch flex items-center justify-center px-[20px] relative shrink-0">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] not-italic relative shrink-0 text-[#e5e5d4] text-[80px] text-center whitespace-nowrap transition-opacity duration-300">
-        <p className="leading-[normal] w-full">{current.title}</p>
+        <p className="leading-[normal] w-full text-left">{current.title}</p>
       </div>
     </div>
   );
@@ -1748,7 +1748,7 @@ function Frame45() {
   return (
     <div className="content-stretch flex flex-col gap-[9px] items-center relative shrink-0 w-full">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e5d4] text-[24px] w-[min-content] transition-opacity duration-300 text-center" style={{ minHeight: "1.2em" }}>
-        <p className="leading-[normal] w-full">{current.subtitle}</p>
+        <p className="leading-[normal] w-full text-left">{current.subtitle}</p>
       </div>
       <Frame46 />
     </div>
@@ -1772,7 +1772,7 @@ function Frame48() {
   return (
     <FadeUp className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0 w-fit">
       <Frame47 />
-      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300 w-full">
+      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-left text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300 w-full">
         {current.desc2}
       </p>
     </FadeUp>
