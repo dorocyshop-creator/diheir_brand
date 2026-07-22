@@ -1,6 +1,9 @@
 import { motion, useScroll, useTransform, useMotionValue, AnimatePresence } from "motion/react";
 import React, { useRef, useEffect, useState, createContext, useContext } from "react";
 import { TERMS_OF_USE } from "../../constants/terms";
+import { INFORMATION } from "../../constants/information";
+import { PRIVACY } from "../../constants/privacy";
+import { QUALITY_CARE } from "../../constants/qualityCare";
 import { FadeUp } from "../../app/components/diheir/FadeUp";
 import svgPaths from "./svg-0y7pwhlwwq";
 import imgDiheirLogoOg1 from "./6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
@@ -1734,7 +1737,7 @@ function Frame46() {
   return (
     <div className="content-stretch flex items-center justify-center px-[20px] relative shrink-0">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] not-italic relative shrink-0 text-[#e5e5d4] text-[80px] text-center whitespace-nowrap transition-opacity duration-300">
-        <p className="leading-[normal]">{current.title}</p>
+        <p className="leading-[normal] w-full">{current.title}</p>
       </div>
     </div>
   );
@@ -1745,7 +1748,7 @@ function Frame45() {
   return (
     <div className="content-stretch flex flex-col gap-[9px] items-center relative shrink-0 w-full">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e5d4] text-[24px] w-[min-content] transition-opacity duration-300 text-center" style={{ minHeight: "1.2em" }}>
-        <p className="leading-[normal]">{current.subtitle}</p>
+        <p className="leading-[normal] w-full">{current.subtitle}</p>
       </div>
       <Frame46 />
     </div>
@@ -1767,9 +1770,9 @@ function Frame47() {
 function Frame48() {
   const current = useContext(CollectionContext);
   return (
-    <FadeUp className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0 w-[531px]">
+    <FadeUp className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0 w-fit">
       <Frame47 />
-      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300">
+      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300 w-full">
         {current.desc2}
       </p>
     </FadeUp>
@@ -2364,12 +2367,16 @@ function PrivacyPolicyModal({
   );
 }
 
-function InformationModal({
+function InfoModal({
   isOpen,
   onClose,
+  title,
+  content,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  content: string;
 }) {
   if (!isOpen) return null;
   return (
@@ -2388,10 +2395,10 @@ function InformationModal({
           &times;
         </button>
         <h3 className="mb-4 text-xl font-bold text-[#383629]">
-          이용약관 (Information)
+          {title}
         </h3>
         <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-pre-wrap">
-          {TERMS_OF_USE}
+          {content}
         </div>
       </div>
     </div>
@@ -2711,7 +2718,17 @@ function Diheirspace() {
   );
 }
 
-function Frame55({ onInformationClick }: { onInformationClick: () => void }) {
+function Frame55({ 
+  onInformationClick,
+  onPrivacyClick,
+  onTermsClick,
+  onQualityClick
+}: { 
+  onInformationClick: () => void;
+  onPrivacyClick: () => void;
+  onTermsClick: () => void;
+  onQualityClick: () => void;
+}) {
   return (
     <div className="[word-break:break-word] capitalize content-stretch flex flex-col font-serif gap-[60px] items-start leading-[1.3] not-italic relative shrink-0 text-[#c1c4ad] text-[40px] tracking-[-0.8px] w-full">
       <p 
@@ -2726,10 +2743,33 @@ function Frame55({ onInformationClick }: { onInformationClick: () => void }) {
       >
         Information
       </p>
-      <p className="relative shrink-0 whitespace-nowrap">Privacy Policy</p>
-      <p className="relative shrink-0 whitespace-nowrap">Terms of Use</p>
-      <p className="relative shrink-0 whitespace-nowrap">Quality Care</p>
-      <p className="min-w-full relative shrink-0 w-[min-content]">contact</p>
+      <p 
+        className="relative shrink-0 whitespace-nowrap cursor-pointer hover:text-white transition-colors"
+        onClick={onPrivacyClick}
+      >
+        Privacy Policy
+      </p>
+      <p 
+        className="relative shrink-0 whitespace-nowrap cursor-pointer hover:text-white transition-colors"
+        onClick={onTermsClick}
+      >
+        Terms of Use
+      </p>
+      <p 
+        className="relative shrink-0 whitespace-nowrap cursor-pointer hover:text-white transition-colors"
+        onClick={onQualityClick}
+      >
+        Quality Care
+      </p>
+      <p 
+        className="min-w-full relative shrink-0 w-[min-content] cursor-pointer hover:text-white transition-colors"
+        onClick={() => {
+          const el = document.getElementById("reservation");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        contact
+      </p>
     </div>
   );
 }
@@ -2833,21 +2873,48 @@ function Frame56() {
   );
 }
 
-function Frame54({ onInformationClick }: { onInformationClick: () => void }) {
+function Frame54({ 
+  onInformationClick,
+  onPrivacyClick,
+  onTermsClick,
+  onQualityClick
+}: { 
+  onInformationClick: () => void;
+  onPrivacyClick: () => void;
+  onTermsClick: () => void;
+  onQualityClick: () => void;
+}) {
   return (
     <FadeUp
       duration={1.0}
       margin="0px 0px 2000px 0px"
       className="absolute content-stretch flex flex-col gap-[80px] items-start left-[110px] top-[469px] w-[224px]"
     >
-      <Frame55 onInformationClick={onInformationClick} />
+      <Frame55 
+        onInformationClick={onInformationClick} 
+        onPrivacyClick={onPrivacyClick}
+        onTermsClick={onTermsClick}
+        onQualityClick={onQualityClick}
+      />
       <Frame56 />
     </FadeUp>
   );
 }
 
 function Footer() {
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [modalType, setModalType] = useState<"info" | "privacy" | "terms" | "quality" | null>(null);
+
+  const getModalContent = () => {
+    switch (modalType) {
+      case "info": return { title: "이용안내 (Information)", content: INFORMATION };
+      case "privacy": return { title: "개인정보처리방침 (Privacy Policy)", content: PRIVACY };
+      case "terms": return { title: "이용약관 (Terms of Use)", content: TERMS_OF_USE };
+      case "quality": return { title: "품질 관리 (Quality Care)", content: QUALITY_CARE };
+      default: return { title: "", content: "" };
+    }
+  };
+
+  const modalData = getModalContent();
 
   return (
     <div
@@ -2881,8 +2948,18 @@ function Footer() {
           src={imgDiheirLogoOg1}
         />
       </FadeUp>
-      <Frame54 onInformationClick={() => setIsTermsOpen(true)} />
-      <InformationModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+      <Frame54 
+        onInformationClick={() => setModalType("info")} 
+        onPrivacyClick={() => setModalType("privacy")}
+        onTermsClick={() => setModalType("terms")}
+        onQualityClick={() => setModalType("quality")}
+      />
+      <InfoModal 
+        isOpen={modalType !== null} 
+        onClose={() => setModalType(null)} 
+        title={modalData.title}
+        content={modalData.content}
+      />
     </div>
   );
 }
