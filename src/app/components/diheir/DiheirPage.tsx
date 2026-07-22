@@ -48,7 +48,13 @@ const SANS = "font-sans";
 
 import imgDiheirLogoOg1 from "../../../imports/DiheirPage/Diheir_Logo.png";
 
-function NavLogo({ className = "", onClick }: { className?: string; onClick?: () => void }) {
+function NavLogo({
+  className = "",
+  onClick,
+}: {
+  className?: string;
+  onClick?: () => void;
+}) {
   return (
     <svg
       className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto ${className}`}
@@ -88,7 +94,11 @@ function useLightNav() {
   useEffect(() => {
     const handleScroll = () => {
       const elements = document.elementsFromPoint(window.innerWidth / 2, 40);
-      const isLightSection = elements.some(el => el.classList.contains('light-section') || el.closest('.light-section'));
+      const isLightSection = elements.some(
+        (el) =>
+          el.classList.contains("light-section") ||
+          el.closest(".light-section"),
+      );
       setIsLight(isLightSection);
     };
 
@@ -103,13 +113,13 @@ function useLightNav() {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
@@ -141,24 +151,34 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
     >
       <div className="relative group">
         {isLight ? (
-          <img 
-            src={imgDiheirLogoOg1} 
-            alt="DIHEIR" 
-            className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto cursor-pointer object-contain ${hideLogo ? "opacity-0" : ""}`} 
+          <img
+            src={imgDiheirLogoOg1}
+            alt="DIHEIR"
+            className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto cursor-pointer object-contain ${hideLogo ? "opacity-0" : ""}`}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
         ) : (
-          <NavLogo className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+          <NavLogo
+            className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          />
         )}
         <div className="absolute left-0 top-[100%] mt-4 flex flex-col gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
           {["home", "brand", "Services", "Reservation"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}>
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}
+            >
               {item}
             </a>
           ))}
         </div>
       </div>
-      <p className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`} style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}>
+      <p
+        className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`}
+        style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}
+      >
         Contact
       </p>
     </motion.nav>
@@ -202,11 +222,15 @@ function HeroLogo({ className = "" }: { className?: string }) {
 
 export function ScrollAnimatedLogo() {
   const { scrollY } = useScroll();
-  const [bounds, setBounds] = useState({ w: typeof window !== "undefined" ? window.innerWidth : 1920, h: typeof window !== "undefined" ? window.innerHeight : 1080 });
+  const [bounds, setBounds] = useState({
+    w: typeof window !== "undefined" ? window.innerWidth : 1920,
+    h: typeof window !== "undefined" ? window.innerHeight : 1080,
+  });
   const isLight = useLightNav();
 
   useEffect(() => {
-    const update = () => setBounds({ w: window.innerWidth, h: window.innerHeight });
+    const update = () =>
+      setBounds({ w: window.innerWidth, h: window.innerHeight });
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
@@ -242,7 +266,11 @@ export function ScrollAnimatedLogo() {
       className="pointer-events-none flex items-center justify-center"
     >
       {isLight ? (
-        <img src={imgDiheirLogoOg1} alt="DIHEIR" className="w-full h-auto object-contain transition-opacity duration-300" />
+        <img
+          src={imgDiheirLogoOg1}
+          alt="DIHEIR"
+          className="w-full h-auto object-contain transition-opacity duration-300"
+        />
       ) : (
         <HeroLogo className="w-full h-auto transition-opacity duration-300" />
       )}
@@ -263,14 +291,14 @@ export function HomeSection() {
 
     const canvas = canvasRef.current;
     const ctx2d = canvas.getContext("2d", { alpha: false });
-    
+
     // 1. 이미지 프리로드 (메모리에 올려두기)
     const images: HTMLImageElement[] = [];
-    
+
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       // import.meta.env.BASE_URL을 사용하여 GitHub Pages 배포 시 하위 경로 문제 해결
-      img.src = `${import.meta.env.BASE_URL}frames/${i.toString().padStart(4, '0')}.webp`;
+      img.src = `${import.meta.env.BASE_URL}frames/${i.toString().padStart(4, "0")}.webp`;
       images.push(img);
     }
 
@@ -319,9 +347,12 @@ export function HomeSection() {
     // 3. 렌더 루프
     let rafId: number;
     const render = () => {
-      const frameIndex = Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(proxy.frame)));
+      const frameIndex = Math.min(
+        FRAME_COUNT - 1,
+        Math.max(0, Math.floor(proxy.frame)),
+      );
       const img = images[frameIndex];
-      
+
       if (img && img.complete && img.naturalWidth > 0) {
         drawCover(img);
       }
@@ -337,7 +368,7 @@ export function HomeSection() {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.1,
-        }
+        },
       });
 
       // 1. 프레임 시퀀스 재생 (전체 타임라인의 80% 구간 할당)
@@ -349,15 +380,15 @@ export function HomeSection() {
 
       // 2. home_02 슬라이드 업 (10% 구간 할당)
       if (home02Ref.current) {
-        scrollTl.fromTo(home02Ref.current, 
+        scrollTl.fromTo(
+          home02Ref.current,
           { y: "100vh" },
-          { y: "0vh", ease: "power2.out", duration: 1 }
+          { y: "0vh", ease: "power2.out", duration: 1 },
         );
       }
 
       // 3. 잠시 머무름 (10% 구간 할당)
       scrollTl.to({}, { duration: 1 });
-
     }, containerRef);
 
     return () => {
@@ -371,11 +402,10 @@ export function HomeSection() {
     <>
       {/* 이미지 시퀀스 스크롤 영역 */}
       <div id="home" ref={containerRef} className="relative w-full h-[1000vh]">
-        <div 
-          className="sticky top-0 w-full h-[100vh] min-h-[520px] overflow-hidden bg-black" 
+        <div
+          className="sticky top-0 w-full h-[100vh] min-h-[520px] overflow-hidden bg-black"
           data-name="home_section"
         >
-          
           {/* home_01 */}
           <section
             className="absolute inset-0 flex items-center justify-center bg-[#1a1a1a]"
@@ -385,19 +415,31 @@ export function HomeSection() {
             <div className="absolute inset-0 z-0 overflow-hidden bg-black">
               <canvas ref={canvasRef} className="block w-full h-full" />
             </div>
-            
+
             {/* Overlays and Hero Content */}
             <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-end pb-[40px]">
               <div className="absolute inset-0 z-10 bg-black/40 pointer-events-none" />
-              <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: "radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%)" }} />
-              
+              <div
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%)",
+                }}
+              />
+
               {/* Subtle Dust Particles (CSS based) */}
               <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none opacity-40">
-                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjMiLz4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjAuNSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMzUwIiBjeT0iMTAwIiByPSIxLjUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMiIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjMzMCIgcj0iMCIgZmlsbD0iI2ZmYiIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjgwIiByPSIwLjUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4=')] bg-repeat animate-[dustMove_60s_linear_infinite]" />
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjMiLz4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjAuNSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMzUwIiBjeT0iMTAwIiByPSIxLjUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMiIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjMzMCIgcj0iMCIgZmlsbD0iI2ZmYiIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjgwIiByPSIwLjUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4=')] bg-repeat animate-[dustMove_60s_linear_infinite]" />
               </div>
 
               {/* Film Grain */}
-              <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+')" }} />
+              <div
+                className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+')",
+                }}
+              />
             </div>
           </section>
 
@@ -408,10 +450,13 @@ export function HomeSection() {
             data-name="home_02"
             style={{ transform: "translateY(100vh)" }}
           >
-            <img alt="" src={imgHome02} className="absolute inset-0 size-full object-cover" />
+            <img
+              alt=""
+              src={imgHome02}
+              className="absolute inset-0 size-full object-cover"
+            />
             <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
           </section>
-
         </div>
       </div>
     </>
@@ -423,7 +468,12 @@ export function HomeSection() {
 function TreeGroup1() {
   return (
     <div className="absolute inset-[0_0_32.23%_0]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 192.999 119.95">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 192.999 119.95"
+      >
         <g>
           <path d={svgPaths.p2451eb00} fill="#383629" />
           <path d={svgPaths.p770c80} fill="#383629" />
@@ -494,7 +544,12 @@ function TreeGroup1() {
 function TreeGroup2() {
   return (
     <div className="absolute inset-[63.37%_43.25%_3.96%_35.13%]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 41.7328 57.8253">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 41.7328 57.8253"
+      >
         <g>
           <path d={svgPaths.p5dca400} fill="#383629" />
           <path d={svgPaths.p2fc73d80} fill="#383629" />
@@ -507,7 +562,12 @@ function TreeGroup2() {
 function TreeGroup3() {
   return (
     <div className="absolute inset-[73.12%_41.64%_1.85%_38.52%]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 38.3064 44.2932">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 38.3064 44.2932"
+      >
         <g>
           <path d={svgPaths.p3563f100} fill="#383629" />
           <path d={svgPaths.p3563f100} fill="#383629" />
@@ -528,7 +588,12 @@ function TreeGroup3() {
 function TreeGroup4() {
   return (
     <div className="absolute inset-[80.09%_34.96%_1.7%_34.48%]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 58.979 32.228">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 58.979 32.228"
+      >
         <g>
           <path d={svgPaths.p31999880} fill="#383629" />
           <path d={svgPaths.p15ce8800} fill="#383629" />
@@ -543,7 +608,12 @@ function TreeGroup4() {
 function TreeGroup5() {
   return (
     <div className="absolute inset-[6.75%_3.11%_-0.01%_1.16%]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 184.763 165.075">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 184.763 165.075"
+      >
         <g>
           <path d={svgPaths.p265b1700} fill="#383629" />
           <path d={svgPaths.p45ee000} fill="#383629" />
@@ -559,7 +629,10 @@ function TreeGroup5() {
 /* OliveBranchEmblem: exact copy of desktop Layer (Group + Group4 + Group5) */
 function OliveBranchEmblem() {
   return (
-    <div className="relative shrink-0 opacity-30 overflow-clip" style={{ width: 193, height: 177 }}>
+    <div
+      className="relative shrink-0 opacity-30 overflow-clip"
+      style={{ width: 193, height: 177 }}
+    >
       <TreeGroup1 />
       <TreeGroup2 />
       <TreeGroup3 />
@@ -573,7 +646,12 @@ function OliveBranchEmblem() {
 function DiheirTextLogo() {
   return (
     <div className="relative shrink-0" style={{ width: 388, height: 119 }}>
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 388 119">
+      <svg
+        className="absolute block inset-0 size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 388 119"
+      >
         <g clipPath="url(#clip0_badge)" opacity="0.3">
           <g>
             <path d={svgPaths.p4a32100} fill="#383629" />
@@ -615,15 +693,23 @@ function GraceBadge() {
   }, []);
 
   return (
-    <div ref={ref} className="w-full aspect-square bg-[#bdbea7] overflow-hidden relative">
-      <div className="absolute inset-0 origin-top-left" style={{ width: 650, height: 650, transform: `scale(${scale})` }}>
+    <div
+      ref={ref}
+      className="w-full aspect-square bg-[#bdbea7] overflow-hidden relative"
+    >
+      <div
+        className="absolute inset-0 origin-top-left"
+        style={{ width: 650, height: 650, transform: `scale(${scale})` }}
+      >
         <div className="w-full h-full flex items-center justify-center p-[120px]">
           <div className="flex flex-col items-center gap-[20px] w-[388px]">
             <div className="flex flex-col items-center gap-[60px] w-full">
               <OliveBranchEmblem />
               <DiheirTextLogo />
             </div>
-            <p className={`${SERIF} capitalize opacity-30 text-[#383629] text-[30px] text-center tracking-[-0.6px] w-full`}>
+            <p
+              className={`${SERIF} capitalize opacity-30 text-[#383629] text-[30px] text-center tracking-[-0.6px] w-full`}
+            >
               Grace in every moment
             </p>
           </div>
@@ -635,25 +721,45 @@ function GraceBadge() {
 
 function BrandIdentity() {
   return (
-    <section id="brand" className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,40px)] py-[clamp(min(60px,7.8125vw),12vw,140px)] flex flex-col gap-[clamp(min(40px,5.2083vw),10vw,80px)] light-section" data-name="brand_identity">
+    <section
+      id="brand"
+      className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,40px)] py-[clamp(min(60px,7.8125vw),12vw,140px)] flex flex-col gap-[clamp(min(40px,5.2083vw),10vw,80px)] light-section"
+      data-name="brand_identity"
+    >
       {/* 1. Top title */}
       <div className="relative w-full flex flex-col pt-[20px] pb-[40px]">
         {/* Background Logo */}
-        <FadeUp delay={0.1} className="absolute left-0 top-[25%] w-[115%] pointer-events-none z-0">
-          <img src={imgDiheirLogoOg1} className="w-full h-auto object-contain opacity-[0.24]" alt="" />
+        <FadeUp
+          delay={0.1}
+          className="absolute left-0 top-[25%] w-[115%] pointer-events-none z-0"
+        >
+          <img
+            src={imgDiheirLogoOg1}
+            className="w-full h-auto object-contain opacity-[0.24]"
+            alt=""
+          />
         </FadeUp>
-        
+
         {/* Foreground Text */}
         <div className="relative z-10 w-full flex flex-col">
           <FadeUp>
-            <h2 className={`${SERIF} tracking-[-0.5px] leading-[1.1]`} style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}>
-              <span className="text-[#383629]">D</span><span className="text-[#bdbea7]">iamond</span>
+            <h2
+              className={`${SERIF} tracking-[-0.5px] leading-[1.1]`}
+              style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}
+            >
+              <span className="text-[#383629]">D</span>
+              <span className="text-[#bdbea7]">iamond</span>
             </h2>
           </FadeUp>
           <div className="w-full flex justify-end mt-[-2vw]">
             <FadeUp delay={0.2}>
-              <h2 className={`${SERIF} tracking-[-0.5px] leading-[1.1] flex items-center pr-[1vw]`} style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}>
-                <span className="text-[#bdbea7] font-light text-[0.7em] mr-[0.2em] mb-[0.1em]">+</span>
+              <h2
+                className={`${SERIF} tracking-[-0.5px] leading-[1.1] flex items-center pr-[1vw]`}
+                style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}
+              >
+                <span className="text-[#bdbea7] font-light text-[0.7em] mr-[0.2em] mb-[0.1em]">
+                  +
+                </span>
                 <span className="text-[#383629]">Heir</span>
                 <span className="text-[#bdbea7]">loom</span>
               </h2>
@@ -664,8 +770,11 @@ function BrandIdentity() {
 
       {/* 2. Intro paragraph */}
       <FadeUp className="mt-[-10px]">
-        <p className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px]`}>
-          디에르는 가보라는 키워드에서 모티브를 얻어<br />
+        <p
+          className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px]`}
+        >
+          디에르는 가보라는 키워드에서 모티브를 얻어
+          <br />
           세대를 넘어 이어지는 가치와 기억을 담기 위해 탄생한 브랜드입니다.
         </p>
       </FadeUp>
@@ -675,17 +784,30 @@ function BrandIdentity() {
         <FadeUp className="w-[80%] h-full ml-[-10%]">
           <img alt="" src={imgImage40} className="w-full h-full object-cover" />
         </FadeUp>
-        <FadeUp delay={0.2} className="absolute -bottom-[5%] -right-[2%] w-[55%] max-w-[250px]">
-          <img alt="" src={imgImage49} className="w-full h-auto drop-shadow-2xl" />
+        <FadeUp
+          delay={0.2}
+          className="absolute -bottom-[5%] -right-[2%] w-[55%] max-w-[250px]"
+        >
+          <img
+            alt=""
+            src={imgImage49}
+            className="w-full h-auto drop-shadow-2xl"
+          />
         </FadeUp>
       </div>
 
       {/* 4. Right aligned text */}
       <FadeUp className="flex justify-end mt-[20px]">
-        <p className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}>
-          사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를 상징합니다.<br />
-          디에르는 올리브나무가 지닌 깊은 의미를 모든 디자인에 담아냅니다.<br />
-          시간이 흘러도 변하지 않는 가치와 아름다움을 전하며,<br />
+        <p
+          className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+        >
+          사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를
+          상징합니다.
+          <br />
+          디에르는 올리브나무가 지닌 깊은 의미를 모든 디자인에 담아냅니다.
+          <br />
+          시간이 흘러도 변하지 않는 가치와 아름다움을 전하며,
+          <br />
           사랑과 기억을 잇는 가보를 만들어갑니다.
         </p>
       </FadeUp>
@@ -693,9 +815,13 @@ function BrandIdentity() {
       {/* 5. Left text + Right Grace Badge */}
       <div className="flex w-full items-end justify-between gap-[5%] mt-[40px]">
         <FadeUp className="flex-1">
-          <p className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}>
-            보석은 단순한 장신구가 아니라<br />
-            가족의 역사와 사람의 시간을 담아<br />
+          <p
+            className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
+          >
+            보석은 단순한 장신구가 아니라
+            <br />
+            가족의 역사와 사람의 시간을 담아
+            <br />
             다음 세대로 이어지는 상징이 될 수 있다고 믿습니다.
           </p>
         </FadeUp>
@@ -709,22 +835,32 @@ function BrandIdentity() {
         {/* Background text - Timeless + Green Grove stacked with Korean text between them */}
         <div className="w-full flex flex-col">
           <FadeUp>
-            <p className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]" style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}>
+            <p
+              className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]"
+              style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}
+            >
               Timeless
             </p>
           </FadeUp>
-          
+
           <div className="w-full flex justify-end mt-[3vw] mb-[3vw]">
             <FadeUp delay={0.1}>
-              <p className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}>
-                시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을 이야기합니다.<br />
+              <p
+                className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+              >
+                시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을
+                이야기합니다.
+                <br />
                 디에르에 당신의 스토리가 담깁니다.
               </p>
             </FadeUp>
           </div>
 
           <FadeUp delay={0.2}>
-            <p className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]" style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}>
+            <p
+              className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]"
+              style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}
+            >
               Green Grove
             </p>
           </FadeUp>
@@ -768,11 +904,21 @@ const GENERATIONS: GenerationCardData[] = [
   },
 ];
 
-function GenerationCard({ data, index }: { data: GenerationCardData; index: number }) {
+function GenerationCard({
+  data,
+  index,
+}: {
+  data: GenerationCardData;
+  index: number;
+}) {
   return (
     <FadeUp delay={index * 0.15}>
       <div className="relative flex w-full max-[768px]:aspect-[4/5] aspect-[3/4] md:h-[clamp(min(324px,42vw),37.8vw,540px)] flex-col justify-end overflow-hidden">
-        <img alt="" src={data.image} className="absolute inset-0 size-full object-cover" />
+        <img
+          alt=""
+          src={data.image}
+          className="absolute inset-0 size-full object-cover"
+        />
         <div
           className="relative mt-auto flex flex-col gap-2 p-[clamp(min(20px,2.6042vw),4vw,40px)] capitalize leading-[1.1]"
           style={{
@@ -785,9 +931,24 @@ function GenerationCard({ data, index }: { data: GenerationCardData; index: numb
               "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
           }}
         >
-          <p className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[3.6458vw]`} style={{ fontSize: "clamp(min(24px,3.125vw),2.6vw,40px)" }}>{data.title}</p>
-          <p className={`${SANS} text-[#d4d4b9] max-[768px]:text-[12px]`} style={{ fontSize: "clamp(min(13px,1.6927vw),1.1vw,16px)" }}>{data.kr}</p>
-          <p className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px]" style={{ fontSize: "clamp(min(12px,1.4323vw),0.9vw,12px)" }}>{data.en}</p>
+          <p
+            className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[3.6458vw]`}
+            style={{ fontSize: "clamp(min(24px,3.125vw),2.6vw,40px)" }}
+          >
+            {data.title}
+          </p>
+          <p
+            className={`${SANS} text-[#d4d4b9] max-[768px]:text-[12px]`}
+            style={{ fontSize: "clamp(min(13px,1.6927vw),1.1vw,16px)" }}
+          >
+            {data.kr}
+          </p>
+          <p
+            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px]"
+            style={{ fontSize: "clamp(min(12px,1.4323vw),0.9vw,12px)" }}
+          >
+            {data.en}
+          </p>
         </div>
       </div>
     </FadeUp>
@@ -796,20 +957,41 @@ function GenerationCard({ data, index }: { data: GenerationCardData; index: numb
 
 function BrandHeritage() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,100px)] py-[clamp(min(60px,7.8125vw),15vw,120px)] light-section" data-name="brand_heritage">
+    <section
+      className="relative w-full overflow-hidden bg-[#f7f7ec] px-[clamp(min(20px,2.6042vw),5vw,100px)] py-[clamp(min(60px,7.8125vw),15vw,120px)] light-section"
+      data-name="brand_heritage"
+    >
       {/* 80 years background text */}
       <div className="pointer-events-none absolute inset-x-0 top-[10vh] w-full flex justify-center z-0">
         <div className="relative flex items-end justify-center w-full max-w-[1720px]">
-          <span className={`${SERIF} leading-[0.8] text-[#bdbea7] opacity-[0.4] mr-[4vw]`} style={{ fontSize: "clamp(120px, 42vw, 820px)", letterSpacing: "-0.05em" }}>80</span>
-          <span className={`${SERIF} leading-none text-[#bdbea7] opacity-[0.4] mb-[2vw] ml-[-8vw]`} style={{ fontSize: "clamp(50px, 17vw, 340px)" }}>Years</span>
+          <span
+            className={`${SERIF} leading-[0.8] text-[#bdbea7] opacity-[0.4] mr-[4vw]`}
+            style={{
+              fontSize: "clamp(120px, 42vw, 820px)",
+              letterSpacing: "-0.05em",
+            }}
+          >
+            80
+          </span>
+          <span
+            className={`${SERIF} leading-none text-[#bdbea7] opacity-[0.4] mb-[2vw] ml-[-8vw]`}
+            style={{ fontSize: "clamp(50px, 17vw, 340px)" }}
+          >
+            Years
+          </span>
         </div>
       </div>
 
       <div className="relative mx-auto flex max-w-[1720px] flex-col items-center">
         {/* A Family Legacy header */}
         <FadeUp className="self-end text-right">
-          <p className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[768px]:text-[2.0833vw] max-[768px]:mt-[10vw]`} style={{ fontSize: "clamp(min(14px,1.8229vw),2vw,30px)" }}>
-            A Family Legacy<br />Crafted Over 80 Years
+          <p
+            className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[768px]:text-[2.0833vw] max-[768px]:mt-[10vw]`}
+            style={{ fontSize: "clamp(min(14px,1.8229vw),2vw,30px)" }}
+          >
+            A Family Legacy
+            <br />
+            Crafted Over 80 Years
           </p>
         </FadeUp>
 
@@ -822,21 +1004,33 @@ function BrandHeritage() {
 
         {/* DIHEIR by DOROCY */}
         <FadeUp delay={0.2} className="w-full">
-          <p className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[768px]:text-[9.5vw]`} style={{ fontSize: "clamp(min(36px,4.6875vw),10vw,220px)", letterSpacing: "-0.02em" }}>
+          <p
+            className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[768px]:text-[9.5vw]`}
+            style={{
+              fontSize: "clamp(min(36px,4.6875vw),10vw,220px)",
+              letterSpacing: "-0.02em",
+            }}
+          >
             DIHEIR By DOROCY
           </p>
         </FadeUp>
 
         {/* Description text */}
         <FadeUp delay={0.3}>
-          <div className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[768px]:text-[1.5625vw]`} style={{ fontSize: "clamp(min(12px,1.5625vw),1.6vw,24px)" }}>
+          <div
+            className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[768px]:text-[1.5625vw]`}
+            style={{ fontSize: "clamp(min(12px,1.5625vw),1.6vw,24px)" }}
+          >
             <p className="leading-[1.8]">
-              <span className="font-semibold">디에르(DIHEIR)</span>는<br className="md:hidden" />
-              프리미엄 주얼리 디자인 하우스 '도로시(DOROCY)'에서 새롭게 전개하는<br className="hidden md:block" />
+              <span className="font-semibold">디에르(DIHEIR)</span>는
+              <br className="md:hidden" />
+              프리미엄 주얼리 디자인 하우스 '도로시(DOROCY)'에서 새롭게 전개하는
+              <br className="hidden md:block" />
               <span className="font-semibold">하이 주얼리 브랜드</span>입니다.
             </p>
             <p className="leading-[1.8] text-[#555]">
-              더 멋진 디자인과 더 높은 완성도의 작품을 만들고 싶다는<br className="md:hidden" />
+              더 멋진 디자인과 더 높은 완성도의 작품을 만들고 싶다는
+              <br className="md:hidden" />
               도로시의 순수 열정은 디에르를 탄생시킨 원동력이었습니다.
             </p>
           </div>
@@ -856,48 +1050,154 @@ interface ServiceCardData {
 }
 
 const SERVICES: ServiceCardData[] = [
-  { 
-    id: "comfort", image: imgFrame14, title: ["The First Principle", "– Comfort Fit"],
-    desc: <>“편안하지 않다면, 디에르는 디자인하지 않습니다.”<br/>디에르가 가장 먼저 고민하는 것은 디자인 이전의 감각입니다.<br/>손끝이 처음 반지를 마주하는 순간,<br/>오랜 시간 함께했을 때의 편안함과 자연스러움<br/>그리고 일상 속에서 잊은 듯 스며드는 착용감.<br/>설계 기준 0.1mm의 차이에서 착용의 편안함이 완성됩니다.<br/>디에르는 착용의 모든 순간을 설계합니다.</>
+  {
+    id: "comfort",
+    image: imgFrame14,
+    title: ["The First Principle", "– Comfort Fit"],
+    desc: (
+      <>
+        “편안하지 않다면, 디에르는 디자인하지 않습니다.”
+        <br />
+        디에르가 가장 먼저 고민하는 것은 디자인 이전의 감각입니다.
+        <br />
+        손끝이 처음 반지를 마주하는 순간,
+        <br />
+        오랜 시간 함께했을 때의 편안함과 자연스러움
+        <br />
+        그리고 일상 속에서 잊은 듯 스며드는 착용감.
+        <br />
+        설계 기준 0.1mm의 차이에서 착용의 편안함이 완성됩니다.
+        <br />
+        디에르는 착용의 모든 순간을 설계합니다.
+      </>
+    ),
   },
-  { 
-    id: "resetting", image: imgFrame16, title: ["Jewelry Resetting Service"],
-    desc: <>디에르의 전문 주얼리 디자이너는<br/>고객님의 의미 있는 보석이 더욱 가치 있도록<br/>리세팅 서비스를 제공해 드립니다.<br/>고객의 취향과 의미를 반영한<br/>커스터마이징 서비스를 더해,<br/>디에르 주얼리는 세대를 잇는 이야기로 완성됩니다.</>
+  {
+    id: "resetting",
+    image: imgFrame16,
+    title: ["Jewelry Resetting Service"],
+    desc: (
+      <>
+        디에르의 전문 주얼리 디자이너는
+        <br />
+        고객님의 의미 있는 보석이 더욱 가치 있도록
+        <br />
+        리세팅 서비스를 제공해 드립니다.
+        <br />
+        고객의 취향과 의미를 반영한
+        <br />
+        커스터마이징 서비스를 더해,
+        <br />
+        디에르 주얼리는 세대를 잇는 이야기로 완성됩니다.
+      </>
+    ),
   },
-  { 
-    id: "craft", image: imgFrame17, title: ["Craftsmanship"],
-    desc: <>디에르의 작품들은<br/>주얼리 명장님들의 정교한 세공을 통해 완성됩니다.<br/>완벽한 비율과 균형,<br/>섬세한 디테일.<br/>편안한 착용감까지 아우르는 완성도.<br/>세대를 이어 전해지는 작품들은<br/>그 스토리와 사랑이 같이 전달되어야 합니다.<br/>가보의 가치는 타협하지 않는 장인 정신을 통해 완성됩니다.</>
+  {
+    id: "craft",
+    image: imgFrame17,
+    title: ["Craftsmanship"],
+    desc: (
+      <>
+        디에르의 작품들은
+        <br />
+        주얼리 명장님들의 정교한 세공을 통해 완성됩니다.
+        <br />
+        완벽한 비율과 균형,
+        <br />
+        섬세한 디테일.
+        <br />
+        편안한 착용감까지 아우르는 완성도.
+        <br />
+        세대를 이어 전해지는 작품들은
+        <br />그 스토리와 사랑이 같이 전달되어야 합니다.
+        <br />
+        가보의 가치는 타협하지 않는 장인 정신을 통해 완성됩니다.
+      </>
+    ),
   },
-  { 
-    id: "legacy", image: imgFrame19, title: ["Jewelry as Legacy"],
-    desc: <>디에르는 ‘유산’을 물질이 아닌 감정으로 바라봅니다.<br/>부모에서 자녀로,<br/>사랑하는 사람에게로 이어지는 이야기,<br/>그리고 오래도록 기억으로 남는 순간들.<br/>디에르는주얼리를 통해<br/>사람과 사람 사이의 시간을 연결하고자 합니다.</>
+  {
+    id: "legacy",
+    image: imgFrame19,
+    title: ["Jewelry as Legacy"],
+    desc: (
+      <>
+        디에르는 ‘유산’을 물질이 아닌 감정으로 바라봅니다.
+        <br />
+        부모에서 자녀로,
+        <br />
+        사랑하는 사람에게로 이어지는 이야기,
+        <br />
+        그리고 오래도록 기억으로 남는 순간들.
+        <br />
+        디에르는주얼리를 통해
+        <br />
+        사람과 사람 사이의 시간을 연결하고자 합니다.
+      </>
+    ),
   },
-  { 
-    id: "precision", image: imgFrame21, title: ["Invisible Precision", "– Comfort Fit for Size"],
-    desc: <>- 총 180개의 14K 옐로우 골드 사이즈 링 -<br/><br/>2.5mm부터 5.0mm까지 7가지 폭의 밴드를 사이즈 반지로 제작하여,<br/>고객이 가장 자연스러운 감각을 찾을 수 있도록 했습니다.<br/>오랜 시간 곁에 머무를 반지와 함께할 고객님을 위한<br/>디에르의 배려이자 철학입니다.</>
+  {
+    id: "precision",
+    image: imgFrame21,
+    title: ["Invisible Precision", "– Comfort Fit for Size"],
+    desc: (
+      <>
+        - 총 180개의 14K 옐로우 골드 사이즈 링 -<br />
+        <br />
+        2.5mm부터 5.0mm까지 7가지 폭의 밴드를 사이즈 반지로 제작하여,
+        <br />
+        고객이 가장 자연스러운 감각을 찾을 수 있도록 했습니다.
+        <br />
+        오랜 시간 곁에 머무를 반지와 함께할 고객님을 위한
+        <br />
+        디에르의 배려이자 철학입니다.
+      </>
+    ),
   },
 ];
 
-function ServiceCard({ data, index }: { data: ServiceCardData; index: number }) {
+function ServiceCard({
+  data,
+  index,
+}: {
+  data: ServiceCardData;
+  index: number;
+}) {
   return (
     <FadeUp delay={index * 0.1}>
       <div className="group relative flex h-[clamp(min(420px,54.6875vw),45vw,680px)] w-[clamp(min(240px,31.25vw),34vw,490px)] max-[768px]:w-[39.0625vw] max-[768px]:h-[54.1667vw] shrink-0 snap-center flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[clamp(min(30px,3.9062vw),7vw,100px)] px-[clamp(min(10px,1.3021vw),2vw,40px)] text-center cursor-pointer">
-        <img alt="" src={data.image} className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <img
+          alt=""
+          src={data.image}
+          className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
-        <div className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`} style={{ fontSize: "clamp(min(28px,3.6458vw),2.4vw,40px)" }}>
+        <div
+          className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`}
+          style={{ fontSize: "clamp(min(28px,3.6458vw),2.4vw,40px)" }}
+        >
           {data.title.map((line) => (
-            <p key={line} className="mb-0 whitespace-nowrap">{line}</p>
+            <p key={line} className="mb-0 whitespace-nowrap">
+              {line}
+            </p>
           ))}
         </div>
-        
+
         {/* Hover Content */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-[clamp(min(10px,1.3021vw),3vw,40px)] text-center z-10">
-          <div className={`${SERIF} text-white tracking-[-0.64px] mb-[clamp(min(8px,1.0417vw),2vw,20px)] leading-tight`} style={{ fontSize: "clamp(min(24px,3.125vw),2.2vw,36px)" }}>
+          <div
+            className={`${SERIF} text-white tracking-[-0.64px] mb-[clamp(min(8px,1.0417vw),2vw,20px)] leading-tight`}
+            style={{ fontSize: "clamp(min(24px,3.125vw),2.2vw,36px)" }}
+          >
             {data.title.map((line) => (
-              <p key={line} className="mb-0">{line}</p>
+              <p key={line} className="mb-0">
+                {line}
+              </p>
             ))}
           </div>
-          <p className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-[12px]`} style={{ fontSize: "clamp(min(12px,1.5625vw),1.2vw,16px)" }}>
+          <p
+            className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-[12px]`}
+            style={{ fontSize: "clamp(min(12px,1.5625vw),1.2vw,16px)" }}
+          >
             {data.desc}
           </p>
         </div>
@@ -910,7 +1210,8 @@ function ServicesDesigner() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [mobileIndex, setMobileIndex] = useState(0);
   const mobileTotal = SERVICES.length;
-  const prevCard = () => setMobileIndex((i) => (i - 1 + mobileTotal) % mobileTotal);
+  const prevCard = () =>
+    setMobileIndex((i) => (i - 1 + mobileTotal) % mobileTotal);
   const nextCard = () => setMobileIndex((i) => (i + 1) % mobileTotal);
 
   useEffect(() => {
@@ -931,22 +1232,22 @@ function ServicesDesigner() {
 
       const onMouseDown = (e: MouseEvent) => {
         isDown = true;
-        el.style.cursor = 'grabbing';
+        el.style.cursor = "grabbing";
         startX = e.pageX - el.offsetLeft;
         scrollLeft = el.scrollLeft;
-        el.style.scrollSnapType = 'none'; // disable snap while dragging
+        el.style.scrollSnapType = "none"; // disable snap while dragging
       };
 
       const onMouseLeave = () => {
         isDown = false;
-        el.style.cursor = 'grab';
-        el.style.scrollSnapType = 'x mandatory';
+        el.style.cursor = "grab";
+        el.style.scrollSnapType = "x mandatory";
       };
 
       const onMouseUp = () => {
         isDown = false;
-        el.style.cursor = 'grab';
-        el.style.scrollSnapType = 'x mandatory';
+        el.style.cursor = "grab";
+        el.style.scrollSnapType = "x mandatory";
       };
 
       const onMouseMove = (e: MouseEvent) => {
@@ -957,110 +1258,159 @@ function ServicesDesigner() {
         el.scrollLeft = scrollLeft - walk;
       };
 
-      el.addEventListener('mousedown', onMouseDown);
-      el.addEventListener('mouseleave', onMouseLeave);
-      el.addEventListener('mouseup', onMouseUp);
-      el.addEventListener('mousemove', onMouseMove);
+      el.addEventListener("mousedown", onMouseDown);
+      el.addEventListener("mouseleave", onMouseLeave);
+      el.addEventListener("mouseup", onMouseUp);
+      el.addEventListener("mousemove", onMouseMove);
 
       return () => {
-        el.removeEventListener('mousedown', onMouseDown);
-        el.removeEventListener('mouseleave', onMouseLeave);
-        el.removeEventListener('mouseup', onMouseUp);
-        el.removeEventListener('mousemove', onMouseMove);
+        el.removeEventListener("mousedown", onMouseDown);
+        el.removeEventListener("mouseleave", onMouseLeave);
+        el.removeEventListener("mouseup", onMouseUp);
+        el.removeEventListener("mousemove", onMouseMove);
       };
     }
   }, []);
 
   // 40 copies * 5 items = 200 items. Effectively infinite for manual swipe.
-  const INFINITE_SERVICES = [...Array(40)].flatMap((_, i) => 
-    SERVICES.map(s => ({ ...s, uniqueId: `${s.id}-${i}` }))
+  const INFINITE_SERVICES = [...Array(40)].flatMap((_, i) =>
+    SERVICES.map((s) => ({ ...s, uniqueId: `${s.id}-${i}` })),
   );
 
   return (
-    <section id="services" className="relative w-full overflow-hidden bg-[#f7f7ec]" data-name="Services_Designer">
+    <section
+      id="services"
+      className="relative w-full overflow-hidden bg-[#f7f7ec]"
+      data-name="Services_Designer"
+    >
       <div className="relative flex flex-col">
-        
         {/* Top Content Wrapper (Provides bounded height for the background image) */}
         <div className="relative flex flex-col pt-[15vw] md:pt-[120px] pb-[calc(10vw+160px)] md:pb-[530px] w-full">
-          <FadeUp duration={1.5} className="absolute inset-0 pointer-events-none z-0">
-            <img alt="" src={imgServiceBg} className="w-full h-full object-cover" />
+          <FadeUp
+            duration={1.5}
+            className="absolute inset-0 pointer-events-none z-0"
+          >
+            <img
+              alt=""
+              src={imgServiceBg}
+              className="w-full h-full object-cover"
+            />
           </FadeUp>
-          
+
           {/* Header Section (Scaled from PC) */}
           <div className="relative px-[5vw] md:px-[0px] w-full max-w-[1920px] mx-auto z-10 min-h-[35vw] md:min-h-[300px]">
-          <FadeUp>
-            <p className={`${SERIF} absolute left-[5vw] top-[3vw] max-[768px]:left-[3vw] max-[768px]:top-[2vw] capitalize text-[#9f9f8b] opacity-[0.45] leading-none pointer-events-none md:left-[calc(50%-489.5px)] md:top-[72px] md:-translate-x-1/2 whitespace-nowrap`} style={{ fontSize: "clamp(min(75px,9.7656vw),22vw,230px)", letterSpacing: "-0.02em" }}>High-End</p>
-          </FadeUp>
-          
-          <div className="relative pt-[12vw] pl-[3vw] md:absolute md:left-[450px] md:top-[222px] md:-translate-x-1/2 md:pt-0 md:pl-0 z-10">
-            <FadeUp delay={0.2}>
-              <h2 className={`${SERIF} text-left capitalize text-[#383629] tracking-[-1.2px] leading-[1.2] whitespace-nowrap`} style={{ fontSize: "clamp(min(40px,5.2083vw),8vw,60px)" }}>
-                Personal Design Consultation
-              </h2>
-            </FadeUp>
-          </div>
-          
-          <div className="relative mt-[8vw] pr-[2vw] flex justify-end md:absolute md:left-[calc(50%-2px)] md:top-[198px] md:mt-0 md:pr-0 md:justify-start z-10">
-            <FadeUp delay={0.3}>
-              <p className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[768px]:text-[1.4323vw]`} style={{ fontSize: "clamp(min(11px,1.4323vw),2.6vw,18px)" }}>
-                전속 디자이너가 매장에 상주하여<br />
-                고객 한 분 한 분의 라이프스타일에 맞춘<br />
-                큐레이션과 맞춤 제작(비스포크) 상담을 진행합니다.
+            <FadeUp>
+              <p
+                className={`${SERIF} absolute left-[5vw] top-[3vw] max-[768px]:left-[3vw] max-[768px]:top-[2vw] capitalize text-[#9f9f8b] opacity-[0.45] leading-none pointer-events-none md:left-[calc(50%-489.5px)] md:top-[72px] md:-translate-x-1/2 whitespace-nowrap`}
+                style={{
+                  fontSize: "clamp(min(75px,9.7656vw),22vw,230px)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                High-End
               </p>
             </FadeUp>
-          </div>
-        </div>
 
-        {/* Video Frame & Foliage Section */}
-        <div className="relative mt-[15vw] md:mt-[400px] w-full flex justify-center z-10 pb-[10vw] md:pb-[150px]">
-          {/* Glass background from PC version (Updated for mobile screenshot match) */}
-          <FadeUp duration={1.0} className="w-[calc(100%-8vw)] md:w-[1200px] z-10 flex justify-center">
-            <div 
-              className="relative w-full aspect-[4/3] md:aspect-[2/1] rounded-[clamp(min(24px,3.125vw),6vw,32px)] flex items-center justify-center p-[5vw] md:px-[59px] md:py-[40px]"
-              style={{
-                background: "rgba(255,255,255,0.25)",
-                backdropFilter: "blur(20px) saturate(150%)",
-                WebkitBackdropFilter: "blur(20px) saturate(150%)",
-                border: "1px solid rgba(255,255,255,0.6)",
-                boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
-              }}
+            <div className="relative pt-[12vw] pl-[3vw] md:absolute md:left-[450px] md:top-[222px] md:-translate-x-1/2 md:pt-0 md:pl-0 z-10">
+              <FadeUp delay={0.2}>
+                <h2
+                  className={`${SERIF} text-left capitalize text-[#383629] tracking-[-1.2px] leading-[1.2] whitespace-nowrap`}
+                  style={{ fontSize: "clamp(min(40px,5.2083vw),8vw,60px)" }}
+                >
+                  Personal Design Consultation
+                </h2>
+              </FadeUp>
+            </div>
+
+            <div className="relative mt-[8vw] pr-[2vw] flex justify-end md:absolute md:left-[calc(50%-2px)] md:top-[198px] md:mt-0 md:pr-0 md:justify-start z-10">
+              <FadeUp delay={0.3}>
+                <p
+                  className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[768px]:text-[1.4323vw]`}
+                  style={{ fontSize: "clamp(min(11px,1.4323vw),2.6vw,18px)" }}
+                >
+                  전속 디자이너가 매장에 상주하여
+                  <br />
+                  고객 한 분 한 분의 라이프스타일에 맞춘
+                  <br />
+                  큐레이션과 맞춤 제작(비스포크) 상담을 진행합니다.
+                </p>
+              </FadeUp>
+            </div>
+          </div>
+
+          {/* Video Frame & Foliage Section */}
+          <div className="relative mt-[15vw] md:mt-[400px] w-full flex justify-center z-10 pb-[10vw] md:pb-[150px]">
+            {/* Glass background from PC version (Updated for mobile screenshot match) */}
+            <FadeUp
+              duration={1.0}
+              className="w-[calc(100%-8vw)] md:w-[1200px] z-10 flex justify-center"
             >
-              {/* Video container */}
-              <div className="relative w-full h-full rounded-[clamp(min(16px,2.0833vw),4vw,40px)] overflow-hidden bg-black/10">
-                 {/* Use aspect-[9/16] to stretch the video vertically like the PC version, creating the 'fill' crop effect */}
-                 <iframe
+              <div
+                className="relative w-full aspect-[4/3] md:aspect-[2/1] rounded-[clamp(min(24px,3.125vw),6vw,32px)] flex items-center justify-center p-[5vw] md:px-[59px] md:py-[40px]"
+                style={{
+                  background: "rgba(255,255,255,0.25)",
+                  backdropFilter: "blur(20px) saturate(150%)",
+                  WebkitBackdropFilter: "blur(20px) saturate(150%)",
+                  border: "1px solid rgba(255,255,255,0.6)",
+                  boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+                }}
+              >
+                {/* Video container */}
+                <div className="relative w-full h-full rounded-[clamp(min(16px,2.0833vw),4vw,40px)] overflow-hidden bg-black/10">
+                  {/* Use aspect-[9/16] to stretch the video vertically like the PC version, creating the 'fill' crop effect */}
+                  <iframe
                     src="https://player.vimeo.com/video/1209697467?autoplay=1&loop=1&muted=1&background=1"
                     className="absolute top-1/2 left-1/2 w-full aspect-[9/16] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                   />
+                </div>
               </div>
+            </FadeUp>
+
+            {/* Foliage Images (Scaled and positioned to match Figma 1043x350 design) */}
+            <div className="absolute top-[60%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
+              <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -ml-[10%]">
+                <img
+                  alt=""
+                  className="w-full h-auto object-contain drop-shadow-2xl"
+                  src={imgServiceLeft}
+                />
+              </FadeUp>
+              <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -mr-[10%]">
+                <img
+                  alt=""
+                  className="w-full h-auto object-contain drop-shadow-2xl"
+                  src={imgServiceRight}
+                />
+              </FadeUp>
             </div>
-          </FadeUp>
-
-          {/* Foliage Images (Scaled and positioned to match Figma 1043x350 design) */}
-          <div className="absolute top-[60%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
-            <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -ml-[10%]">
-              <img alt="" className="w-full h-auto object-contain drop-shadow-2xl" src={imgServiceLeft} />
-            </FadeUp>
-            <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -mr-[10%]">
-              <img alt="" className="w-full h-auto object-contain drop-shadow-2xl" src={imgServiceRight} />
-            </FadeUp>
           </div>
-        </div>
-        </div> {/* End of Top Content Wrapper */}
-
+        </div>{" "}
+        {/* End of Top Content Wrapper */}
         {/* Quality Jewelry & Cards */}
         <div className="relative -mt-[calc(10vw+160px)] md:-mt-[530px] pb-[clamp(min(60px,7.8125vw),8vw,120px)] pt-[25vw] md:pt-[350px] z-10">
-          
           {/* Gradient Layer perfectly matching Figma CSS and simulating fixed container height */}
-          <div className="absolute left-0 right-0 h-[1000px] -z-10 pointer-events-none max-[768px]:top-[10vw] md:top-[370px]" 
-               style={{ background: "linear-gradient(180deg, rgba(193, 196, 173, 0.00) 0%, #C1C4AD 16%, #C1C4AD 98.76%)" }} />
-               
+          <div
+            className="absolute left-0 right-0 h-[1000px] -z-10 pointer-events-none max-[768px]:top-[10vw] md:top-[370px]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(193, 196, 173, 0.00) 0%, #C1C4AD 16%, #C1C4AD 98.76%)",
+            }}
+          />
+
           {/* Solid Layer to cover the remaining space below the gradient */}
           <div className="absolute bottom-0 left-0 right-0 bg-[#c1c4ad] -z-10 pointer-events-none max-[768px]:top-[calc(10vw+1000px)] md:top-[1370px]" />
-          
-          <p className={`${SERIF} mb-[80px] md:mb-[120px] text-center capitalize text-[#f7f7ec] opacity-80 leading-none relative z-30 whitespace-nowrap`} style={{ fontSize: "clamp(min(64px,8.3333vw),18vw,230px)", letterSpacing: "-0.02em" }}>Quality Jewelry</p>
+
+          <p
+            className={`${SERIF} mb-[80px] md:mb-[120px] text-center capitalize text-[#f7f7ec] opacity-80 leading-none relative z-30 whitespace-nowrap`}
+            style={{
+              fontSize: "clamp(min(64px,8.3333vw),18vw,230px)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Quality Jewelry
+          </p>
           {/* Mobile Carousel (one card at a time with arrows) */}
           <div className="md:hidden flex items-center justify-center gap-4 px-[5vw] pb-4 relative z-30">
             {/* Prev Arrow */}
@@ -1070,15 +1420,26 @@ function ServicesDesigner() {
               onClick={prevCard}
               className="shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
               style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
                 backdropFilter: "blur(40px) saturate(180%)",
                 WebkitBackdropFilter: "blur(40px) saturate(180%)",
                 border: "1px solid rgba(255,255,255,0.15)",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
+                boxShadow:
+                  "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
               }}
             >
-              <svg className="size-5 -rotate-90" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p17f09fe0} stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                className="size-5 -rotate-90"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d={svgPaths.p17f09fe0}
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
@@ -1093,21 +1454,37 @@ function ServicesDesigner() {
                 className="w-full"
               >
                 <div className="group relative w-full aspect-[3/4] shrink-0 flex flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[8vw] px-[4vw] text-center cursor-pointer">
-                  <img alt="" src={SERVICES[mobileIndex].image} className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img
+                    alt=""
+                    src={SERVICES[mobileIndex].image}
+                    className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
                   <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
-                  <div className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`} style={{ fontSize: "clamp(20px,5.5vw,28px)" }}>
+                  <div
+                    className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`}
+                    style={{ fontSize: "clamp(20px,5.5vw,28px)" }}
+                  >
                     {SERVICES[mobileIndex].title.map((line) => (
-                      <p key={line} className="mb-0 whitespace-nowrap">{line}</p>
+                      <p key={line} className="mb-0 whitespace-nowrap">
+                        {line}
+                      </p>
                     ))}
                   </div>
                   {/* Hover Content */}
                   <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10">
-                    <div className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`} style={{ fontSize: "clamp(18px,4.5vw,24px)" }}>
+                    <div
+                      className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`}
+                      style={{ fontSize: "clamp(18px,4.5vw,24px)" }}
+                    >
                       {SERVICES[mobileIndex].title.map((line) => (
-                        <p key={line} className="mb-0">{line}</p>
+                        <p key={line} className="mb-0">
+                          {line}
+                        </p>
                       ))}
                     </div>
-                    <p className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] text-[12px]`}>
+                    <p
+                      className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] text-[12px]`}
+                    >
                       {SERVICES[mobileIndex].desc}
                     </p>
                   </div>
@@ -1122,23 +1499,38 @@ function ServicesDesigner() {
               onClick={nextCard}
               className="shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
               style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
                 backdropFilter: "blur(40px) saturate(180%)",
                 WebkitBackdropFilter: "blur(40px) saturate(180%)",
                 border: "1px solid rgba(255,255,255,0.15)",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
+                boxShadow:
+                  "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
               }}
             >
               <svg className="size-5 rotate-90" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p17f09fe0} stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d={svgPaths.p17f09fe0}
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
 
           {/* Desktop infinite scroll */}
-          <div ref={scrollRef} className="hidden md:flex snap-x snap-mandatory gap-[clamp(min(12px,1.5625vw),2vw,27px)] overflow-x-auto px-[clamp(min(20px,2.6042vw),5vw,100px)] pb-4 hide-scrollbar cursor-grab relative z-30" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div
+            ref={scrollRef}
+            className="hidden md:flex snap-x snap-mandatory gap-[clamp(min(12px,1.5625vw),2vw,27px)] overflow-x-auto px-[clamp(min(20px,2.6042vw),5vw,100px)] pb-4 hide-scrollbar cursor-grab relative z-30"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {INFINITE_SERVICES.map((s, index) => (
-              <ServiceCard key={s.uniqueId} data={s} index={index % SERVICES.length} />
+              <ServiceCard
+                key={s.uniqueId}
+                data={s}
+                index={index % SERVICES.length}
+              />
             ))}
           </div>
         </div>
@@ -1153,54 +1545,96 @@ function ServicesCore() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   });
 
   // Mobile scroll transforms (0 to 1 progress over 500vh)
   const op1 = useTransform(scrollYProgress, [0, 0.05, 0.18, 0.2], [0, 1, 1, 0]);
   const y1 = useTransform(scrollYProgress, [0, 0.05], [50, 0]);
 
-  const op2 = useTransform(scrollYProgress, [0.2, 0.25, 0.38, 0.4], [0, 1, 1, 0]);
+  const op2 = useTransform(
+    scrollYProgress,
+    [0.2, 0.25, 0.38, 0.4],
+    [0, 1, 1, 0],
+  );
   const y2 = useTransform(scrollYProgress, [0.2, 0.25], [50, 0]);
 
-  const op3 = useTransform(scrollYProgress, [0.4, 0.45, 0.58, 0.6], [0, 1, 1, 0]);
+  const op3 = useTransform(
+    scrollYProgress,
+    [0.4, 0.45, 0.58, 0.6],
+    [0, 1, 1, 0],
+  );
   const y3 = useTransform(scrollYProgress, [0.4, 0.45], [50, 0]);
 
-  const op4 = useTransform(scrollYProgress, [0.6, 0.65, 0.78, 0.8], [0, 1, 1, 0]);
+  const op4 = useTransform(
+    scrollYProgress,
+    [0.6, 0.65, 0.78, 0.8],
+    [0, 1, 1, 0],
+  );
   const y4 = useTransform(scrollYProgress, [0.6, 0.65], [50, 0]);
 
   const yMain = useTransform(scrollYProgress, [0.8, 0.9], ["100%", "0%"]);
-  
+
   // Final expansion transforms for the central box (starts AFTER slide-up completes at 0.9)
   const boxScale = useTransform(scrollYProgress, [0.9, 1], [1, 1.3]);
 
   return (
     <section className="relative w-full bg-[#9f9f8b]" data-name="Services_core">
-      
       {/* ================= MOBILE LAYOUT (<= 768px) ================= */}
       {/* Scrolljacking container: 500vh tall to allow scrolling */}
       <div ref={containerRef} className="md:hidden relative w-full h-[500vh]">
         {/* Sticky viewport that stays on screen */}
         <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center px-[5vw] overflow-hidden">
-          <motion.div 
+          <motion.div
             style={{ scale: boxScale }}
             className="relative w-full max-w-[700px] aspect-[700/780] mx-auto overflow-hidden rounded-sm shadow-2xl bg-[#9f9f8b]"
           >
-            <motion.div style={{ opacity: op1, y: y1 }} className="absolute inset-0">
-              <img alt="" src={coreMo01} className="w-full h-full object-cover" />
+            <motion.div
+              style={{ opacity: op1, y: y1 }}
+              className="absolute inset-0"
+            >
+              <img
+                alt=""
+                src={coreMo01}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
-            <motion.div style={{ opacity: op2, y: y2 }} className="absolute inset-0">
-              <img alt="" src={coreMo02} className="w-full h-full object-cover" />
+            <motion.div
+              style={{ opacity: op2, y: y2 }}
+              className="absolute inset-0"
+            >
+              <img
+                alt=""
+                src={coreMo02}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
-            <motion.div style={{ opacity: op3, y: y3 }} className="absolute inset-0">
-              <img alt="" src={coreMo03} className="w-full h-full object-cover" />
+            <motion.div
+              style={{ opacity: op3, y: y3 }}
+              className="absolute inset-0"
+            >
+              <img
+                alt=""
+                src={coreMo03}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
-            <motion.div style={{ opacity: op4, y: y4 }} className="absolute inset-0">
-              <img alt="" src={coreMo04} className="w-full h-full object-cover" />
+            <motion.div
+              style={{ opacity: op4, y: y4 }}
+              className="absolute inset-0"
+            >
+              <img
+                alt=""
+                src={coreMo04}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
-            
+
             {/* Main Central Image & Text appears LAST */}
-            <motion.div style={{ y: yMain }} className="absolute inset-0 z-10 bg-[#9f9f8b]">
+            <motion.div
+              style={{ y: yMain }}
+              className="absolute inset-0 z-10 bg-[#9f9f8b]"
+            >
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <iframe
                   src="https://player.vimeo.com/video/1211853153?background=1&autoplay=1&loop=1&muted=1"
@@ -1210,11 +1644,19 @@ function ServicesCore() {
                 />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-[6vw] px-[6vw] text-center capitalize text-[#e7e8cf]">
-                <div className={`${SERIF} leading-[1.3] tracking-[-1.28px]`} style={{ fontSize: "6vw" }}>
+                <div
+                  className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
+                  style={{ fontSize: "6vw" }}
+                >
                   <p>“Jewelry becomes meaningful</p>
                   <p>When it carries memories beyond time”</p>
                 </div>
-                <p className={`${SANS} leading-[1.3] tracking-[-0.64px]`} style={{ fontSize: "3.5vw" }}>세대를 지나 기억으로 남는 주얼리, 디에르.</p>
+                <p
+                  className={`${SANS} leading-[1.3] tracking-[-0.64px]`}
+                  style={{ fontSize: "3.5vw" }}
+                >
+                  세대를 지나 기억으로 남는 주얼리, 디에르.
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -1224,27 +1666,46 @@ function ServicesCore() {
       {/* ================= DESKTOP LAYOUT (>= 768px) ================= */}
       <div className="relative mx-auto hidden md:flex max-w-[1720px] flex-col items-center gap-[clamp(min(24px,3.125vw),4vw,60px)] px-[100px] py-[120px]">
         {/* 1. Main Central Image in the center */}
-        <FadeUp delay={0.2} className="relative w-full md:w-[65%] items-center justify-center overflow-hidden z-10">
+        <FadeUp
+          delay={0.2}
+          className="relative w-full md:w-[65%] items-center justify-center overflow-hidden z-10"
+        >
           <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center capitalize text-[#e7e8cf]">
-            <div className={`${SERIF} leading-[1.3] tracking-[-1.28px]`} style={{ fontSize: "clamp(min(28px,3.6458vw),4.5vw,64px)" }}>
+            <div
+              className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
+              style={{ fontSize: "clamp(min(28px,3.6458vw),4.5vw,64px)" }}
+            >
               <p>“Jewelry becomes meaningful</p>
               <p>When it carries memories beyond time”</p>
             </div>
-            <p className={`${SANS} leading-[1.3] tracking-[-0.64px]`} style={{ fontSize: "clamp(min(16px,2.0833vw),2.2vw,32px)" }}>세대를 지나 기억으로 남는 주얼리, 디에르.</p>
+            <p
+              className={`${SANS} leading-[1.3] tracking-[-0.64px]`}
+              style={{ fontSize: "clamp(min(16px,2.0833vw),2.2vw,32px)" }}
+            >
+              세대를 지나 기억으로 남는 주얼리, 디에르.
+            </p>
           </div>
         </FadeUp>
 
         {/* 2. 4 images floating around the center image */}
         <div className="absolute inset-0 pointer-events-none z-20">
-          <FadeUp delay={0.3} className="absolute left-[1%] top-[10%] w-[18%] pointer-events-auto">
-          </FadeUp>
-          <FadeUp delay={0.4} className="absolute right-[2%] top-[15%] w-[20%] pointer-events-auto">
-          </FadeUp>
-          <FadeUp delay={0.5} className="absolute left-[3%] top-[60%] w-[16%] pointer-events-auto">
-          </FadeUp>
-          <FadeUp delay={0.6} className="absolute right-[4%] top-[65%] w-[18%] pointer-events-auto">
-          </FadeUp>
+          <FadeUp
+            delay={0.3}
+            className="absolute left-[1%] top-[10%] w-[18%] pointer-events-auto"
+          ></FadeUp>
+          <FadeUp
+            delay={0.4}
+            className="absolute right-[2%] top-[15%] w-[20%] pointer-events-auto"
+          ></FadeUp>
+          <FadeUp
+            delay={0.5}
+            className="absolute left-[3%] top-[60%] w-[16%] pointer-events-auto"
+          ></FadeUp>
+          <FadeUp
+            delay={0.6}
+            className="absolute right-[4%] top-[65%] w-[18%] pointer-events-auto"
+          ></FadeUp>
         </div>
       </div>
     </section>
@@ -1269,8 +1730,17 @@ function ArrowButton({ direction }: { direction: "prev" | "next" }) {
           "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
       }}
     >
-      <svg className={`size-6 ${direction === "prev" ? "-rotate-90" : "rotate-90"}`} fill="none" viewBox="0 0 24 24">
-        <path d={svgPaths.p17f09fe0} stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+      <svg
+        className={`size-6 ${direction === "prev" ? "-rotate-90" : "rotate-90"}`}
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d={svgPaths.p17f09fe0}
+          stroke="white"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     </button>
   );
@@ -1280,41 +1750,88 @@ function Collection() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)]" data-name="collection">
-      <img alt="" src={imgCollection} className="pointer-events-none absolute inset-0 size-full object-cover opacity-40" />
+    <section
+      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)]"
+      data-name="collection"
+    >
+      <img
+        alt=""
+        src={imgCollection}
+        className="pointer-events-none absolute inset-0 size-full object-cover opacity-40"
+      />
       <div className="relative mx-auto flex max-w-[1680px] flex-col items-center gap-[clamp(min(32px,4.1667vw),5vw,60px)]">
         <FadeUp>
           <div className="flex flex-col items-center gap-5 text-center">
             <div className="flex flex-col items-center gap-2">
-              <p className={`${SERIF} text-[#e5e5d4]`} style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)" }}>Lily Of the Valley</p>
-              <p className={`${SERIF} text-[#e5e5d4]`} style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}>LOV Collection</p>
+              <p
+                className={`${SERIF} text-[#e5e5d4]`}
+                style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)" }}
+              >
+                Lily Of the Valley
+              </p>
+              <p
+                className={`${SERIF} text-[#e5e5d4]`}
+                style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+              >
+                LOV Collection
+              </p>
             </div>
-            <p className="font-sans font-light text-white" style={{ fontSize: "clamp(min(13px,1.6927vw),1.2vw,16px)" }}>은방울꽃의 꽃말, “틀림없이 행복해집니다”</p>
-            <p className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px]`} style={{ fontSize: "clamp(min(15px,1.9531vw),1.6vw,20px)" }}>
-              The Lily of the Valley symbolizes a promise:<br />"Surely, Happiness Awaits You."
+            <p
+              className="font-sans font-light text-white"
+              style={{ fontSize: "clamp(min(13px,1.6927vw),1.2vw,16px)" }}
+            >
+              은방울꽃의 꽃말, “틀림없이 행복해집니다”
+            </p>
+            <p
+              className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px]`}
+              style={{ fontSize: "clamp(min(15px,1.9531vw),1.6vw,20px)" }}
+            >
+              The Lily of the Valley symbolizes a promise:
+              <br />
+              "Surely, Happiness Awaits You."
             </p>
           </div>
         </FadeUp>
 
         {/* Stacked Interactive Gallery */}
-        <div className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group" onClick={() => setIsOpen(!isOpen)}>
-          
+        <div
+          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {/* Left image (02) */}
           <motion.div
-            animate={{ x: isOpen ? "calc(-100% - 16px)" : "-2%", y: "0%", rotate: isOpen ? 0 : -3, scale: isOpen ? 1 : 0.98 }}
+            animate={{
+              x: isOpen ? "calc(-100% - 16px)" : "-2%",
+              y: "0%",
+              rotate: isOpen ? 0 : -3,
+              scale: isOpen ? 1 : 0.98,
+            }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="absolute inset-0 z-10"
           >
-            <img alt="" src={imgLOV02} className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]" />
+            <img
+              alt=""
+              src={imgLOV02}
+              className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
+            />
           </motion.div>
 
           {/* Right image (03) */}
           <motion.div
-            animate={{ x: isOpen ? "calc(100% + 16px)" : "2%", y: "0%", rotate: isOpen ? 0 : 3, scale: isOpen ? 1 : 0.98 }}
+            animate={{
+              x: isOpen ? "calc(100% + 16px)" : "2%",
+              y: "0%",
+              rotate: isOpen ? 0 : 3,
+              scale: isOpen ? 1 : 0.98,
+            }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="absolute inset-0 z-10"
           >
-            <img alt="" src={imgLOV03} className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]" />
+            <img
+              alt=""
+              src={imgLOV03}
+              className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
+            />
           </motion.div>
 
           {/* Center image (01) */}
@@ -1323,9 +1840,12 @@ function Collection() {
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="absolute inset-0 z-20"
           >
-            <img alt="" src={imgLOV01} className="size-full rounded-sm object-cover shadow-[0px_20px_40px_0px_rgba(0,0,0,0.6)]" />
+            <img
+              alt=""
+              src={imgLOV01}
+              className="size-full rounded-sm object-cover shadow-[0px_20px_40px_0px_rgba(0,0,0,0.6)]"
+            />
           </motion.div>
-
         </div>
 
         <div className="flex gap-4 mt-8 z-50 relative">
@@ -1339,126 +1859,266 @@ function Collection() {
 
 /* ------------------------------ Diheir space ------------------------------ */
 
-function PrivacyPolicyModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function PrivacyPolicyModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl" onClick={e => e.stopPropagation()}>
-        <button className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black" onClick={onClose}>&times;</button>
-        <h3 className="mb-4 text-xl font-bold text-[#383629]">개인정보 수집 및 이용 동의</h3>
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          onClick={onClose}
+        >
+          &times;
+        </button>
+        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+          개인정보 수집 및 이용 동의
+        </h3>
         <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto">
-          <p>디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이 개인정보를 수집·이용합니다.</p>
+          <p>
+            디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이
+            개인정보를 수집·이용합니다.
+          </p>
           <ul className="list-disc pl-5 space-y-2">
-            <li><strong>수집 항목:</strong> 이름, 연락처(전화번호), 이메일 주소, 희망 예약 일시, 문의 내용 및 요청사항</li>
-            <li><strong>수집·이용 목적:</strong> 방문 예약의 접수·확인 및 확정 안내, 예약 일정의 변경·취소 관련 연락, 상담 준비 및 문의 응대</li>
-            <li><strong>보유·이용 기간:</strong> 수집·이용 목적 달성 시까지. 단, 상법 및 기타 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당 법적 목적의 범위 내에서만 안전하게 보관·이용합니다.</li>
+            <li>
+              <strong>수집 항목:</strong> 이름, 연락처(전화번호), 이메일 주소,
+              희망 예약 일시, 문의 내용 및 요청사항
+            </li>
+            <li>
+              <strong>수집·이용 목적:</strong> 방문 예약의 접수·확인 및 확정
+              안내, 예약 일정의 변경·취소 관련 연락, 상담 준비 및 문의 응대
+            </li>
+            <li>
+              <strong>보유·이용 기간:</strong> 수집·이용 목적 달성 시까지. 단,
+              상법 및 기타 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당
+              법적 목적의 범위 내에서만 안전하게 보관·이용합니다.
+            </li>
           </ul>
-          <p>귀하는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 다만, 동의를 거부할 경우 방문 예약 접수 및 상담 진행이 제한될 수 있습니다.</p>
+          <p>
+            귀하는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다.
+            다만, 동의를 거부할 경우 방문 예약 접수 및 상담 진행이 제한될 수
+            있습니다.
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-function GoogleSubmitForm({ isMobile, onOpenPrivacyModal }: { isMobile: boolean, onOpenPrivacyModal: () => void }) {
+function GoogleSubmitForm({
+  isMobile,
+  onOpenPrivacyModal,
+}: {
+  isMobile: boolean;
+  onOpenPrivacyModal: () => void;
+}) {
   const [date, setDate] = useState("");
   const [phone, setPhone] = useState("");
-  const [year, month, day] = date.split('-');
+  const [year, month, day] = date.split("-");
   const [isMarketingAgreed, setIsMarketingAgreed] = useState(false);
-  
+
   const now = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value.replace(/[^0-9]/g, '');
+    let val = e.target.value.replace(/[^0-9]/g, "");
     if (val.length > 3 && val.length <= 7) {
-      val = val.replace(/(\d{3})(\d+)/, '$1-$2');
+      val = val.replace(/(\d{3})(\d+)/, "$1-$2");
     } else if (val.length > 7) {
-      val = val.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+      val = val.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
     }
     setPhone(val);
   };
 
   // Responsive classes based on mobile or desktop
-  const labelClass = isMobile ? "text-[clamp(20px,5.5vw,24px)]" : "text-[clamp(min(18px,2.34375vw),3vw,28px)]";
-  const inputClass = isMobile ? "w-full pb-[2vw] focus:border-b-2" : "w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]";
-  const inputTextClass = isMobile ? "text-[clamp(14px,3.9vw,18px)]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]";
-  const rowClass = isMobile ? "flex flex-col gap-[2vw] w-full" : "flex items-center justify-between w-full";
-  const gapClass = isMobile ? "gap-[32px] w-full" : "gap-[clamp(min(24px,3.125vw),4vw,44px)] w-[clamp(min(600px,78.125vw),80vw,800px)]";
+  const labelClass = isMobile
+    ? "text-[clamp(20px,5.5vw,24px)]"
+    : "text-[clamp(min(18px,2.34375vw),3vw,28px)]";
+  const inputClass = isMobile
+    ? "w-full pb-[2vw] focus:border-b-2"
+    : "w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]";
+  const inputTextClass = isMobile
+    ? "text-[clamp(14px,3.9vw,18px)]"
+    : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]";
+  const rowClass = isMobile
+    ? "flex flex-col gap-[2vw] w-full"
+    : "flex items-center justify-between w-full";
+  const gapClass = isMobile
+    ? "gap-[32px] w-full"
+    : "gap-[clamp(min(24px,3.125vw),4vw,44px)] w-[clamp(min(600px,78.125vw),80vw,800px)]";
 
   return (
     <>
-      <iframe name="hidden_iframe" id="hidden_iframe" style={{display:'none'}} onLoad={() => {}} />
-      <form 
-        action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse" 
-        method="POST" 
+      <iframe
+        name="hidden_iframe"
+        id="hidden_iframe"
+        style={{ display: "none" }}
+        onLoad={() => {}}
+      />
+      <form
+        action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse"
+        method="POST"
         target="hidden_iframe"
         className={`flex flex-col items-center w-full ${isMobile ? "gap-[8vw]" : "gap-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
         onSubmit={(e) => {
-           const form = e.currentTarget;
-           setTimeout(() => {
-             alert("예약이 정상적으로 접수되었습니다.");
-             setDate("");
-             setPhone("");
-             setIsMarketingAgreed(false);
-             form.reset();
-           }, 500);
+          const form = e.currentTarget;
+          setTimeout(() => {
+            alert("예약이 정상적으로 접수되었습니다.");
+            setDate("");
+            setPhone("");
+            setIsMarketingAgreed(false);
+            form.reset();
+          }, 500);
         }}
       >
         <div className={`flex flex-col ${gapClass}`}>
           <div className={rowClass}>
             <p className={`font-sans text-[#444429] ${labelClass}`}>이름</p>
-            <input required type="text" name="entry.1054060175" placeholder="입력해주세요" className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`} />
+            <input
+              required
+              type="text"
+              name="entry.1054060175"
+              placeholder="입력해주세요"
+              className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`}
+            />
           </div>
           <div className={rowClass}>
             <p className={`font-sans text-[#444429] ${labelClass}`}>연락처</p>
-            <input required type="tel" name="entry.2074802535" placeholder="숫자만 입력해주세요" value={phone} onChange={handlePhoneChange} maxLength={13} className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`} />
+            <input
+              required
+              type="tel"
+              name="entry.2074802535"
+              placeholder="숫자만 입력해주세요"
+              value={phone}
+              onChange={handlePhoneChange}
+              maxLength={13}
+              className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`}
+            />
           </div>
           <div className={rowClass}>
             <p className={`font-sans text-[#444429] ${labelClass}`}>방문일</p>
-            <input required type="date" min={today} value={date} onChange={e => setDate(e.target.value)} className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`} />
-            <input type="hidden" name="entry.626727524_year" value={year || ''} />
-            <input type="hidden" name="entry.626727524_month" value={month || ''} />
-            <input type="hidden" name="entry.626727524_day" value={day || ''} />
+            <input
+              required
+              type="date"
+              min={today}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`}
+            />
+            <input
+              type="hidden"
+              name="entry.626727524_year"
+              value={year || ""}
+            />
+            <input
+              type="hidden"
+              name="entry.626727524_month"
+              value={month || ""}
+            />
+            <input type="hidden" name="entry.626727524_day" value={day || ""} />
           </div>
           <div className={rowClass}>
             <p className={`font-sans text-[#444429] ${labelClass}`}>이메일</p>
-            <input required type="email" name="entry.134182212" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="이메일 주소에는 반드시 '@'가 포함되어야 합니다." placeholder="입력해주세요" className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`} />
+            <input
+              required
+              type="email"
+              name="entry.134182212"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="이메일 주소에는 반드시 '@'가 포함되어야 합니다."
+              placeholder="입력해주세요"
+              className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`}
+            />
           </div>
           <div className={rowClass}>
             <p className={`font-sans text-[#444429] ${labelClass}`}>요청사항</p>
-            <input type="text" name="entry.399277218" placeholder="입력해주세요" className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`} />
+            <input
+              type="text"
+              name="entry.399277218"
+              placeholder="입력해주세요"
+              className={`border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none ${inputClass} ${inputTextClass}`}
+            />
           </div>
         </div>
 
-        <div className={`flex flex-col w-full max-w-[800px] ${isMobile ? "gap-[3vw]" : "gap-3"}`}>
+        <div
+          className={`flex flex-col w-full max-w-[800px] ${isMobile ? "gap-[3vw]" : "gap-3"}`}
+        >
           <div className={`flex items-center gap-3 w-full`}>
-            <input id={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} required type="checkbox" name="entry.831169210" value="네" className={`accent-[#383629] cursor-pointer shrink-0 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
-            <div className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[clamp(14px,4.5vw,18px)]" : "text-[clamp(min(16px,2.083vw),2.5vw,20px)]"}`}>
-              <button 
+            <input
+              id={`privacy-agree-${isMobile ? "mobile" : "desktop"}`}
+              required
+              type="checkbox"
+              name="entry.831169210"
+              value="네"
+              className={`accent-[#383629] cursor-pointer shrink-0 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
+            />
+            <div
+              className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[clamp(14px,4.5vw,18px)]" : "text-[clamp(min(16px,2.083vw),2.5vw,20px)]"}`}
+            >
+              <button
                 type="button"
                 onClick={onOpenPrivacyModal}
                 className="underline underline-offset-4 hover:text-black transition-colors cursor-pointer font-semibold"
               >
                 개인정보 처리방침
               </button>
-              <label htmlFor={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer ml-1">에 동의</label>
+              <label
+                htmlFor={`privacy-agree-${isMobile ? "mobile" : "desktop"}`}
+                className="cursor-pointer ml-1"
+              >
+                에 동의
+              </label>
             </div>
           </div>
 
           <div className={`flex items-start gap-3 w-full`}>
-            <input type="hidden" name="entry.430492874" value={isMarketingAgreed ? "네" : "아니오"} />
-            <input id={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} type="checkbox" checked={isMarketingAgreed} onChange={(e) => setIsMarketingAgreed(e.target.checked)} className={`accent-[#383629] cursor-pointer shrink-0 mt-1 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
-            <div className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[clamp(12px,3.2vw,14px)]" : "text-[clamp(min(13px,1.692vw),1.8vw,16px)]"}`}>
-              <label htmlFor={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer">
-                (선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.
+            <input
+              type="hidden"
+              name="entry.430492874"
+              value={isMarketingAgreed ? "네" : "아니오"}
+            />
+            <input
+              id={`marketing-agree-${isMobile ? "mobile" : "desktop"}`}
+              type="checkbox"
+              checked={isMarketingAgreed}
+              onChange={(e) => setIsMarketingAgreed(e.target.checked)}
+              className={`accent-[#383629] cursor-pointer shrink-0 mt-1 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
+            />
+            <div
+              className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[clamp(12px,3.2vw,14px)]" : "text-[clamp(min(13px,1.692vw),1.8vw,16px)]"}`}
+            >
+              <label
+                htmlFor={`marketing-agree-${isMobile ? "mobile" : "desktop"}`}
+                className="cursor-pointer"
+              >
+                (선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해
+                디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을
+                수신하는 데 동의합니다.
               </label>
             </div>
           </div>
         </div>
 
-        <button type="submit" className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(min(10px,1.3vw),2vw,20px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}>
-          <span className={`font-serif ${isMobile ? "text-[4vw]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}>Reservation</span>
+        <button
+          type="submit"
+          className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(min(10px,1.3vw),2vw,20px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
+        >
+          <span
+            className={`font-serif ${isMobile ? "text-[4vw]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
+          >
+            Reservation
+          </span>
         </button>
       </form>
     </>
@@ -1470,12 +2130,19 @@ function ReservationCard() {
 
   return (
     <FadeUp>
-      <div
-        className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(40px,5.2vw),6vw,80px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform"
-      >
-        <svg className="absolute inset-0 size-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <div className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(40px,5.2vw),6vw,80px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform">
+        <svg
+          className="absolute inset-0 size-full pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
-            <linearGradient id="borderGradResponsive" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient
+              id="borderGradResponsive"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
               <stop offset="0%" stopColor="white" stopOpacity="0" />
               <stop offset="10%" stopColor="white" stopOpacity="0.1" />
               <stop offset="40%" stopColor="white" stopOpacity="0.8" />
@@ -1485,15 +2152,37 @@ function ReservationCard() {
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <rect x="1" y="1" fill="none" stroke="url(#borderGradResponsive)" strokeWidth="2" style={{ width: "calc(100% - 2px)", height: "calc(100% - 2px)", rx: "clamp(19px, calc(3vw - 1px), 31px)" }} />
+          <rect
+            x="1"
+            y="1"
+            fill="none"
+            stroke="url(#borderGradResponsive)"
+            strokeWidth="2"
+            style={{
+              width: "calc(100% - 2px)",
+              height: "calc(100% - 2px)",
+              rx: "clamp(19px, calc(3vw - 1px), 31px)",
+            }}
+          />
         </svg>
         <div className="relative z-10 flex w-full flex-col items-center gap-[clamp(min(20px,2.6vw),4vw,40px)]">
-          <p className={`${SERIF} text-center text-[#444429]`} style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}>Reserve Appointment</p>
-          
-          <GoogleSubmitForm isMobile={false} onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
+          <p
+            className={`${SERIF} text-center text-[#444429]`}
+            style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+          >
+            Reserve Appointment
+          </p>
+
+          <GoogleSubmitForm
+            isMobile={false}
+            onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
+          />
         </div>
       </div>
-      <PrivacyPolicyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
+      <PrivacyPolicyModal
+        isOpen={isPrivacyModalOpen}
+        onClose={() => setIsPrivacyModalOpen(false)}
+      />
     </FadeUp>
   );
 }
@@ -1502,27 +2191,60 @@ function DiheirSpace() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
 
   return (
-    <section id="reservation" className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,60px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]" data-name="diheirspace">
-      
+    <section
+      id="reservation"
+      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,60px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
+      data-name="diheirspace"
+    >
       {/* ================= DESKTOP LAYOUT (> 768px) ================= */}
       <div className="hidden md:block">
         <FadeUp>
-          <p className={`${SERIF} text-center capitalize text-[#9f9f8b] opacity-[0.12]`} style={{ fontSize: "30vw", letterSpacing: "-0.02em" }}>diheirspace</p>
+          <p
+            className={`${SERIF} text-center capitalize text-[#9f9f8b] opacity-[0.12]`}
+            style={{ fontSize: "30vw", letterSpacing: "-0.02em" }}
+          >
+            diheirspace
+          </p>
         </FadeUp>
 
-        <FadeUp delay={0.2} className="relative mx-auto mt-[clamp(min(24px,3.125vw),4vw,40px)] max-w-[1802px]">
-          <img alt="디에르 청담 공간" src={imgDiheirspaceBg} className="aspect-[1802/945] w-full rounded-sm object-cover" />
+        <FadeUp
+          delay={0.2}
+          className="relative mx-auto mt-[clamp(min(24px,3.125vw),4vw,40px)] max-w-[1802px]"
+        >
+          <img
+            alt="디에르 청담 공간"
+            src={imgDiheirspaceBg}
+            className="aspect-[1802/945] w-full rounded-sm object-cover"
+          />
         </FadeUp>
 
         <div className="relative mt-[clamp(-80px,-6vw,-40px)]">
           <ReservationCard />
         </div>
 
-        <FadeUp delay={0.2} className="mx-auto mt-[clamp(min(40px,5.2083vw),6vw,80px)] flex max-w-[1000px] flex-col gap-6 px-[clamp(0px,4vw,40px)]">
-          <p className={`${SERIF} capitalize text-[rgba(255,255,255,0.9)] tracking-[-0.8px]`} style={{ fontSize: "clamp(min(28px,3.6458vw),3vw,40px)" }}>DIHEIR Cheongdam</p>
-          <div className={`${SANS} flex justify-between gap-6 text-[rgba(255,255,255,0.6)] tracking-[-0.4px]`}>
-            <p className="leading-[1.3]">서울시 강남구 도산대로59길 16,<br />B1층 (청담동, 테이블2025)</p>
-            <p className="leading-[1.3] text-right">AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br />Tel. 0507-1339-2520</p>
+        <FadeUp
+          delay={0.2}
+          className="mx-auto mt-[clamp(min(40px,5.2083vw),6vw,80px)] flex max-w-[1000px] flex-col gap-6 px-[clamp(0px,4vw,40px)]"
+        >
+          <p
+            className={`${SERIF} capitalize text-[rgba(255,255,255,0.9)] tracking-[-0.8px]`}
+            style={{ fontSize: "clamp(min(28px,3.6458vw),3vw,40px)" }}
+          >
+            DIHEIR Cheongdam
+          </p>
+          <div
+            className={`${SANS} flex justify-between gap-6 text-[rgba(255,255,255,0.6)] tracking-[-0.4px]`}
+          >
+            <p className="leading-[1.3]">
+              서울시 강남구 도산대로59길 16,
+              <br />
+              B1층 (청담동, 테이블2025)
+            </p>
+            <p className="leading-[1.3] text-right">
+              AM 10:30 - PM 07:30 / 월·명절 연휴 휴무
+              <br />
+              Tel. 0507-1339-2520
+            </p>
           </div>
         </FadeUp>
       </div>
@@ -1530,86 +2252,193 @@ function DiheirSpace() {
       {/* ================= MOBILE LAYOUT (<= 768px) ================= */}
       <div className="md:hidden relative w-full flex flex-col items-center">
         <FadeUp className="flex justify-center w-full overflow-hidden">
-          <p className={`${SERIF} text-center capitalize text-[#9f9f8b] opacity-[0.12] whitespace-nowrap leading-none`} style={{ fontSize: "18vw", letterSpacing: "-0.02em" }}>Diheirspace</p>
+          <p
+            className={`${SERIF} text-center capitalize text-[#9f9f8b] opacity-[0.12] whitespace-nowrap leading-none`}
+            style={{ fontSize: "18vw", letterSpacing: "-0.02em" }}
+          >
+            Diheirspace
+          </p>
         </FadeUp>
-        
-        <FadeUp delay={0.1} className="relative w-full rounded-[6vw] overflow-hidden shadow-2xl">
-          <img alt="디에르 청담 공간" src={imgDiheirspaceBg} className="absolute inset-0 size-full object-cover" />
+
+        <FadeUp
+          delay={0.1}
+          className="relative w-full rounded-[6vw] overflow-hidden shadow-2xl"
+        >
+          <img
+            alt="디에르 청담 공간"
+            src={imgDiheirspaceBg}
+            className="absolute inset-0 size-full object-cover"
+          />
           <div className="absolute inset-0 bg-black/10" />
-          
+
           <div className="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[10vw]">
             {/* The Form Box */}
             <div className="flex w-full flex-col items-center rounded-[4vw] bg-[#c5c6b6]/85 px-[6vw] py-[8vw] backdrop-blur-md shadow-xl border border-white/40">
-              <p className={`${SERIF} text-center text-[#383629] mb-[8vw] leading-none`} style={{ fontSize: "7vw" }}>Reserve Appointment</p>
-              
-              <GoogleSubmitForm isMobile={true} onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
+              <p
+                className={`${SERIF} text-center text-[#383629] mb-[8vw] leading-none`}
+                style={{ fontSize: "7vw" }}
+              >
+                Reserve Appointment
+              </p>
+
+              <GoogleSubmitForm
+                isMobile={true}
+                onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
+              />
             </div>
-            
-            <PrivacyPolicyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
-            
+
+            <PrivacyPolicyModal
+              isOpen={isPrivacyModalOpen}
+              onClose={() => setIsPrivacyModalOpen(false)}
+            />
+
             {/* Address Info */}
             <div className="flex flex-col gap-[3vw] text-[rgba(255,255,255,0.95)]">
-              <p className={`${SERIF} tracking-[-0.5px] leading-none`} style={{ fontSize: "6vw" }}>DIHEIR Cheongdam</p>
-              <div className={`${SANS} flex flex-row justify-between gap-[2vw] text-[rgba(255,255,255,0.8)] tracking-[-0.3px]`} style={{ fontSize: "2vw" }}>
-                <p className="leading-[1.4]">서울시 강남구 도산대로59길 16,<br />B1층 (청담동, 테이블2025)</p>
-                <p className="leading-[1.4] text-right">AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br />Tel. 0507-1339-2520</p>
+              <p
+                className={`${SERIF} tracking-[-0.5px] leading-none`}
+                style={{ fontSize: "6vw" }}
+              >
+                DIHEIR Cheongdam
+              </p>
+              <div
+                className={`${SANS} flex flex-row justify-between gap-[2vw] text-[rgba(255,255,255,0.8)] tracking-[-0.3px]`}
+                style={{ fontSize: "2vw" }}
+              >
+                <p className="leading-[1.4]">
+                  서울시 강남구 도산대로59길 16,
+                  <br />
+                  B1층 (청담동, 테이블2025)
+                </p>
+                <p className="leading-[1.4] text-right">
+                  AM 10:30 - PM 07:30 / 월·명절 연휴 휴무
+                  <br />
+                  Tel. 0507-1339-2520
+                </p>
               </div>
             </div>
           </div>
         </FadeUp>
       </div>
-
     </section>
   );
 }
 
 /* --------------------------------- Footer --------------------------------- */
 
-const FOOTER_LINKS = ["home", "Information", "Privacy Policy", "Terms of Use", "Quality Care", "contact"];
+const FOOTER_LINKS = [
+  "home",
+  "Information",
+  "Privacy Policy",
+  "Terms of Use",
+  "Quality Care",
+  "contact",
+];
 
 function YoutubeIcon() {
   return (
-    <svg className="size-[clamp(min(48px,6.25vw),6vw,72px)]" fill="none" viewBox="0 0 72 72" aria-label="YouTube">
-      <path d={svgPaths.p22cf2000} stroke="#C1C4AD" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" />
+    <svg
+      className="size-[clamp(min(48px,6.25vw),6vw,72px)]"
+      fill="none"
+      viewBox="0 0 72 72"
+      aria-label="YouTube"
+    >
+      <path
+        d={svgPaths.p22cf2000}
+        stroke="#C1C4AD"
+        strokeLinejoin="round"
+        strokeMiterlimit="10"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 
 function InstagramIcon() {
   return (
-    <svg className="size-[clamp(min(48px,6.25vw),6vw,72px)] p-2.5" fill="none" viewBox="0 0 55.5 55.5" aria-label="Instagram">
-      <path d={svgPaths.p2a5fff20} stroke="#C1C4AD" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+    <svg
+      className="size-[clamp(min(48px,6.25vw),6vw,72px)] p-2.5"
+      fill="none"
+      viewBox="0 0 55.5 55.5"
+      aria-label="Instagram"
+    >
+      <path
+        d={svgPaths.p2a5fff20}
+        stroke="#C1C4AD"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
       <path d={svgPaths.p149a5a80} stroke="#C1C4AD" strokeWidth="1.5" />
-      <path d="M44.25 11.28L44.28 11.247" stroke="#C1C4AD" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+      <path
+        d="M44.25 11.28L44.28 11.247"
+        stroke="#C1C4AD"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 
 function Footer() {
   return (
-    <footer className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),6vw,110px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]" data-name="footer">
-      <FadeUp duration={1.5} y={30} className="pointer-events-none absolute inset-0 size-full">
-        <img alt="" src={imgFooter} className="size-full object-contain object-bottom opacity-[0.12]" />
+    <footer
+      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),6vw,110px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
+      data-name="footer"
+    >
+      <FadeUp
+        duration={1.5}
+        y={30}
+        className="pointer-events-none absolute inset-0 size-full"
+      >
+        <img
+          alt=""
+          src={imgFooter}
+          className="size-full object-contain object-bottom opacity-[0.12]"
+        />
       </FadeUp>
       <div className="relative flex flex-col gap-[clamp(min(40px,5.2083vw),6vw,80px)]">
         <FadeUp duration={1.0}>
-          <nav className={`${SERIF} flex flex-col gap-[clamp(min(20px,2.6042vw),3vw,60px)] capitalize text-[#c1c4ad] tracking-[-0.8px]`} style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}>
+          <nav
+            className={`${SERIF} flex flex-col gap-[clamp(min(20px,2.6042vw),3vw,60px)] capitalize text-[#c1c4ad] tracking-[-0.8px]`}
+            style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}
+          >
             {FOOTER_LINKS.map((link) => (
-              <a key={link} href="#" className="w-fit transition-opacity hover:opacity-70">{link}</a>
+              <a
+                key={link}
+                href="#"
+                className="w-fit transition-opacity hover:opacity-70"
+              >
+                {link}
+              </a>
             ))}
           </nav>
         </FadeUp>
         <FadeUp duration={1.0} delay={0.1}>
           <div className="flex flex-col gap-3">
-            <p className={`${SERIF} capitalize text-[#c1c4ad] tracking-[-0.8px]`} style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}>SNS</p>
+            <p
+              className={`${SERIF} capitalize text-[#c1c4ad] tracking-[-0.8px]`}
+              style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}
+            >
+              SNS
+            </p>
             <div className="flex items-center gap-6">
               <YoutubeIcon />
               <InstagramIcon />
             </div>
           </div>
         </FadeUp>
-        <FadeUp margin="0px" duration={1.0} delay={0.2} className="mt-[clamp(min(40px,5.2083vw),6vw,80px)] w-full max-w-[1548px] self-center">
-          <img alt="" src={imgDiheirLogoOg1} className="w-full object-contain" />
+        <FadeUp
+          margin="0px"
+          duration={1.0}
+          delay={0.2}
+          className="mt-[clamp(min(40px,5.2083vw),6vw,80px)] w-full max-w-[1548px] self-center"
+        >
+          <img
+            alt=""
+            src={imgDiheirLogoOg1}
+            className="w-full object-contain"
+          />
         </FadeUp>
       </div>
     </footer>
