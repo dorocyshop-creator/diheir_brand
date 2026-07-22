@@ -2044,7 +2044,7 @@ function Collection() {
               left: `calc(50% - ${actualWidth / 2}px)`,
             }}
           >
-            <img src={imgCollection} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" alt="collection background" />
+            <img src={imgCollection} className="absolute inset-0 w-full h-full object-cover" alt="collection background" />
           </div>
           <div
             className="absolute h-full top-0 overflow-hidden"
@@ -2345,7 +2345,7 @@ function Frame23() {
   return (
     <FadeUp
       delay={0.2}
-      className="-translate-x-1/2 absolute bg-[#c3c0b0] content-stretch flex flex-col gap-[clamp(40px,6.94vw,100px)] h-auto min-h-[945px] items-center justify-center left-1/2 px-[clamp(32px,5.55vw,80px)] py-[clamp(40px,6.94vw,100px)] top-[750px] w-[clamp(400px,69.44vw,1000px)] z-10 rounded-[clamp(20px,2.6vw,32px)]"
+      className="-translate-x-1/2 absolute bg-[#c3c0b0] content-stretch flex flex-col gap-[100px] h-[945px] items-center justify-center left-1/2 px-[80px] py-[100px] top-[750px] w-[1000px] z-10"
     >
       <iframe
         name="hidden_iframe"
@@ -2356,7 +2356,7 @@ function Frame23() {
         action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse"
         method="POST"
         target="hidden_iframe"
-        className="content-stretch flex flex-col gap-[clamp(40px,6.94vw,100px)] items-center relative shrink-0 w-full"
+        className="content-stretch flex flex-col gap-[100px] items-center relative shrink-0 w-full"
         onSubmit={(e) => {
           const form = e.currentTarget;
           setTimeout(() => {
