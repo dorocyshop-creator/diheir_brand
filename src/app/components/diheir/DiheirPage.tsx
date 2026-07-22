@@ -2481,8 +2481,14 @@ function Footer() {
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link}
-                href="#"
-                className="w-fit transition-opacity hover:opacity-70"
+                href={link.toLowerCase() === "home" ? undefined : "#"}
+                onClick={(e) => {
+                  if (link.toLowerCase() === "home") {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                className={`w-fit transition-opacity hover:opacity-70 ${link.toLowerCase() === "home" ? "cursor-pointer" : ""}`}
               >
                 {link}
               </a>
@@ -2498,8 +2504,12 @@ function Footer() {
               SNS
             </p>
             <div className="flex items-center gap-6">
-              <YoutubeIcon />
-              <InstagramIcon />
+              <a href="https://www.youtube.com/@studio.dorocy" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+                <YoutubeIcon />
+              </a>
+              <a href="https://www.instagram.com/dorocy_official_/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+                <InstagramIcon />
+              </a>
             </div>
           </div>
         </FadeUp>

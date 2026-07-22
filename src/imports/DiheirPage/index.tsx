@@ -2679,7 +2679,12 @@ function Diheirspace() {
 function Frame55() {
   return (
     <div className="[word-break:break-word] capitalize content-stretch flex flex-col font-serif gap-[60px] items-start leading-[1.3] not-italic relative shrink-0 text-[#c1c4ad] text-[40px] tracking-[-0.8px] w-full">
-      <p className="min-w-full relative shrink-0 w-[min-content]">home</p>
+      <p 
+        className="min-w-full relative shrink-0 w-[min-content] cursor-pointer hover:text-white transition-colors"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        home
+      </p>
       <p className="relative shrink-0 whitespace-nowrap">Information</p>
       <p className="relative shrink-0 whitespace-nowrap">Privacy Policy</p>
       <p className="relative shrink-0 whitespace-nowrap">Terms of Use</p>
@@ -2767,8 +2772,12 @@ function IconoirInstagram() {
 function Frame57() {
   return (
     <div className="content-stretch flex gap-[24px] items-center justify-center relative shrink-0 w-full">
-      <SiYoutubeLine />
-      <IconoirInstagram />
+      <a href="https://www.youtube.com/@studio.dorocy" target="_blank" rel="noopener noreferrer" className="hover:brightness-125 transition-all cursor-pointer">
+        <SiYoutubeLine />
+      </a>
+      <a href="https://www.instagram.com/dorocy_official_/" target="_blank" rel="noopener noreferrer" className="hover:brightness-125 transition-all cursor-pointer">
+        <IconoirInstagram />
+      </a>
     </div>
   );
 }
