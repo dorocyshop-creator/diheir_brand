@@ -51,8 +51,6 @@ const SANS = "font-sans";
 
 /* ---------------------------------- Nav ---------------------------------- */
 
-import imgDiheirLogoOg1 from "../../../imports/DiheirPage/Diheir_Logo.png";
-
 function NavLogo({
   className = "",
   onClick,

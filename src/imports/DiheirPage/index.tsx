@@ -2428,7 +2428,7 @@ function Frame23() {
   return (
     <FadeUp
       delay={0.2}
-      className="-translate-x-1/2 absolute bg-[#c3c0b0] content-stretch flex flex-col gap-[100px] h-auto items-center justify-start left-1/2 px-[80px] py-[100px] top-[750px] w-[1000px] z-10"
+      className="bg-[#c3c0b0] content-stretch flex flex-col gap-[60px] h-auto items-center justify-start px-[80px] py-[80px] w-full"
     >
       <iframe
         name="hidden_iframe"
@@ -2439,7 +2439,7 @@ function Frame23() {
         action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse"
         method="POST"
         target="hidden_iframe"
-        className="content-stretch flex flex-col gap-[100px] items-center relative shrink-0 w-full"
+        className="content-stretch flex flex-col gap-[60px] items-center relative shrink-0 w-full"
         onSubmit={(e) => {
           const form = e.currentTarget;
           setTimeout(() => {
@@ -2654,7 +2654,7 @@ function Frame52() {
   return (
     <FadeUp
       delay={0.2}
-      className="[word-break:break-word] absolute content-stretch flex flex-col gap-[24px] items-start left-[459px] not-italic px-[40px] top-[1755px] w-[1000px]"
+      className="[word-break:break-word] content-stretch flex flex-col gap-[24px] items-start not-italic px-[40px] w-full mt-4"
     >
       <p className="capitalize font-serif leading-[1.3] relative shrink-0 text-[40px] text-[rgba(255,255,255,0.9)] tracking-[-0.8px] w-full">
         DIHEIR Cheongdam
@@ -2712,8 +2712,10 @@ function Diheirspace() {
           />
         </svg>
       </div>
-      <Frame23 />
-      <Frame52 />
+      <div className="-translate-x-1/2 absolute left-1/2 top-[750px] w-[1000px] z-10 flex flex-col gap-[40px]">
+        <Frame23 />
+        <Frame52 />
+      </div>
     </div>
   );
 }
