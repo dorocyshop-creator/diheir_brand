@@ -1757,7 +1757,7 @@ function Collection() {
       <img
         alt=""
         src={imgCollection}
-        className="pointer-events-none absolute inset-0 size-full object-cover opacity-40"
+        className="pointer-events-none absolute inset-0 size-full object-cover"
       />
       <div className="relative mx-auto flex max-w-[1680px] flex-col items-center gap-[clamp(min(32px,4.1667vw),5vw,60px)]">
         <FadeUp>

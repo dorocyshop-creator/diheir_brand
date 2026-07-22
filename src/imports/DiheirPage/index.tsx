@@ -12,7 +12,9 @@ import imgFrame12 from "../../component/brand/2st_Generation.png";
 import imgService from "../../component/service/service.jpg";
 import imgServiceLeft from "../../component/service/service_left.png";
 import imgServiceRight from "../../component/service/service_right.png";
+import imgFrame13 from "./7f861cbe047e3416f9ef1ce171b951d3673257a6.png";
 import imgFrame14 from "../../component/service/service_The_First_Principle.png";
+import imgCollection from "../../component/collection/collection_bg.jpg";
 import coreMo01 from "../../component/service/core_mo_01.jpg";
 import coreMo02 from "../../component/service/core_mo_02.jpg";
 import coreMo03 from "../../component/service/core_mo_03.jpg";
@@ -2005,7 +2007,9 @@ function Collection() {
             width: `${actualWidth}px`,
             left: `calc(50% - ${actualWidth / 2}px)`,
           }}
-        ></div>
+        >
+          <img src={imgCollection} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" alt="collection background" />
+        </div>
         <div
           className="absolute h-full top-0 overflow-hidden"
           style={{
