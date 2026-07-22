@@ -23,9 +23,9 @@ import imgFrame16 from "../../component/service/service_Jewelry_Resetting_Servic
 import imgFrame17 from "../../component/service/service_Craftsmanship.png";
 import imgFrame19 from "../../component/service/service_Jewelry_as_Legacy.png";
 import imgFrame21 from "../../component/service/service_Invisible_Precision.png";
-import imgLOV01 from "../../component/collection/LOV_Collection_01.jpg";
-import imgLOV02 from "../../component/collection/LOV_Collection_02.jpg";
-import imgLOV03 from "../../component/collection/LOV_Collection_03.jpg";
+import imgLOV01 from "../../component/collection/LOV_Collection_01.png";
+import imgLOV02 from "../../component/collection/LOV_Collection_02.png";
+import imgLOV03 from "../../component/collection/LOV_Collection_03.png";
 import imgRectangle22 from "./e41d5196719563558533d5be1e1c3a14a805950b.png";
 import imgRectangle23 from "./805a32b6d14e895fdc339ccbfbf2a6d65c0472d0.png";
 import imgRectangle24 from "./f8ceae5a06aaed2f11c4300828d3be4956a4a8ce.png";
