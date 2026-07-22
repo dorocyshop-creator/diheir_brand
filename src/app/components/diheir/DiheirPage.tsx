@@ -1411,7 +1411,7 @@ function GoogleSubmitForm({ isMobile, onOpenPrivacyModal }: { isMobile: boolean,
         action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse" 
         method="POST" 
         target="hidden_iframe"
-        className={`flex flex-col items-center w-full ${isMobile ? "gap-[40px]" : "gap-[clamp(min(30px,3.9062vw),4vw,60px)]"}`}
+        className={`flex flex-col items-center w-full ${isMobile ? "gap-[8vw]" : "gap-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
         onSubmit={(e) => {
            const form = e.currentTarget;
            setTimeout(() => {
@@ -1449,31 +1449,33 @@ function GoogleSubmitForm({ isMobile, onOpenPrivacyModal }: { isMobile: boolean,
           </div>
         </div>
 
-        <div className={`flex items-center gap-3 w-full max-w-[800px] ${isMobile ? "mt-[2vw]" : "mt-0"}`}>
-          <input id={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} required type="checkbox" name="entry.831169210" value="네" className={`accent-[#383629] cursor-pointer shrink-0 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
-          <div className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[clamp(14px,4.5vw,18px)]" : "text-[clamp(min(18px,2.34375vw),3vw,28px)]"}`}>
-            <button 
-              type="button"
-              onClick={onOpenPrivacyModal}
-              className="underline underline-offset-4 hover:text-black transition-colors cursor-pointer"
-            >
-              개인정보 처리방침
-            </button>
-            <label htmlFor={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer ml-1">에 동의</label>
+        <div className={`flex flex-col w-full max-w-[800px] ${isMobile ? "gap-[3vw]" : "gap-3"}`}>
+          <div className={`flex items-center gap-3 w-full`}>
+            <input id={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} required type="checkbox" name="entry.831169210" value="네" className={`accent-[#383629] cursor-pointer shrink-0 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
+            <div className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[clamp(14px,4.5vw,18px)]" : "text-[clamp(min(16px,2.083vw),2.5vw,20px)]"}`}>
+              <button 
+                type="button"
+                onClick={onOpenPrivacyModal}
+                className="underline underline-offset-4 hover:text-black transition-colors cursor-pointer font-semibold"
+              >
+                개인정보 처리방침
+              </button>
+              <label htmlFor={`privacy-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer ml-1">에 동의</label>
+            </div>
+          </div>
+
+          <div className={`flex items-start gap-3 w-full`}>
+            <input type="hidden" name="entry.430492874" value={isMarketingAgreed ? "네" : "아니오"} />
+            <input id={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} type="checkbox" checked={isMarketingAgreed} onChange={(e) => setIsMarketingAgreed(e.target.checked)} className={`accent-[#383629] cursor-pointer shrink-0 mt-1 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
+            <div className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[clamp(12px,3.2vw,14px)]" : "text-[clamp(min(13px,1.692vw),1.8vw,16px)]"}`}>
+              <label htmlFor={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer">
+                (선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.
+              </label>
+            </div>
           </div>
         </div>
 
-        <div className={`flex items-start gap-3 w-full max-w-[800px] ${isMobile ? "mt-[1vw]" : "mt-2"}`}>
-          <input type="hidden" name="entry.430492874" value={isMarketingAgreed ? "네" : "아니오"} />
-          <input id={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} type="checkbox" checked={isMarketingAgreed} onChange={(e) => setIsMarketingAgreed(e.target.checked)} className={`accent-[#383629] cursor-pointer shrink-0 mt-1 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`} />
-          <div className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[clamp(12px,3.2vw,14px)]" : "text-[clamp(min(13px,1.692vw),1.8vw,18px)]"}`}>
-            <label htmlFor={`marketing-agree-${isMobile ? 'mobile' : 'desktop'}`} className="cursor-pointer">
-              (선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}>
+        <button type="submit" className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(min(10px,1.3vw),2vw,20px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}>
           <span className={`font-serif ${isMobile ? "text-[4vw]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}>Reservation</span>
         </button>
       </form>
@@ -1487,7 +1489,7 @@ function ReservationCard() {
   return (
     <FadeUp>
       <div
-        className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(48px,6.25vw),8vw,100px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform"
+        className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(40px,5.2vw),6vw,80px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform"
       >
         <svg className="absolute inset-0 size-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1503,7 +1505,7 @@ function ReservationCard() {
           </defs>
           <rect x="1" y="1" fill="none" stroke="url(#borderGradResponsive)" strokeWidth="2" style={{ width: "calc(100% - 2px)", height: "calc(100% - 2px)", rx: "clamp(19px, calc(3vw - 1px), 31px)" }} />
         </svg>
-        <div className="relative z-10 flex w-full flex-col items-center gap-[clamp(min(30px,3.9062vw),4vw,60px)]">
+        <div className="relative z-10 flex w-full flex-col items-center gap-[clamp(min(20px,2.6vw),4vw,40px)]">
           <p className={`${SERIF} text-center text-[#444429]`} style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}>Reserve Appointment</p>
           
           <GoogleSubmitForm isMobile={false} onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
