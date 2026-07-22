@@ -342,62 +342,41 @@ export function HomeSection() {
     };
     rafId = requestAnimationFrame(render);
 
-    // 4. GSAP 스크롤 동기화
+    // 4. GSAP 스크롤 동기화 (하나의 타임라인으로 통합)
     const gsapCtx = gsap.context(() => {
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.1,  // 즉각적이고 매우 부드러운 반응
+          scrub: 0.1,
         }
       });
 
-      // 스크롤 시 프레임 0 -> 298 로 맵핑
+      // 1. 프레임 시퀀스 재생 (전체 타임라인의 80% 구간 할당)
       scrollTl.to(proxy, {
         frame: FRAME_COUNT - 1,
         ease: "none",
-        duration: 1.0,
-      }, 0);
+        duration: 8,
+      });
+
+      // 2. home_02 슬라이드 업 (10% 구간 할당)
+      if (home02Ref.current) {
+        scrollTl.fromTo(home02Ref.current, 
+          { y: "100vh" },
+          { y: "0vh", ease: "power2.out", duration: 1 }
+        );
+      }
+
+      // 3. 잠시 머무름 (10% 구간 할당)
+      scrollTl.to({}, { duration: 1 });
 
     }, containerRef);
-
-    // --- home_02 핀 및 등장 모션 ---
-    let pinTrigger: ScrollTrigger | null = null;
-    let swoopTrigger: ScrollTrigger | null = null;
-    if (home02Ref.current) {
-      // 훅 위로 올라오는 등장 모션
-      const swoopAnim = gsap.fromTo(home02Ref.current,
-        { y: 150 },
-        {
-          y: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: home02Ref.current,
-            start: "top 90%", // 화면 하단에 보이기 시작할 때
-            toggleActions: "play none none reverse",
-          }
-        }
-      );
-      swoopTrigger = swoopAnim.scrollTrigger as ScrollTrigger;
-
-      // 빠른 스크롤 관성 방지용 랜딩패드
-      pinTrigger = ScrollTrigger.create({
-        trigger: home02Ref.current,
-        start: "top top",
-        end: "+=100vh",
-        pin: true,
-        pinSpacing: true,
-      });
-    }
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(rafId);
       gsapCtx.revert();
-      if (swoopTrigger) swoopTrigger.kill();
-      if (pinTrigger) pinTrigger.kill();
     };
   }, []);
 
@@ -406,7 +385,7 @@ export function HomeSection() {
       {/* 이미지 시퀀스 스크롤 영역 */}
       <div id="home" ref={containerRef} className="relative w-full h-[1000vh]">
         <div 
-          className="sticky top-0 w-full h-[100vh] min-h-[520px] overflow-hidden" 
+          className="sticky top-0 w-full h-[100vh] min-h-[520px] overflow-hidden bg-black" 
           data-name="home_section"
         >
           
@@ -435,18 +414,19 @@ export function HomeSection() {
             </div>
           </section>
 
+          {/* home_02 */}
+          <section
+            ref={home02Ref}
+            className="absolute inset-0 w-full h-full z-20"
+            data-name="home_02"
+            style={{ transform: "translateY(100vh)" }}
+          >
+            <img alt="" src={imgHome02} className="absolute inset-0 size-full object-cover" />
+            <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
+          </section>
+
         </div>
       </div>
-
-      {/* home_02 — ScrollTrigger pin으로 고정 (빠른 스크롤 관성 방지) */}
-      <section
-        ref={home02Ref}
-        className="relative w-full h-[100vh]"
-        data-name="home_02"
-      >
-        <img alt="" src={imgHome02} className="absolute inset-0 size-full object-cover" />
-        <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
-      </section>
     </>
   );
 }
