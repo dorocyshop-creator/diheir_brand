@@ -32,7 +32,7 @@ export function DiheirLanding() {
     gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
-    const update = () => setZoom(Math.min(1, window.innerWidth / 1920));
+    const update = () => setZoom(window.innerWidth / 1920);
     update();
     window.addEventListener("resize", update);
     return () => {
