@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import React from "react";
+import { TERMS_OF_USE } from "../../../constants/terms";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FadeUp } from "./FadeUp";
@@ -2456,6 +2457,8 @@ function InstagramIcon() {
 }
 
 function Footer() {
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+
   return (
     <footer
       className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),6vw,110px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
@@ -2481,14 +2484,17 @@ function Footer() {
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link}
-                href={link.toLowerCase() === "home" ? undefined : "#"}
+                href={(link.toLowerCase() === "home" || link.toLowerCase() === "information") ? undefined : "#"}
                 onClick={(e) => {
                   if (link.toLowerCase() === "home") {
                     e.preventDefault();
                     window.scrollTo({ top: 0, behavior: "smooth" });
+                  } else if (link.toLowerCase() === "information") {
+                    e.preventDefault();
+                    setIsTermsOpen(true);
                   }
                 }}
-                className={`w-fit transition-opacity hover:opacity-70 ${link.toLowerCase() === "home" ? "cursor-pointer" : ""}`}
+                className={`w-fit transition-opacity hover:opacity-70 ${(link.toLowerCase() === "home" || link.toLowerCase() === "information") ? "cursor-pointer" : ""}`}
               >
                 {link}
               </a>
@@ -2526,7 +2532,43 @@ function Footer() {
           />
         </FadeUp>
       </div>
+
+      <InformationModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </footer>
+  );
+}
+
+function InformationModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  if (!isOpen) return null;
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          onClick={onClose}
+        >
+          &times;
+        </button>
+        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+          이용약관 (Information)
+        </h3>
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-pre-wrap">
+          {TERMS_OF_USE}
+        </div>
+      </div>
+    </div>
   );
 }
 

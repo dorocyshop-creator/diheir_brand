@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useMotionValue, AnimatePresence } from "motion/react";
 import React, { useRef, useEffect, useState, createContext, useContext } from "react";
+import { TERMS_OF_USE } from "../../constants/terms";
 import { FadeUp } from "../../app/components/diheir/FadeUp";
 import svgPaths from "./svg-0y7pwhlwwq";
 import imgDiheirLogoOg1 from "./6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
@@ -2363,6 +2364,40 @@ function PrivacyPolicyModal({
   );
 }
 
+function InformationModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  if (!isOpen) return null;
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          onClick={onClose}
+        >
+          &times;
+        </button>
+        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+          이용약관 (Information)
+        </h3>
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-pre-wrap">
+          {TERMS_OF_USE}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Frame23() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [date, setDate] = useState("");
@@ -2676,7 +2711,7 @@ function Diheirspace() {
   );
 }
 
-function Frame55() {
+function Frame55({ onInformationClick }: { onInformationClick: () => void }) {
   return (
     <div className="[word-break:break-word] capitalize content-stretch flex flex-col font-serif gap-[60px] items-start leading-[1.3] not-italic relative shrink-0 text-[#c1c4ad] text-[40px] tracking-[-0.8px] w-full">
       <p 
@@ -2685,7 +2720,12 @@ function Frame55() {
       >
         home
       </p>
-      <p className="relative shrink-0 whitespace-nowrap">Information</p>
+      <p 
+        className="relative shrink-0 whitespace-nowrap cursor-pointer hover:text-white transition-colors"
+        onClick={onInformationClick}
+      >
+        Information
+      </p>
       <p className="relative shrink-0 whitespace-nowrap">Privacy Policy</p>
       <p className="relative shrink-0 whitespace-nowrap">Terms of Use</p>
       <p className="relative shrink-0 whitespace-nowrap">Quality Care</p>
@@ -2793,20 +2833,22 @@ function Frame56() {
   );
 }
 
-function Frame54() {
+function Frame54({ onInformationClick }: { onInformationClick: () => void }) {
   return (
     <FadeUp
       duration={1.0}
       margin="0px 0px 2000px 0px"
       className="absolute content-stretch flex flex-col gap-[80px] items-start left-[110px] top-[469px] w-[224px]"
     >
-      <Frame55 />
+      <Frame55 onInformationClick={onInformationClick} />
       <Frame56 />
     </FadeUp>
   );
 }
 
 function Footer() {
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+
   return (
     <div
       className="h-[1405px] overflow-clip relative shrink-0 w-[1920px]"
@@ -2839,7 +2881,8 @@ function Footer() {
           src={imgDiheirLogoOg1}
         />
       </FadeUp>
-      <Frame54 />
+      <Frame54 onInformationClick={() => setIsTermsOpen(true)} />
+      <InformationModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </div>
   );
 }
