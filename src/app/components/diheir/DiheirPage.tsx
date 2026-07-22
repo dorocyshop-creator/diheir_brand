@@ -269,7 +269,7 @@ export function HomeSection() {
   const home02Ref = useRef<HTMLElement>(null);
 
   // 총 프레임 수 (Python 스크립트로 추출된 수)
-  const FRAME_COUNT = 230;
+  const FRAME_COUNT = 200;
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
