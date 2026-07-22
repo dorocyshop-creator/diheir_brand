@@ -2038,9 +2038,16 @@ function Frame3({ onClick }: { onClick?: () => void }) {
 function Collection() {
   const [actualWidth, setActualWidth] = useState(1920);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
-  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
-  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
+  };
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
+  };
 
   useEffect(() => {
     const update = () => {
@@ -2052,7 +2059,7 @@ function Collection() {
   }, []);
 
   return (
-    <CollectionContext.Provider value={COLLECTIONS_DATA[currentIndex]}>
+    <CollectionContext.Provider value={{ ...COLLECTIONS_DATA[currentIndex], currentIndex, direction }}>
       <div
         className="h-[1200px] overflow-visible relative shrink-0 w-[1920px]"
         data-name="collection"
@@ -2367,7 +2374,7 @@ function Frame23() {
   return (
     <FadeUp
       delay={0.2}
-      className="-translate-x-1/2 absolute bg-[#c3c0b0] content-stretch flex flex-col gap-[100px] h-[945px] items-center justify-center left-1/2 px-[80px] py-[100px] top-[750px] w-[1000px] z-10"
+      className="-translate-x-1/2 absolute bg-[#c3c0b0] content-stretch flex flex-col gap-[100px] h-auto items-center justify-start left-1/2 px-[80px] py-[100px] top-[750px] w-[1000px] z-10"
     >
       <iframe
         name="hidden_iframe"
