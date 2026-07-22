@@ -2112,7 +2112,7 @@ function GoogleSubmitForm({
 
         <button
           type="submit"
-          className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(min(10px,1.3vw),2vw,20px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
+          className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(40px,6.94vw,100px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
         >
           <span
             className={`font-serif ${isMobile ? "text-[4vw]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
@@ -2130,7 +2130,7 @@ function ReservationCard() {
 
   return (
     <FadeUp>
-      <div className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(40px,5.2vw),6vw,80px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform">
+      <div className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(32px,5.55vw,80px)] py-[clamp(40px,6.94vw,100px)] bg-[#AAA680]/20 backdrop-blur-[20px] transform-gpu will-change-transform">
         <svg
           className="absolute inset-0 size-full pointer-events-none"
           xmlns="http://www.w3.org/2000/svg"
