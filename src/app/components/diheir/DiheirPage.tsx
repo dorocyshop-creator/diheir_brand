@@ -1815,29 +1815,29 @@ function Collection() {
       />
       <div className="relative mx-auto flex max-w-[1680px] flex-col items-center gap-[clamp(min(32px,4.1667vw),5vw,60px)]">
         <FadeUp>
-          <div className="flex flex-col items-start gap-5 text-left w-full">
-            <div className="flex flex-col items-start gap-2 w-full">
+          <div className="flex flex-col items-center gap-5 text-center w-full">
+            <div className="flex flex-col items-center gap-2 w-full">
               <p
-                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-left`}
+                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-center`}
                 style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)", minHeight: "1.2em" }}
               >
                 {current.subtitle}
               </p>
               <p
-                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-left`}
+                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-center`}
                 style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
               >
                 {current.title}
               </p>
             </div>
             <p
-              className="font-sans font-light text-white transition-opacity duration-300 w-full text-left"
+              className="font-sans font-light text-white transition-opacity duration-300 w-full text-center"
               style={{ fontSize: "clamp(min(13px,1.6927vw),1.2vw,16px)" }}
             >
               {current.desc1}
             </p>
             <p
-              className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px] transition-opacity duration-300 whitespace-pre-wrap w-full text-left`}
+              className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px] transition-opacity duration-300 whitespace-pre-wrap w-full text-center`}
               style={{ fontSize: "clamp(min(15px,1.9531vw),1.6vw,20px)" }}
             >
               {current.desc2}
@@ -1868,10 +1868,10 @@ function Collection() {
               {/* Left image (02) */}
               <motion.div
                 animate={{
-                  x: "-15px",
+                  x: isOpen ? "calc(-100% - 16px)" : "-15px",
                   y: "0%",
-                  rotate: -3,
-                  scale: 0.98,
+                  rotate: isOpen ? 0 : -3,
+                  scale: isOpen ? 1 : 0.98,
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="absolute inset-0 z-10"
@@ -1886,10 +1886,10 @@ function Collection() {
               {/* Right image (03) */}
               <motion.div
                 animate={{
-                  x: "15px",
+                  x: isOpen ? "calc(100% + 16px)" : "15px",
                   y: "0%",
-                  rotate: 3,
-                  scale: 0.98,
+                  rotate: isOpen ? 0 : 3,
+                  scale: isOpen ? 1 : 0.98,
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="absolute inset-0 z-10"
@@ -1942,19 +1942,19 @@ function PrivacyPolicyModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        className="relative w-full max-w-lg max-h-[90vh] flex flex-col rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           &times;
         </button>
-        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+        <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           개인정보 수집 및 이용 동의
         </h3>
-        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto">
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed overflow-y-auto flex-1 pr-2">
           <p>
             디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이
             개인정보를 수집·이용합니다.
@@ -2574,19 +2574,19 @@ function InfoModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           &times;
         </button>
-        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+        <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           {title}
         </h3>
-        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-pre-wrap">
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed overflow-y-auto flex-1 text-left whitespace-pre-wrap pr-2">
           {content}
         </div>
       </div>

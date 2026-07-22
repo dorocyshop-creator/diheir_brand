@@ -1737,7 +1737,7 @@ function Frame46() {
   return (
     <div className="content-stretch flex items-center justify-center px-[20px] relative shrink-0">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] not-italic relative shrink-0 text-[#e5e5d4] text-[80px] text-center whitespace-nowrap transition-opacity duration-300">
-        <p className="leading-[normal] w-full text-left">{current.title}</p>
+        <p className="leading-[normal] w-full text-center">{current.title}</p>
       </div>
     </div>
   );
@@ -1748,7 +1748,7 @@ function Frame45() {
   return (
     <div className="content-stretch flex flex-col gap-[9px] items-center relative shrink-0 w-full">
       <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e5d4] text-[24px] w-[min-content] transition-opacity duration-300 text-center" style={{ minHeight: "1.2em" }}>
-        <p className="leading-[normal] w-full text-left">{current.subtitle}</p>
+        <p className="leading-[normal] w-full text-center">{current.subtitle}</p>
       </div>
       <Frame46 />
     </div>
@@ -1772,7 +1772,7 @@ function Frame48() {
   return (
     <FadeUp className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0 w-fit">
       <Frame47 />
-      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-left text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300 w-full">
+      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300 w-full">
         {current.desc2}
       </p>
     </FadeUp>
@@ -2324,19 +2324,19 @@ function PrivacyPolicyModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        className="relative w-full max-w-lg max-h-[90vh] flex flex-col rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           &times;
         </button>
-        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+        <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           개인정보 수집 및 이용 동의
         </h3>
-        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-normal">
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed overflow-y-auto flex-1 text-left whitespace-normal pr-2">
           <p>
             디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이
             개인정보를 수집·이용합니다.
@@ -2385,19 +2385,19 @@ function InfoModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black"
+          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           &times;
         </button>
-        <h3 className="mb-4 text-xl font-bold text-[#383629]">
+        <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           {title}
         </h3>
-        <div className="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto text-left whitespace-pre-wrap">
+        <div className="text-sm text-[#383629] space-y-4 leading-relaxed overflow-y-auto flex-1 text-left whitespace-pre-wrap pr-2">
           {content}
         </div>
       </div>
