@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, createContext, useContext } from "react";
 import { FadeUp } from "../../app/components/diheir/FadeUp";
 import svgPaths from "./svg-0y7pwhlwwq";
 import imgDiheirLogoOg1 from "./6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
@@ -1699,21 +1699,52 @@ function ServicesCore() {
   );
 }
 
+const COLLECTIONS_DATA = [
+  {
+    subtitle: "Lily Of the Valley",
+    title: "LOV Collection",
+    desc1: "은방울꽃의 꽃말, “틀림없이 행복해집니다”",
+    desc2: "The Lily of the Valley symbolizes a promise:\n\"Surely, Happiness Awaits You.\""
+  },
+  {
+    subtitle: "Heirloom + bound",
+    title: "Heirbound Collection",
+    desc1: "두 끝을 하나로 묶어내는 리본",
+    desc2: "A sculptural design expressing the moment\nwhen time flows toward one another."
+  },
+  {
+    subtitle: "Concord + Core",
+    title: "CONCORE Collection",
+    desc1: "마음과 요소가 조용히 맞닿는 조화로운 일치",
+    desc2: "The Concord Collection embodies a harmonious union \nat the heart of a relationship,"
+  },
+  {
+    subtitle: "",
+    title: "SPIRAL Collection",
+    desc1: "확장하는 곡선이 만드는 새로운 질서",
+    desc2: "A sculptural expression of the journey through time and \nthe growth shaped along the way."
+  }
+];
+
+const CollectionContext = createContext(COLLECTIONS_DATA[0]);
+
 function Frame46() {
+  const current = useContext(CollectionContext);
   return (
     <div className="content-stretch flex items-center justify-center px-[20px] relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] not-italic relative shrink-0 text-[#e5e5d4] text-[80px] text-center whitespace-nowrap">
-        <p className="leading-[normal]">LOV Collection</p>
+      <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] not-italic relative shrink-0 text-[#e5e5d4] text-[80px] text-center whitespace-nowrap transition-opacity duration-300">
+        <p className="leading-[normal]">{current.title}</p>
       </div>
     </div>
   );
 }
 
 function Frame45() {
+  const current = useContext(CollectionContext);
   return (
-    <div className="content-stretch flex flex-col gap-[9px] items-start relative shrink-0 w-full">
-      <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e5d4] text-[24px] w-[min-content]">
-        <p className="leading-[normal]">Lily Of the Valley</p>
+    <div className="content-stretch flex flex-col gap-[9px] items-center relative shrink-0 w-full">
+      <div className="[word-break:break-word] flex flex-col font-serif justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e5d4] text-[24px] w-[min-content] transition-opacity duration-300 text-center" style={{ minHeight: "1.2em" }}>
+        <p className="leading-[normal]">{current.subtitle}</p>
       </div>
       <Frame46 />
     </div>
@@ -1721,24 +1752,24 @@ function Frame45() {
 }
 
 function Frame47() {
+  const current = useContext(CollectionContext);
   return (
     <div className="content-stretch flex flex-col gap-[30px] items-center relative shrink-0 w-full">
       <Frame45 />
-      <p className="[word-break:break-word] font-sans font-light leading-[normal] not-italic relative shrink-0 text-[16px] text-center text-white w-full">
-        은방울꽃의 꽃말, “틀림없이 행복해집니다”
+      <p className="[word-break:break-word] font-sans font-light leading-[normal] not-italic relative shrink-0 text-[16px] text-center text-white w-full transition-opacity duration-300">
+        {current.desc1}
       </p>
     </div>
   );
 }
 
 function Frame48() {
+  const current = useContext(CollectionContext);
   return (
     <FadeUp className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0 w-[531px]">
       <Frame47 />
-      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre">
-        The Lily of theValleysymbolizes apromise:
-        <br aria-hidden />
-        {` "Surely, Happiness AwaitsYou.“`}
+      <p className="[word-break:break-word] font-serif leading-[1.3] not-italic relative shrink-0 text-[20px] text-center text-white tracking-[-0.4px] whitespace-pre-wrap transition-opacity duration-300">
+        {current.desc2}
       </p>
     </FadeUp>
   );
@@ -1928,15 +1959,15 @@ function BitcoinIconsArrowUpOutline() {
   );
 }
 
-function Frame2() {
+function Frame2({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[261px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
+    <button type="button" onClick={onClick} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[261px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
       <div
         aria-hidden
         className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[36px]"
       />
       <BitcoinIconsArrowUpOutline />
-    </div>
+    </button>
   );
 }
 
@@ -1970,20 +2001,24 @@ function BitcoinIconsArrowUpOutline1() {
   );
 }
 
-function Frame3() {
+function Frame3({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[148px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
+    <button type="button" onClick={onClick} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[148px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
       <div
         aria-hidden
         className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[36px]"
       />
       <BitcoinIconsArrowUpOutline1 />
-    </div>
+    </button>
   );
 }
 
 function Collection() {
   const [actualWidth, setActualWidth] = useState(1920);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
+  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
 
   useEffect(() => {
     const update = () => {
@@ -1995,33 +2030,35 @@ function Collection() {
   }, []);
 
   return (
-    <div
-      className="h-[1200px] overflow-visible relative shrink-0 w-[1920px]"
-      data-name="collection"
-    >
-      <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <div className="absolute bg-[#383629] h-[1200px] left-[calc(50%-2000px)] top-0 w-[4000px]" />
-        <div
-          className="absolute h-full top-0 overflow-hidden"
-          style={{
-            width: `${actualWidth}px`,
-            left: `calc(50% - ${actualWidth / 2}px)`,
-          }}
-        >
-          <img src={imgCollection} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" alt="collection background" />
+    <CollectionContext.Provider value={COLLECTIONS_DATA[currentIndex]}>
+      <div
+        className="h-[1200px] overflow-visible relative shrink-0 w-[1920px]"
+        data-name="collection"
+      >
+        <div aria-hidden className="absolute inset-0 pointer-events-none">
+          <div className="absolute bg-[#383629] h-[1200px] left-[calc(50%-2000px)] top-0 w-[4000px]" />
+          <div
+            className="absolute h-full top-0 overflow-hidden"
+            style={{
+              width: `${actualWidth}px`,
+              left: `calc(50% - ${actualWidth / 2}px)`,
+            }}
+          >
+            <img src={imgCollection} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" alt="collection background" />
+          </div>
+          <div
+            className="absolute h-full top-0 overflow-hidden"
+            style={{
+              width: `${actualWidth}px`,
+              left: `calc(50% - ${actualWidth / 2}px)`,
+            }}
+          ></div>
         </div>
-        <div
-          className="absolute h-full top-0 overflow-hidden"
-          style={{
-            width: `${actualWidth}px`,
-            left: `calc(50% - ${actualWidth / 2}px)`,
-          }}
-        ></div>
+        <Frame49 />
+        <Frame2 onClick={handleNext} />
+        <Frame3 onClick={handlePrev} />
       </div>
-      <Frame49 />
-      <Frame2 />
-      <Frame3 />
-    </div>
+    </CollectionContext.Provider>
   );
 }
 

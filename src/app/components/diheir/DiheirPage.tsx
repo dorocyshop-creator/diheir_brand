@@ -1714,10 +1714,11 @@ function ServicesCore() {
 
 /* ------------------------------- Collection ------------------------------- */
 
-function ArrowButton({ direction }: { direction: "prev" | "next" }) {
+function ArrowButton({ direction, onClick }: { direction: "prev" | "next"; onClick?: () => void }) {
   return (
     <button
       type="button"
+      onClick={onClick}
       aria-label={direction === "prev" ? "이전" : "다음"}
       className="flex size-[clamp(min(52px,6.7708vw),5vw,72px)] items-center justify-center rounded-full transition-colors hover:brightness-110"
       style={{
@@ -1746,8 +1747,41 @@ function ArrowButton({ direction }: { direction: "prev" | "next" }) {
   );
 }
 
+const COLLECTIONS_DATA = [
+  {
+    subtitle: "Lily Of the Valley",
+    title: "LOV Collection",
+    desc1: "은방울꽃의 꽃말, “틀림없이 행복해집니다”",
+    desc2: "The Lily of the Valley symbolizes a promise:\n\"Surely, Happiness Awaits You.\""
+  },
+  {
+    subtitle: "Heirloom + bound",
+    title: "Heirbound Collection",
+    desc1: "두 끝을 하나로 묶어내는 리본",
+    desc2: "A sculptural design expressing the moment\nwhen time flows toward one another."
+  },
+  {
+    subtitle: "Concord + Core",
+    title: "CONCORE Collection",
+    desc1: "마음과 요소가 조용히 맞닿는 조화로운 일치",
+    desc2: "The Concord Collection embodies a harmonious union \nat the heart of a relationship,"
+  },
+  {
+    subtitle: "",
+    title: "SPIRAL Collection",
+    desc1: "확장하는 곡선이 만드는 새로운 질서",
+    desc2: "A sculptural expression of the journey through time and \nthe growth shaped along the way."
+  }
+];
+
 function Collection() {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
+  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
+
+  const current = COLLECTIONS_DATA[currentIndex];
 
   return (
     <section
@@ -1764,31 +1798,29 @@ function Collection() {
           <div className="flex flex-col items-center gap-5 text-center">
             <div className="flex flex-col items-center gap-2">
               <p
-                className={`${SERIF} text-[#e5e5d4]`}
-                style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)" }}
+                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300`}
+                style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)", minHeight: "1.2em" }}
               >
-                Lily Of the Valley
+                {current.subtitle}
               </p>
               <p
-                className={`${SERIF} text-[#e5e5d4]`}
+                className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300`}
                 style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
               >
-                LOV Collection
+                {current.title}
               </p>
             </div>
             <p
-              className="font-sans font-light text-white"
+              className="font-sans font-light text-white transition-opacity duration-300"
               style={{ fontSize: "clamp(min(13px,1.6927vw),1.2vw,16px)" }}
             >
-              은방울꽃의 꽃말, “틀림없이 행복해집니다”
+              {current.desc1}
             </p>
             <p
-              className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px]`}
+              className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px] transition-opacity duration-300 whitespace-pre-wrap`}
               style={{ fontSize: "clamp(min(15px,1.9531vw),1.6vw,20px)" }}
             >
-              The Lily of the Valley symbolizes a promise:
-              <br />
-              "Surely, Happiness Awaits You."
+              {current.desc2}
             </p>
           </div>
         </FadeUp>
@@ -1849,8 +1881,8 @@ function Collection() {
         </div>
 
         <div className="flex gap-4 mt-8 z-50 relative">
-          <ArrowButton direction="prev" />
-          <ArrowButton direction="next" />
+          <ArrowButton direction="prev" onClick={handlePrev} />
+          <ArrowButton direction="next" onClick={handleNext} />
         </div>
       </div>
     </section>
