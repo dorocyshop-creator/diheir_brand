@@ -18,13 +18,8 @@ import imgFrame16 from "../../../component/service/service_Jewelry_Resetting_Ser
 import imgFrame17 from "../../../component/service/service_Craftsmanship.png";
 import imgFrame19 from "../../../component/service/service_Jewelry_as_Legacy.png";
 import imgFrame21 from "../../../component/service/service_Invisible_Precision.png";
-import imgFrame31 from "../../../imports/DiheirPage/7b4847eb3b70aa6c950d8c0a99d5e9d65020736e.png";
-import imgRectangle14 from "../../../imports/DiheirPage/d607e82960f594901d1144ba4728728d07dbd59a.png";
-import imgRectangle15 from "../../../imports/DiheirPage/d228ad0703d949dc5b2bbdd884d5d247cf9c0046.png";
-import imgRectangle18 from "../../../imports/DiheirPage/7116551fc77e8e74ffac985596b8727be0d14354.png";
 import imgServiceLeft from "../../../component/service/service_left.png";
 import imgServiceRight from "../../../component/service/service_right.png";
-import imgRectangle20 from "../../../imports/DiheirPage/8d5f1fbbe62a4f0dad74eb1cda60623ed43b461f.png";
 import imgCollection from "../../../component/collection/collection_bg.jpg";
 import coreMo01 from "../../../component/service/core_mo_01.jpg";
 import coreMo02 from "../../../component/service/core_mo_02.jpg";
@@ -1230,7 +1225,6 @@ function ServicesCore() {
       <div className="relative mx-auto hidden md:flex max-w-[1720px] flex-col items-center gap-[clamp(min(24px,3.125vw),4vw,60px)] px-[100px] py-[120px]">
         {/* 1. Main Central Image in the center */}
         <FadeUp delay={0.2} className="relative w-full md:w-[65%] items-center justify-center overflow-hidden z-10">
-          <img alt="" src={imgFrame31} className="h-[clamp(min(400px,52.0833vw),35vw,700px)] w-full object-cover" />
           <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center capitalize text-[#e7e8cf]">
             <div className={`${SERIF} leading-[1.3] tracking-[-1.28px]`} style={{ fontSize: "clamp(min(28px,3.6458vw),4.5vw,64px)" }}>
@@ -1244,16 +1238,12 @@ function ServicesCore() {
         {/* 2. 4 images floating around the center image */}
         <div className="absolute inset-0 pointer-events-none z-20">
           <FadeUp delay={0.3} className="absolute left-[1%] top-[10%] w-[18%] pointer-events-auto">
-            <img alt="" src={imgRectangle14} className="w-full h-auto aspect-[5/3] object-cover rounded-md drop-shadow-xl" />
           </FadeUp>
           <FadeUp delay={0.4} className="absolute right-[2%] top-[15%] w-[20%] pointer-events-auto">
-            <img alt="" src={imgRectangle15} className="w-full h-auto aspect-[5/3] object-cover rounded-md drop-shadow-xl" />
           </FadeUp>
           <FadeUp delay={0.5} className="absolute left-[3%] top-[60%] w-[16%] pointer-events-auto">
-            <img alt="" src={imgRectangle18} className="w-full h-auto aspect-[5/3] object-cover rounded-md drop-shadow-xl" />
           </FadeUp>
           <FadeUp delay={0.6} className="absolute right-[4%] top-[65%] w-[18%] pointer-events-auto">
-            <img alt="" src={imgRectangle20} className="w-full h-auto aspect-[5/3] object-cover rounded-md drop-shadow-xl" />
           </FadeUp>
         </div>
       </div>

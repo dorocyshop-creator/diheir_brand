@@ -5,8 +5,6 @@ import svgPaths from "./svg-0y7pwhlwwq";
 import imgDiheirLogoOg1 from "./6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
 import imgImage40 from "../../component/brand/olive_tree.png";
 import imgImage49 from "../../component/brand/tree.png";
-import imgFrame7 from "./d5c1d2100b9a6dcfa8bf3f0a60b5fe5cfd4d41a9.png";
-import imgFrame8 from "./60d3b967594c3f9b4e5cb10e82c78e8eaef102cc.png";
 import imgFrame9 from "./ba07f5994c6e2c4cb5830e9dfdcc07b0592e26f3.png";
 import imgFrame10 from "./f6c122e00214ef423f256922a9b11476fb7caf94.png";
 import imgFrame11 from "../../component/brand/1st_Generation.png";
@@ -14,28 +12,18 @@ import imgFrame12 from "../../component/brand/2st_Generation.png";
 import imgService from "../../component/service/service.jpg";
 import imgServiceLeft from "../../component/service/service_left.png";
 import imgServiceRight from "../../component/service/service_right.png";
-import imgFrame13 from "./7f861cbe047e3416f9ef1ce171b951d3673257a6.png";
 import imgFrame14 from "../../component/service/service_The_First_Principle.png";
 import coreMo01 from "../../component/service/core_mo_01.jpg";
 import coreMo02 from "../../component/service/core_mo_02.jpg";
 import coreMo03 from "../../component/service/core_mo_03.jpg";
 import coreMo04 from "../../component/service/core_mo_04.jpg";
-import imgFrame15 from "./48c1a41ecbf53b79a81ec159489fccd6a950109b.png";
 import imgFrame16 from "../../component/service/service_Jewelry_Resetting_Service.png";
 import imgFrame17 from "../../component/service/service_Craftsmanship.png";
-import imgFrame18 from "./6da6efef1bd105a442f258fa1c69a58a1c0e3b9e.png";
 import imgFrame19 from "../../component/service/service_Jewelry_as_Legacy.png";
-import imgFrame20 from "./9340202c3cd21d9164e557370a5ae877f0a49e6e.png";
 import imgFrame21 from "../../component/service/service_Invisible_Precision.png";
-import imgRectangle12 from "./88ea27b2777c1421cad2903ae4bc26702d861192.png";
-import imgRectangle13 from "./0fd786dd9ccc53298c1e4563dda47d3e0fe76ff5.png";
-import imgRectangle16 from "./e5e6f92efb68cbcb68654f09bb6a678e2d261c95.png";
-import imgCollection from "./1737e05b9e3e913f53d06449d2d1e12005c3a99b.png";
-import imgCollection1 from "./0196438ee351bad6e621bc694c3c4fe6ef047f32.png";
 import imgLOV01 from "../../component/collection/LOV_Collection_01.jpg";
 import imgLOV02 from "../../component/collection/LOV_Collection_02.jpg";
 import imgLOV03 from "../../component/collection/LOV_Collection_03.jpg";
-import imgRectangle21 from "./05f82a08005a73ec12adaac9024fdaa2a8561a53.png";
 import imgRectangle22 from "./e41d5196719563558533d5be1e1c3a14a805950b.png";
 import imgRectangle23 from "./805a32b6d14e895fdc339ccbfbf2a6d65c0472d0.png";
 import imgRectangle24 from "./f8ceae5a06aaed2f11c4300828d3be4956a4a8ce.png";
@@ -369,8 +357,6 @@ function Frame6() {
   return (
     <FadeUp delay={0.2} className="-translate-x-1/2 absolute content-stretch flex flex-col h-[600px] items-center justify-end left-1/2 pt-[424px] top-[588px] w-[560px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <img alt="" className="absolute max-w-none object-cover size-full" src={imgFrame7} />
-        <img alt="" className="absolute max-w-none object-cover size-full" src={imgFrame8} />
         <div className="absolute inset-0 overflow-hidden">
           <img alt="" className="absolute h-[100.03%] left-[-13.85%] max-w-none top-[-1.39%] w-[150.04%]" src={imgFrame9} />
         </div>
@@ -497,7 +483,6 @@ function Frame16() {
     <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]">
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame13} />
         <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame14} />
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
       </div>
@@ -526,8 +511,6 @@ function Frame18() {
     <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[43px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]">
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame13} />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame15} />
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
         <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame16} />
       </div>
@@ -552,7 +535,6 @@ function Frame19() {
     <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] pl-[125px] pr-[126px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]">
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame13} />
         <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame17} />
       </div>
       <p className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">Craftsmanship</p>
@@ -578,8 +560,6 @@ function Frame20() {
     <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[99px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]">
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame13} />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame18} />
         <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame19} />
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
       </div>
@@ -604,8 +584,6 @@ function Frame21() {
     <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]">
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame13} />
-        <img alt="" className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105" src={imgFrame20} />
         <div className="absolute inset-0 overflow-hidden rounded-tl-[400px] rounded-tr-[400px]">
           <img alt="" className="absolute h-[128.06%] left-[0.01%] max-w-none top-[-26.33%] w-full" src={imgFrame21} />
         </div>
@@ -850,8 +828,6 @@ function Group6({ scrollYProgress, vh = 1080, actualWidth = 1920 }: { scrollYPro
       <motion.div style={{ x: rightX, top: rightTopY }} className="absolute h-[360px] left-[1515px] w-[600px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle12} />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle13} />
           <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
             <img alt="" className="w-full h-full object-cover" src={coreMo01} />
           </div>
@@ -861,7 +837,6 @@ function Group6({ scrollYProgress, vh = 1080, actualWidth = 1920 }: { scrollYPro
       <motion.div style={{ x: rightX, top: rightBottomY }} className="absolute h-[360px] left-[1515px] w-[600px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle12} />
           <img alt="" className="absolute w-full h-full object-cover" src={coreMo02} />
           <div className="absolute bg-[rgba(0,0,0,0)] inset-0" />
         </div>
@@ -869,8 +844,6 @@ function Group6({ scrollYProgress, vh = 1080, actualWidth = 1920 }: { scrollYPro
       <motion.div style={{ x: leftX, top: leftTopY }} className="absolute h-[360px] left-[-187px] w-[600px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle12} />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle16} />
           <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
             <img alt="" className="w-full h-full object-cover" src={coreMo03} />
           </div>
@@ -880,7 +853,6 @@ function Group6({ scrollYProgress, vh = 1080, actualWidth = 1920 }: { scrollYPro
       <motion.div style={{ x: leftX, top: leftBottomY }} className="absolute h-[360px] left-[-187px] w-[600px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle12} />
           <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
             <img alt="" className="w-full h-full object-cover" src={coreMo04} />
           </div>
@@ -1002,7 +974,6 @@ function Frame31() {
       <div className="h-[584px] relative shrink-0 w-[540px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle21} />
           <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle22} />
           <div className="absolute inset-0 overflow-hidden">
             <img alt="" className="absolute h-[107.65%] left-[-15.76%] max-w-none top-[-22.25%] w-[174.61%]" src={imgRectangle23} />
@@ -1019,7 +990,6 @@ function Frame33() {
       <div className="h-[606px] relative shrink-0 w-[560px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle21} />
           <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle22} />
           <div className="absolute inset-0 overflow-hidden">
             <img alt="" className="absolute h-[131.22%] left-[-28.27%] max-w-none top-[-31.58%] w-[184.51%]" src={imgRectangle24} />
@@ -1039,7 +1009,6 @@ function Frame32() {
       <div className="h-[606px] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 w-[560px]">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute bg-[#d9d9d9] inset-0" />
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle21} />
           <img alt="" className="absolute max-w-none object-cover size-full" src={imgRectangle22} />
           <div className="absolute inset-0 overflow-hidden">
             <img alt="" className="absolute h-[152.02%] left-[-41.19%] max-w-none top-[-42.44%] w-[213.75%]" src={imgRectangle24} />
@@ -1161,10 +1130,8 @@ function Collection() {
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div className="absolute bg-[#383629] h-[1200px] left-[calc(50%-2000px)] top-0 w-[4000px]" />
         <div className="absolute h-full top-0 overflow-hidden" style={{ width: `${actualWidth}px`, left: `calc(50% - ${actualWidth / 2}px)` }}>
-          <img alt="" className="absolute h-[133.33%] left-[0%] max-w-none top-[-12.46%] w-full object-cover" src={imgCollection} />
         </div>
         <div className="absolute h-full top-0 overflow-hidden" style={{ width: `${actualWidth}px`, left: `calc(50% - ${actualWidth / 2}px)` }}>
-          <img alt="" className="absolute h-[120%] left-[0%] max-w-none top-[-7.22%] w-full object-cover" src={imgCollection1} />
         </div>
       </div>
       <Frame49 />
