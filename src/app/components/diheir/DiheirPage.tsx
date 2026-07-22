@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { useScroll, useTransform, motion } from "motion/react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import React from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FadeUp } from "./FadeUp";
@@ -1777,9 +1778,20 @@ const COLLECTIONS_DATA = [
 function Collection() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
-  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
-  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [currentIndex]);
+
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
+  };
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
+  };
 
   const current = COLLECTIONS_DATA[currentIndex];
 
@@ -1827,57 +1839,74 @@ function Collection() {
 
         {/* Stacked Interactive Gallery */}
         <div
-          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
+          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group overflow-hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {/* Left image (02) */}
-          <motion.div
-            animate={{
-              x: isOpen ? "calc(-100% - 16px)" : "-2%",
-              y: "0%",
-              rotate: isOpen ? 0 : -3,
-              scale: isOpen ? 1 : 0.98,
-            }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="absolute inset-0 z-10"
-          >
-            <img
-              alt=""
-              src={imgLOV02}
-              className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
-            />
-          </motion.div>
+          <AnimatePresence custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={{
+                enter: (dir) => ({ x: dir > 0 ? 1000 : -1000 }),
+                center: { x: 0 },
+                exit: (dir) => ({ x: dir > 0 ? -1000 : 1000 })
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute inset-0 z-10"
+            >
+              {/* Left image (02) */}
+              <motion.div
+                animate={{
+                  x: isOpen ? "calc(-100% - 16px)" : "-2%",
+                  y: "0%",
+                  rotate: isOpen ? 0 : -3,
+                  scale: isOpen ? 1 : 0.98,
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="absolute inset-0 z-10"
+              >
+                <img
+                  alt=""
+                  src={imgLOV02}
+                  className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
+                />
+              </motion.div>
 
-          {/* Right image (03) */}
-          <motion.div
-            animate={{
-              x: isOpen ? "calc(100% + 16px)" : "2%",
-              y: "0%",
-              rotate: isOpen ? 0 : 3,
-              scale: isOpen ? 1 : 0.98,
-            }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="absolute inset-0 z-10"
-          >
-            <img
-              alt=""
-              src={imgLOV03}
-              className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
-            />
-          </motion.div>
+              {/* Right image (03) */}
+              <motion.div
+                animate={{
+                  x: isOpen ? "calc(100% + 16px)" : "2%",
+                  y: "0%",
+                  rotate: isOpen ? 0 : 3,
+                  scale: isOpen ? 1 : 0.98,
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="absolute inset-0 z-10"
+              >
+                <img
+                  alt=""
+                  src={imgLOV03}
+                  className="size-full rounded-sm object-cover shadow-[0px_10px_20px_0px_rgba(0,0,0,0.5)]"
+                />
+              </motion.div>
 
-          {/* Center image (01) */}
-          <motion.div
-            animate={{ zIndex: 20, scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="absolute inset-0 z-20"
-          >
-            <img
-              alt=""
-              src={imgLOV01}
-              className="size-full rounded-sm object-cover shadow-[0px_20px_40px_0px_rgba(0,0,0,0.6)]"
-            />
-          </motion.div>
+              {/* Center image (01) */}
+              <motion.div
+                animate={{ zIndex: 20, scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="absolute inset-0 z-20"
+              >
+                <img
+                  alt=""
+                  src={imgLOV01}
+                  className="size-full rounded-sm object-cover shadow-[0px_20px_40px_0px_rgba(0,0,0,0.6)]"
+                />
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className="flex gap-4 mt-8 z-50 relative">

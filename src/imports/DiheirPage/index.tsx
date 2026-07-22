@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useMotionValue } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValue, AnimatePresence } from "motion/react";
 import React, { useRef, useEffect, useState, createContext, useContext } from "react";
 import { FadeUp } from "../../app/components/diheir/FadeUp";
 import svgPaths from "./svg-0y7pwhlwwq";
@@ -1865,65 +1865,87 @@ function Frame32() {
 
 function Frame49() {
   const [isOpen, setIsOpen] = useState(false);
+  const { currentIndex, direction } = useContext(CollectionContext);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [currentIndex]);
 
   return (
     <div className="absolute content-stretch flex flex-col gap-[60px] items-center left-[120px] top-[130px] w-[1680px]">
       <Frame48 />
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="content-stretch cursor-pointer flex h-[606px] items-center justify-center relative shrink-0 w-full group"
+        className="content-stretch cursor-pointer flex h-[606px] items-center justify-center relative shrink-0 w-full group overflow-hidden"
       >
-        <motion.div
-          animate={{
-            x: isOpen ? -580 : -15,
-            y: "0%",
-            rotate: isOpen ? 0 : -3,
-            scale: isOpen ? 1 : 0.98,
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="absolute z-10"
-        >
-          <div className="h-[606px] relative shrink-0 w-[560px]">
-            <img
-              alt=""
-              className="absolute size-full object-cover shadow-xl"
-              src={imgLOV02}
-            />
-          </div>
-        </motion.div>
+        <AnimatePresence custom={direction}>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={{
+              enter: (dir) => ({ x: dir > 0 ? 1500 : -1500 }),
+              center: { x: 0 },
+              exit: (dir) => ({ x: dir > 0 ? -1500 : 1500 })
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute inset-0 flex justify-center items-center"
+          >
+            <motion.div
+              animate={{
+                x: isOpen ? -580 : -15,
+                y: "0%",
+                rotate: isOpen ? 0 : -3,
+                scale: isOpen ? 1 : 0.98,
+              }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="absolute z-10"
+            >
+              <div className="h-[606px] relative shrink-0 w-[560px]">
+                <img
+                  alt=""
+                  className="absolute size-full object-cover shadow-xl"
+                  src={imgLOV02}
+                />
+              </div>
+            </motion.div>
 
-        <motion.div
-          animate={{
-            x: isOpen ? 580 : 15,
-            y: "0%",
-            rotate: isOpen ? 0 : 3,
-            scale: isOpen ? 1 : 0.98,
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="absolute z-10"
-        >
-          <div className="h-[606px] relative shrink-0 w-[560px]">
-            <img
-              alt=""
-              className="absolute size-full object-cover shadow-xl"
-              src={imgLOV03}
-            />
-          </div>
-        </motion.div>
+            <motion.div
+              animate={{
+                x: isOpen ? 580 : 15,
+                y: "0%",
+                rotate: isOpen ? 0 : 3,
+                scale: isOpen ? 1 : 0.98,
+              }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="absolute z-10"
+            >
+              <div className="h-[606px] relative shrink-0 w-[560px]">
+                <img
+                  alt=""
+                  className="absolute size-full object-cover shadow-xl"
+                  src={imgLOV03}
+                />
+              </div>
+            </motion.div>
 
-        <motion.div
-          animate={{ zIndex: 20, scale: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="absolute z-20"
-        >
-          <div className="h-[606px] relative shrink-0 w-[560px]">
-            <img
-              alt=""
-              className="absolute size-full object-cover shadow-2xl"
-              src={imgLOV01}
-            />
-          </div>
-        </motion.div>
+            <motion.div
+              animate={{ zIndex: 20, scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="absolute z-20"
+            >
+              <div className="h-[606px] relative shrink-0 w-[560px]">
+                <img
+                  alt=""
+                  className="absolute size-full object-cover shadow-2xl"
+                  src={imgLOV01}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </button>
     </div>
   );
