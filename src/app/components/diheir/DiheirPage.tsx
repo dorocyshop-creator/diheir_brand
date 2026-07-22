@@ -182,7 +182,8 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
         className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`}
         style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}
         onClick={() => {
-          const el = document.getElementById("reservation");
+          const targetId = window.innerWidth < 768 ? "reservation_mobile" : "reservation";
+          const el = document.getElementById(targetId);
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }}
       >
@@ -2261,7 +2262,7 @@ function DiheirSpace() {
 
   return (
     <section
-      id="reservation"
+      id="reservation_mobile"
       className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,60px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
       data-name="diheirspace"
     >
@@ -2406,7 +2407,7 @@ const FOOTER_LINKS = [
 function YoutubeIcon() {
   return (
     <svg
-      className="size-[clamp(min(48px,6.25vw),6vw,72px)]"
+      className="size-[clamp(min(48px,6.25vw),6vw,72px)] shrink-0"
       fill="none"
       viewBox="0 0 72 72"
       aria-label="YouTube"
@@ -2424,28 +2425,30 @@ function YoutubeIcon() {
 
 function InstagramIcon() {
   return (
-    <svg
-      className="size-[clamp(min(48px,6.25vw),6vw,72px)] p-2.5"
-      fill="none"
-      viewBox="0 0 55.5 55.5"
-      aria-label="Instagram"
-    >
-      <path
-        d={svgPaths.p2a5fff20}
-        stroke="#C1C4AD"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-      <path d={svgPaths.p149a5a80} stroke="#C1C4AD" strokeWidth="1.5" />
-      <path
-        d="M44.25 11.28L44.28 11.247"
-        stroke="#C1C4AD"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
+    <div className="relative size-[clamp(min(48px,6.25vw),6vw,72px)] shrink-0">
+      <svg
+        className="absolute inset-[12.5%] size-[75%]"
+        fill="none"
+        viewBox="0 0 55.5 55.5"
+        aria-label="Instagram"
+      >
+        <path
+          d={svgPaths.p2a5fff20}
+          stroke="#C1C4AD"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+        />
+        <path d={svgPaths.p149a5a80} stroke="#C1C4AD" strokeWidth="1.5" />
+        <path
+          d="M44.25 11.28L44.28 11.247"
+          stroke="#C1C4AD"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+        />
+      </svg>
+    </div>
   );
 }
 
@@ -2503,7 +2506,7 @@ function Footer() {
                   } else if (link.toLowerCase() === "quality care") {
                     setModalType("quality");
                   } else if (link.toLowerCase() === "contact") {
-                    const el = document.getElementById("reservation");
+                    const el = document.getElementById("reservation_mobile");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
