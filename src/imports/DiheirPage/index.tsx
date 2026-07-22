@@ -1900,6 +1900,12 @@ function Frame49() {
                 rotate: isOpen ? 0 : -3,
                 scale: isOpen ? 1 : 0.98,
               }}
+              exit={{
+                x: -15,
+                y: "0%",
+                rotate: -3,
+                scale: 0.98,
+              }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute z-10"
             >
@@ -1918,6 +1924,12 @@ function Frame49() {
                 y: "0%",
                 rotate: isOpen ? 0 : 3,
                 scale: isOpen ? 1 : 0.98,
+              }}
+              exit={{
+                x: 15,
+                y: "0%",
+                rotate: 3,
+                scale: 0.98,
               }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute z-10"

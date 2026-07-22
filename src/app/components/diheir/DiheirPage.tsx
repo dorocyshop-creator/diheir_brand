@@ -1785,10 +1785,12 @@ function Collection() {
   }, [currentIndex]);
 
   const handleNext = () => {
+    setIsOpen(false);
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % COLLECTIONS_DATA.length);
   };
   const handlePrev = () => {
+    setIsOpen(false);
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + COLLECTIONS_DATA.length) % COLLECTIONS_DATA.length);
   };
@@ -1865,6 +1867,12 @@ function Collection() {
                   rotate: isOpen ? 0 : -3,
                   scale: isOpen ? 1 : 0.98,
                 }}
+                exit={{
+                  x: "-2%",
+                  y: "0%",
+                  rotate: -3,
+                  scale: 0.98,
+                }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="absolute inset-0 z-10"
               >
@@ -1882,6 +1890,12 @@ function Collection() {
                   y: "0%",
                   rotate: isOpen ? 0 : 3,
                   scale: isOpen ? 1 : 0.98,
+                }}
+                exit={{
+                  x: "2%",
+                  y: "0%",
+                  rotate: 3,
+                  scale: 0.98,
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="absolute inset-0 z-10"
