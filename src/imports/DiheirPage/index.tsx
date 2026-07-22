@@ -2980,7 +2980,13 @@ function Frame58() {
           ))}
         </div>
       </div>
-      <p className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[32px] text-white tracking-[-0.64px] whitespace-nowrap cursor-pointer hover:text-[#bdbea7] transition-colors">
+      <p 
+        className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[32px] text-white tracking-[-0.64px] whitespace-nowrap cursor-pointer hover:text-[#bdbea7] transition-colors"
+        onClick={() => {
+          const el = document.getElementById("reservation");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
         Contact
       </p>
     </div>

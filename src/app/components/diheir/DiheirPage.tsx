@@ -180,6 +180,10 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       <p
         className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`}
         style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}
+        onClick={() => {
+          const el = document.getElementById("reservation");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
       >
         Contact
       </p>
