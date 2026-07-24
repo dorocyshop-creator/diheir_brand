@@ -1880,8 +1880,7 @@ function Frame32() {
 function Frame49() {
   const [isOpen, setIsOpen] = useState(false);
   const current: any = useContext(CollectionContext);
-  console.log("Frame49 current:", current);
-  const { currentIndex, direction } = current || {};
+  const { currentIndex, direction, handleNext, handlePrev } = current || {};
 
   useEffect(() => {
     setIsOpen(false);
@@ -1890,6 +1889,7 @@ function Frame49() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[60px] items-center left-[120px] top-[130px] w-[1680px]">
       <Frame48 />
+      <div className="relative w-full">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="content-stretch cursor-pointer flex h-[606px] items-center justify-center relative shrink-0 w-full group overflow-hidden"
@@ -2033,6 +2033,9 @@ function Frame49() {
           </motion.div>
         </AnimatePresence>
       </button>
+      <Frame3 onClick={(e: any) => { e.stopPropagation(); handlePrev?.(); }} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-center justify-center rounded-[36px] size-[72px] z-50 left-[-40px] top-1/2 -translate-y-1/2" />
+      <Frame2 onClick={(e: any) => { e.stopPropagation(); handleNext?.(); }} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-center justify-center rounded-[36px] size-[72px] z-50 right-[-40px] top-1/2 -translate-y-1/2" />
+      </div>
     </div>
   );
 }
@@ -2067,9 +2070,9 @@ function BitcoinIconsArrowUpOutline() {
   );
 }
 
-function Frame2({ onClick }: { onClick?: () => void }) {
+function Frame2({ onClick, className }: { onClick?: (e?: any) => void; className?: string }) {
   return (
-    <button type="button" onClick={onClick} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[261px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
+    <button type="button" onClick={onClick} className={className || "absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-center justify-center left-[261px] rounded-[36px] size-[72px] top-[1027px] z-50"}>
       <div
         aria-hidden
         className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[36px]"
@@ -2109,9 +2112,9 @@ function BitcoinIconsArrowUpOutline1() {
   );
 }
 
-function Frame3({ onClick }: { onClick?: () => void }) {
+function Frame3({ onClick, className }: { onClick?: (e?: any) => void; className?: string }) {
   return (
-    <button type="button" onClick={onClick} className="absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-start left-[148px] p-[24px] rounded-[36px] size-[72px] top-[1027px] z-50">
+    <button type="button" onClick={onClick} className={className || "absolute cursor-pointer hover:brightness-110 transition-colors bg-[rgba(255,255,255,0.06)] content-stretch flex items-center justify-center left-[148px] rounded-[36px] size-[72px] top-[1027px] z-50"}>
       <div
         aria-hidden
         className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[36px]"
@@ -2145,7 +2148,7 @@ function Collection() {
   }, []);
 
   return (
-    <CollectionContext.Provider value={{ ...COLLECTIONS_DATA[currentIndex], currentIndex, direction }}>
+    <CollectionContext.Provider value={{ ...COLLECTIONS_DATA[currentIndex], currentIndex, direction, handleNext, handlePrev }}>
       <div
         className="h-[1200px] overflow-visible relative shrink-0 w-[1920px]"
         data-name="collection"
@@ -2170,8 +2173,6 @@ function Collection() {
           ></div>
         </div>
         <Frame49 />
-        <Frame2 onClick={handleNext} />
-        <Frame3 onClick={handlePrev} />
       </div>
     </CollectionContext.Provider>
   );

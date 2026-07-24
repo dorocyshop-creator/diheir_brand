@@ -1728,13 +1728,13 @@ function ServicesCore() {
 
 /* ------------------------------- Collection ------------------------------- */
 
-function ArrowButton({ direction, onClick }: { direction: "prev" | "next"; onClick?: () => void }) {
+function ArrowButton({ direction, onClick, className }: { direction: "prev" | "next"; onClick?: (e?: any) => void; className?: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={direction === "prev" ? "이전" : "다음"}
-      className="flex size-[clamp(min(52px,6.7708vw),5vw,72px)] items-center justify-center rounded-full transition-colors hover:brightness-110"
+      className={`flex size-[clamp(min(52px,6.7708vw),5vw,72px)] items-center justify-center rounded-full transition-colors hover:brightness-110 ${className || ''}`}
       style={{
         background:
           "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
@@ -1969,11 +1969,8 @@ function Collection() {
               )}
             </motion.div>
           </AnimatePresence>
-        </div>
-
-        <div className="flex gap-4 mt-8 z-50 relative">
-          <ArrowButton direction="prev" onClick={handlePrev} />
-          <ArrowButton direction="next" onClick={handleNext} />
+          <ArrowButton direction="prev" onClick={(e: any) => { e.stopPropagation(); handlePrev(); }} className="absolute left-[-20px] top-1/2 -translate-y-1/2 z-50" />
+          <ArrowButton direction="next" onClick={(e: any) => { e.stopPropagation(); handleNext(); }} className="absolute right-[-20px] top-1/2 -translate-y-1/2 z-50" />
         </div>
       </div>
     </section>
