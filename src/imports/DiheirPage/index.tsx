@@ -40,7 +40,7 @@ import imgRectangle22 from "./e41d5196719563558533d5be1e1c3a14a805950b.png";
 import imgRectangle23 from "./805a32b6d14e895fdc339ccbfbf2a6d65c0472d0.png";
 import imgRectangle24 from "./f8ceae5a06aaed2f11c4300828d3be4956a4a8ce.png";
 import imgRectangle25 from "./2890547f2c366d8ee61f84efdf3fc34e63ebd59c.png";
-import imgFooter from "../../component/footer/footer_structure.png";
+import imgFooter from "../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../component/diheirspace/diheirspace.jpg";
 
 function Logo() {
@@ -2991,22 +2991,13 @@ function Footer() {
 
   return (
     <div
-      className="h-[1405px] overflow-clip relative shrink-0 w-[1920px]"
+      className="h-[1730px] overflow-clip relative shrink-0 w-[1920px]"
       data-name="footer"
+      style={{
+        background: `linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%), url(${imgFooter}) lightgray -192.035px -0.421px / 109.991% 100% no-repeat, #383629`
+      }}
     >
       <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <div className="absolute bg-[#383629] inset-0" />
-        <FadeUp
-          duration={1.5}
-          y={30}
-          className="absolute inset-0 overflow-hidden"
-        >
-          <img
-            alt=""
-            className="absolute inset-0 size-full object-contain object-[75%_center] opacity-12"
-            src={imgFooter}
-          />
-        </FadeUp>
       </div>
       <FadeUp
         duration={1.0}

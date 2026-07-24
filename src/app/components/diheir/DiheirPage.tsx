@@ -39,7 +39,7 @@ import imgHeirbound01 from "../../../component/collection/Heirbound_Collection_0
 import imgHeirbound02 from "../../../component/collection/Heirbound_Collection_02.png";
 import imgSPIRAL01 from "../../../component/collection/SPIRAL_Collection_01.png";
 import imgSPIRAL02 from "../../../component/collection/SPIRAL_Collection_02.png";
-import imgFooter from "../../../component/footer/footer_structure.png";
+import imgFooter from "../../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../../component/diheirspace/diheirspace.jpg";
 import imgServiceBg from "../../../component/service/service.jpg";
 
@@ -2521,18 +2521,11 @@ function Footer() {
     <footer
       className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),6vw,110px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
       data-name="footer"
+      style={{
+        background: `linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%), url(${imgFooter}) center / cover no-repeat, #383629`
+      }}
     >
-      <FadeUp
-        duration={1.5}
-        y={30}
-        className="pointer-events-none absolute inset-0 size-full"
-      >
-        <img
-          alt=""
-          src={imgFooter}
-          className="size-full object-contain object-bottom opacity-[0.12]"
-        />
-      </FadeUp>
+      <div className="pointer-events-none absolute inset-0 size-full" />
       <div className="relative flex flex-col gap-[clamp(min(40px,5.2083vw),6vw,80px)]">
         <FadeUp duration={1.0}>
           <nav
