@@ -2961,7 +2961,7 @@ function Frame54({
     <FadeUp
       duration={1.0}
       margin="0px 0px 2000px 0px"
-      className="absolute content-stretch flex flex-col gap-[80px] items-start left-[110px] top-[469px] w-[224px]"
+      className="absolute content-stretch flex flex-col gap-[80px] items-start left-[110px] bottom-[15vh] w-[224px]"
     >
       <Frame55 
         onInformationClick={onInformationClick} 
@@ -2991,19 +2991,27 @@ function Footer() {
 
   return (
     <div
-      className="h-[1730px] overflow-clip relative shrink-0 w-[1920px]"
+      className="h-[1730px] overflow-clip relative shrink-0 w-[1920px] bg-[#383629]"
       data-name="footer"
-      style={{
-        background: `linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%), url(${imgFooter}) lightgray -192.035px -0.421px / 109.991% 100% no-repeat, #383629`
-      }}
     >
       <div aria-hidden className="absolute inset-0 pointer-events-none">
+        <img
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+          src={imgFooter}
+        />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%)'
+          }}
+        />
       </div>
       <FadeUp
         duration={1.0}
         delay={0.2}
         margin="0px 0px 2000px 0px"
-        className="absolute h-[562px] left-[372px] top-[805px] w-[1548px]"
+        className="absolute h-[562px] left-[372px] bottom-[15vh] w-[1548px]"
         data-name="Diheir_Logo_og 1"
       >
         <img

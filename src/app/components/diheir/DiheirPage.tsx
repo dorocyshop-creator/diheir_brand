@@ -2521,11 +2521,20 @@ function Footer() {
     <footer
       className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),6vw,110px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
       data-name="footer"
-      style={{
-        background: `linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%), url(${imgFooter}) center / cover no-repeat, #383629`
-      }}
     >
-      <div className="pointer-events-none absolute inset-0 size-full" />
+      <div className="pointer-events-none absolute inset-0 size-full">
+        <img
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+          src={imgFooter}
+        />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(180deg, #383629 5.24%, rgba(56, 54, 41, 0.00) 55.2%)'
+          }}
+        />
+      </div>
       <div className="relative flex flex-col gap-[clamp(min(40px,5.2083vw),6vw,80px)]">
         <FadeUp duration={1.0}>
           <nav
