@@ -30,6 +30,12 @@ import imgFrame21 from "../../component/service/service_Invisible_Precision.png"
 import imgLOV01 from "../../component/collection/LOV_Collection_01.png";
 import imgLOV02 from "../../component/collection/LOV_Collection_02.png";
 import imgLOV03 from "../../component/collection/LOV_Collection_03.png";
+import imgCONCORE01 from "../../component/collection/CONCORE_Collection_01.png";
+import imgCONCORE02 from "../../component/collection/CONCORE_Collection_02.png";
+import imgHeirbound01 from "../../component/collection/Heirbound_Collection_01.png";
+import imgHeirbound02 from "../../component/collection/Heirbound_Collection_02.png";
+import imgSPIRAL01 from "../../component/collection/SPIRAL_Collection_01.png";
+import imgSPIRAL02 from "../../component/collection/SPIRAL_Collection_02.png";
 import imgRectangle22 from "./e41d5196719563558533d5be1e1c3a14a805950b.png";
 import imgRectangle23 from "./805a32b6d14e895fdc339ccbfbf2a6d65c0472d0.png";
 import imgRectangle24 from "./f8ceae5a06aaed2f11c4300828d3be4956a4a8ce.png";
@@ -1708,25 +1714,29 @@ const COLLECTIONS_DATA = [
     subtitle: "Lily Of the Valley",
     title: "LOV Collection",
     desc1: "은방울꽃의 꽃말, “틀림없이 행복해집니다”",
-    desc2: "The Lily of the Valley symbolizes a promise:\n\"Surely, Happiness Awaits You.\""
+    desc2: "The Lily of the Valley symbolizes a promise:\n\"Surely, Happiness Awaits You.\"",
+    images: [imgLOV01, imgLOV02, imgLOV03]
   },
   {
     subtitle: "Heirloom + bound",
     title: "Heirbound Collection",
     desc1: "두 끝을 하나로 묶어내는 리본",
-    desc2: "A sculptural design expressing the moment\nwhen time flows toward one another."
+    desc2: "A sculptural design expressing the moment\nwhen time flows toward one another.",
+    images: [imgHeirbound01, imgHeirbound02]
   },
   {
     subtitle: "Concord + Core",
     title: "CONCORE Collection",
     desc1: "마음과 요소가 조용히 맞닿는 조화로운 일치",
-    desc2: "The Concord Collection embodies a harmonious union \nat the heart of a relationship,"
+    desc2: "The Concord Collection embodies a harmonious union \nat the heart of a relationship,",
+    images: [imgCONCORE01, imgCONCORE02]
   },
   {
     subtitle: "",
     title: "SPIRAL Collection",
     desc1: "확장하는 곡선이 만드는 새로운 질서",
-    desc2: "A sculptural expression of the journey through time and \nthe growth shaped along the way."
+    desc2: "A sculptural expression of the journey through time and \nthe growth shaped along the way.",
+    images: [imgSPIRAL01, imgSPIRAL02]
   }
 ];
 
@@ -1869,7 +1879,9 @@ function Frame32() {
 
 function Frame49() {
   const [isOpen, setIsOpen] = useState(false);
-  const { currentIndex, direction } = useContext(CollectionContext);
+  const current: any = useContext(CollectionContext);
+  console.log("Frame49 current:", current);
+  const { currentIndex, direction } = current || {};
 
   useEffect(() => {
     setIsOpen(false);
@@ -1897,69 +1909,127 @@ function Frame49() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="absolute inset-0 flex justify-center items-center"
           >
-            <motion.div
-              animate={{
-                x: isOpen ? -580 : -15,
-                y: "0%",
-                rotate: isOpen ? 0 : -3,
-                scale: isOpen ? 1 : 0.98,
-              }}
-              exit={{
-                x: -15,
-                y: "0%",
-                rotate: -3,
-                scale: 0.98,
-              }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="absolute z-10"
-            >
-              <div className="h-[606px] relative shrink-0 w-[560px]">
-                <img
-                  alt=""
-                  className="absolute size-full object-cover shadow-xl"
-                  src={imgLOV02}
-                />
-              </div>
-            </motion.div>
+            {current?.images && current.images.length === 3 ? (
+              <>
+                <motion.div
+                  animate={{
+                    x: isOpen ? -580 : -15,
+                    y: "0%",
+                    rotate: isOpen ? 0 : -3,
+                    scale: isOpen ? 1 : 0.98,
+                  }}
+                  exit={{
+                    x: -15,
+                    y: "0%",
+                    rotate: -3,
+                    scale: 0.98,
+                  }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="absolute z-10"
+                >
+                  <div className="h-[606px] relative shrink-0 w-[560px]">
+                    <img
+                      alt=""
+                      className="absolute size-full object-cover shadow-xl"
+                      src={current.images[1]}
+                    />
+                  </div>
+                </motion.div>
 
-            <motion.div
-              animate={{
-                x: isOpen ? 580 : 15,
-                y: "0%",
-                rotate: isOpen ? 0 : 3,
-                scale: isOpen ? 1 : 0.98,
-              }}
-              exit={{
-                x: 15,
-                y: "0%",
-                rotate: 3,
-                scale: 0.98,
-              }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="absolute z-10"
-            >
-              <div className="h-[606px] relative shrink-0 w-[560px]">
-                <img
-                  alt=""
-                  className="absolute size-full object-cover shadow-xl"
-                  src={imgLOV03}
-                />
-              </div>
-            </motion.div>
+                <motion.div
+                  animate={{
+                    x: isOpen ? 580 : 15,
+                    y: "0%",
+                    rotate: isOpen ? 0 : 3,
+                    scale: isOpen ? 1 : 0.98,
+                  }}
+                  exit={{
+                    x: 15,
+                    y: "0%",
+                    rotate: 3,
+                    scale: 0.98,
+                  }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="absolute z-10"
+                >
+                  <div className="h-[606px] relative shrink-0 w-[560px]">
+                    <img
+                      alt=""
+                      className="absolute size-full object-cover shadow-xl"
+                      src={current.images[2]}
+                    />
+                  </div>
+                </motion.div>
 
-            <motion.div
-              animate={{ zIndex: 20, scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="absolute z-20"
-            >
-              <div className="h-[606px] relative shrink-0 w-[560px]">
-                <img
-                  alt=""
-                  className="absolute size-full object-cover shadow-2xl"
-                  src={imgLOV01}
-                />
-              </div>
-            </motion.div>
+                <motion.div
+                  animate={{ zIndex: 20, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="absolute z-20"
+                >
+                  <div className="h-[606px] relative shrink-0 w-[560px]">
+                    <img
+                      alt=""
+                      className="absolute size-full object-cover shadow-2xl"
+                      src={current.images[0]}
+                    />
+                  </div>
+                </motion.div>
+              </>
+            ) : (
+              <>
+                <motion.div
+                  animate={{
+                    x: isOpen ? -290 : -10,
+                    y: "0%",
+                    rotate: isOpen ? 0 : -2,
+                    scale: isOpen ? 1 : 0.98,
+                  }}
+                  exit={{
+                    x: -10,
+                    y: "0%",
+                    rotate: -2,
+                    scale: 0.98,
+                  }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="absolute z-10"
+                >
+                  <div className="h-[606px] relative shrink-0 w-[560px]">
+                    <img
+                      alt=""
+                      className="absolute size-full object-cover shadow-xl"
+                      src={current.images[1]}
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{
+                    x: isOpen ? 290 : 10,
+                    y: "0%",
+                    rotate: isOpen ? 0 : 2,
+                    scale: isOpen ? 1 : 0.98,
+                    zIndex: 20,
+                  }}
+                  exit={{
+                    x: 10,
+                    y: "0%",
+                    rotate: 2,
+                    scale: 0.98,
+                    zIndex: 20,
+                  }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="absolute z-20"
+                >
+                  <div className="h-[606px] relative shrink-0 w-[560px]">
+                    <img
+                      alt=""
+                      className="absolute size-full object-cover shadow-2xl"
+                      src={current.images[0]}
+                    />
+                  </div>
+                </motion.div>
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </button>
