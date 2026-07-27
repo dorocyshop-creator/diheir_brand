@@ -1521,10 +1521,10 @@ function ServicesDesigner() {
                     prevCard();
                   }
                 }}
+                onTap={() => setShowMobileDesc(!showMobileDesc)}
               >
                 <div
                   className="group relative w-full aspect-[3/4] shrink-0 flex flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[8vw] px-[4vw] text-center cursor-pointer"
-                  onClick={() => setShowMobileDesc(!showMobileDesc)}
                 >
                   <img
                     alt=""
