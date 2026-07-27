@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import { motion, useScroll, useTransform, AnimatePresence, useMotionTemplate } from "motion/react";
 import React from "react";
 import { TERMS_OF_USE } from "../../../constants/terms";
 import { INFORMATION } from "../../../constants/information";
@@ -1623,35 +1623,18 @@ function ServicesCore() {
 
   // Mobile scroll transforms (0 to 1 progress over 500vh)
   const op1 = useTransform(scrollYProgress, [0, 0.05, 0.18, 0.2], [0, 1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.05], [50, 0]);
+  const op2 = useTransform(scrollYProgress, [0.2, 0.25, 0.38, 0.4], [0, 1, 1, 0]);
+  const op3 = useTransform(scrollYProgress, [0.4, 0.45, 0.58, 0.6], [0, 1, 1, 0]);
+  const op4 = useTransform(scrollYProgress, [0.6, 0.65, 0.78, 0.8], [0, 1, 1, 0]);
 
-  const op2 = useTransform(
-    scrollYProgress,
-    [0.2, 0.25, 0.38, 0.4],
-    [0, 1, 1, 0],
-  );
-  const y2 = useTransform(scrollYProgress, [0.2, 0.25], [50, 0]);
+  // Fade in 05 without sliding
+  const opMain = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
 
-  const op3 = useTransform(
-    scrollYProgress,
-    [0.4, 0.45, 0.58, 0.6],
-    [0, 1, 1, 0],
-  );
-  const y3 = useTransform(scrollYProgress, [0.4, 0.45], [50, 0]);
-
-  const op4 = useTransform(
-    scrollYProgress,
-    [0.6, 0.65, 0.78, 0.8],
-    [0, 1, 1, 0],
-  );
-  const y4 = useTransform(scrollYProgress, [0.6, 0.65], [50, 0]);
-
-  const yMain = useTransform(scrollYProgress, [0.8, 0.9], ["100%", "0%"]);
-
-  // Final expansion transforms for the central box (starts AFTER slide-up completes at 0.9)
-  const boxWidth = useTransform(scrollYProgress, [0.9, 1], ["90vw", "100vw"]);
-  const boxHeight = useTransform(scrollYProgress, [0.9, 1], ["100.28vw", "100vh"]);
-  const boxRadius = useTransform(scrollYProgress, [0.9, 1], ["8px", "0px"]);
+  // Final expansion transforms for the central box (starts AFTER fade-in completes at 0.9)
+  const expProgress = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
+  const boxWidth = useMotionTemplate`calc(90vw + 10vw * ${expProgress})`;
+  const boxHeight = useMotionTemplate`calc(100.28vw + (100vh - 100.28vw) * ${expProgress})`;
+  const boxRadius = useMotionTemplate`calc(8px * (1 - ${expProgress}))`;
 
   return (
     <section className="relative w-full bg-[#9f9f8b]" data-name="Services_core">
@@ -1659,82 +1642,58 @@ function ServicesCore() {
       {/* Scrolljacking container: 500vh tall to allow scrolling */}
       <div ref={containerRef} className="md:hidden relative w-full h-[500vh]">
         {/* Sticky viewport that stays on screen */}
-        <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-          <motion.div
-            style={{ width: boxWidth, height: boxHeight, borderRadius: boxRadius }}
-            className="relative mx-auto overflow-hidden shadow-2xl bg-[#9f9f8b]"
-          >
-            <motion.div
-              style={{ opacity: op1, y: y1 }}
-              className="absolute inset-0"
-            >
-              <img
-                alt=""
-                src={coreMo01}
-                className="w-full h-full object-cover"
-              />
+        <div className="sticky top-0 w-full h-screen overflow-hidden bg-transparent">
+          
+          {/* 01~04 Container (Fixed Size, Centered) */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] aspect-[700/780] overflow-hidden rounded-[8px] shadow-2xl bg-[#9f9f8b]">
+            <motion.div style={{ opacity: op1 }} className="absolute inset-0">
+              <img alt="" src={coreMo01} className="w-full h-full object-cover" />
             </motion.div>
-            <motion.div
-              style={{ opacity: op2, y: y2 }}
-              className="absolute inset-0"
-            >
-              <img
-                alt=""
-                src={coreMo02}
-                className="w-full h-full object-cover"
-              />
+            <motion.div style={{ opacity: op2 }} className="absolute inset-0">
+              <img alt="" src={coreMo02} className="w-full h-full object-cover" />
             </motion.div>
-            <motion.div
-              style={{ opacity: op3, y: y3 }}
-              className="absolute inset-0"
-            >
-              <img
-                alt=""
-                src={coreMo03}
-                className="w-full h-full object-cover"
-              />
+            <motion.div style={{ opacity: op3 }} className="absolute inset-0">
+              <img alt="" src={coreMo03} className="w-full h-full object-cover" />
             </motion.div>
-            <motion.div
-              style={{ opacity: op4, y: y4 }}
-              className="absolute inset-0"
-            >
-              <img
-                alt=""
-                src={coreMo04}
-                className="w-full h-full object-cover"
-              />
+            <motion.div style={{ opacity: op4 }} className="absolute inset-0">
+              <img alt="" src={coreMo04} className="w-full h-full object-cover" />
             </motion.div>
+          </div>
 
-            {/* Main Central Image & Text appears LAST */}
-            <motion.div
-              style={{ y: yMain }}
-              className="absolute inset-0 z-10 bg-[#9f9f8b]"
-            >
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <iframe
-                  src="https://player.vimeo.com/video/1211853153?background=1&autoplay=1&loop=1&muted=1"
-                  className="absolute top-1/2 left-1/2 w-[300%] h-[300%] md:w-[150%] md:h-[150%] -translate-x-1/2 -translate-y-1/2"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
+          {/* 05 Video Container (Fades in, then Expands) */}
+          <motion.div
+            style={{ 
+              opacity: opMain, 
+              width: boxWidth, 
+              height: boxHeight, 
+              borderRadius: boxRadius 
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden shadow-2xl bg-[#9f9f8b]"
+          >
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <iframe
+                src="https://player.vimeo.com/video/1211853153?background=1&autoplay=1&loop=1&muted=1"
+                className="absolute top-1/2 left-1/2 w-[300%] h-[300%] md:w-[150%] md:h-[150%] -translate-x-1/2 -translate-y-1/2"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-[6vw] px-[6vw] text-center capitalize text-[#e7e8cf] z-10">
+              <div
+                className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
+                style={{ fontSize: "6vw" }}
+              >
+                <p>“Jewelry becomes meaningful</p>
+                <p>When it carries memories beyond time”</p>
               </div>
-              <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-[6vw] px-[6vw] text-center capitalize text-[#e7e8cf] z-10">
-                <div
-                  className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
-                  style={{ fontSize: "6vw" }}
-                >
-                  <p>“Jewelry becomes meaningful</p>
-                  <p>When it carries memories beyond time”</p>
-                </div>
-                <p
-                  className={`${SANS} leading-[1.3] tracking-[-0.64px]`}
-                  style={{ fontSize: "3.5vw" }}
-                >
-                  세대를 지나 기억으로 남는 주얼리, 디에르.
-                </p>
-              </div>
-            </motion.div>
+              <p
+                className={`${SANS} leading-[1.3] tracking-[-0.64px]`}
+                style={{ fontSize: "3.5vw" }}
+              >
+                세대를 지나 기억으로 남는 주얼리, 디에르.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>
