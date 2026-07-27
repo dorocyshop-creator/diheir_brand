@@ -792,7 +792,7 @@ function BrandIdentity() {
       {/* 2. Intro paragraph */}
       <FadeUp className="mt-[-10px]">
         <p
-          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px]`}
+          className={`${SANS} text-[#383629] text-xs lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px]`}
         >
           디에르는 가보라는 키워드에서 모티브를 얻어
           <br />
@@ -820,7 +820,7 @@ function BrandIdentity() {
       {/* 4. Right aligned text */}
       <FadeUp className="flex justify-end mt-[20px]">
         <p
-          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+          className={`${SANS} text-[#383629] text-xs lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
         >
           사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를
           상징합니다.
@@ -837,7 +837,7 @@ function BrandIdentity() {
       <div className="flex flex-col-reverse lg:flex-row w-full items-center lg:items-end justify-between gap-[8vw] lg:gap-[5%] mt-[40px]">
         <FadeUp className="w-full lg:flex-1">
           <p
-            className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
+            className={`${SANS} text-[#383629] text-xs lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
           >
             보석은 단순한 장신구가 아니라
             <br />
@@ -867,7 +867,7 @@ function BrandIdentity() {
           <div className="w-full flex justify-end mt-[3vw] mb-[3vw]">
             <FadeUp delay={0.1}>
               <p
-                className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+                className={`${SANS} text-[#383629] text-xs lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
               >
                 시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을
                 이야기합니다.
@@ -959,13 +959,13 @@ function GenerationCard({
             {data.title}
           </p>
           <p
-            className={`${SANS} text-[#d4d4b9] max-[768px]:text-[12px]`}
+            className={`${SANS} text-[#d4d4b9] max-[768px]:text-xs`}
             style={{ fontSize: "max(12px, clamp(min(13px, 5.6927vw), 1.1vw, 17px))" }}
           >
             {data.kr}
           </p>
           <p
-            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px] break-keep"
+            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-xs break-keep"
             style={{ fontSize: "max(12px, clamp(min(12px,1.4323vw),0.9vw,12px))" }}
           >
             {data.en.includes(" (") ? (
@@ -1225,7 +1225,7 @@ function ServiceCard({
             ))}
           </div>
           <p
-            className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-[12px]`}
+            className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-xs`}
             style={{ fontSize: "max(12px, clamp(min(12px,1.5625vw),1.2vw,16px))" }}
           >
             {data.desc}
