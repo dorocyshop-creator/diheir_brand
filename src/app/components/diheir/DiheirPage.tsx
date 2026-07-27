@@ -1546,7 +1546,8 @@ function ServicesDesigner() {
                       ))}
                     </div>
                     <p
-                      className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] text-[12px]`}
+                      className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6]`}
+                      style={{ fontSize: "12px" }}
                     >
                       {SERVICES[mobileIndex].desc}
                     </p>
