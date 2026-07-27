@@ -792,7 +792,8 @@ function BrandIdentity() {
       {/* 2. Intro paragraph */}
       <FadeUp className="mt-[-10px]">
         <p
-          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px]`}
+          className={`${SANS} text-[#383629] leading-[1.8] tracking-[-0.44px]`}
+          style={{ fontSize: "max(12px, 0.7em)" }}
         >
           디에르는 가보라는 키워드에서 모티브를 얻어
           <br />
@@ -820,7 +821,8 @@ function BrandIdentity() {
       {/* 4. Right aligned text */}
       <FadeUp className="flex justify-end mt-[20px]">
         <p
-          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+          className={`${SANS} text-[#383629] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+          style={{ fontSize: "max(12px, 0.7em)" }}
         >
           사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를
           상징합니다.
@@ -837,7 +839,8 @@ function BrandIdentity() {
       <div className="flex flex-col-reverse lg:flex-row w-full items-center lg:items-end justify-between gap-[8vw] lg:gap-[5%] mt-[40px]">
         <FadeUp className="w-full lg:flex-1">
           <p
-            className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
+            className={`${SANS} text-[#383629] leading-[1.8] tracking-[-0.44px] break-keep`}
+            style={{ fontSize: "max(12px, 0.7em)" }}
           >
             보석은 단순한 장신구가 아니라
             <br />
