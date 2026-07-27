@@ -954,21 +954,30 @@ function GenerationCard({
         >
           <p
             className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[max(12px,3.6458vw)]`}
-            style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),2.6vw,40px))" }}
+            style={{ fontSize: "max(12px, clamp(min(24px, 10.125vw), 2.6vw, 40px))" }}
           >
             {data.title}
           </p>
           <p
             className={`${SANS} text-[#d4d4b9] max-[768px]:text-[12px]`}
-            style={{ fontSize: "max(12px, clamp(min(13px,1.6927vw),1.1vw,16px))" }}
+            style={{ fontSize: "max(12px, clamp(min(13px, 5.6927vw), 1.1vw, 17px))" }}
           >
             {data.kr}
           </p>
           <p
-            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px]"
+            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px] break-keep"
             style={{ fontSize: "max(12px, clamp(min(12px,1.4323vw),0.9vw,12px))" }}
           >
-            {data.en}
+            {data.en.includes(" (") ? (
+              <>
+                {data.en.split(" (")[0]}
+                <br className="block md:hidden" />
+                <span className="hidden md:inline"> </span>
+                ({data.en.split(" (")[1]}
+              </>
+            ) : (
+              data.en
+            )}
           </p>
         </div>
       </div>
