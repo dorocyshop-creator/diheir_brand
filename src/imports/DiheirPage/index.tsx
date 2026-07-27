@@ -2424,10 +2424,12 @@ function PrivacyPolicyModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
-          &times;
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
         <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           개인정보 수집 및 이용 동의
@@ -2485,10 +2487,12 @@ function InfoModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
-          &times;
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
         <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           {title}
@@ -2777,7 +2781,7 @@ function Diheirspace() {
   return (
     <div
       id="reservation"
-      className="bg-[#383629] relative shrink-0 w-[1920px] h-[2363px] overflow-hidden"
+      className="bg-[#383629] relative shrink-0 w-[1920px] h-[2700px] overflow-hidden"
       data-name="diheirspace"
     >
       {/* Background title */}
@@ -2810,7 +2814,7 @@ function Diheirspace() {
                 </p>
 
                 {/* Image Carousel */}
-                <div className="relative w-full h-[411px]">
+                <div className="relative w-full h-[450px]">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentSlide}
@@ -2894,20 +2898,20 @@ function Diheirspace() {
                   </div>
 
                   {/* Directions + Parking */}
-                  <div className="flex gap-[40px] items-start w-full">
-                    <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
+                  <div className="flex flex-col gap-[32px] items-start w-full mt-[16px]">
+                    <div className="w-full h-[450px] shrink-0 border-[30px] border-solid border-[rgba(68,68,41,0.20)] box-border">
                       <img
                         alt="디에르 청담 매장 외관"
                         className="w-full h-full object-cover"
                         src={imgStore01}
                       />
                     </div>
-                    <div className="flex-1 flex flex-col gap-[16px] font-sans text-[#444429] text-[20px] tracking-[-0.4px] py-[8px]">
-                      <div className="flex flex-col">
+                    <div className="flex flex-col gap-[24px] font-sans text-[#444429] text-[20px] tracking-[-0.4px] w-full">
+                      <div className="flex flex-col gap-[4px]">
                         <p className="font-semibold leading-[1.3]">오시는길</p>
                         <p className="leading-[1.3] font-normal opacity-80">수인분당선 압구정로데오역 3번 출구에서 423m</p>
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col gap-[4px]">
                         <p className="font-semibold leading-[1.3]">주차</p>
                         <p className="leading-[1.3] font-normal opacity-80">
                           본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에 발렛 주차 하시면 2시간 이용 가능합니다.
@@ -2920,7 +2924,7 @@ function Diheirspace() {
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-[60px] items-start">
+              <div className="flex justify-center gap-[60px] items-center w-full mt-[32px]">
                 <a
                   href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
                   target="_blank"

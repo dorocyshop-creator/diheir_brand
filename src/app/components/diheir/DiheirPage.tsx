@@ -1836,9 +1836,20 @@ function Collection() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const [sweepCard, setSweepCard] = useState(-1);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
+    setPreviewIndex(0);
   }, [currentIndex]);
 
   const handleNext = () => {
@@ -1854,9 +1865,44 @@ function Collection() {
 
   const current = COLLECTIONS_DATA[currentIndex];
 
+  const getMobileAnimate = (i: number, length: number) => {
+    const pos = (i - previewIndex + length) % length;
+    const isSweeping = sweepCard === i;
+
+    if (length === 3) {
+      if (pos === 0) { // Top
+        return { x: "0%", y: "0%", rotate: 0, scale: 1, zIndex: 30 };
+      } else if (pos === 2) { // Right (Was Top)
+        if (isSweeping) {
+          return { x: ["0%", "100%", "15px"], y: "0%", rotate: [0, 10, 3], scale: 0.98, zIndex: [30, 20, 10] };
+        }
+        return { x: "15px", y: "0%", rotate: 3, scale: 0.98, zIndex: 10 };
+      } else { // Left (Will be Top)
+        return { x: "-15px", y: "0%", rotate: -3, scale: 0.98, zIndex: 10 };
+      }
+    } else { // length === 2
+      if (pos === 0) { // Top
+        return { x: "0%", y: "0%", rotate: 0, scale: 1, zIndex: 30 };
+      } else { // Back (Was Top)
+        if (isSweeping) {
+          return { x: ["0%", "100%", "8px"], y: "0%", rotate: [0, 10, 2], scale: 0.98, zIndex: [30, 20, 10] };
+        }
+        return { x: "8px", y: "0%", rotate: 2, scale: 0.98, zIndex: 10 };
+      }
+    }
+  };
+
+  const getMobileTransition = (i: number) => {
+    const isSweeping = sweepCard === i;
+    if (isSweeping) {
+      return { duration: 0.35, times: [0, 0.4, 1], ease: "easeInOut" };
+    }
+    return { type: "spring", stiffness: 200, damping: 20 };
+  };
+
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)]"
+      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)] max-[768px]:h-[100vh] max-[768px]:flex max-[768px]:flex-col max-[768px]:justify-center"
       data-name="collection"
     >
       <img
@@ -1898,7 +1944,7 @@ function Collection() {
 
         {/* Stacked Interactive Gallery */}
         <div
-          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
+          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] max-[768px]:w-[75vw] max-[768px]:max-w-[400px] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
         >
           <AnimatePresence custom={direction}>
             <motion.div
@@ -1913,11 +1959,19 @@ function Collection() {
               animate="center"
               exit="exit"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute inset-0 z-10"
+              className="absolute inset-0"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.2}
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                if (isMobile) {
+                  setSweepCard(previewIndex);
+                  setPreviewIndex((prev) => (prev + 1) % (current?.images?.length || 1));
+                  setTimeout(() => setSweepCard(-1), 350);
+                } else {
+                  setIsOpen(!isOpen);
+                }
+              }}
               onDragEnd={(e, { offset, velocity }) => {
                 const swipe = offset.x;
                 if (swipe < -50) {
@@ -1929,16 +1983,17 @@ function Collection() {
             >
               {current?.images && current.images.length === 3 ? (
                 <>
-                  {/* Left image (02) */}
+                  {/* Left image (02) -> i=1 */}
                   <motion.div
-                    animate={{
+                    animate={isMobile ? getMobileAnimate(1, 3) : {
                       x: isOpen ? "calc(-100% - 16px)" : "-15px",
                       y: "0%",
                       rotate: isOpen ? 0 : -3,
                       scale: isOpen ? 1 : 0.98,
+                      zIndex: 10,
                     }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="absolute inset-0 z-10"
+                    transition={isMobile ? getMobileTransition(1) : { type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute inset-0"
                   >
                     <img
                       alt=""
@@ -1947,16 +2002,17 @@ function Collection() {
                     />
                   </motion.div>
 
-                  {/* Right image (03) */}
+                  {/* Right image (03) -> i=2 */}
                   <motion.div
-                    animate={{
+                    animate={isMobile ? getMobileAnimate(2, 3) : {
                       x: isOpen ? "calc(100% + 16px)" : "15px",
                       y: "0%",
                       rotate: isOpen ? 0 : 3,
                       scale: isOpen ? 1 : 0.98,
+                      zIndex: 10,
                     }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="absolute inset-0 z-10"
+                    transition={isMobile ? getMobileTransition(2) : { type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute inset-0"
                   >
                     <img
                       alt=""
@@ -1965,11 +2021,13 @@ function Collection() {
                     />
                   </motion.div>
 
-                  {/* Center image (01) */}
+                  {/* Center image (01) -> i=0 */}
                   <motion.div
-                    animate={{ zIndex: 20, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="absolute inset-0 z-20"
+                    animate={isMobile ? getMobileAnimate(0, 3) : { 
+                      x: "0%", y: "0%", rotate: 0, scale: 1, zIndex: 20 
+                    }}
+                    transition={isMobile ? getMobileTransition(0) : { type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute inset-0"
                   >
                     <img
                       alt=""
@@ -1980,16 +2038,17 @@ function Collection() {
                 </>
               ) : (
                 <>
-                  {/* Left image (02) */}
+                  {/* Left image (02) -> i=1 */}
                   <motion.div
-                    animate={{
+                    animate={isMobile ? getMobileAnimate(1, 2) : {
                       x: isOpen ? "calc(-50% - 8px)" : "-8px",
                       y: "0%",
                       rotate: isOpen ? 0 : -2,
                       scale: isOpen ? 1 : 0.98,
+                      zIndex: 10,
                     }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="absolute inset-0 z-10"
+                    transition={isMobile ? getMobileTransition(1) : { type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute inset-0"
                   >
                     <img
                       alt=""
@@ -1998,17 +2057,17 @@ function Collection() {
                     />
                   </motion.div>
 
-                  {/* Right image (01) */}
+                  {/* Right image (01) -> i=0 */}
                   <motion.div
-                    animate={{
+                    animate={isMobile ? getMobileAnimate(0, 2) : {
                       x: isOpen ? "calc(50% + 8px)" : "8px",
                       y: "0%",
                       rotate: isOpen ? 0 : 2,
                       scale: isOpen ? 1 : 0.98,
                       zIndex: 20,
                     }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="absolute inset-0 z-20"
+                    transition={isMobile ? getMobileTransition(0) : { type: "spring", stiffness: 200, damping: 20 }}
+                    className="absolute inset-0"
                   >
                     <img
                       alt=""
@@ -2048,10 +2107,12 @@ function PrivacyPolicyModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
-          &times;
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
         <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           개인정보 수집 및 이용 동의
@@ -2605,7 +2666,7 @@ function DiheirSpace() {
           delay={0.1}
           className="relative w-full rounded-[6vw] overflow-hidden shadow-2xl"
         >
-          <div className="absolute inset-0 bg-[#c3c0b0]" />
+          <div className="absolute inset-0 bg-[#c3c0b0] opacity-40" />
 
           <div className="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[8vw] items-center">
             {/* House of Diheir title */}
@@ -2618,7 +2679,7 @@ function DiheirSpace() {
 
             {/* Image Carousel */}
             <div className="relative w-full">
-              <div className="relative w-full aspect-[800/411] overflow-hidden rounded-[2vw]">
+              <div className="relative w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentSlide}
@@ -2699,7 +2760,7 @@ function DiheirSpace() {
               </div>
 
               {/* Directions + Parking */}
-              <div className="flex flex-col gap-[3vw] items-start w-full">
+              <div className="flex flex-col gap-[3vw] items-start w-full mt-[4vw]">
                 <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
                   <img
                     alt="디에르 청담 매장 외관"
@@ -2717,7 +2778,7 @@ function DiheirSpace() {
                   <div className="flex flex-col">
                     <p className="font-semibold leading-[1.3]">주차</p>
                     <p className="leading-[1.3] font-normal opacity-80">
-                      본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에 발렛 주차 하시면 2시간 이용 가능합니다.
+                      본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에<br />발렛 주차 하시면 2시간 이용 가능합니다.
                     </p>
                     <p className="leading-[1.3] font-normal opacity-80">주차후 계단으로 올라오시면 좌측으로 디에르 매장이 있습니다.</p>
                   </div>
@@ -2943,10 +3004,12 @@ function InfoModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
-          &times;
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
         <h3 className="mb-4 text-xl font-bold text-[#383629] shrink-0">
           {title}
