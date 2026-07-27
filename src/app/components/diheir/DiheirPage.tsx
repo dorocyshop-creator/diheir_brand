@@ -1718,7 +1718,8 @@ function ServicesCore() {
                   allowFullScreen
                 />
               </div>
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-[6vw] px-[6vw] text-center capitalize text-[#e7e8cf]">
+              <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-[6vw] px-[6vw] text-center capitalize text-[#e7e8cf] z-10">
                 <div
                   className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
                   style={{ fontSize: "6vw" }}
