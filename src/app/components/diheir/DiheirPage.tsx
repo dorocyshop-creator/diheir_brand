@@ -792,7 +792,7 @@ function BrandIdentity() {
       {/* 2. Intro paragraph */}
       <FadeUp className="mt-[-10px]">
         <p
-          className={`${SANS} text-[#383629] max-[768px]:text-[12px] md:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px]`}
+          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px]`}
         >
           디에르는 가보라는 키워드에서 모티브를 얻어
           <br />
@@ -820,7 +820,7 @@ function BrandIdentity() {
       {/* 4. Right aligned text */}
       <FadeUp className="flex justify-end mt-[20px]">
         <p
-          className={`${SANS} text-[#383629] max-[768px]:text-[12px] md:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+          className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
         >
           사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를
           상징합니다.
@@ -834,10 +834,10 @@ function BrandIdentity() {
       </FadeUp>
 
       {/* 5. Left text + Right Grace Badge */}
-      <div className="flex flex-col-reverse md:flex-row w-full items-center md:items-end justify-between gap-[8vw] md:gap-[5%] mt-[40px]">
-        <FadeUp className="w-full md:flex-1">
+      <div className="flex flex-col-reverse lg:flex-row w-full items-center lg:items-end justify-between gap-[8vw] lg:gap-[5%] mt-[40px]">
+        <FadeUp className="w-full lg:flex-1">
           <p
-            className={`${SANS} text-[#383629] max-[768px]:text-[12px] md:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
+            className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
           >
             보석은 단순한 장신구가 아니라
             <br />
@@ -846,7 +846,7 @@ function BrandIdentity() {
             다음 세대로 이어지는 상징이 될 수 있다고 믿습니다.
           </p>
         </FadeUp>
-        <FadeUp delay={0.2} className="w-[80%] max-[768px]:mb-[4vw] md:w-[45%] max-w-[320px]">
+        <FadeUp delay={0.2} className="w-[80%] max-[1024px]:mb-[4vw] lg:w-[45%] max-w-[320px]">
           <GraceBadge />
         </FadeUp>
       </div>
@@ -867,7 +867,7 @@ function BrandIdentity() {
           <div className="w-full flex justify-end mt-[3vw] mb-[3vw]">
             <FadeUp delay={0.1}>
               <p
-                className={`${SANS} text-[#383629] max-[768px]:text-[12px] md:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+                className={`${SANS} text-[#383629] text-[12px] lg:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
               >
                 시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을
                 이야기합니다.
