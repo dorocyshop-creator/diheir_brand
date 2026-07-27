@@ -190,7 +190,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
       </div>
       <p
         className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`}
-        style={{ fontSize: "clamp(min(18px,2.3438vw),2vw,32px)" }}
+        style={{ fontSize: "max(12px, clamp(min(18px,2.3438vw),2vw,32px))" }}
         onClick={() => {
           const targetId = window.innerWidth < 768 ? "reservation_mobile" : "reservation";
           const el = document.getElementById(targetId);
@@ -766,7 +766,7 @@ function BrandIdentity() {
           <FadeUp>
             <h2
               className={`${SERIF} tracking-[-0.5px] leading-[1.1]`}
-              style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}
+              style={{ fontSize: "max(12px, clamp(min(48px, 6.25vw), 14vw, 100px))" }}
             >
               <span className="text-[#383629]">D</span>
               <span className="text-[#bdbea7]">iamond</span>
@@ -776,7 +776,7 @@ function BrandIdentity() {
             <FadeUp delay={0.2}>
               <h2
                 className={`${SERIF} tracking-[-0.5px] leading-[1.1] flex items-center pr-[1vw]`}
-                style={{ fontSize: "clamp(min(48px, 6.25vw), 14vw, 100px)" }}
+                style={{ fontSize: "max(12px, clamp(min(48px, 6.25vw), 14vw, 100px))" }}
               >
                 <span className="text-[#bdbea7] font-light text-[0.7em] mr-[0.2em] mb-[0.1em]">
                   +
@@ -792,7 +792,7 @@ function BrandIdentity() {
       {/* 2. Intro paragraph */}
       <FadeUp className="mt-[-10px]">
         <p
-          className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px]`}
+          className={`${SANS} text-[#383629] text-[max(12px,clamp(min(12px,1.5625vw),3.2vw,16px))] leading-[1.8] tracking-[-0.44px]`}
         >
           디에르는 가보라는 키워드에서 모티브를 얻어
           <br />
@@ -820,7 +820,7 @@ function BrandIdentity() {
       {/* 4. Right aligned text */}
       <FadeUp className="flex justify-end mt-[20px]">
         <p
-          className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+          className={`${SANS} text-[#383629] text-[max(12px,clamp(min(12px,1.5625vw),3.2vw,16px))] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
         >
           사계절 푸른 올리브나무는 강인한 생명력으로 결실과 승리, 장수와 풍요를
           상징합니다.
@@ -837,7 +837,7 @@ function BrandIdentity() {
       <div className="flex w-full items-end justify-between gap-[5%] mt-[40px]">
         <FadeUp className="flex-1">
           <p
-            className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
+            className={`${SANS} text-[#383629] text-[max(12px,clamp(min(12px,1.5625vw),3.2vw,16px))] leading-[1.8] tracking-[-0.44px] break-keep`}
           >
             보석은 단순한 장신구가 아니라
             <br />
@@ -858,7 +858,7 @@ function BrandIdentity() {
           <FadeUp>
             <p
               className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]"
-              style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}
+              style={{ fontSize: "max(12px, clamp(min(60px,7.8125vw), 17vw, 150px))" }}
             >
               Timeless
             </p>
@@ -867,7 +867,7 @@ function BrandIdentity() {
           <div className="w-full flex justify-end mt-[3vw] mb-[3vw]">
             <FadeUp delay={0.1}>
               <p
-                className={`${SANS} text-[#383629] text-[clamp(min(12px,1.5625vw),3.2vw,16px)] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
+                className={`${SANS} text-[#383629] text-[max(12px,clamp(min(12px,1.5625vw),3.2vw,16px))] leading-[1.8] tracking-[-0.44px] text-right break-keep`}
               >
                 시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을
                 이야기합니다.
@@ -880,7 +880,7 @@ function BrandIdentity() {
           <FadeUp delay={0.2}>
             <p
               className="font-serif capitalize leading-none tracking-[-0.04em] whitespace-nowrap text-[rgba(189,190,167,0.2)]"
-              style={{ fontSize: "clamp(min(60px,7.8125vw), 17vw, 150px)" }}
+              style={{ fontSize: "max(12px, clamp(min(60px,7.8125vw), 17vw, 150px))" }}
             >
               Green Grove
             </p>
@@ -953,20 +953,20 @@ function GenerationCard({
           }}
         >
           <p
-            className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[3.6458vw]`}
-            style={{ fontSize: "clamp(min(24px,3.125vw),2.6vw,40px)" }}
+            className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[max(12px,3.6458vw)]`}
+            style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),2.6vw,40px))" }}
           >
             {data.title}
           </p>
           <p
             className={`${SANS} text-[#d4d4b9] max-[768px]:text-[12px]`}
-            style={{ fontSize: "clamp(min(13px,1.6927vw),1.1vw,16px)" }}
+            style={{ fontSize: "max(12px, clamp(min(13px,1.6927vw),1.1vw,16px))" }}
           >
             {data.kr}
           </p>
           <p
             className="font-sans font-light text-[#d4d4b9] max-[768px]:text-[12px]"
-            style={{ fontSize: "clamp(min(12px,1.4323vw),0.9vw,12px)" }}
+            style={{ fontSize: "max(12px, clamp(min(12px,1.4323vw),0.9vw,12px))" }}
           >
             {data.en}
           </p>
@@ -988,7 +988,7 @@ function BrandHeritage() {
           <span
             className={`${SERIF} leading-[0.8] text-[#bdbea7] opacity-[0.4] mr-[4vw]`}
             style={{
-              fontSize: "clamp(120px, 42vw, 820px)",
+              fontSize: "max(12px, clamp(120px, 42vw, 820px))",
               letterSpacing: "-0.05em",
             }}
           >
@@ -996,7 +996,7 @@ function BrandHeritage() {
           </span>
           <span
             className={`${SERIF} leading-none text-[#bdbea7] opacity-[0.4] mb-[2vw] ml-[-8vw]`}
-            style={{ fontSize: "clamp(50px, 17vw, 340px)" }}
+            style={{ fontSize: "max(12px, clamp(50px, 17vw, 340px))" }}
           >
             Years
           </span>
@@ -1007,8 +1007,8 @@ function BrandHeritage() {
         {/* A Family Legacy header */}
         <FadeUp className="self-end text-right">
           <p
-            className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[768px]:text-[2.0833vw] max-[768px]:mt-[10vw]`}
-            style={{ fontSize: "clamp(min(14px,1.8229vw),2vw,30px)" }}
+            className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[768px]:text-[max(12px,2.0833vw)] max-[768px]:mt-[10vw]`}
+            style={{ fontSize: "max(12px, clamp(min(14px,1.8229vw),2vw,30px))" }}
           >
             A Family Legacy
             <br />
@@ -1026,9 +1026,9 @@ function BrandHeritage() {
         {/* DIHEIR by DOROCY */}
         <FadeUp delay={0.2} className="w-full">
           <p
-            className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[768px]:text-[9.5vw]`}
+            className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[768px]:text-[max(12px,9.5vw)]`}
             style={{
-              fontSize: "clamp(min(36px,4.6875vw),10vw,220px)",
+              fontSize: "max(12px, clamp(min(36px,4.6875vw),10vw,220px))",
               letterSpacing: "-0.02em",
             }}
           >
@@ -1039,8 +1039,8 @@ function BrandHeritage() {
         {/* Description text */}
         <FadeUp delay={0.3}>
           <div
-            className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[768px]:text-[1.5625vw]`}
-            style={{ fontSize: "clamp(min(12px,1.5625vw),1.6vw,24px)" }}
+            className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[768px]:text-[max(12px,1.5625vw)]`}
+            style={{ fontSize: "max(12px, clamp(min(12px,1.5625vw),1.6vw,24px))" }}
           >
             <p className="leading-[1.8]">
               <span className="font-semibold">디에르(DIHEIR)</span>는
@@ -1194,7 +1194,7 @@ function ServiceCard({
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
         <div
           className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`}
-          style={{ fontSize: "clamp(min(28px,3.6458vw),2.4vw,40px)" }}
+          style={{ fontSize: "max(12px, clamp(min(28px,3.6458vw),2.4vw,40px))" }}
         >
           {data.title.map((line) => (
             <p key={line} className="mb-0 whitespace-nowrap">
@@ -1207,7 +1207,7 @@ function ServiceCard({
         <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-[clamp(min(10px,1.3021vw),3vw,40px)] text-center z-10">
           <div
             className={`${SERIF} text-white tracking-[-0.64px] mb-[clamp(min(8px,1.0417vw),2vw,20px)] leading-tight`}
-            style={{ fontSize: "clamp(min(24px,3.125vw),2.2vw,36px)" }}
+            style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),2.2vw,36px))" }}
           >
             {data.title.map((line) => (
               <p key={line} className="mb-0">
@@ -1217,7 +1217,7 @@ function ServiceCard({
           </div>
           <p
             className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-[12px]`}
-            style={{ fontSize: "clamp(min(12px,1.5625vw),1.2vw,16px)" }}
+            style={{ fontSize: "max(12px, clamp(min(12px,1.5625vw),1.2vw,16px))" }}
           >
             {data.desc}
           </p>
@@ -1346,7 +1346,7 @@ function ServicesDesigner() {
               <p
                 className={`${SERIF} absolute left-[5vw] top-[3vw] max-[768px]:left-[3vw] max-[768px]:top-[2vw] capitalize text-[#9f9f8b] opacity-[0.45] leading-none pointer-events-none md:left-[calc(50%-489.5px)] md:top-[72px] md:-translate-x-1/2 whitespace-nowrap`}
                 style={{
-                  fontSize: "clamp(min(75px,9.7656vw),22vw,230px)",
+                  fontSize: "max(12px, clamp(min(75px,9.7656vw),22vw,230px))",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -1358,7 +1358,7 @@ function ServicesDesigner() {
               <FadeUp delay={0.2}>
                 <h2
                   className={`${SERIF} text-left capitalize text-[#383629] tracking-[-1.2px] leading-[1.2] whitespace-nowrap`}
-                  style={{ fontSize: "clamp(min(40px,5.2083vw),8vw,60px)" }}
+                  style={{ fontSize: "max(12px, clamp(min(40px,5.2083vw),8vw,60px))" }}
                 >
                   Personal Design Consultation
                 </h2>
@@ -1368,8 +1368,8 @@ function ServicesDesigner() {
             <div className="relative mt-[8vw] pr-[2vw] flex justify-end md:absolute md:left-[calc(50%-2px)] md:top-[198px] md:mt-0 md:pr-0 md:justify-start z-10">
               <FadeUp delay={0.3}>
                 <p
-                  className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[768px]:text-[1.4323vw]`}
-                  style={{ fontSize: "clamp(min(11px,1.4323vw),2.6vw,18px)" }}
+                  className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[768px]:text-[max(12px,1.4323vw)]`}
+                  style={{ fontSize: "max(12px, clamp(min(11px,1.4323vw),2.6vw,18px))" }}
                 >
                   전속 디자이너가 매장에 상주하여
                   <br />
@@ -1448,7 +1448,7 @@ function ServicesDesigner() {
           <p
             className={`${SERIF} mb-[80px] md:mb-[120px] text-center capitalize text-[#f7f7ec] opacity-80 leading-none relative z-30 whitespace-nowrap`}
             style={{
-              fontSize: "clamp(min(64px,8.3333vw),18vw,230px)",
+              fontSize: "max(12px, clamp(min(64px,8.3333vw),18vw,230px))",
               letterSpacing: "-0.02em",
             }}
           >
@@ -1516,7 +1516,7 @@ function ServicesDesigner() {
                   <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
                   <div
                     className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`}
-                    style={{ fontSize: "clamp(20px,5.5vw,28px)" }}
+                    style={{ fontSize: "max(12px, clamp(20px,5.5vw,28px))" }}
                   >
                     {SERVICES[mobileIndex].title.map((line) => (
                       <p key={line} className="mb-0 whitespace-nowrap">
@@ -1528,7 +1528,7 @@ function ServicesDesigner() {
                   <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10">
                     <div
                       className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`}
-                      style={{ fontSize: "clamp(18px,4.5vw,24px)" }}
+                      style={{ fontSize: "max(12px, clamp(18px,4.5vw,24px))" }}
                     >
                       {SERVICES[mobileIndex].title.map((line) => (
                         <p key={line} className="mb-0">
@@ -1728,14 +1728,14 @@ function ServicesCore() {
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center capitalize text-[#e7e8cf]">
             <div
               className={`${SERIF} leading-[1.3] tracking-[-1.28px]`}
-              style={{ fontSize: "clamp(min(28px,3.6458vw),4.5vw,64px)" }}
+              style={{ fontSize: "max(12px, clamp(min(28px,3.6458vw),4.5vw,64px))" }}
             >
               <p>“Jewelry becomes meaningful</p>
               <p>When it carries memories beyond time”</p>
             </div>
             <p
               className={`${SANS} leading-[1.3] tracking-[-0.64px]`}
-              style={{ fontSize: "clamp(min(16px,2.0833vw),2.2vw,32px)" }}
+              style={{ fontSize: "max(12px, clamp(min(16px,2.0833vw),2.2vw,32px))" }}
             >
               세대를 지나 기억으로 남는 주얼리, 디에르.
             </p>
@@ -1916,26 +1916,26 @@ function Collection() {
             <div className="flex flex-col items-center gap-2 w-full">
               <p
                 className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-center`}
-                style={{ fontSize: "clamp(min(16px,2.0833vw),2vw,24px)", minHeight: "1.2em" }}
+                style={{ fontSize: "max(12px, clamp(min(16px,2.0833vw),2vw,24px))", minHeight: "1.2em" }}
               >
                 {current.subtitle}
               </p>
               <p
                 className={`${SERIF} text-[#e5e5d4] transition-opacity duration-300 w-full text-center`}
-                style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+                style={{ fontSize: "max(12px, clamp(min(40px,5.2083vw),7vw,80px))" }}
               >
                 {current.title}
               </p>
             </div>
             <p
               className="font-sans font-light text-white transition-opacity duration-300 w-full text-center"
-              style={{ fontSize: "clamp(min(13px,1.6927vw),1.2vw,16px)" }}
+              style={{ fontSize: "max(12px, clamp(min(13px,1.6927vw),1.2vw,16px))" }}
             >
               {current.desc1}
             </p>
             <p
               className={`${SERIF} leading-[1.3] text-white tracking-[-0.4px] transition-opacity duration-300 whitespace-pre-wrap w-full text-center`}
-              style={{ fontSize: "clamp(min(15px,1.9531vw),1.6vw,20px)" }}
+              style={{ fontSize: "max(12px, clamp(min(15px,1.9531vw),1.6vw,20px))" }}
             >
               {current.desc2}
             </p>
@@ -2175,14 +2175,14 @@ function GoogleSubmitForm({
 
   // Responsive classes based on mobile or desktop
   const labelClass = isMobile
-    ? "text-[clamp(20px,5.5vw,24px)]"
-    : "text-[clamp(min(18px,2.34375vw),3vw,28px)]";
+    ? "text-[max(12px,clamp(20px,5.5vw,24px))]"
+    : "text-[max(12px,clamp(min(18px,2.34375vw),3vw,28px))]";
   const inputClass = isMobile
     ? "w-full pb-[2vw] focus:border-b-2"
-    : "w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]";
+    : "w-[64%] pb-[10px] text-[max(12px,clamp(min(16px,2.083vw),2.5vw,24px))] focus:border-b-[3px]";
   const inputTextClass = isMobile
-    ? "text-[clamp(14px,3.9vw,18px)]"
-    : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]";
+    ? "text-[max(12px,clamp(14px,3.9vw,18px))]"
+    : "text-[max(12px,clamp(min(16px,2.083vw),2.5vw,24px))]";
   const rowClass = isMobile
     ? "flex flex-col gap-[2vw] w-full"
     : "flex items-center justify-between w-full";
@@ -2296,7 +2296,7 @@ function GoogleSubmitForm({
               className={`accent-[#383629] cursor-pointer shrink-0 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
             />
             <div
-              className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[clamp(14px,4.5vw,18px)]" : "text-[clamp(min(16px,2.083vw),2.5vw,20px)]"}`}
+              className={`font-sans text-[#444429] flex items-center ${isMobile ? "text-[max(12px,clamp(14px,4.5vw,18px))]" : "text-[max(12px,clamp(min(16px,2.083vw),2.5vw,20px))]"}`}
             >
               <button
                 type="button"
@@ -2328,7 +2328,7 @@ function GoogleSubmitForm({
               className={`accent-[#383629] cursor-pointer shrink-0 mt-1 ${isMobile ? "size-[3vw]" : "size-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
             />
             <div
-              className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[clamp(12px,3.2vw,14px)]" : "text-[clamp(min(13px,1.692vw),1.8vw,16px)]"}`}
+              className={`font-sans text-[#444429] flex items-center leading-[1.4] ${isMobile ? "text-[max(12px,clamp(12px,3.2vw,14px))]" : "text-[max(12px,clamp(min(13px,1.692vw),1.8vw,16px))]"}`}
             >
               <label
                 htmlFor={`marketing-agree-${isMobile ? "mobile" : "desktop"}`}
@@ -2347,7 +2347,7 @@ function GoogleSubmitForm({
           className={`bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors ${isMobile ? "w-[50%] h-[11vw] mt-[2vw]" : "mt-[clamp(40px,6.94vw,100px)] h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]"}`}
         >
           <span
-            className={`font-serif ${isMobile ? "text-[4vw]" : "text-[clamp(min(16px,2.083vw),2.5vw,24px)]"}`}
+            className={`font-serif ${isMobile ? "text-[max(12px,4vw)]" : "text-[max(12px,clamp(min(16px,2.083vw),2.5vw,24px))]"}`}
           >
             Reservation
           </span>
@@ -2400,7 +2400,7 @@ function ReservationCard() {
         <div className="relative z-10 flex w-full flex-col items-center gap-[clamp(min(20px,2.6vw),4vw,40px)]">
           <p
             className={`${SERIF} text-center text-[#444429]`}
-            style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+            style={{ fontSize: "max(12px, clamp(min(40px,5.2083vw),7vw,80px))" }}
           >
             Reserve Appointment
           </p>
@@ -2469,7 +2469,7 @@ function DiheirSpace() {
               {/* House of Diheir title */}
               <p
                 className={`${SERIF} text-center capitalize text-[#444429]`}
-                style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+                style={{ fontSize: "max(12px, clamp(min(40px,5.2083vw),7vw,80px))" }}
               >
                 House of Diheir
               </p>
@@ -2534,12 +2534,12 @@ function DiheirSpace() {
                 {/* Title + Description */}
                 <div className="flex flex-col items-start w-full">
                   <p className={`${SERIF} capitalize text-[#444429] tracking-[-0.8px] w-full`}
-                    style={{ fontSize: "clamp(min(28px,3.6458vw),3vw,40px)" }}
+                    style={{ fontSize: "max(12px, clamp(min(28px,3.6458vw),3vw,40px))" }}
                   >
                     DIHEIR Cheongdam
                   </p>
                   <p className={`${SANS} text-[#79796b] tracking-[-0.36px]`}
-                    style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,18px)" }}
+                    style={{ fontSize: "max(12px, clamp(min(14px,1.82vw),1.5vw,18px))" }}
                   >
                     당신의 모든 순간을 빛내주는 하이 주얼리 브랜드 디에르(DIHEIR)
                   </p>
@@ -2547,7 +2547,7 @@ function DiheirSpace() {
 
                 {/* Address + Hours */}
                 <div className={`${SANS} flex items-start gap-[40px] text-[#444429] tracking-[-0.4px] w-full`}
-                  style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,20px)" }}
+                  style={{ fontSize: "max(12px, clamp(min(14px,1.82vw),1.5vw,20px))" }}
                 >
                   <div className="flex flex-col justify-center shrink-0 w-[362px]">
                     <p className="leading-[1.3]">서울시 강남구 도산대로59길 16,</p>
@@ -2572,7 +2572,7 @@ function DiheirSpace() {
                     />
                   </div>
                   <div className={`${SANS} flex-1 flex flex-col gap-[16px] text-[#444429] py-[8px]`}
-                    style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,20px)" }}
+                    style={{ fontSize: "max(12px, clamp(min(14px,1.82vw),1.5vw,20px))" }}
                   >
                     <div className="flex flex-col">
                       <p className="font-semibold leading-[1.3]">오시는길</p>
@@ -2599,7 +2599,7 @@ function DiheirSpace() {
                   style={{
                     width: 209,
                     height: 60,
-                    fontSize: "clamp(min(16px,2.083vw),2.5vw,24px)",
+                    fontSize: "max(12px, clamp(min(16px,2.083vw),2.5vw,24px))",
                   }}
                 >
                   Map
@@ -2612,7 +2612,7 @@ function DiheirSpace() {
                   style={{
                     width: 209,
                     height: 60,
-                    fontSize: "clamp(min(16px,2.083vw),2.5vw,24px)",
+                    fontSize: "max(12px, clamp(min(16px,2.083vw),2.5vw,24px))",
                   }}
                 >
                   Reservation
@@ -2630,7 +2630,7 @@ function DiheirSpace() {
         >
           <p
             className={`${SERIF} capitalize text-[rgba(255,255,255,0.9)] tracking-[-0.8px]`}
-            style={{ fontSize: "clamp(min(28px,3.6458vw),3vw,40px)" }}
+            style={{ fontSize: "max(12px, clamp(min(28px,3.6458vw),3vw,40px))" }}
           >
             DIHEIR Cheongdam
           </p>
@@ -2910,7 +2910,7 @@ function Footer_save() {
         <FadeUp duration={1.0}>
           <nav
             className={`${SERIF} flex flex-col gap-[clamp(min(20px,2.6042vw),3vw,60px)] capitalize text-[#c1c4ad] tracking-[-0.8px]`}
-            style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}
+            style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),3vw,40px))" }}
           >
             {FOOTER_LINKS.map((link) => (
               <a
@@ -2944,7 +2944,7 @@ function Footer_save() {
           <div className="flex flex-col gap-3">
             <p
               className={`${SERIF} capitalize text-[#c1c4ad] tracking-[-0.8px]`}
-              style={{ fontSize: "clamp(min(24px,3.125vw),3vw,40px)" }}
+              style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),3vw,40px))" }}
             >
               SNS
             </p>
