@@ -1470,13 +1470,13 @@ function ServicesDesigner() {
             Quality Jewelry
           </p>
           {/* Mobile Carousel (one card at a time with arrows) */}
-          <div className="md:hidden flex items-center justify-center gap-4 px-[5vw] pb-4 relative z-30">
+          <div className="md:hidden relative flex items-center justify-center px-[8vw] pb-4 z-30">
             {/* Prev Arrow */}
             <button
               type="button"
               aria-label="이전"
               onClick={prevCard}
-              className="shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
+              className="absolute left-[3vw] z-40 shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
@@ -1502,7 +1502,7 @@ function ServicesDesigner() {
             </button>
 
             {/* Single Card */}
-            <div className="flex-1 overflow-hidden">
+            <div className="w-full overflow-hidden">
               <motion.div
                 key={mobileIndex}
                 initial={{ opacity: 0, x: 40 }}
@@ -1546,7 +1546,7 @@ function ServicesDesigner() {
                   <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10 ${showMobileDesc ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                     <div
                       className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`}
-                      style={{ fontSize: "max(18px, clamp(27px,6.75vw,36px))" }}
+                      style={{ fontSize: "max(12px, clamp(18px,4.5vw,24px))" }}
                     >
                       {SERVICES[mobileIndex].title.map((line) => (
                         <p key={line} className="mb-0">
@@ -1556,7 +1556,7 @@ function ServicesDesigner() {
                     </div>
                     <p
                       className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6]`}
-                      style={{ fontSize: "18px" }}
+                      style={{ fontSize: "12px" }}
                     >
                       {SERVICES[mobileIndex].desc}
                     </p>
@@ -1570,7 +1570,7 @@ function ServicesDesigner() {
               type="button"
               aria-label="다음"
               onClick={nextCard}
-              className="shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
+              className="absolute right-[3vw] z-40 shrink-0 flex size-[11vw] items-center justify-center rounded-full transition-colors hover:brightness-110"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05))",
