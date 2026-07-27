@@ -2424,7 +2424,7 @@ function PrivacyPolicyModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[clamp(24px,3.75vw,72px)] md:h-[clamp(24px,3.75vw,72px)] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -2487,7 +2487,7 @@ function InfoModal({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[72px] md:h-[72px] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
+          className="absolute right-4 top-4 md:right-6 md:top-6 w-[24px] h-[24px] md:w-[clamp(24px,3.75vw,72px)] md:h-[clamp(24px,3.75vw,72px)] flex items-center justify-center text-gray-500 hover:text-black shrink-0"
           onClick={onClose}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
