@@ -52,8 +52,8 @@ export function DiheirLanding() {
       <HomeSection />
 
       {/* 데스크탑(≥768px): 원본 1920 레이아웃 유지 및 비율만 축소 */}
-      <div className="relative hidden md:block">
-        <div className="mx-auto w-[1920px]" style={{ zoom }}>
+      <div className="relative hidden md:flex w-full justify-center">
+        <div className="w-[1920px]" style={{ zoom }}>
           <OriginalDiheirPage />
         </div>
       </div>

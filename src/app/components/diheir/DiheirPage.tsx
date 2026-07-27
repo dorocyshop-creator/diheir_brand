@@ -12,7 +12,8 @@ import svgPaths from "../../../imports/DiheirPage/svg-0y7pwhlwwq";
 import imgHome02 from "../../../component/home/home_02.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
-import imgDiheirLogoOg1 from "../../../imports/DiheirPage/6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
+import imgDiheirLogoOg1 from "../../../component/logo/Diheir Logo.png";
+import imgFooterLogo from "../../../imports/DiheirPage/6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
 import imgImage40 from "../../../component/brand/olive_tree.png";
 import imgImage49 from "../../../component/brand/tree.png";
 import imgFrame10 from "../../../imports/DiheirPage/f6c122e00214ef423f256922a9b11476fb7caf94.png";
@@ -41,6 +42,9 @@ import imgSPIRAL01 from "../../../component/collection/SPIRAL_Collection_01.png"
 import imgSPIRAL02 from "../../../component/collection/SPIRAL_Collection_02.png";
 import imgFooter from "../../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../../component/diheirspace/diheirspace.jpg";
+import imgStore01 from "../../../component/diheirspace/diheirspace_store_01.jpg";
+import imgStore02 from "../../../component/diheirspace/diheirspace_store_02.jpg";
+import imgStore03 from "../../../component/diheirspace/diheirspace_store_03.jpg";
 import imgServiceBg from "../../../component/service/service.jpg";
 
 /**
@@ -190,7 +194,10 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
         onClick={() => {
           const targetId = window.innerWidth < 768 ? "reservation_mobile" : "reservation";
           const el = document.getElementById(targetId);
-          if (el) el.scrollIntoView({ behavior: "smooth" });
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            window.scrollTo({ top: window.scrollY + rect.top, behavior: "smooth" });
+          }
         }}
       >
         Contact
@@ -1240,48 +1247,70 @@ function ServicesDesigner() {
       setTimeout(setScroll, 1500);
 
       // Drag to scroll logic for desktop mouse users testing mobile view
+      // Drag to scroll logic for desktop mouse and mobile touch users
       let isDown = false;
       let startX: number;
       let scrollLeft: number;
 
-      const onMouseDown = (e: MouseEvent) => {
+      const onPointerDown = (e: MouseEvent | TouchEvent) => {
         isDown = true;
         el.style.cursor = "grabbing";
-        startX = e.pageX - el.offsetLeft;
+        const pageX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
+        startX = pageX - el.offsetLeft;
         scrollLeft = el.scrollLeft;
         el.style.scrollSnapType = "none"; // disable snap while dragging
+        // Prevent default only for mouse events to avoid dragging ghost images
+        if (e.type === "mousedown") e.preventDefault();
       };
 
-      const onMouseLeave = () => {
-        isDown = false;
-        el.style.cursor = "grab";
-        el.style.scrollSnapType = "x mandatory";
-      };
-
-      const onMouseUp = () => {
-        isDown = false;
-        el.style.cursor = "grab";
-        el.style.scrollSnapType = "x mandatory";
-      };
-
-      const onMouseMove = (e: MouseEvent) => {
+      const onPointerLeave = () => {
         if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - el.offsetLeft;
+        isDown = false;
+        el.style.cursor = "grab";
+        el.style.scrollSnapType = "x mandatory";
+        requestAnimationFrame(() => {
+          el.scrollBy({ left: 1, behavior: "smooth" });
+        });
+      };
+
+      const onPointerUp = () => {
+        if (!isDown) return;
+        isDown = false;
+        el.style.cursor = "grab";
+        el.style.scrollSnapType = "x mandatory";
+        requestAnimationFrame(() => {
+          el.scrollBy({ left: 1, behavior: "smooth" });
+        });
+      };
+
+      const onPointerMove = (e: MouseEvent | TouchEvent) => {
+        if (!isDown) return;
+        const pageX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
+        const x = pageX - el.offsetLeft;
         const walk = (x - startX) * 1.5;
         el.scrollLeft = scrollLeft - walk;
       };
 
-      el.addEventListener("mousedown", onMouseDown);
-      el.addEventListener("mouseleave", onMouseLeave);
-      el.addEventListener("mouseup", onMouseUp);
-      el.addEventListener("mousemove", onMouseMove);
+      el.addEventListener("mousedown", onPointerDown);
+      el.addEventListener("mouseleave", onPointerLeave);
+      el.addEventListener("mouseup", onPointerUp);
+      el.addEventListener("mousemove", onPointerMove);
+
+      el.addEventListener("touchstart", onPointerDown, { passive: true });
+      el.addEventListener("touchend", onPointerUp);
+      el.addEventListener("touchcancel", onPointerLeave);
+      el.addEventListener("touchmove", onPointerMove, { passive: true });
 
       return () => {
-        el.removeEventListener("mousedown", onMouseDown);
-        el.removeEventListener("mouseleave", onMouseLeave);
-        el.removeEventListener("mouseup", onMouseUp);
-        el.removeEventListener("mousemove", onMouseMove);
+        el.removeEventListener("mousedown", onPointerDown);
+        el.removeEventListener("mouseleave", onPointerLeave);
+        el.removeEventListener("mouseup", onPointerUp);
+        el.removeEventListener("mousemove", onPointerMove);
+
+        el.removeEventListener("touchstart", onPointerDown);
+        el.removeEventListener("touchend", onPointerUp);
+        el.removeEventListener("touchcancel", onPointerLeave);
+        el.removeEventListener("touchmove", onPointerMove);
       };
     }
   }, []);
@@ -1466,6 +1495,17 @@ function ServicesDesigner() {
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.3 }}
                 className="w-full"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = offset.x;
+                  if (swipe < -50) {
+                    nextCard();
+                  } else if (swipe > 50) {
+                    prevCard();
+                  }
+                }}
               >
                 <div className="group relative w-full aspect-[3/4] shrink-0 flex flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[8vw] px-[4vw] text-center cursor-pointer">
                   <img
@@ -1859,7 +1899,6 @@ function Collection() {
         {/* Stacked Interactive Gallery */}
         <div
           className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
-          onClick={() => setIsOpen(!isOpen)}
         >
           <AnimatePresence custom={direction}>
             <motion.div
@@ -1875,6 +1914,18 @@ function Collection() {
               exit="exit"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="absolute inset-0 z-10"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onClick={() => setIsOpen(!isOpen)}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = offset.x;
+                if (swipe < -50) {
+                  handleNext();
+                } else if (swipe > 50) {
+                  handlePrev();
+                }
+              }}
             >
               {current?.images && current.images.length === 3 ? (
                 <>
@@ -2308,7 +2359,18 @@ function ReservationCard() {
 }
 
 function DiheirSpace() {
-  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const storeImages = [imgStore01, imgStore02, imgStore03];
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? storeImages.length - 1 : prev - 1));
+  };
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === storeImages.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <section
@@ -2338,10 +2400,169 @@ function DiheirSpace() {
           />
         </FadeUp>
 
-        <div className="relative mt-[clamp(-80px,-6vw,-40px)]">
-          <ReservationCard />
+        {/* Glass card with new store info design */}
+        <div className="relative mt-[clamp(-828px,-43.125vw,-150px)] px-4">
+          <FadeUp>
+            <div className="relative mx-auto w-full max-w-[1116px] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(16px,4vw,58px)] py-[clamp(24px,5vw,65px)] bg-[rgba(170,166,128,0.2)] backdrop-blur-[20px] border-2 border-solid border-[rgba(255,255,255,0)]">
+              <div className="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,60px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(16px,4vw,58px)] py-[clamp(32px,5vw,64px)] bg-[#c3c0b0] overflow-hidden">
+              {/* House of Diheir title */}
+              <p
+                className={`${SERIF} text-center capitalize text-[#444429]`}
+                style={{ fontSize: "clamp(min(40px,5.2083vw),7vw,80px)" }}
+              >
+                House of Diheir
+              </p>
+
+              {/* Image Carousel */}
+              <div className="relative w-full">
+                <div className="relative w-full aspect-[800/411] overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentSlide}
+                      src={storeImages[currentSlide]}
+                      alt={`디에르 청담 매장 ${currentSlide + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
+
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={prevSlide}
+                    className="absolute left-[22px] top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2"
+                    aria-label="Previous slide"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M16 22.4L4.8 12L16 1.6" stroke="white" strokeOpacity="0.6" strokeLinecap="square" strokeWidth="2" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute right-[22px] top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2"
+                    aria-label="Next slide"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M8 22.4L19.2 12L8 1.6" stroke="white" strokeOpacity="0.6" strokeLinecap="square" strokeWidth="2" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Indicator Bars */}
+                <div className="flex items-center justify-center gap-[20px] w-[500px] mx-auto mt-[20px]">
+                  {storeImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`h-[2px] cursor-pointer transition-all duration-300 ${
+                        index === currentSlide
+                          ? "bg-[#27261d] flex-[1_0_0]"
+                          : "bg-[#8b8875] w-[100px]"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Store Info */}
+              <div className="flex flex-col gap-[40px] items-start w-full">
+                {/* Title + Description */}
+                <div className="flex flex-col items-start w-full">
+                  <p className={`${SERIF} capitalize text-[#444429] tracking-[-0.8px] w-full`}
+                    style={{ fontSize: "clamp(min(28px,3.6458vw),3vw,40px)" }}
+                  >
+                    DIHEIR Cheongdam
+                  </p>
+                  <p className={`${SANS} text-[#79796b] tracking-[-0.36px]`}
+                    style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,18px)" }}
+                  >
+                    당신의 모든 순간을 빛내주는 하이 주얼리 브랜드 디에르(DIHEIR)
+                  </p>
+                </div>
+
+                {/* Address + Hours */}
+                <div className={`${SANS} flex items-start gap-[40px] text-[#444429] tracking-[-0.4px] w-full`}
+                  style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,20px)" }}
+                >
+                  <div className="flex flex-col justify-center shrink-0 w-[362px]">
+                    <p className="leading-[1.3]">서울시 강남구 도산대로59길 16,</p>
+                    <p className="leading-[1.3]">B1층 (청담동, 테이블2025)</p>
+                  </div>
+                  <div className="flex flex-col justify-center flex-1">
+                    <p className="leading-[1.3]">
+                      AM 10:30 - PM 07:30 / 월·명절 연휴 휴무
+                      <br />
+                      Tel. 0507-1339-2520
+                    </p>
+                  </div>
+                </div>
+
+                {/* Directions + Parking */}
+                <div className="flex gap-[40px] items-start w-full">
+                  <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
+                    <img
+                      alt="디에르 청담 매장 외관"
+                      src={imgStore01}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className={`${SANS} flex-1 flex flex-col gap-[16px] text-[#444429] py-[8px]`}
+                    style={{ fontSize: "clamp(min(14px,1.82vw),1.5vw,20px)" }}
+                  >
+                    <div className="flex flex-col">
+                      <p className="font-semibold leading-[1.3]">오시는길</p>
+                      <p className="leading-[1.3] font-normal opacity-80">수인분당선 압구정로데오역 3번 출구에서 423m</p>
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="font-semibold leading-[1.3]">주차</p>
+                      <p className="leading-[1.3] font-normal opacity-80">
+                        본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에 발렛 주차 하시면 2시간 이용 가능합니다.
+                      </p>
+                      <p className="leading-[1.3] font-normal opacity-80">주차후 계단으로 올라오시면 좌측으로 디에르 매장이 있습니다.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-[60px] items-start">
+                <a
+                  href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer`}
+                  style={{
+                    width: 209,
+                    height: 60,
+                    fontSize: "clamp(min(16px,2.083vw),2.5vw,24px)",
+                  }}
+                >
+                  Map
+                </a>
+                <a
+                  href="https://booking.naver.com/booking/6/bizes/1551859"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer`}
+                  style={{
+                    width: 209,
+                    height: 60,
+                    fontSize: "clamp(min(16px,2.083vw),2.5vw,24px)",
+                  }}
+                >
+                  Reservation
+                </a>
+              </div>
+              </div>
+            </div>
+          </FadeUp>
         </div>
 
+        {/* Keep the address info below */}
         <FadeUp
           delay={0.2}
           className="mx-auto mt-[clamp(min(40px,5.2083vw),6vw,80px)] flex max-w-[1000px] flex-col gap-6 px-[clamp(0px,4vw,40px)]"
@@ -2384,57 +2605,146 @@ function DiheirSpace() {
           delay={0.1}
           className="relative w-full rounded-[6vw] overflow-hidden shadow-2xl"
         >
-          <img
-            alt="디에르 청담 공간"
-            src={imgDiheirspaceBg}
-            className="absolute inset-0 size-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-[#c3c0b0]" />
 
-          <div className="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[10vw]">
-            {/* The Form Box */}
-            <div className="flex w-full flex-col items-center rounded-[4vw] bg-[#c5c6b6]/85 px-[6vw] py-[8vw] backdrop-blur-md shadow-xl border border-white/40">
-              <p
-                className={`${SERIF} text-center text-[#383629] mb-[8vw] leading-none`}
-                style={{ fontSize: "7vw" }}
-              >
-                Reserve Appointment
-              </p>
+          <div className="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[8vw] items-center">
+            {/* House of Diheir title */}
+            <p
+              className={`${SERIF} text-center capitalize text-[#444429]`}
+              style={{ fontSize: "8vw" }}
+            >
+              House of Diheir
+            </p>
 
-              <GoogleSubmitForm
-                isMobile={true}
-                onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
-              />
+            {/* Image Carousel */}
+            <div className="relative w-full">
+              <div className="relative w-full aspect-[800/411] overflow-hidden rounded-[2vw]">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentSlide}
+                    src={storeImages[currentSlide]}
+                    alt={`디에르 청담 매장 ${currentSlide + 1}`}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-[3vw] top-1/2 -translate-y-1/2 z-10 cursor-pointer p-1"
+                  aria-label="Previous slide"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M16 22.4L4.8 12L16 1.6" stroke="white" strokeOpacity="0.6" strokeLinecap="square" strokeWidth="2" />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-[3vw] top-1/2 -translate-y-1/2 z-10 cursor-pointer p-1"
+                  aria-label="Next slide"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 22.4L19.2 12L8 1.6" stroke="white" strokeOpacity="0.6" strokeLinecap="square" strokeWidth="2" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Indicator Bars */}
+              <div className="flex items-center justify-center gap-[10px] w-[70%] mx-auto mt-[3vw]">
+                {storeImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-[2px] cursor-pointer transition-all duration-300 ${
+                      index === currentSlide
+                        ? "bg-[#27261d] flex-[1_0_0]"
+                        : "bg-[#8b8875] w-[60px]"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
-            <PrivacyPolicyModal
-              isOpen={isPrivacyModalOpen}
-              onClose={() => setIsPrivacyModalOpen(false)}
-            />
-
-            {/* Address Info */}
-            <div className="flex flex-col gap-[3vw] text-[rgba(255,255,255,0.95)]">
-              <p
-                className={`${SERIF} tracking-[-0.5px] leading-none`}
-                style={{ fontSize: "6vw" }}
-              >
-                DIHEIR Cheongdam
-              </p>
-              <div
-                className={`${SANS} flex flex-row justify-between gap-[2vw] text-[rgba(255,255,255,0.8)] tracking-[-0.3px]`}
-                style={{ fontSize: "2vw" }}
-              >
-                <p className="leading-[1.4]">
-                  서울시 강남구 도산대로59길 16,
-                  <br />
-                  B1층 (청담동, 테이블2025)
+            {/* Store Info */}
+            <div className="flex flex-col gap-[4vw] items-start w-full">
+              <div className="flex flex-col items-start w-full">
+                <p className={`${SERIF} capitalize text-[#444429] tracking-[-0.8px]`}
+                  style={{ fontSize: "5.5vw" }}
+                >
+                  DIHEIR Cheongdam
                 </p>
-                <p className="leading-[1.4] text-right">
-                  AM 10:30 - PM 07:30 / 월·명절 연휴 휴무
-                  <br />
-                  Tel. 0507-1339-2520
+                <p className={`${SANS} text-[#79796b] tracking-[-0.36px]`}
+                  style={{ fontSize: "3vw" }}
+                >
+                  당신의 모든 순간을 빛내주는 하이 주얼리 브랜드 디에르(DIHEIR)
                 </p>
               </div>
+
+              {/* Address + Hours */}
+              <div className={`${SANS} flex flex-col gap-[2vw] text-[#444429] tracking-[-0.4px]`}
+                style={{ fontSize: "3vw" }}
+              >
+                <div className="flex flex-col justify-center">
+                  <p className="leading-[1.3]">서울시 강남구 도산대로59길 16, B1층 (청담동, 테이블2025)</p>
+                </div>
+                <p className="leading-[1.3]">
+                  AM 10:30 - PM 07:30 / 월·명절 연휴 휴무 · Tel. 0507-1339-2520
+                </p>
+              </div>
+
+              {/* Directions + Parking */}
+              <div className="flex flex-col gap-[3vw] items-start w-full">
+                <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
+                  <img
+                    alt="디에르 청담 매장 외관"
+                    src={imgStore01}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className={`${SANS} flex flex-col gap-[3vw] text-[#444429]`}
+                  style={{ fontSize: "3vw" }}
+                >
+                  <div className="flex flex-col">
+                    <p className="font-semibold leading-[1.3]">오시는길</p>
+                    <p className="leading-[1.3] font-normal opacity-80">수인분당선 압구정로데오역 3번 출구에서 423m</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="font-semibold leading-[1.3]">주차</p>
+                    <p className="leading-[1.3] font-normal opacity-80">
+                      본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에 발렛 주차 하시면 2시간 이용 가능합니다.
+                    </p>
+                    <p className="leading-[1.3] font-normal opacity-80">주차후 계단으로 올라오시면 좌측으로 디에르 매장이 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-[6vw] items-center">
+              <a
+                href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer px-[6vw] py-[2.5vw]`}
+                style={{ fontSize: "4vw" }}
+              >
+                Map
+              </a>
+              <a
+                href="https://booking.naver.com/booking/6/bizes/1551859"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer px-[6vw] py-[2.5vw]`}
+                style={{ fontSize: "4vw" }}
+              >
+                Reservation
+              </a>
             </div>
           </div>
         </FadeUp>
@@ -2525,7 +2835,7 @@ function Footer() {
       <div className="pointer-events-none absolute inset-0 size-full">
         <img
           alt=""
-          className="absolute inset-0 size-full object-cover"
+          className="absolute inset-0 size-full object-cover opacity-[0.12]"
           src={imgFooter}
         />
         <div 
@@ -2595,7 +2905,7 @@ function Footer() {
         >
           <img
             alt=""
-            src={imgDiheirLogoOg1}
+            src={imgFooterLogo}
             className="w-full object-contain"
           />
         </FadeUp>
