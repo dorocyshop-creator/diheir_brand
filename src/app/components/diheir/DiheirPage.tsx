@@ -1649,7 +1649,9 @@ function ServicesCore() {
   const yMain = useTransform(scrollYProgress, [0.8, 0.9], ["100%", "0%"]);
 
   // Final expansion transforms for the central box (starts AFTER slide-up completes at 0.9)
-  const boxScale = useTransform(scrollYProgress, [0.9, 1], [1, 1.3]);
+  const boxWidth = useTransform(scrollYProgress, [0.9, 1], ["90vw", "100vw"]);
+  const boxHeight = useTransform(scrollYProgress, [0.9, 1], ["100.28vw", "100vh"]);
+  const boxRadius = useTransform(scrollYProgress, [0.9, 1], ["8px", "0px"]);
 
   return (
     <section className="relative w-full bg-[#9f9f8b]" data-name="Services_core">
@@ -1657,10 +1659,10 @@ function ServicesCore() {
       {/* Scrolljacking container: 500vh tall to allow scrolling */}
       <div ref={containerRef} className="md:hidden relative w-full h-[500vh]">
         {/* Sticky viewport that stays on screen */}
-        <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center px-[5vw] overflow-hidden">
+        <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden">
           <motion.div
-            style={{ scale: boxScale }}
-            className="relative w-full max-w-[700px] aspect-[700/780] mx-auto overflow-hidden rounded-sm shadow-2xl bg-[#9f9f8b]"
+            style={{ width: boxWidth, height: boxHeight, borderRadius: boxRadius }}
+            className="relative mx-auto overflow-hidden shadow-2xl bg-[#9f9f8b]"
           >
             <motion.div
               style={{ opacity: op1, y: y1 }}
