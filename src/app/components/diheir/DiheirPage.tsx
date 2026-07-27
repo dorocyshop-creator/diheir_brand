@@ -282,7 +282,7 @@ export function ScrollAnimatedLogo() {
         x,
         y,
         width,
-        zIndex: 60,
+        zIndex: 110,
       }}
       className="pointer-events-none flex items-center justify-center"
     >
