@@ -3136,7 +3136,7 @@ function Frame54({
   );
 }
 
-function Footer() {
+function Footer_save() {
   const [modalType, setModalType] = useState<"info" | "privacy" | "terms" | "quality" | null>(null);
 
   const getModalContent = () => {
@@ -3336,7 +3336,31 @@ export default function DiheirPage() {
       <ServicesCore />
       <Collection />
       <Diheirspace />
+      {/* <Footer_save /> */}
       <Footer />
     </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="shrink-0 w-[1920px] bg-[#383629] px-[120px] py-[100px] flex flex-row justify-between items-end">
+      <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[16px] font-light leading-[1.6]">
+        <div>
+          <p>법인명(상호) : 디에르(DIHEIR)</p>
+          <p>대표자(성명) : 조윤경</p>
+          <p>사업자등록번호 : 758-26-01812 [사업자정보확인]</p>
+          <p>책임자 : 조윤경</p>
+          <p>주소 : 서울특별시 강남구 도산대로59길 16, 지하 1층 (청담동, 테이블2025)</p>
+          <p>대표번호 : 010-8947-2520</p>
+          <p>개인정보 보호책임자 : 조상환</p>
+        </div>
+        <p className="mt-[60px] text-[15px]">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
+      </div>
+      
+      <div className="w-[400px] shrink-0 pb-[15px]">
+        <img src={imgFooterLogo} alt="Diheir Logo" className="w-full h-auto object-contain" />
+      </div>
+    </footer>
   );
 }

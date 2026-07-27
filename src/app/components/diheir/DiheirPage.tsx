@@ -2873,7 +2873,7 @@ function InstagramIcon() {
   );
 }
 
-function Footer() {
+function Footer_save() {
   const [modalType, setModalType] = useState<"info" | "privacy" | "terms" | "quality" | null>(null);
 
   const getModalContent = () => {
@@ -3033,7 +3033,31 @@ export default function DiheirPage() {
       <ServicesCore />
       <Collection />
       <DiheirSpace />
+      {/* <Footer_save /> */}
       <Footer />
     </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="w-full bg-[#383629] px-[10vw] py-[12vw] md:px-[8vw] md:py-[6vw] flex flex-col md:flex-row justify-between items-start md:items-end gap-[10vw] md:gap-[2vw]">
+      <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[3.5vw] md:text-[1vw] font-light leading-[1.6]">
+        <div>
+          <p>법인명(상호) : 디에르(DIHEIR)</p>
+          <p>대표자(성명) : 조윤경</p>
+          <p>사업자등록번호 : 758-26-01812 [사업자정보확인]</p>
+          <p>책임자 : 조윤경</p>
+          <p>주소 : 서울특별시 강남구 도산대로59길 16, 지하 1층 (청담동, 테이블2025)</p>
+          <p>대표번호 : 010-8947-2520</p>
+          <p>개인정보 보호책임자 : 조상환</p>
+        </div>
+        <p className="mt-[8vw] md:mt-[4vw] text-[3vw] md:text-[0.9vw]">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
+      </div>
+      
+      <div className="w-[45vw] md:w-[25vw] shrink-0 md:pb-[1vw]">
+        <img src={imgFooterLogo} alt="Diheir Logo" className="w-full h-auto object-contain opacity-60" />
+      </div>
+    </footer>
   );
 }
