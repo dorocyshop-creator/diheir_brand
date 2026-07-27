@@ -1239,10 +1239,16 @@ function ServiceCard({
 function ServicesDesigner() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [showMobileDesc, setShowMobileDesc] = useState(false);
   const mobileTotal = SERVICES.length;
-  const prevCard = () =>
+  const prevCard = () => {
     setMobileIndex((i) => (i - 1 + mobileTotal) % mobileTotal);
-  const nextCard = () => setMobileIndex((i) => (i + 1) % mobileTotal);
+    setShowMobileDesc(false);
+  };
+  const nextCard = () => {
+    setMobileIndex((i) => (i + 1) % mobileTotal);
+    setShowMobileDesc(false);
+  };
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -1516,7 +1522,10 @@ function ServicesDesigner() {
                   }
                 }}
               >
-                <div className="group relative w-full aspect-[3/4] shrink-0 flex flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[8vw] px-[4vw] text-center cursor-pointer">
+                <div
+                  className="group relative w-full aspect-[3/4] shrink-0 flex flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[8vw] px-[4vw] text-center cursor-pointer"
+                  onClick={() => setShowMobileDesc(!showMobileDesc)}
+                >
                   <img
                     alt=""
                     src={SERVICES[mobileIndex].image}
@@ -1524,7 +1533,7 @@ function ServicesDesigner() {
                   />
                   <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
                   <div
-                    className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 group-hover:opacity-0`}
+                    className={`${SERIF} relative capitalize leading-[1.3] text-white tracking-[-0.8px] transition-opacity duration-500 ${showMobileDesc ? "opacity-0" : ""}`}
                     style={{ fontSize: "max(12px, clamp(20px,5.5vw,28px))" }}
                   >
                     {SERVICES[mobileIndex].title.map((line) => (
@@ -1534,7 +1543,7 @@ function ServicesDesigner() {
                     ))}
                   </div>
                   {/* Hover Content */}
-                  <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10">
+                  <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10 ${showMobileDesc ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                     <div
                       className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`}
                       style={{ fontSize: "max(12px, clamp(18px,4.5vw,24px))" }}
