@@ -1627,8 +1627,8 @@ function ServicesCore() {
   const op3 = useTransform(scrollYProgress, [0.4, 0.45, 0.58, 0.6], [0, 1, 1, 0]);
   const op4 = useTransform(scrollYProgress, [0.6, 0.65, 0.78, 0.8], [0, 1, 1, 0]);
 
-  // Fade in 05 without sliding
-  const opMain = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
+  // Instantly show 05 at 0.8 without sliding or fading so opacity is 100%
+  const opMain = useTransform(scrollYProgress, (v) => (v >= 0.8 ? 1 : 0));
 
   // Final expansion transforms for the central box (starts AFTER fade-in completes at 0.9)
   const expProgress = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
