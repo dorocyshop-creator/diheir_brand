@@ -834,8 +834,8 @@ function BrandIdentity() {
       </FadeUp>
 
       {/* 5. Left text + Right Grace Badge */}
-      <div className="flex w-full items-end justify-between gap-[5%] mt-[40px]">
-        <FadeUp className="flex-1">
+      <div className="flex flex-col-reverse md:flex-row w-full items-center md:items-end justify-between gap-[8vw] md:gap-[5%] mt-[40px]">
+        <FadeUp className="w-full md:flex-1">
           <p
             className={`${SANS} text-[#383629] max-[768px]:text-[12px] md:text-[clamp(12px,1.5625vw,16px)] leading-[1.8] tracking-[-0.44px] break-keep`}
           >
@@ -846,7 +846,7 @@ function BrandIdentity() {
             다음 세대로 이어지는 상징이 될 수 있다고 믿습니다.
           </p>
         </FadeUp>
-        <FadeUp delay={0.2} className="w-[45%] max-w-[320px]">
+        <FadeUp delay={0.2} className="w-[80%] max-[768px]:mb-[4vw] md:w-[45%] max-w-[320px]">
           <GraceBadge />
         </FadeUp>
       </div>
