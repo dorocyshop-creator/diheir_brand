@@ -148,7 +148,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
 
   return (
     <motion.nav
-      className="glass fixed top-0 left-0 z-[100] flex w-full items-center justify-between px-[clamp(min(20px,2.6042vw),5vw,80px)] py-4 max-[768px]:min-h-[80px]"
+      className="glass fixed top-0 left-0 z-[100] flex w-full items-center justify-between px-[clamp(min(20px,2.6042vw),5vw,80px)] py-4 max-[768px]:min-h-[64px]"
       data-name="nav"
       style={{
         opacity: navOpacity,
