@@ -1546,7 +1546,7 @@ function ServicesDesigner() {
                   <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 flex flex-col items-center justify-center p-[5vw] text-center z-10 ${showMobileDesc ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                     <div
                       className={`${SERIF} text-white tracking-[-0.64px] mb-[4vw] leading-tight`}
-                      style={{ fontSize: "max(12px, clamp(18px,4.5vw,24px))" }}
+                      style={{ fontSize: "max(18px, clamp(27px,6.75vw,36px))" }}
                     >
                       {SERVICES[mobileIndex].title.map((line) => (
                         <p key={line} className="mb-0">
@@ -1556,7 +1556,7 @@ function ServicesDesigner() {
                     </div>
                     <p
                       className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6]`}
-                      style={{ fontSize: "12px" }}
+                      style={{ fontSize: "18px" }}
                     >
                       {SERVICES[mobileIndex].desc}
                     </p>
