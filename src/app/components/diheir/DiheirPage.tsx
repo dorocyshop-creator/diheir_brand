@@ -2676,7 +2676,7 @@ function DiheirSpace() {
           delay={0.1}
           className="relative w-full rounded-[6vw] overflow-hidden shadow-2xl"
         >
-          <div className="absolute inset-0 bg-[#c3c0b0] opacity-40" />
+          <div className="absolute inset-0 bg-[#c3c0b0] opacity-100" />
 
           <div className="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[8vw] items-center">
             {/* House of Diheir title */}
@@ -3052,7 +3052,7 @@ export default function DiheirPage() {
 function Footer() {
   return (
     <footer className="w-full bg-[#383629] px-[10vw] py-[12vw] md:px-[8vw] md:py-[6vw] flex flex-col md:flex-row justify-between items-start md:items-end gap-[10vw] md:gap-[2vw]">
-      <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[max(12px,3.5vw)] md:text-[max(12px,1vw)] font-light leading-[1.6]">
+      <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-xs lg:text-[max(12px,1vw)] font-light leading-[1.6]">
         <div>
           <p>법인명(상호) : 디에르(DIHEIR)</p>
           <p>대표자(성명) : 조윤경</p>
@@ -3062,7 +3062,7 @@ function Footer() {
           <p>대표번호 : 010-8947-2520</p>
           <p>개인정보 보호책임자 : 조상환</p>
         </div>
-        <p className="mt-[8vw] md:mt-[4vw] text-[max(12px,3vw)] md:text-[max(12px,0.9vw)]">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
+        <p className="mt-[8vw] md:mt-[4vw] text-xs lg:text-[max(12px,0.9vw)]">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
       </div>
       
       <div className="w-[45vw] md:w-[25vw] shrink-0 md:pb-[1vw]">
