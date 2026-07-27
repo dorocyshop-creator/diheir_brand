@@ -1421,7 +1421,7 @@ function ServicesDesigner() {
             </FadeUp>
 
             {/* Foliage Images (Scaled and positioned to match Figma 1043x350 design) */}
-            <div className="absolute top-[60%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
+            <div className="absolute max-[768px]:top-[82%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
               <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -ml-[10%]">
                 <img
                   alt=""
