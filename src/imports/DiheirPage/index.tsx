@@ -6,7 +6,7 @@ import { PRIVACY } from "../../constants/privacy";
 import { QUALITY_CARE } from "../../constants/qualityCare";
 import { FadeUp } from "../../app/components/diheir/FadeUp";
 import svgPaths from "./svg-0y7pwhlwwq";
-import imgDiheirLogoOg1 from "../../component/logo/Diheir Logo.png";
+import imgDiheirLogoOg1 from "../../component/logo/Diheir_Logo_og.png";
 import imgFooterLogo from "./6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
 import imgImage40 from "../../component/brand/olive_tree.png";
 import imgImage49 from "../../component/brand/tree.png";

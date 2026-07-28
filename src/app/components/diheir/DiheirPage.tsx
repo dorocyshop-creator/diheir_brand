@@ -13,6 +13,7 @@ import imgHome02 from "../../../component/home/home_02.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 import imgDiheirLogoOg1 from "../../../component/logo/Diheir Logo.png";
+import imgDiheirLogoBg from "../../../component/logo/Diheir_Logo_og.png";
 import imgFooterLogo from "../../../imports/DiheirPage/6d5a74bfc1553599c2a801c8101c6cb39296d489.png";
 import imgImage40 from "../../../component/brand/olive_tree.png";
 import imgImage49 from "../../../component/brand/tree.png";
@@ -756,7 +757,7 @@ function BrandIdentity() {
           className="absolute left-0 top-[25%] w-full pointer-events-none z-0"
         >
           <img
-            src={imgDiheirLogoOg1}
+            src={imgDiheirLogoBg}
             className="w-full h-auto object-contain opacity-[0.24]"
             alt=""
           />
