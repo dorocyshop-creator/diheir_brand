@@ -178,16 +178,18 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
         )}
-        <div className="absolute left-0 top-[100%] mt-4 flex flex-col gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
-          {["home", "brand", "Services", "Reservation"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}
-            >
-              {item}
-            </a>
-          ))}
+        <div className="absolute left-0 top-[100%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto z-50">
+          <div className="flex flex-col gap-4 bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
+            {["home", "brand", "Services", "Reservation"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
       <p
