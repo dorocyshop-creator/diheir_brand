@@ -43,6 +43,7 @@ import imgSPIRAL02 from "../../../component/collection/SPIRAL_Collection_02.png"
 import imgFooter from "../../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../../component/diheirspace/diheirspace.jpg";
 import imgStore01 from "../../../component/diheirspace/diheirspace_store_01.jpg";
+import imgMapPlaceholder from "../../../component/diheirspace/map.png";
 import imgStore02 from "../../../component/diheirspace/diheirspace_store_02.jpg";
 import imgStore03 from "../../../component/diheirspace/diheirspace_store_03.jpg";
 import imgServiceBg from "../../../component/service/service.jpg";
@@ -2551,7 +2552,7 @@ function DiheirSpace() {
                   <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
                     <img
                       alt="디에르 청담 매장 외관"
-                      src={imgStore01}
+                      src={imgMapPlaceholder}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -2748,7 +2749,7 @@ function DiheirSpace() {
                 <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
                   <img
                     alt="디에르 청담 매장 외관"
-                    src={imgStore01}
+                    src={imgMapPlaceholder}
                     className="w-full h-full object-cover"
                   />
                 </div>
