@@ -753,7 +753,7 @@ function BrandIdentity() {
         {/* Background Logo */}
         <FadeUp
           delay={0.1}
-          className="absolute left-0 top-[25%] w-[115%] pointer-events-none z-0"
+          className="absolute left-0 top-[25%] w-full pointer-events-none z-0"
         >
           <img
             src={imgDiheirLogoOg1}
