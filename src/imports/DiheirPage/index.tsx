@@ -44,6 +44,7 @@ import imgRectangle25 from "./2890547f2c366d8ee61f84efdf3fc34e63ebd59c.png";
 import imgFooter from "../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../component/diheirspace/diheirspace.jpg";
 import imgStore01 from "../../component/diheirspace/diheirspace_store_01.jpg";
+import imgMapPlaceholder from "../../component/diheirspace/map.png";
 import imgStore02 from "../../component/diheirspace/diheirspace_store_02.jpg";
 import imgStore03 from "../../component/diheirspace/diheirspace_store_03.jpg";
 
@@ -2903,7 +2904,7 @@ function Diheirspace() {
                       <img
                         alt="디에르 청담 매장 외관"
                         className="w-full h-full object-cover"
-                        src={imgStore01}
+                        src={imgMapPlaceholder}
                       />
                     </div>
                     <div className="flex flex-col gap-[24px] font-sans text-[#444429] text-[20px] tracking-[-0.4px] w-full">
@@ -3344,7 +3345,7 @@ export default function DiheirPage() {
 
 function Footer() {
   return (
-    <footer className="shrink-0 w-[1920px] bg-[#383629] px-[120px] py-[100px] flex flex-row justify-between items-end">
+    <footer className="shrink-0 w-[1920px] bg-[#29281F] px-[120px] py-[100px] flex flex-row justify-between items-end">
       <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[16px] font-light leading-[1.6]">
         <div>
           <p>법인명(상호) : 디에르(DIHEIR)</p>
