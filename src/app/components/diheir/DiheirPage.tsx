@@ -2554,7 +2554,9 @@ function DiheirSpace() {
                 {/* Directions + Parking */}
                 <div className="flex gap-[40px] items-start w-full">
                   <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
-                    <NaverMap className="w-full h-full object-cover" />
+                    <a href="https://naver.me/GOhZzDqc" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
+                      <img alt="디에르 청담 매장" src={imgMapPlaceholder} className="w-full h-full object-cover" />
+                    </a>
                   </div>
                   <div className={`${SANS} flex-1 flex flex-col gap-[16px] text-[#444429] py-[8px]`}
                     style={{ fontSize: "max(12px, clamp(min(14px,1.82vw),1.5vw,20px))" }}
@@ -2747,7 +2749,9 @@ function DiheirSpace() {
               {/* Directions + Parking */}
               <div className="flex flex-col gap-[3vw] items-start w-full mt-[4vw]">
                 <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
-                  <NaverMap className="w-full h-full object-cover" />
+                  <a href="https://naver.me/GOhZzDqc" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
+                    <img alt="디에르 청담 매장" src={imgMapPlaceholder} className="w-full h-full object-cover" />
+                  </a>
                 </div>
                 <div className={`${SANS} flex flex-col gap-[3vw] text-[#444429]`}
                   style={{ fontSize: "3vw" }}
