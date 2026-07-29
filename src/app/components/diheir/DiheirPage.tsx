@@ -45,6 +45,7 @@ import imgFooter from "../../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../../component/diheirspace/diheirspace.jpg";
 import imgStore01 from "../../../component/diheirspace/diheirspace_store_01.jpg";
 import imgMapPlaceholder from "../../../component/diheirspace/map.png";
+import NaverMap from "./NaverMap";
 import imgStore02 from "../../../component/diheirspace/diheirspace_store_02.jpg";
 import imgStore03 from "../../../component/diheirspace/diheirspace_store_03.jpg";
 import imgServiceBg from "../../../component/service/service.jpg";
@@ -2553,11 +2554,7 @@ function DiheirSpace() {
                 {/* Directions + Parking */}
                 <div className="flex gap-[40px] items-start w-full">
                   <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
-                    <img
-                      alt="디에르 청담 매장 외관"
-                      src={imgMapPlaceholder}
-                      className="w-full h-full object-cover"
-                    />
+                    <NaverMap className="w-full h-full object-cover" />
                   </div>
                   <div className={`${SANS} flex-1 flex flex-col gap-[16px] text-[#444429] py-[8px]`}
                     style={{ fontSize: "max(12px, clamp(min(14px,1.82vw),1.5vw,20px))" }}
@@ -2750,11 +2747,7 @@ function DiheirSpace() {
               {/* Directions + Parking */}
               <div className="flex flex-col gap-[3vw] items-start w-full mt-[4vw]">
                 <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
-                  <img
-                    alt="디에르 청담 매장 외관"
-                    src={imgMapPlaceholder}
-                    className="w-full h-full object-cover"
-                  />
+                  <NaverMap className="w-full h-full object-cover" />
                 </div>
                 <div className={`${SANS} flex flex-col gap-[3vw] text-[#444429]`}
                   style={{ fontSize: "3vw" }}

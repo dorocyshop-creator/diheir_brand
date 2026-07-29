@@ -45,6 +45,7 @@ import imgFooter from "../../component/footer/footer.jpg";
 import imgDiheirspaceBg from "../../component/diheirspace/diheirspace.jpg";
 import imgStore01 from "../../component/diheirspace/diheirspace_store_01.jpg";
 import imgMapPlaceholder from "../../component/diheirspace/map.png";
+import NaverMap from "../../app/components/diheir/NaverMap";
 import imgStore02 from "../../component/diheirspace/diheirspace_store_02.jpg";
 import imgStore03 from "../../component/diheirspace/diheirspace_store_03.jpg";
 
@@ -2901,11 +2902,7 @@ function Diheirspace() {
                   {/* Directions + Parking */}
                   <div className="flex flex-col gap-[32px] items-start w-full mt-[16px]">
                     <div className="w-full h-[450px] shrink-0 border-[30px] border-solid border-[rgba(68,68,41,0.20)] box-border">
-                      <img
-                        alt="디에르 청담 매장 외관"
-                        className="w-full h-full object-cover"
-                        src={imgMapPlaceholder}
-                      />
+                      <NaverMap className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col gap-[24px] font-sans text-[#444429] text-[20px] tracking-[-0.4px] w-full">
                       <div className="flex flex-col gap-[4px]">
