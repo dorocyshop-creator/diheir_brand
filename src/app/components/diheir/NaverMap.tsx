@@ -99,12 +99,21 @@ export default function NaverMap({ className }: { className?: string }) {
           onClick={handleZoomIn}
           style={{ ...btnBase, borderBottom: 'none', borderRadius: '6px 6px 0 0' }}
           aria-label="확대"
-        >+</button>
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="7" y1="2" x2="7" y2="12" />
+            <line x1="2" y1="7" x2="12" y2="7" />
+          </svg>
+        </button>
         <button
           onClick={handleZoomOut}
           style={{ ...btnBase, borderRadius: '0 0 6px 6px' }}
           aria-label="축소"
-        >−</button>
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="2" y1="7" x2="12" y2="7" />
+          </svg>
+        </button>
       </div>
 
       {/* 돌아가기 버튼 (마커가 화면 밖일 때만 표시) */}
