@@ -2926,7 +2926,7 @@ function Diheirspace() {
               {/* Buttons */}
               <div className="flex justify-center gap-[60px] items-center w-full mt-[32px]">
                 <a
-                  href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
+                  href="https://map.naver.com/p/entry/place/2036509182"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#777569] flex h-[60px] items-center justify-center rounded-[30px] w-[209px] font-dream text-[24px] text-white hover:bg-[#5a5649] transition-colors cursor-pointer"

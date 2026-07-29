@@ -2579,7 +2579,7 @@ function DiheirSpace() {
               {/* Buttons */}
               <div className="flex gap-[60px] items-start">
                 <a
-                  href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
+                  href="https://map.naver.com/p/entry/place/2036509182"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer`}
@@ -2774,7 +2774,7 @@ function DiheirSpace() {
             {/* Buttons */}
             <div className="flex gap-[6vw] items-center">
               <a
-                href="https://map.naver.com/p/search/%EB%94%94%EC%97%90%EB%A5%B4"
+                href="https://map.naver.com/p/entry/place/2036509182"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer px-[6vw] py-[2.5vw]`}
