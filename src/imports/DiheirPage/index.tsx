@@ -2902,9 +2902,7 @@ function Diheirspace() {
                   {/* Directions + Parking */}
                   <div className="flex flex-col gap-[32px] items-start w-full mt-[16px]">
                     <div className="w-full h-[450px] shrink-0 border-[30px] border-solid border-[rgba(68,68,41,0.20)] box-border">
-                      <a href="https://map.naver.com/p/entry/place/2036509182" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
-                        <img alt="디에르 청담 매장" src={imgMapPlaceholder} className="w-full h-full object-cover" />
-                      </a>
+                      <NaverMap className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col gap-[24px] font-sans text-[#444429] text-[20px] tracking-[-0.4px] w-full">
                       <div className="flex flex-col gap-[4px]">

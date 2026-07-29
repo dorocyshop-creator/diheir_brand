@@ -1,0 +1,190 @@
+
+<!-- ══ DIHEIR SPACE (React Converted) ══════════════════════════════════════ -->
+<section id="reservation" class="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,60px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]" data-name="diheirspace">
+  
+  <!-- ================= DESKTOP LAYOUT (> 768px) ================= -->
+  <div class="hidden md:block">
+    <div class="reveal">
+      <p class="font-serif text-center capitalize text-[#9f9f8b] opacity-[0.12] whitespace-nowrap" style="font-size: 30vw; letter-spacing: -0.02em">diheirspace</p>
+    </div>
+
+    <div class="relative mx-auto mt-[clamp(min(24px,3.125vw),4vw,40px)] max-w-[1802px] reveal">
+      <img alt="디에르 청담 공간" src="./component/diheirspace/diheirspace.jpg" class="aspect-[1802/945] w-full rounded-sm object-cover" />
+    </div>
+
+    <div class="relative mt-[clamp(-80px,-6vw,-40px)]">
+      <div class="reveal">
+        <div class="relative mx-auto flex w-full max-w-[1000px] flex-col items-center gap-[clamp(min(40px,5.2083vw),6vw,100px)] rounded-[clamp(min(20px,2.6042vw),3vw,32px)] px-[clamp(min(24px,3.125vw),6vw,80px)] py-[clamp(min(48px,6.25vw),8vw,100px)] bg-[#AAA680]/20 backdrop-blur-[20px]">
+          <svg class="absolute inset-0 size-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="borderGradResponsive" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="white" stop-opacity="0" />
+                <stop offset="10%" stopColor="white" stop-opacity="0.1" />
+                <stop offset="40%" stopColor="white" stop-opacity="0.8" />
+                <stop offset="50%" stopColor="white" stop-opacity="1" />
+                <stop offset="60%" stopColor="white" stop-opacity="0.8" />
+                <stop offset="90%" stopColor="white" stop-opacity="0.1" />
+                <stop offset="100%" stopColor="white" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" fill="none" stroke="url(#borderGradResponsive)" stroke-width="2" style="width: calc(100% - 2px); height: calc(100% - 2px); rx: clamp(19px, calc(3vw - 1px), 31px);" />
+          </svg>
+          
+          <div class="relative z-10 flex w-full flex-col items-center gap-[clamp(min(30px,3.9062vw),4vw,60px)]">
+            <p class="font-serif text-center text-[#444429]" style="font-size: clamp(min(40px,5.2083vw),7vw,80px)">Reserve Appointment</p>
+            
+            <iframe name="hidden_iframe_pc" id="hidden_iframe_pc" style="display:none;" onload=""></iframe>
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse" method="POST" target="hidden_iframe_pc" class="flex flex-col items-center w-full gap-[clamp(min(30px,3.9062vw),4vw,60px)]" onsubmit="handleDsSubmit(event, 'pc')">
+              <div class="flex flex-col gap-[clamp(min(24px,3.125vw),4vw,44px)] w-[clamp(min(600px,78.125vw),80vw,800px)]">
+                <div class="flex items-center justify-between w-full">
+                  <p class="font-sans text-[#444429] text-[clamp(min(18px,2.34375vw),3vw,28px)]">이름</p>
+                  <input required type="text" name="entry.1054060175" placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]" />
+                </div>
+                <div class="flex items-center justify-between w-full">
+                  <p class="font-sans text-[#444429] text-[clamp(min(18px,2.34375vw),3vw,28px)]">연락처</p>
+                  <input required type="tel" name="entry.2074802535" placeholder="숫자만 입력해주세요" maxlength="13" class="phone-input-pc border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]" />
+                </div>
+                <div class="flex items-center justify-between w-full">
+                  <p class="font-sans text-[#444429] text-[clamp(min(18px,2.34375vw),3vw,28px)]">방문일</p>
+                  <input required type="date" class="date-input-pc border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]" onchange="handleDateChange(event, 'pc')" />
+                  <input type="hidden" name="entry.626727524_year" class="date-year-pc" />
+                  <input type="hidden" name="entry.626727524_month" class="date-month-pc" />
+                  <input type="hidden" name="entry.626727524_day" class="date-day-pc" />
+                </div>
+                <div class="flex items-center justify-between w-full">
+                  <p class="font-sans text-[#444429] text-[clamp(min(18px,2.34375vw),3vw,28px)]">이메일</p>
+                  <input required type="email" name="entry.134182212" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="이메일 주소에는 반드시 '@'가 포함되어야 합니다." placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]" />
+                </div>
+                <div class="flex items-center justify-between w-full">
+                  <p class="font-sans text-[#444429] text-[clamp(min(18px,2.34375vw),3vw,28px)]">요청사항</p>
+                  <input type="text" name="entry.399277218" placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-[64%] pb-[10px] text-[clamp(min(16px,2.083vw),2.5vw,24px)] focus:border-b-[3px]" />
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 w-full max-w-[800px] mt-0">
+                <input id="privacy-agree-desktop" required type="checkbox" name="entry.831169210" value="네" class="accent-[#383629] cursor-pointer shrink-0 size-[clamp(min(16px,2.083vw),2.5vw,24px)]" />
+                <div class="font-sans text-[#444429] flex items-center text-[clamp(min(18px,2.34375vw),3vw,28px)]">
+                  <button type="button" onclick="openPrivacyModal()" class="underline underline-offset-4 hover:text-black transition-colors cursor-pointer">개인정보 처리방침</button>
+                  <label for="privacy-agree-desktop" class="cursor-pointer ml-1">에 동의</label>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 w-full max-w-[800px] mt-2">
+                <input type="hidden" name="entry.430492874" class="marketing-hidden-pc" value="아니오" />
+                <input id="marketing-agree-desktop" type="checkbox" class="accent-[#383629] cursor-pointer shrink-0 mt-1 size-[clamp(min(16px,2.083vw),2.5vw,24px)]" onchange="document.querySelector('.marketing-hidden-pc').value = this.checked ? '네' : '아니오'" />
+                <div class="font-sans text-[#444429] flex items-center leading-[1.4] text-[clamp(min(13px,1.692vw),1.8vw,18px)]">
+                  <label for="marketing-agree-desktop" class="cursor-pointer">(선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.</label>
+                </div>
+              </div>
+
+              <button type="submit" class="bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors h-[clamp(min(40px,5.2083vw),6vw,60px)] px-[clamp(min(24px,3.125vw),4vw,40px)]">
+                <span class="font-serif text-[clamp(min(16px,2.083vw),2.5vw,24px)]">Reservation</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-[clamp(min(40px,5.2083vw),6vw,80px)] flex max-w-[1000px] flex-col gap-6 px-[clamp(0px,4vw,40px)] reveal">
+      <p class="font-serif capitalize text-[rgba(255,255,255,0.9)] tracking-[-0.8px]" style="font-size: clamp(min(28px,3.6458vw),3vw,40px)">DIHEIR Cheongdam</p>
+      <div class="font-sans flex justify-between gap-6 text-[rgba(255,255,255,0.6)] tracking-[-0.4px]">
+        <p class="leading-[1.3]">서울시 강남구 도산대로59길 16,<br />B1층 (청담동, 테이블2025)</p>
+        <p class="leading-[1.3] text-right">AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br />Tel. 0507-1339-2520</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MOBILE LAYOUT (<= 768px) ================= -->
+  <div class="md:hidden relative w-full flex flex-col items-center">
+    <div class="flex justify-center w-full overflow-hidden reveal">
+      <p class="font-serif text-center capitalize text-[#9f9f8b] opacity-[0.12] whitespace-nowrap leading-none" style="font-size: 18vw; letter-spacing: -0.02em">Diheirspace</p>
+    </div>
+    
+    <div class="relative w-full rounded-[6vw] overflow-hidden shadow-2xl reveal">
+      <img alt="디에르 청담 공간" src="./component/diheirspace/diheirspace.jpg" class="absolute inset-0 size-full object-cover" />
+      <div class="absolute inset-0 bg-black/10"></div>
+      
+      <div class="relative z-10 flex flex-col w-full p-[5vw] py-[10vw] gap-[10vw]">
+        
+        <div class="flex w-full flex-col items-center rounded-[4vw] bg-[#c5c6b6]/85 px-[6vw] py-[8vw] backdrop-blur-md shadow-xl border border-white/40">
+          <p class="font-serif text-center text-[#383629] mb-[8vw] leading-none" style="font-size: 7vw">Reserve Appointment</p>
+          
+          <iframe name="hidden_iframe_mo" id="hidden_iframe_mo" style="display:none;" onload=""></iframe>
+          <form action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse" method="POST" target="hidden_iframe_mo" class="flex flex-col items-center w-full gap-[40px]" onsubmit="handleDsSubmit(event, 'mo')">
+            <div class="flex flex-col gap-[32px] w-full">
+              <div class="flex flex-col gap-[2vw] w-full">
+                <p class="font-sans text-[#444429] text-[clamp(20px,5.5vw,24px)]">이름</p>
+                <input required type="text" name="entry.1054060175" placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-full pb-[2vw] focus:border-b-2 text-[clamp(14px,3.9vw,18px)]" />
+              </div>
+              <div class="flex flex-col gap-[2vw] w-full">
+                <p class="font-sans text-[#444429] text-[clamp(20px,5.5vw,24px)]">연락처</p>
+                <input required type="tel" name="entry.2074802535" placeholder="숫자만 입력해주세요" maxlength="13" class="phone-input-mo border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-full pb-[2vw] focus:border-b-2 text-[clamp(14px,3.9vw,18px)]" />
+              </div>
+              <div class="flex flex-col gap-[2vw] w-full">
+                <p class="font-sans text-[#444429] text-[clamp(20px,5.5vw,24px)]">방문일</p>
+                <input required type="date" class="date-input-mo border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-full pb-[2vw] focus:border-b-2 text-[clamp(14px,3.9vw,18px)]" onchange="handleDateChange(event, 'mo')" />
+                <input type="hidden" name="entry.626727524_year" class="date-year-mo" />
+                <input type="hidden" name="entry.626727524_month" class="date-month-mo" />
+                <input type="hidden" name="entry.626727524_day" class="date-day-mo" />
+              </div>
+              <div class="flex flex-col gap-[2vw] w-full">
+                <p class="font-sans text-[#444429] text-[clamp(20px,5.5vw,24px)]">이메일</p>
+                <input required type="email" name="entry.134182212" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="이메일 주소에는 반드시 '@'가 포함되어야 합니다." placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-full pb-[2vw] focus:border-b-2 text-[clamp(14px,3.9vw,18px)]" />
+              </div>
+              <div class="flex flex-col gap-[2vw] w-full">
+                <p class="font-sans text-[#444429] text-[clamp(20px,5.5vw,24px)]">요청사항</p>
+                <input type="text" name="entry.399277218" placeholder="입력해주세요" class="border-b border-[#383629]/40 bg-transparent text-[#444429] outline-none w-full pb-[2vw] focus:border-b-2 text-[clamp(14px,3.9vw,18px)]" />
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 w-full max-w-[800px] mt-[2vw]">
+              <input id="privacy-agree-mobile" required type="checkbox" name="entry.831169210" value="네" class="accent-[#383629] cursor-pointer shrink-0 size-[3vw]" />
+              <div class="font-sans text-[#444429] flex items-center text-[clamp(14px,4.5vw,18px)]">
+                <button type="button" onclick="openPrivacyModal()" class="underline underline-offset-4 hover:text-black transition-colors cursor-pointer">개인정보 처리방침</button>
+                <label for="privacy-agree-mobile" class="cursor-pointer ml-1">에 동의</label>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 w-full max-w-[800px] mt-[1vw]">
+              <input type="hidden" name="entry.430492874" class="marketing-hidden-mo" value="아니오" />
+              <input id="marketing-agree-mobile" type="checkbox" class="accent-[#383629] cursor-pointer shrink-0 mt-1 size-[3vw]" onchange="document.querySelector('.marketing-hidden-mo').value = this.checked ? '네' : '아니오'" />
+              <div class="font-sans text-[#444429] flex items-center leading-[1.4] text-[clamp(12px,3.2vw,14px)]">
+                <label for="marketing-agree-mobile" class="cursor-pointer">(선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.</label>
+              </div>
+            </div>
+
+            <button type="submit" class="bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors w-[50%] h-[11vw] mt-[2vw]">
+              <span class="font-serif text-[4vw]">Reservation</span>
+            </button>
+          </form>
+        </div>
+        
+        <div class="flex flex-col gap-[3vw] text-[rgba(255,255,255,0.95)]">
+          <p class="font-serif tracking-[-0.5px] leading-none" style="font-size: 6vw">DIHEIR Cheongdam</p>
+          <div class="font-sans flex flex-row justify-between gap-[2vw] text-[rgba(255,255,255,0.8)] tracking-[-0.3px]" style="font-size: 2vw">
+            <p class="leading-[1.4]">서울시 강남구 도산대로59길 16,<br />B1층 (청담동, 테이블2025)</p>
+            <p class="leading-[1.4] text-right">AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br />Tel. 0507-1339-2520</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Modal -->
+  <div id="ds-privacy-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm hidden" onclick="closePrivacyModal()">
+    <div class="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
+      <button class="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black" onclick="closePrivacyModal()">&times;</button>
+      <h3 class="mb-4 text-xl font-bold text-[#383629]">개인정보 수집 및 이용 동의</h3>
+      <div class="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto">
+        <p>디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이 개인정보를 수집·이용합니다.</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>수집 항목:</strong> 이름, 연락처(전화번호), 이메일 주소, 희망 예약 일시, 문의 내용 및 요청사항</li>
+          <li><strong>수집·이용 목적:</strong> 방문 예약의 접수·확인 및 확정 안내, 예약 일정의 변경·취소 관련 연락, 상담 준비 및 문의 응대</li>
+          <li><strong>보유·이용 기간:</strong> 수집·이용 목적 달성 시까지. 단, 상법 및 기타 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당 법적 목적의 범위 내에서만 안전하게 보관·이용합니다.</li>
+        </ul>
+        <p>귀하는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 다만, 동의를 거부할 경우 방문 예약 접수 및 상담 진행이 제한될 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
