@@ -2554,7 +2554,7 @@ function DiheirSpace() {
                 {/* Directions + Parking */}
                 <div className="flex gap-[40px] items-start w-full">
                   <div className="h-[268px] shrink-0 w-[362px] overflow-hidden">
-                    <a href="https://naver.me/GOhZzDqc" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
+                    <a href="https://map.naver.com/p/entry/place/2036509182" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
                       <img alt="디에르 청담 매장" src={imgMapPlaceholder} className="w-full h-full object-cover" />
                     </a>
                   </div>
@@ -2749,7 +2749,7 @@ function DiheirSpace() {
               {/* Directions + Parking */}
               <div className="flex flex-col gap-[3vw] items-start w-full mt-[4vw]">
                 <div className="w-full aspect-[362/268] overflow-hidden rounded-[2vw]">
-                  <a href="https://naver.me/GOhZzDqc" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
+                  <a href="https://map.naver.com/p/entry/place/2036509182" target="_blank" rel="noopener noreferrer" className="w-full h-full block cursor-pointer">
                     <img alt="디에르 청담 매장" src={imgMapPlaceholder} className="w-full h-full object-cover" />
                   </a>
                 </div>
