@@ -1704,51 +1704,32 @@ function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
 
 function ServicesCore() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
   const scrollYProgress = useZoomScrollProgress(containerRef);
   const [vh, setVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
+  const [maxOffset, setMaxOffset] = useState(0);
 
   useEffect(() => {
     const update = () => {
       const scale = Math.min(1, window.innerWidth / 1920);
       setVh(window.innerHeight / scale);
       setActualWidth(Math.max(1920, window.innerWidth));
+      
+      if (containerRef.current) {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        // Since getBoundingClientRect returns scaled values, we need the unscaled height for maxOffset.
+        // wait, containerRef.current.offsetHeight is unscaled!
+        const containerH = containerRef.current.offsetHeight;
+        const innerH = window.innerHeight / scale;
+        setMaxOffset(Math.max(0, containerH - innerH));
+      }
     };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // transform: scale() 내부에서는 CSS sticky가 작동하지 않으므로,
-  // JS로 직접 스크롤 위치를 추적하여 sticky 효과를 구현
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current || !innerRef.current) return;
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const scale = Math.min(1, window.innerWidth / 1920);
-      
-      // 컨테이너 높이와 내부 콘텐츠 높이(뷰포트 크기)를 스케일 보정
-      const containerH = containerRect.height / scale;
-      const innerH = window.innerHeight / scale;
-      const maxOffset = containerH - innerH;
-      
-      // 컨테이너 상단이 뷰포트 위로 올라간 거리 (스케일 보정)
-      const scrolled = -containerRect.top / scale;
-      
-      // 0 ~ maxOffset 범위로 클램프
-      const offset = Math.max(0, Math.min(scrolled, maxOffset));
-      innerRef.current.style.transform = `translateY(${offset}px)`;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
+  const yOffset = useTransform(scrollYProgress, [0, 1], [0, maxOffset]);
 
   return (
     <div
@@ -1756,11 +1737,11 @@ function ServicesCore() {
       className="h-[3500px] relative shrink-0 w-[1920px] light-section"
       data-name="Services_core"
     >
-      <div
-        ref={innerRef}
+      <motion.div
         className="absolute top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
+          y: yOffset,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
@@ -1770,7 +1751,7 @@ function ServicesCore() {
           vh={vh}
           actualWidth={actualWidth}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -2215,8 +2196,19 @@ function Collection() {
 
   return (
     <CollectionContext.Provider value={{ ...COLLECTIONS_DATA[currentIndex], currentIndex, direction, handleNext, handlePrev }}>
-      <div
-        className="h-[1200px] overflow-visible relative shrink-0 w-[1920px]"
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.1}
+        onDragEnd={(e, info) => {
+          const swipeThreshold = 50;
+          if (info.offset.x < -swipeThreshold || info.velocity.x < -500) {
+            handleNext();
+          } else if (info.offset.x > swipeThreshold || info.velocity.x > 500) {
+            handlePrev();
+          }
+        }}
+        className="h-[1200px] overflow-visible relative shrink-0 w-[1920px] cursor-grab active:cursor-grabbing"
         data-name="collection"
       >
         <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -2239,7 +2231,7 @@ function Collection() {
           ></div>
         </div>
         <Frame49 />
-      </div>
+      </motion.div>
     </CollectionContext.Provider>
   );
 }
@@ -2855,7 +2847,20 @@ function Diheirspace() {
                 </p>
 
                 {/* Image Carousel */}
-                <div className="relative w-full h-[450px]">
+                <motion.div 
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.1}
+                  onDragEnd={(e, info) => {
+                    const swipeThreshold = 50;
+                    if (info.offset.x < -swipeThreshold || info.velocity.x < -500) {
+                      nextSlide();
+                    } else if (info.offset.x > swipeThreshold || info.velocity.x > 500) {
+                      prevSlide();
+                    }
+                  }}
+                  className="relative w-full h-[450px] cursor-grab active:cursor-grabbing overflow-hidden"
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentSlide}
@@ -2868,10 +2873,10 @@ function Diheirspace() {
                       <div className="absolute bg-[#d9d9d9] inset-0" />
                       <img
                         alt={`디에르 청담 매장 ${currentSlide + 1}`}
-                        className="absolute max-w-none object-cover size-full"
+                        className="absolute max-w-none object-cover size-full pointer-events-none"
                         src={storeImages[currentSlide]}
                       />
-                      <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0" />
+                      <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 pointer-events-none" />
                     </motion.div>
                   </AnimatePresence>
 
@@ -2894,7 +2899,7 @@ function Diheirspace() {
                       <path d="M8 22.4L19.2 12L8 1.6" stroke="white" strokeOpacity="0.6" strokeLinecap="square" strokeWidth="2" />
                     </svg>
                   </button>
-                </div>
+                </motion.div>
 
                 {/* Indicator Bars */}
                 <div className="flex items-center justify-center gap-[20px] w-[500px]">
