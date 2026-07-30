@@ -146,8 +146,26 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
   const { scrollY } = useScroll();
   const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
   const pointerEvents = useTransform(scrollY, [0, 100], ["none", "auto"]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const isLight = useLightNav();
+
+  // 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   return (
     <motion.nav
@@ -165,27 +183,32 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
           "0 20px 40px rgba(0,0,0,0.15), inset 0 1px rgba(255,255,255,0.35)",
       }}
     >
-      <div className="relative group">
+      <div className="relative group" ref={navRef}>
         {isLight ? (
           <img
             src={imgDiheirLogoOg1}
             alt="DIHEIR"
             className={`h-[clamp(min(28px,3.6458vw),3vw,44px)] w-auto cursor-pointer object-contain ${hideLogo ? "opacity-0" : ""}`}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => setMenuOpen((prev) => !prev)}
           />
         ) : (
           <NavLogo
             className={`cursor-pointer ${hideLogo ? "opacity-0" : ""}`}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => setMenuOpen((prev) => !prev)}
           />
         )}
-        <div className="absolute left-0 top-[100%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto z-50">
+        <div className={`absolute left-0 top-[100%] pt-4 transition-all duration-300 z-50 ${
+          menuOpen
+            ? "opacity-100 visible pointer-events-auto"
+            : "opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto"
+        }`}>
           <div className="flex flex-col gap-4 bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
             {["home", "brand", "Services", "Reservation"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}
+                onClick={() => setMenuOpen(false)}
               >
                 {item}
               </a>
