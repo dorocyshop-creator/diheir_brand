@@ -1712,8 +1712,7 @@ export function ServicesCore({ scale = 1 }: { scale?: number }) {
 
   useEffect(() => {
     const update = () => {
-      const scale = Math.min(1, window.innerWidth / 1920);
-      setVh(window.innerHeight / scale);
+      setVh(window.innerHeight);
       setActualWidth(Math.max(1920, window.innerWidth));
     };
     update();
