@@ -4,20 +4,38 @@
     <head>
       
       <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <title>Generate HTML Code</title>
       <meta name="description" content="Easily generate and customize HTML code for web projects, empowering developers and designers to streamline their workflow and enhance productivity." />
       <meta name="robots" content="noindex, nofollow" />
       <style>html, body { margin: 0; min-height: 100vh; } #root { min-height: 100vh; }</style>
       <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pvyub7lwfc"></script>
-      <script type="module" crossorigin src="/diheir_brand/assets/index-CXRwfAMz.js"></script>
-      <link rel="stylesheet" crossorigin href="/diheir_brand/assets/index-CBWStnnB.css">
+      <script type="module" crossorigin src="/diheir_brand/assets/index-DHlrs3gt.js"></script>
+      <link rel="stylesheet" crossorigin href="/diheir_brand/assets/index-D6Pvx57y.css">
     </head>
 
     <body>
       
       <div id="root"></div>
-      
+      <script>
+        document.addEventListener('gesturestart', function (e) {
+          e.preventDefault();
+        });
+        document.addEventListener('gesturechange', function (e) {
+          e.preventDefault();
+        });
+        document.addEventListener('gestureend', function (e) {
+          e.preventDefault();
+        });
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (e) {
+          const now = (new Date()).getTime();
+          if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+      </script>
     </body>
   </html>
   
