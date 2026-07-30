@@ -742,7 +742,7 @@ function Frame11() {
   );
 }
 
-function BrandIdentity() {
+export function BrandIdentity() {
   return (
     <div
       id="brand"
@@ -1014,7 +1014,7 @@ function Frame13() {
   );
 }
 
-function BrandHeritage() {
+export function BrandHeritage() {
   return (
     <div
       className="bg-[#f7f7ec] h-[2339px] overflow-visible relative shrink-0 w-[1920px] light-section"
@@ -1407,7 +1407,7 @@ function Frame() {
   );
 }
 
-function ServicesDesigner() {
+export function ServicesDesigner() {
   return (
     <div
       id="services"
@@ -1705,7 +1705,7 @@ function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
   });
 }
 
-function ServicesCore() {
+export function ServicesCore({ scale = 1 }: { scale?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [vh, setVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
@@ -1727,25 +1727,35 @@ function ServicesCore() {
   return (
     <div
       ref={containerRef}
-      className="h-[3500px] relative shrink-0 w-[1920px] light-section"
+      className="h-[3500px] relative shrink-0 w-full light-section"
       data-name="Services_core"
     >
       <div
-        className="sticky top-0 left-0 w-[1920px] overflow-visible"
+        className="sticky top-0 left-0 w-full overflow-hidden"
         style={{
           height: `${vh}px`,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
       >
-        <Group6
-          scrollYProgress={useScroll({
-            target: containerRef,
-            offset: ["start start", "end end"],
-          }).scrollYProgress}
-          vh={vh}
-          actualWidth={actualWidth}
-        />
+        <div
+          style={{
+            width: 1920,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: `translate(-50%, -50%) scale(${scale})`,
+          }}
+        >
+          <Group6
+            scrollYProgress={useScroll({
+              target: containerRef,
+              offset: ["start start", "end end"],
+            }).scrollYProgress}
+            vh={vh}
+            actualWidth={actualWidth}
+          />
+        </div>
       </div>
     </div>
   );
@@ -2166,7 +2176,7 @@ function Frame3({ onClick, className }: { onClick?: (e?: any) => void; className
   );
 }
 
-function Collection() {
+export function Collection() {
   const [actualWidth, setActualWidth] = useState(1920);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -2792,7 +2802,7 @@ function Frame52() {
   );
 }
 
-function Diheirspace() {
+export function Diheirspace() {
   const storeImages = [imgStore01, imgStore02, imgStore03];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -3386,7 +3396,7 @@ export default function DiheirPage() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer data-name="footer" className="shrink-0 w-[1920px] bg-[#29281F] px-[120px] py-[100px] flex flex-row justify-between items-end">
       <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[16px] font-light leading-[1.6]">

@@ -1,6 +1,14 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import ResponsiveDiheirPage, { Nav, ScrollAnimatedLogo, HomeSection } from "./diheir/DiheirPage";
-import OriginalDiheirPage from "../../imports/DiheirPage";
+import {
+  BrandIdentity,
+  BrandHeritage,
+  ServicesDesigner,
+  ServicesCore,
+  Collection,
+  Diheirspace,
+  Footer,
+} from "../../imports/DiheirPage";
 
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -13,7 +21,9 @@ gsap.registerPlugin(ScrollTrigger);
  * CSS zoom과 달리 vh/vw 단위와 충돌하지 않아 태블릿에서도 안정적이다.
  */
 function ScaledPCLayout({ children }: { children: React.ReactNode }) {
+  const innerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [contentHeight, setContentHeight] = useState(0);
 
   const updateScale = useCallback(() => {
     setScale(Math.min(1, window.innerWidth / 1920));
@@ -25,15 +35,41 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("resize", updateScale);
   }, [updateScale]);
 
+  // ResizeObserver로 내부 콘텐츠 실제 높이를 추적
+  useEffect(() => {
+    if (!innerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContentHeight(entry.contentRect.height);
+      }
+    });
+    ro.observe(innerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div
       style={{
-        width: 1920,
-        margin: "0 auto",
-        zoom: scale,
+        width: "100%",
+        // scale 적용 후 실제로 차지해야 할 높이를 명시
+        height: contentHeight * scale,
+        position: "relative",
       }}
     >
-      {children}
+      <div
+        ref={innerRef}
+        style={{
+          width: 1920,
+          transformOrigin: "center top",
+          transform: `scale(${scale})`,
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          marginLeft: -960,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -75,10 +111,21 @@ export function DiheirLanding() {
       {/* 전체 해상도에 공통 적용되는 스크롤 Home 섹션 (100vh 고정) */}
       <HomeSection />
 
-      {/* 데스크탑/태블릿(≥960px): 원본 1920 레이아웃을 scale()로 축소 */}
+      {/* 데스크탑/태블릿(≥960px): 원본 1920 레이아웃을 transform: scale()로 축소 */}
       <div className="relative hidden md:block w-full overflow-clip">
         <ScaledPCLayout>
-          <OriginalDiheirPage />
+          <BrandIdentity />
+          <BrandHeritage />
+          <ServicesDesigner />
+        </ScaledPCLayout>
+
+        {/* ServicesCore는 내부에 자체적으로 scale 처리 및 순수 CSS sticky 적용 */}
+        <ServicesCore scale={Math.min(1, typeof window !== 'undefined' ? window.innerWidth / 1920 : 1)} />
+
+        <ScaledPCLayout>
+          <Collection />
+          <Diheirspace />
+          <Footer />
         </ScaledPCLayout>
       </div>
 
