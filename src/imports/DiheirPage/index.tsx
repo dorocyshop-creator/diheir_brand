@@ -1067,8 +1067,12 @@ function BrandHeritage() {
 }
 
 function Frame16() {
+  const [active, setActive] = useState(false);
   return (
-    <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
+    <div
+      onClick={() => setActive(!active)}
+      className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px] cursor-pointer"
+    >
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]"
@@ -1076,16 +1080,16 @@ function Frame16() {
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
         <img
           alt=""
-          className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105"
+          className={`absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 ${active ? "scale-105" : "md:group-hover:scale-105"}`}
           src={imgFrame14}
         />
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
       </div>
-      <div className="[word-break:break-word] capitalize font-serif leading-[0] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">
+      <div className={`[word-break:break-word] capitalize font-serif leading-[0] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 ${active ? "opacity-0" : "md:group-hover:opacity-0"}`}>
         <p className="leading-[1.3] mb-0 whitespace-pre">{`The First Principle `}</p>
         <p className="leading-[1.3] whitespace-pre">– Comfort Fit</p>
       </div>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center">
+      <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center ${active ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
         <p className="font-serif text-white text-[32px] tracking-[-0.64px] mb-[20px] leading-tight text-center">
           The First Principle
           <br />– Comfort Fit
@@ -1111,8 +1115,12 @@ function Frame16() {
 }
 
 function Frame18() {
+  const [active, setActive] = useState(false);
   return (
-    <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[43px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
+    <div
+      onClick={() => setActive(!active)}
+      className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[43px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px] cursor-pointer"
+    >
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]"
@@ -1121,14 +1129,14 @@ function Frame18() {
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
         <img
           alt=""
-          className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105"
+          className={`absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 ${active ? "scale-105" : "md:group-hover:scale-105"}`}
           src={imgFrame16}
         />
       </div>
-      <p className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">
+      <p className={`[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 ${active ? "opacity-0" : "md:group-hover:opacity-0"}`}>
         Jewelry Resetting Service
       </p>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center">
+      <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center ${active ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
         <p className="font-serif text-white text-[32px] tracking-[-0.64px] mb-[20px] leading-tight text-center">
           Jewelry Resetting
           <br />
@@ -1153,8 +1161,12 @@ function Frame18() {
 }
 
 function Frame19() {
+  const [active, setActive] = useState(false);
   return (
-    <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] pl-[125px] pr-[126px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
+    <div
+      onClick={() => setActive(!active)}
+      className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] pl-[125px] pr-[126px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px] cursor-pointer"
+    >
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]"
@@ -1162,14 +1174,14 @@ function Frame19() {
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
         <img
           alt=""
-          className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105"
+          className={`absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 ${active ? "scale-105" : "md:group-hover:scale-105"}`}
           src={imgFrame17}
         />
       </div>
-      <p className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">
+      <p className={`[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 ${active ? "opacity-0" : "md:group-hover:opacity-0"}`}>
         Craftsmanship
       </p>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center">
+      <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center ${active ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
         <p className="font-serif text-white text-[36px] tracking-[-0.72px] mb-[20px] leading-tight text-center">
           Craftsmanship
         </p>
@@ -1196,8 +1208,12 @@ function Frame19() {
 }
 
 function Frame20() {
+  const [active, setActive] = useState(false);
   return (
-    <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[99px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
+    <div
+      onClick={() => setActive(!active)}
+      className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] px-[99px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px] cursor-pointer"
+    >
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]"
@@ -1205,15 +1221,15 @@ function Frame20() {
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
         <img
           alt=""
-          className="absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 group-hover:scale-105"
+          className={`absolute max-w-none object-cover rounded-tl-[400px] rounded-tr-[400px] size-full transition-transform duration-700 ${active ? "scale-105" : "md:group-hover:scale-105"}`}
           src={imgFrame19}
         />
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
       </div>
-      <p className="[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">
+      <p className={`[word-break:break-word] capitalize font-serif leading-[1.3] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 ${active ? "opacity-0" : "md:group-hover:opacity-0"}`}>
         Jewelry as Legacy
       </p>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center">
+      <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center ${active ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
         <p className="font-serif text-white text-[36px] tracking-[-0.72px] mb-[20px] leading-tight text-center">
           Jewelry as Legacy
         </p>
@@ -1236,14 +1252,18 @@ function Frame20() {
 }
 
 function Frame21() {
+  const [active, setActive] = useState(false);
   return (
-    <div className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px]">
+    <div
+      onClick={() => setActive(!active)}
+      className="group overflow-hidden content-stretch flex flex-col h-[680px] items-center justify-end pb-[100px] relative rounded-tl-[400px] rounded-tr-[400px] shrink-0 w-[490px] cursor-pointer"
+    >
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none rounded-tl-[400px] rounded-tr-[400px]"
       >
         <div className="absolute bg-[#d9d9d9] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
-        <div className="absolute inset-0 overflow-hidden rounded-tl-[400px] rounded-tr-[400px]">
+        <div className={`absolute inset-0 overflow-hidden rounded-tl-[400px] rounded-tr-[400px] transition-transform duration-700 ${active ? "scale-105" : "md:group-hover:scale-105"}`}>
           <img
             alt=""
             className="absolute h-[128.06%] left-[0.01%] max-w-none top-[-26.33%] w-full"
@@ -1252,11 +1272,11 @@ function Frame21() {
         </div>
         <div className="absolute bg-[rgba(0,0,0,0.2)] inset-0 rounded-tl-[400px] rounded-tr-[400px]" />
       </div>
-      <div className="[word-break:break-word] capitalize font-serif leading-[0] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 group-hover:opacity-0">
+      <div className={`[word-break:break-word] capitalize font-serif leading-[0] not-italic relative shrink-0 text-[40px] text-center text-white tracking-[-0.8px] whitespace-nowrap transition-opacity duration-500 ${active ? "opacity-0" : "md:group-hover:opacity-0"}`}>
         <p className="leading-[1.3] mb-0 whitespace-pre">{`Invisible Precision `}</p>
         <p className="leading-[1.3] whitespace-pre">– Comfort Fit for Size</p>
       </div>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center">
+      <div className={`absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-500 content-stretch flex flex-col items-center justify-center pb-[40px] pt-[32px] px-[40px] size-full text-center ${active ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
         <p className="font-serif text-white text-[32px] tracking-[-0.64px] mb-[20px] leading-tight text-center">
           Invisible Precision
           <br />– Comfort Fit for Size
@@ -1303,23 +1323,21 @@ function Frame() {
       setTimeout(setScroll, 500);
       setTimeout(setScroll, 1500);
 
-      // Drag to scroll logic for desktop mouse and mobile touch users
+      // Drag to scroll logic for desktop mouse (leave touch to native scrolling for smoothness)
       let isDown = false;
       let startX: number;
       let scrollLeft: number;
 
-      const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      const onMouseDown = (e: MouseEvent) => {
         isDown = true;
         el.style.cursor = "grabbing";
-        const pageX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
-        startX = pageX - el.offsetLeft;
+        startX = e.pageX - el.offsetLeft;
         scrollLeft = el.scrollLeft;
         el.style.scrollSnapType = "none"; // disable snap while dragging
-        // Prevent default only for mouse events to avoid dragging ghost images
-        if (e.type === "mousedown") e.preventDefault();
+        e.preventDefault(); // Prevent text selection/ghost image dragging
       };
 
-      const onPointerLeave = () => {
+      const onMouseLeave = () => {
         if (!isDown) return;
         isDown = false;
         el.style.cursor = "grab";
@@ -1329,7 +1347,7 @@ function Frame() {
         });
       };
 
-      const onPointerUp = () => {
+      const onMouseUp = () => {
         if (!isDown) return;
         isDown = false;
         el.style.cursor = "grab";
@@ -1339,34 +1357,23 @@ function Frame() {
         });
       };
 
-      const onPointerMove = (e: MouseEvent | TouchEvent) => {
+      const onMouseMove = (e: MouseEvent) => {
         if (!isDown) return;
-        const pageX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
-        const x = pageX - el.offsetLeft;
+        const x = e.pageX - el.offsetLeft;
         const walk = (x - startX) * 1.5;
         el.scrollLeft = scrollLeft - walk;
       };
 
-      el.addEventListener("mousedown", onPointerDown);
-      el.addEventListener("mouseleave", onPointerLeave);
-      el.addEventListener("mouseup", onPointerUp);
-      el.addEventListener("mousemove", onPointerMove);
-
-      el.addEventListener("touchstart", onPointerDown, { passive: true });
-      el.addEventListener("touchend", onPointerUp);
-      el.addEventListener("touchcancel", onPointerLeave);
-      el.addEventListener("touchmove", onPointerMove, { passive: true });
+      el.addEventListener("mousedown", onMouseDown);
+      el.addEventListener("mouseleave", onMouseLeave);
+      el.addEventListener("mouseup", onMouseUp);
+      el.addEventListener("mousemove", onMouseMove);
 
       return () => {
-        el.removeEventListener("mousedown", onPointerDown);
-        el.removeEventListener("mouseleave", onPointerLeave);
-        el.removeEventListener("mouseup", onPointerUp);
-        el.removeEventListener("mousemove", onPointerMove);
-
-        el.removeEventListener("touchstart", onPointerDown);
-        el.removeEventListener("touchend", onPointerUp);
-        el.removeEventListener("touchcancel", onPointerLeave);
-        el.removeEventListener("touchmove", onPointerMove);
+        el.removeEventListener("mousedown", onMouseDown);
+        el.removeEventListener("mouseleave", onMouseLeave);
+        el.removeEventListener("mouseup", onMouseUp);
+        el.removeEventListener("mousemove", onMouseMove);
       };
     }
   }, []);
