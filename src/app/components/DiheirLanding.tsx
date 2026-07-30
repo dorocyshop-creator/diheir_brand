@@ -18,7 +18,7 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
   const [contentHeight, setContentHeight] = useState(0);
 
   const updateScale = useCallback(() => {
-    setScale(window.innerWidth / 1920);
+    setScale(Math.min(1, window.innerWidth / 1920));
   }, []);
 
   useEffect(() => {
@@ -52,11 +52,12 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
         ref={innerRef}
         style={{
           width: 1920,
-          transformOrigin: "top left",
+          transformOrigin: "center top",
           transform: `scale(${scale})`,
           position: "absolute",
           top: 0,
-          left: 0,
+          left: "50%",
+          marginLeft: -960,
         }}
       >
         {children}
@@ -103,7 +104,7 @@ export function DiheirLanding() {
       <HomeSection />
 
       {/* 데스크탑/태블릿(≥960px): 원본 1920 레이아웃을 scale()로 축소 */}
-      <div className="relative hidden md:block w-full overflow-hidden">
+      <div className="relative hidden md:block w-full">
         <ScaledPCLayout>
           <OriginalDiheirPage />
         </ScaledPCLayout>

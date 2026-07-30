@@ -1710,12 +1710,19 @@ function ServicesCore() {
   const scrollYProgress = useZoomScrollProgress(containerRef);
   const [vh, setVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
+  const [maxOffset, setMaxOffset] = useState(0);
 
   useEffect(() => {
     const update = () => {
-      const scale = window.innerWidth / 1920;
+      const scale = Math.min(1, window.innerWidth / 1920);
       setVh(window.innerHeight / scale);
       setActualWidth(Math.max(1920, window.innerWidth));
+      
+      if (containerRef.current) {
+        const containerH = containerRef.current.offsetHeight;
+        const innerH = window.innerHeight / scale;
+        setMaxOffset(Math.max(0, containerH - innerH));
+      }
     };
     update();
     
@@ -1731,16 +1738,19 @@ function ServicesCore() {
     };
   }, []);
 
+  const yOffset = useTransform(scrollYProgress, [0, 1], [0, maxOffset]);
+
   return (
     <div
       ref={containerRef}
       className="h-[3500px] relative shrink-0 w-[1920px] light-section"
       data-name="Services_core"
     >
-      <div
-        className="sticky top-0 left-0 w-[1920px] overflow-visible"
+      <motion.div
+        className="absolute top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
+          y: yOffset,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
@@ -1750,7 +1760,7 @@ function ServicesCore() {
           vh={vh}
           actualWidth={actualWidth}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
