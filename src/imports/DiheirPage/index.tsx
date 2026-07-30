@@ -1683,12 +1683,17 @@ function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
     };
 
     updateBounds();
-    // Re-calculate bounds slightly later to account for initial layout shifts (images, etc)
-    const timeout = setTimeout(updateBounds, 500);
-    window.addEventListener("resize", updateBounds);
+    const ro = new ResizeObserver(() => {
+      // Small timeout allows layout scaling to settle before bounding rect is measured
+      requestAnimationFrame(updateBounds);
+    });
+    if (ref.current) {
+      ro.observe(ref.current);
+    }
     
+    window.addEventListener("resize", updateBounds);
     return () => {
-      clearTimeout(timeout);
+      ro.disconnect();
       window.removeEventListener("resize", updateBounds);
     };
   }, [ref]);
@@ -1705,29 +1710,26 @@ function ServicesCore() {
   const scrollYProgress = useZoomScrollProgress(containerRef);
   const [vh, setVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
-  const [maxOffset, setMaxOffset] = useState(0);
 
   useEffect(() => {
     const update = () => {
       const scale = Math.min(1, window.innerWidth / 1920);
       setVh(window.innerHeight / scale);
       setActualWidth(Math.max(1920, window.innerWidth));
-      
-      if (containerRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        // Since getBoundingClientRect returns scaled values, we need the unscaled height for maxOffset.
-        // wait, containerRef.current.offsetHeight is unscaled!
-        const containerH = containerRef.current.offsetHeight;
-        const innerH = window.innerHeight / scale;
-        setMaxOffset(Math.max(0, containerH - innerH));
-      }
     };
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+    
+    const ro = new ResizeObserver(() => {
+      requestAnimationFrame(update);
+    });
+    ro.observe(document.body);
 
-  const yOffset = useTransform(scrollYProgress, [0, 1], [0, maxOffset]);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   return (
     <div
@@ -1735,11 +1737,10 @@ function ServicesCore() {
       className="h-[3500px] relative shrink-0 w-[1920px] light-section"
       data-name="Services_core"
     >
-      <motion.div
-        className="absolute top-0 left-0 w-[1920px] overflow-visible"
+      <div
+        className="sticky top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
-          y: yOffset,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
@@ -1749,7 +1750,7 @@ function ServicesCore() {
           vh={vh}
           actualWidth={actualWidth}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }

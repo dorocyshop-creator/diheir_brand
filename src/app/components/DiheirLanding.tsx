@@ -46,7 +46,6 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
         // scale 적용 후 실제로 차지해야 할 높이를 명시
         height: contentHeight * scale,
         position: "relative",
-        overflow: "clip",
       }}
     >
       <div
