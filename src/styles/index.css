@@ -33,9 +33,12 @@ body {
 }
 
 [data-name="collection"],
-[data-name="diheirspace"],
-[data-name="footer"] {
+[data-name="diheirspace"] {
   box-shadow: 1920px 0 0 0 #383629, -1920px 0 0 0 #383629;
+}
+
+[data-name="footer"] {
+  box-shadow: 1920px 0 0 0 #29281F, -1920px 0 0 0 #29281F;
 }
 
 [data-name="Services_core"] > .absolute {
