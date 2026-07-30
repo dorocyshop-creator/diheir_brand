@@ -1704,16 +1704,19 @@ function ServicesCore() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  const yOffset = useTransform(scrollYProgress, [0, 1], [0, maxOffset]);
+
   return (
     <div
       ref={containerRef}
       className="h-[3500px] relative shrink-0 w-[1920px] light-section"
       data-name="Services_core"
     >
-      <div
-        className="sticky top-0 left-0 w-[1920px] overflow-visible"
+      <motion.div
+        className="absolute top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
+          y: yOffset,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
@@ -1723,7 +1726,7 @@ function ServicesCore() {
           vh={vh}
           actualWidth={actualWidth}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
