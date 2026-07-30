@@ -3402,7 +3402,7 @@ export default function DiheirPage() {
 
 function Footer() {
   return (
-    <footer className="shrink-0 w-[1920px] bg-[#29281F] px-[120px] py-[100px] flex flex-row justify-between items-end">
+    <footer data-name="footer" className="shrink-0 w-[1920px] bg-[#29281F] px-[120px] py-[100px] flex flex-row justify-between items-end">
       <div className="flex flex-col justify-between text-[#c1c4ad]/60 font-sans text-[16px] font-light leading-[1.6]">
         <div>
           <p>법인명(상호) : 디에르(DIHEIR)</p>

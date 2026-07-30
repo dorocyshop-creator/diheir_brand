@@ -38,7 +38,7 @@ body {
   box-shadow: 1920px 0 0 0 #383629, -1920px 0 0 0 #383629;
 }
 
-[data-name="Services_core"] > .sticky {
+[data-name="Services_core"] > .absolute {
   box-shadow: 1920px 0 0 0 rgb(159, 159, 139), -1920px 0 0 0 rgb(159, 159, 139);
 }
 
