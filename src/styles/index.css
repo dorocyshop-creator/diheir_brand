@@ -43,7 +43,7 @@ body {
 }
 
 /* Mobile minimum font size: never go below 12px */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   :where(p, span, a, label, button, input, textarea, select, li, td, th, h1, h2, h3, h4, h5, h6) {
     font-size: max(12px, 1em);
   }

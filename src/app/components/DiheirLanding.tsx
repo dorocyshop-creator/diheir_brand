@@ -103,14 +103,14 @@ export function DiheirLanding() {
       {/* 전체 해상도에 공통 적용되는 스크롤 Home 섹션 (100vh 고정) */}
       <HomeSection />
 
-      {/* 데스크탑/태블릿(≥768px): 원본 1920 레이아웃을 scale()로 축소 */}
+      {/* 데스크탑/태블릿(≥960px): 원본 1920 레이아웃을 scale()로 축소 */}
       <div className="relative hidden md:block w-full overflow-hidden">
         <ScaledPCLayout>
           <OriginalDiheirPage />
         </ScaledPCLayout>
       </div>
 
-      {/* 모바일(<768px): 스와이프 가능한 전체 모바일 레이아웃 */}
+      {/* 모바일(<960px): 스와이프 가능한 전체 모바일 레이아웃 */}
       <div className="block md:hidden">
         <ResponsiveDiheirPage />
       </div>

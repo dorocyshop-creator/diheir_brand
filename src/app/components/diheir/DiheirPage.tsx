@@ -52,7 +52,7 @@ import imgServiceBg from "../../../component/service/service.jpg";
 
 /**
  * 디에르(DIHEIR) 랜딩 페이지 — 전체 흐름(flex/grid) 기반 반응형 버전.
- * 지정 브레이크포인트: 1400 / 1038 / 768 / 430 / 390.
+ * 지정 브레이크포인트: 1400 / 1038 / 960 / 430 / 390.
  * 원본은 1920px 절대 위치 디자인이라, 데스크탑 외 뷰는 콘텐츠를
  * 세로로 스택하고 타이포를 clamp()로 유연하게 축소하여 재구성했다.
  */
@@ -169,7 +169,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
 
   return (
     <motion.nav
-      className="glass fixed top-0 left-0 z-[100] flex w-full items-center justify-between px-[clamp(min(20px,2.6042vw),5vw,80px)] py-4 max-[768px]:min-h-[64px]"
+      className="glass fixed top-0 left-0 z-[100] flex w-full items-center justify-between px-[clamp(min(20px,2.6042vw),5vw,80px)] py-4 max-[960px]:min-h-[64px]"
       data-name="nav"
       style={{
         opacity: navOpacity,
@@ -220,7 +220,7 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
         className={`${SERIF} capitalize ${isLight ? "text-[#3a3a3c]" : "text-white"} tracking-[-0.64px] cursor-pointer hover:text-[#bdbea7] transition-colors`}
         style={{ fontSize: "max(20px, clamp(min(18px,2.3438vw),2vw,32px))" }}
         onClick={() => {
-          const targetId = window.innerWidth < 768 ? "reservation_mobile" : "reservation";
+          const targetId = window.innerWidth < 960 ? "reservation_mobile" : "reservation";
           const el = document.getElementById(targetId);
           if (el) {
             const rect = el.getBoundingClientRect();
@@ -965,7 +965,7 @@ function GenerationCard({
 }) {
   return (
     <FadeUp delay={index * 0.15}>
-      <div className="relative flex w-full max-[768px]:aspect-[4/5] aspect-[3/4] md:h-[clamp(min(324px,42vw),37.8vw,540px)] flex-col justify-end overflow-hidden">
+      <div className="relative flex w-full max-[960px]:aspect-[4/5] aspect-[3/4] md:h-[clamp(min(324px,42vw),37.8vw,540px)] flex-col justify-end overflow-hidden">
         <img
           alt=""
           src={data.image}
@@ -984,19 +984,19 @@ function GenerationCard({
           }}
         >
           <p
-            className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[768px]:text-[max(12px,3.6458vw)]`}
+            className={`${SERIF} text-[#efefe1] tracking-[-0.8px] max-[960px]:text-[max(12px,3.6458vw)]`}
             style={{ fontSize: "max(12px, clamp(min(24px, 10.125vw), 2.6vw, 40px))" }}
           >
             {data.title}
           </p>
           <p
-            className={`${SANS} text-[#d4d4b9] max-[768px]:text-xs`}
+            className={`${SANS} text-[#d4d4b9] max-[960px]:text-xs`}
             style={{ fontSize: "max(12px, clamp(min(13px, 5.6927vw), 1.1vw, 17px))" }}
           >
             {data.kr}
           </p>
           <p
-            className="font-sans font-light text-[#d4d4b9] max-[768px]:text-xs break-keep"
+            className="font-sans font-light text-[#d4d4b9] max-[960px]:text-xs break-keep"
             style={{ fontSize: "max(12px, clamp(min(12px,1.4323vw),0.9vw,12px))" }}
           >
             {data.en.includes(" (") ? (
@@ -1047,7 +1047,7 @@ function BrandHeritage() {
         {/* A Family Legacy header */}
         <FadeUp className="self-end text-right">
           <p
-            className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[768px]:text-[max(12px,2.0833vw)] max-[768px]:mt-[10vw]`}
+            className={`${SERIF} mb-[clamp(min(60px,7.8125vw),15vw,100px)] capitalize text-[#787957] tracking-[-0.6px] max-[960px]:text-[max(12px,2.0833vw)] max-[960px]:mt-[10vw]`}
             style={{ fontSize: "max(12px, clamp(min(14px,1.8229vw),2vw,30px))" }}
           >
             A Family Legacy
@@ -1066,7 +1066,7 @@ function BrandHeritage() {
         {/* DIHEIR by DOROCY */}
         <FadeUp delay={0.2} className="w-full">
           <p
-            className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[768px]:text-[max(12px,9.5vw)]`}
+            className={`${SERIF} mt-[clamp(min(80px,10.4167vw),20vw,140px)] w-full text-center capitalize text-[#9f9f8b] opacity-[0.24] whitespace-nowrap max-[960px]:text-[max(12px,9.5vw)]`}
             style={{
               fontSize: "max(12px, clamp(min(36px,4.6875vw),10vw,220px))",
               letterSpacing: "-0.02em",
@@ -1079,7 +1079,7 @@ function BrandHeritage() {
         {/* Description text */}
         <FadeUp delay={0.3}>
           <div
-            className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[768px]:text-[max(12px,1.5625vw)]`}
+            className={`${SANS} mt-[clamp(min(40px,5.2083vw),8vw,80px)] flex flex-col gap-[clamp(min(20px,2.6042vw),5vw,32px)] text-center text-[#383629] tracking-[-0.48px] max-[960px]:text-[max(12px,1.5625vw)]`}
             style={{ fontSize: "max(12px, clamp(min(12px,1.5625vw),1.6vw,24px))" }}
           >
             <p className="leading-[1.8]">
@@ -1225,7 +1225,7 @@ function ServiceCard({
 }) {
   return (
     <FadeUp delay={index * 0.1}>
-      <div className="group relative flex h-[clamp(min(420px,54.6875vw),45vw,680px)] w-[clamp(min(240px,31.25vw),34vw,490px)] max-[768px]:w-[39.0625vw] max-[768px]:h-[54.1667vw] shrink-0 snap-center flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[clamp(min(30px,3.9062vw),7vw,100px)] px-[clamp(min(10px,1.3021vw),2vw,40px)] text-center cursor-pointer">
+      <div className="group relative flex h-[clamp(min(420px,54.6875vw),45vw,680px)] w-[clamp(min(240px,31.25vw),34vw,490px)] max-[960px]:w-[39.0625vw] max-[960px]:h-[54.1667vw] shrink-0 snap-center flex-col items-center justify-end overflow-hidden rounded-t-[400px] bg-[#d9d9d9] pb-[clamp(min(30px,3.9062vw),7vw,100px)] px-[clamp(min(10px,1.3021vw),2vw,40px)] text-center cursor-pointer">
         <img
           alt=""
           src={data.image}
@@ -1256,7 +1256,7 @@ function ServiceCard({
             ))}
           </div>
           <p
-            className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[768px]:text-xs`}
+            className={`${SANS} text-[#d4d4b9] tracking-[-0.32px] leading-[1.6] max-[960px]:text-xs`}
             style={{ fontSize: "max(12px, clamp(min(12px,1.5625vw),1.2vw,16px))" }}
           >
             {data.desc}
@@ -1390,7 +1390,7 @@ function ServicesDesigner() {
           <div className="relative px-[5vw] md:px-[0px] w-full max-w-[1920px] mx-auto z-10 min-h-[35vw] md:min-h-[300px]">
             <FadeUp>
               <p
-                className={`${SERIF} absolute left-[5vw] top-[3vw] max-[768px]:left-[3vw] max-[768px]:top-[2vw] capitalize text-[#9f9f8b] opacity-[0.45] leading-none pointer-events-none md:left-[calc(50%-489.5px)] md:top-[72px] md:-translate-x-1/2 whitespace-nowrap`}
+                className={`${SERIF} absolute left-[5vw] top-[3vw] max-[960px]:left-[3vw] max-[960px]:top-[2vw] capitalize text-[#9f9f8b] opacity-[0.45] leading-none pointer-events-none md:left-[calc(50%-489.5px)] md:top-[72px] md:-translate-x-1/2 whitespace-nowrap`}
                 style={{
                   fontSize: "max(12px, clamp(min(75px,9.7656vw),22vw,230px))",
                   letterSpacing: "-0.02em",
@@ -1414,7 +1414,7 @@ function ServicesDesigner() {
             <div className="relative mt-[8vw] pr-[2vw] flex justify-end md:absolute md:left-[calc(50%-2px)] md:top-[198px] md:mt-0 md:pr-0 md:justify-start z-10">
               <FadeUp delay={0.3}>
                 <p
-                  className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[768px]:text-[max(12px,1.4323vw)]`}
+                  className={`${SANS} text-right md:text-left leading-[1.6] text-[#383629] tracking-[-0.36px] max-[960px]:text-[max(12px,1.4323vw)]`}
                   style={{ fontSize: "max(12px, clamp(min(11px,1.4323vw),2.6vw,18px))" }}
                 >
                   전속 디자이너가 매장에 상주하여
@@ -1458,7 +1458,7 @@ function ServicesDesigner() {
             </FadeUp>
 
             {/* Foliage Images (Scaled and positioned to match Figma 1043x350 design) */}
-            <div className="absolute max-[768px]:top-[82%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
+            <div className="absolute max-[960px]:top-[82%] md:top-[70%] inset-x-0 w-full z-20 pointer-events-none flex justify-between overflow-hidden">
               <FadeUp className="w-[60%] md:w-[40%] max-w-[600px] -ml-[10%]">
                 <img
                   alt=""
@@ -1481,7 +1481,7 @@ function ServicesDesigner() {
         <div className="relative -mt-[calc(10vw+160px)] md:-mt-[530px] pb-[clamp(min(60px,7.8125vw),8vw,120px)] pt-[25vw] md:pt-[350px] z-10">
           {/* Gradient Layer perfectly matching Figma CSS and simulating fixed container height */}
           <div
-            className="absolute left-0 right-0 h-[1000px] -z-10 pointer-events-none max-[768px]:top-[10vw] md:top-[370px]"
+            className="absolute left-0 right-0 h-[1000px] -z-10 pointer-events-none max-[960px]:top-[10vw] md:top-[370px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(193, 196, 173, 0.00) 0%, #C1C4AD 16%, #C1C4AD 98.76%)",
@@ -1489,7 +1489,7 @@ function ServicesDesigner() {
           />
 
           {/* Solid Layer to cover the remaining space below the gradient */}
-          <div className="absolute bottom-0 left-0 right-0 bg-[#c1c4ad] -z-10 pointer-events-none max-[768px]:top-[calc(10vw+1000px)] md:top-[1370px]" />
+          <div className="absolute bottom-0 left-0 right-0 bg-[#c1c4ad] -z-10 pointer-events-none max-[960px]:top-[calc(10vw+1000px)] md:top-[1370px]" />
 
           <p
             className={`${SERIF} mb-[80px] md:mb-[120px] text-center capitalize text-[#f7f7ec] opacity-80 leading-none relative z-30 whitespace-nowrap`}
@@ -1669,7 +1669,7 @@ function ServicesCore() {
 
   return (
     <section className="relative w-full bg-[#9f9f8b]" data-name="Services_core">
-      {/* ================= MOBILE LAYOUT (<= 768px) ================= */}
+      {/* ================= MOBILE LAYOUT (<= 960px) ================= */}
       {/* Scrolljacking container: 500vh tall to allow scrolling */}
       <div ref={containerRef} className="md:hidden relative w-full h-[500vh]">
         {/* Sticky viewport that stays on screen */}
@@ -1729,7 +1729,7 @@ function ServicesCore() {
         </div>
       </div>
 
-      {/* ================= DESKTOP LAYOUT (>= 768px) ================= */}
+      {/* ================= DESKTOP LAYOUT (>= 960px) ================= */}
       <div className="relative mx-auto hidden md:flex max-w-[1720px] flex-col items-center gap-[clamp(min(24px,3.125vw),4vw,60px)] px-[100px] py-[120px]">
         {/* 1. Main Central Image in the center */}
         <FadeUp
@@ -1853,7 +1853,7 @@ function Collection() {
   const [sweepCard, setSweepCard] = useState(-1);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 960);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -1914,7 +1914,7 @@ function Collection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)] max-[768px]:h-[100vh] max-[768px]:flex max-[768px]:flex-col max-[768px]:justify-center"
+      className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,120px)] py-[clamp(min(60px,7.8125vw),8vw,130px)] max-[960px]:h-[100vh] max-[960px]:flex max-[960px]:flex-col max-[960px]:justify-center"
       data-name="collection"
     >
       <img
@@ -1956,7 +1956,7 @@ function Collection() {
 
         {/* Stacked Interactive Gallery */}
         <div
-          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] max-[768px]:w-[75vw] max-[768px]:max-w-[400px] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
+          className="relative w-[clamp(min(200px,26.0417vw),30vw,540px)] max-[960px]:w-[75vw] max-[960px]:max-w-[400px] aspect-[9/10] mx-auto mt-8 cursor-pointer group"
         >
           <AnimatePresence custom={direction}>
             <motion.div
@@ -2451,7 +2451,7 @@ function DiheirSpace() {
       className="relative w-full overflow-hidden bg-[#383629] px-[clamp(min(20px,2.6042vw),5vw,60px)] py-[clamp(min(60px,7.8125vw),8vw,120px)]"
       data-name="diheirspace"
     >
-      {/* ================= DESKTOP LAYOUT (> 768px) ================= */}
+      {/* ================= DESKTOP LAYOUT (> 960px) ================= */}
       <div className="hidden md:block">
         <FadeUp>
           <p
@@ -2659,7 +2659,7 @@ function DiheirSpace() {
         </FadeUp>
       </div>
 
-      {/* ================= MOBILE LAYOUT (<= 768px) ================= */}
+      {/* ================= MOBILE LAYOUT (<= 960px) ================= */}
       <div className="md:hidden relative w-full flex flex-col items-center">
         <FadeUp className="flex justify-center w-full overflow-hidden">
           <p
