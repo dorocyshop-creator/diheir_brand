@@ -1918,14 +1918,14 @@ function Frame49() {
             key={currentIndex}
             custom={direction}
             variants={{
-              enter: (dir) => ({ x: dir > 0 ? 1500 : -1500 }),
-              center: { x: 0 },
-              exit: (dir) => ({ x: dir > 0 ? -1500 : 1500 })
+              enter: { opacity: 0 },
+              center: { opacity: 1 },
+              exit: { opacity: 0 }
             }}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             className="absolute inset-0 flex justify-center items-center"
           >
             {current?.images && current.images.length === 3 ? (
@@ -2171,7 +2171,7 @@ function Collection() {
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.1}
+        dragElastic={0}
         onDragEnd={(e, info) => {
           const swipeThreshold = 50;
           if (info.offset.x < -swipeThreshold || info.velocity.x < -500) {
@@ -2822,7 +2822,7 @@ function Diheirspace() {
                 <motion.div 
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.1}
+                  dragElastic={0}
                   onDragEnd={(e, info) => {
                     const swipeThreshold = 50;
                     if (info.offset.x < -swipeThreshold || info.velocity.x < -500) {
