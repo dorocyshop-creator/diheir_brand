@@ -4,13 +4,13 @@
 @import './glass.css';
 
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100vw;
   touch-action: pan-y;
 }
 
 #root {
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 

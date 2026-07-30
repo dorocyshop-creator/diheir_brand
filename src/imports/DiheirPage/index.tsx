@@ -1708,11 +1708,14 @@ function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
 export function ServicesCore({ scale = 1 }: { scale?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [vh, setVh] = useState(1080);
+  const [internalVh, setInternalVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
 
   useEffect(() => {
     const update = () => {
+      const currentScale = Math.min(1, window.innerWidth / 1920);
       setVh(window.innerHeight);
+      setInternalVh(window.innerHeight / currentScale);
       setActualWidth(Math.max(1920, window.innerWidth));
     };
     update();
@@ -1740,6 +1743,7 @@ export function ServicesCore({ scale = 1 }: { scale?: number }) {
         <div
           style={{
             width: 1920,
+            height: internalVh,
             position: "absolute",
             top: "50%",
             left: "50%",
@@ -1751,7 +1755,7 @@ export function ServicesCore({ scale = 1 }: { scale?: number }) {
               target: containerRef,
               offset: ["start start", "end end"],
             }).scrollYProgress}
-            vh={vh}
+            vh={internalVh}
             actualWidth={actualWidth}
           />
         </div>

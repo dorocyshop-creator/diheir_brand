@@ -112,7 +112,7 @@ export function DiheirLanding() {
       <HomeSection />
 
       {/* 데스크탑/태블릿(≥960px): 원본 1920 레이아웃을 transform: scale()로 축소 */}
-      <div className="relative hidden md:block w-full overflow-hidden">
+      <div className="relative hidden md:block w-full overflow-clip">
         <ScaledPCLayout>
           <BrandIdentity />
           <BrandHeritage />
