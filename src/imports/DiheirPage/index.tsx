@@ -2811,7 +2811,7 @@ function Diheirspace() {
 
       {/* Store info card - overlapping the background image */}
       <div className="absolute left-1/2 -translate-x-1/2 top-[527px] w-[1116px] z-10">
-        <div className="bg-[rgba(170,166,128,0.2)] backdrop-blur-[20px] border-2 border-solid border-[rgba(255,255,255,0)] rounded-[32px] pt-[65px] pb-[63px] px-[58px]">
+        <div className="bg-[rgba(170,166,128,0.2)] backdrop-blur-[20px] transform-gpu will-change-transform border-2 border-solid border-[rgba(255,255,255,0)] rounded-[32px] pt-[65px] pb-[63px] px-[58px]">
           <div className="bg-[#c3c0b0] rounded-[32px] w-[1000px] mx-auto">
             <div className="flex flex-col gap-[60px] items-center w-full px-[58px] py-[64px]">
               {/* Main content */}
