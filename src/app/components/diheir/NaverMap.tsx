@@ -36,7 +36,7 @@ export default function NaverMap({ className }: { className?: string }) {
   useEffect(() => {
     if (!window.naver || !window.naver.maps || !mapElement.current) return;
     
-    const location = new window.naver.maps.LatLng(37.525547, 127.042738);
+    const location = new window.naver.maps.LatLng(37.524947, 127.042318);
     locationRef.current = location;
     
     const map = new window.naver.maps.Map(mapElement.current, {
