@@ -1529,16 +1529,19 @@ function Frame30({
         height: vh ? `${vh}px` : "1080px",
         top: 0,
         left: `calc(50% - ${actualWidth / 2}px)`,
-        clipPath,
         scale,
       }}
     >
-      <div aria-hidden className="absolute inset-0 pointer-events-none">
+      <motion.div 
+        aria-hidden 
+        className="absolute inset-0 pointer-events-none"
+        style={{ clipPath }}
+      >
         <div className="absolute bg-[#d9d9d9] inset-0" />
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <iframe
             src="https://player.vimeo.com/video/1211853153?background=1&autoplay=1&loop=1&muted=1"
-            className="absolute top-1/2 left-1/2 w-[150vw] h-[150vh] -translate-x-1/2 -translate-y-1/2"
+            className="absolute top-1/2 left-1/2 w-[150vw] h-[150vh] -translate-x-1/2 -translate-y-1/2 scale-[1.01]"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           />
@@ -1550,7 +1553,7 @@ function Frame30({
               "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 1404 637' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.20000000298023224'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(4.2985e-15 31.85 -70.2 1.9503e-15 702 318.5)'><stop stop-color='rgba(231,232,207,1)' offset='0'/><stop stop-color='rgba(231,232,207,0)' offset='0.65835'/></radialGradient></defs></svg>\"), linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)",
           }}
         />
-      </div>
+      </motion.div>
       <motion.div style={{ opacity: textOpacity || 1 }}>
         <Frame29 />
       </motion.div>
@@ -1667,39 +1670,11 @@ function Group6({
 }
 
 function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
-  const progressMotion = useMotionValue(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const scrollableDistance = rect.height - windowHeight;
-
-      if (scrollableDistance <= 0) {
-        progressMotion.set(0);
-        return;
-      }
-
-      const scrolled = -rect.top;
-      let p = scrolled / scrollableDistance;
-      if (p < 0) p = 0;
-      if (p > 1) p = 1;
-
-      progressMotion.set(p);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [ref, progressMotion]);
-
-  return progressMotion;
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  return scrollYProgress;
 }
 
 function ServicesCore() {
@@ -1729,19 +1704,16 @@ function ServicesCore() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const yOffset = useTransform(scrollYProgress, [0, 1], [0, maxOffset]);
-
   return (
     <div
       ref={containerRef}
       className="h-[3500px] relative shrink-0 w-[1920px] light-section"
       data-name="Services_core"
     >
-      <motion.div
-        className="absolute top-0 left-0 w-[1920px] overflow-visible"
+      <div
+        className="sticky top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
-          y: yOffset,
           backgroundImage:
             "linear-gradient(90deg, rgb(159, 159, 139) 0%, rgb(159, 159, 139) 100%), linear-gradient(90deg, rgb(247, 247, 236) 0%, rgb(247, 247, 236) 100%)",
         }}
@@ -1751,7 +1723,7 @@ function ServicesCore() {
           vh={vh}
           actualWidth={actualWidth}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }
