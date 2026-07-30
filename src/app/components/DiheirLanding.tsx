@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import ResponsiveDiheirPage, { Nav, ScrollAnimatedLogo, HomeSection } from "./diheir/DiheirPage";
 import OriginalDiheirPage from "../../imports/DiheirPage";
 
@@ -9,11 +9,67 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
+ * 1920px 고정 PC 레이아웃을 transform: scale()로 축소하는 래퍼.
+ * CSS zoom과 달리 vh/vw 단위와 충돌하지 않아 태블릿에서도 안정적이다.
+ */
+function ScaledPCLayout({ children }: { children: React.ReactNode }) {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  const updateScale = useCallback(() => {
+    setScale(Math.min(1, window.innerWidth / 1920));
+  }, []);
+
+  useEffect(() => {
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, [updateScale]);
+
+  // ResizeObserver로 내부 콘텐츠 실제 높이를 추적
+  useEffect(() => {
+    if (!innerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContentHeight(entry.contentRect.height);
+      }
+    });
+    ro.observe(innerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        // scale 적용 후 실제로 차지해야 할 높이를 명시
+        height: contentHeight * scale,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        ref={innerRef}
+        style={{
+          width: 1920,
+          transformOrigin: "top left",
+          transform: `scale(${scale})`,
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/**
  * 디에르 랜딩 페이지 래퍼 (하이브리드 반응형).
  */
 export function DiheirLanding() {
-  const [zoom, setZoom] = useState(1);
-
   useEffect(() => {
     // Lenis ↔ GSAP ScrollTrigger 동기화
     const lenis = new Lenis({
@@ -32,11 +88,7 @@ export function DiheirLanding() {
     gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
-    const update = () => setZoom(window.innerWidth / 1920);
-    update();
-    window.addEventListener("resize", update);
     return () => {
-      window.removeEventListener("resize", update);
       gsap.ticker.remove(tickerCallback);
       lenis.destroy();
     };
@@ -51,11 +103,11 @@ export function DiheirLanding() {
       {/* 전체 해상도에 공통 적용되는 스크롤 Home 섹션 (100vh 고정) */}
       <HomeSection />
 
-      {/* 데스크탑(≥768px): 원본 1920 레이아웃 유지 및 비율만 축소 */}
-      <div className="relative hidden md:flex w-full justify-center">
-        <div className="w-[1920px]" style={{ zoom }}>
+      {/* 데스크탑/태블릿(≥768px): 원본 1920 레이아웃을 scale()로 축소 */}
+      <div className="relative hidden md:block w-full overflow-hidden">
+        <ScaledPCLayout>
           <OriginalDiheirPage />
-        </div>
+        </ScaledPCLayout>
       </div>
 
       {/* 모바일(<768px): 스와이프 가능한 전체 모바일 레이아웃 */}
