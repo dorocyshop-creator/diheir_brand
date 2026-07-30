@@ -2834,8 +2834,13 @@ function Diheirspace() {
 
       {/* Store info card - overlapping the background image */}
       <div className="absolute left-1/2 -translate-x-1/2 top-[527px] w-[1116px] z-10">
-        <div className="bg-[rgba(170,166,128,0.2)] backdrop-blur-[20px] transform-gpu will-change-transform border-2 border-solid border-[rgba(255,255,255,0)] rounded-[32px] pt-[65px] pb-[63px] px-[58px]">
-          <div className="bg-[#c3c0b0] rounded-[32px] w-[1000px] mx-auto">
+        <div className="relative pt-[65px] pb-[63px] px-[58px]">
+          {/* 별도의 배경 레이어로 분리하여 Safari 렌더링 충돌 방지 */}
+          <div 
+            className="absolute inset-0 bg-[rgba(170,166,128,0.2)] backdrop-blur-[20px] border-2 border-solid border-[rgba(255,255,255,0)] rounded-[32px] -z-10"
+            style={{ transform: "translate3d(0, 0, 0)", WebkitTransform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
+          />
+          <div className="relative bg-[#c3c0b0] rounded-[32px] w-[1000px] mx-auto z-10">
             <div className="flex flex-col gap-[60px] items-center w-full px-[58px] py-[64px]">
               {/* Main content */}
               <div className="flex flex-col gap-[40px] items-center w-full">
