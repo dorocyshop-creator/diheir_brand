@@ -13,9 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
  * CSS zoom과 달리 vh/vw 단위와 충돌하지 않아 태블릿에서도 안정적이다.
  */
 function ScaledPCLayout({ children }: { children: React.ReactNode }) {
-  const innerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [contentHeight, setContentHeight] = useState(0);
 
   const updateScale = useCallback(() => {
     setScale(Math.min(1, window.innerWidth / 1920));
@@ -27,41 +25,15 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("resize", updateScale);
   }, [updateScale]);
 
-  // ResizeObserver로 내부 콘텐츠 실제 높이를 추적
-  useEffect(() => {
-    if (!innerRef.current) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setContentHeight(entry.contentRect.height);
-      }
-    });
-    ro.observe(innerRef.current);
-    return () => ro.disconnect();
-  }, []);
-
   return (
     <div
       style={{
-        width: "100%",
-        // scale 적용 후 실제로 차지해야 할 높이를 명시
-        height: contentHeight * scale,
-        position: "relative",
+        width: 1920,
+        margin: "0 auto",
+        zoom: scale,
       }}
     >
-      <div
-        ref={innerRef}
-        style={{
-          width: 1920,
-          transformOrigin: "center top",
-          transform: `scale(${scale})`,
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          marginLeft: -960,
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
