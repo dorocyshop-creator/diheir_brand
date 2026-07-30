@@ -1697,6 +1697,7 @@ function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
 
 function ServicesCore() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const scrollYProgress = useZoomScrollProgress(containerRef);
   const [vh, setVh] = useState(1080);
   const [actualWidth, setActualWidth] = useState(1920);
@@ -1712,6 +1713,36 @@ function ServicesCore() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  // transform: scale() 내부에서는 CSS sticky가 작동하지 않으므로,
+  // JS로 직접 스크롤 위치를 추적하여 sticky 효과를 구현
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current || !innerRef.current) return;
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const scale = Math.min(1, window.innerWidth / 1920);
+      
+      // 컨테이너 높이와 내부 콘텐츠 높이(뷰포트 크기)를 스케일 보정
+      const containerH = containerRect.height / scale;
+      const innerH = window.innerHeight / scale;
+      const maxOffset = containerH - innerH;
+      
+      // 컨테이너 상단이 뷰포트 위로 올라간 거리 (스케일 보정)
+      const scrolled = -containerRect.top / scale;
+      
+      // 0 ~ maxOffset 범위로 클램프
+      const offset = Math.max(0, Math.min(scrolled, maxOffset));
+      innerRef.current.style.transform = `translateY(${offset}px)`;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -1719,7 +1750,8 @@ function ServicesCore() {
       data-name="Services_core"
     >
       <div
-        className="sticky top-0 w-[1920px] overflow-visible"
+        ref={innerRef}
+        className="absolute top-0 left-0 w-[1920px] overflow-visible"
         style={{
           height: `${vh}px`,
           backgroundImage:
