@@ -1541,7 +1541,7 @@ function Frame30({
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <iframe
             src="https://player.vimeo.com/video/1211853153?background=1&autoplay=1&loop=1&muted=1"
-            className="absolute top-1/2 left-1/2 w-[150vw] h-[150vh] -translate-x-1/2 -translate-y-1/2 scale-[1.01]"
+            className="absolute top-1/2 left-1/2 w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2 scale-[1.01]"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           />
