@@ -1575,30 +1575,30 @@ function Group6({
   const horizontalInset = (actualWidth - 1404) / 2;
   const clipPath = useTransform(
     scrollYProgress,
-    [0, 0.7],
+    [0, 1],
     [
       `inset(${startTop}px ${horizontalInset}px ${startTop}px ${horizontalInset}px)`,
       "inset(0px 0px 0px 0px)",
-    ],
+    ]
   );
 
   // 전체 컴포넌트 스케일을 원본과 동일하게 0.7에서 1로 확대
-  const scale = useTransform(scrollYProgress, [0, 0.7], [0.7, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
 
   const leftX = useTransform(scrollYProgress, (val: number) => {
-    let p = val / 0.7;
+    let p = val; // val goes from 0 to 1
     if (p < 0) p = 0;
     if (p > 1) p = 1;
     return (-473 - (actualWidth - 1920) / 2) * p;
   });
 
   const rightX = useTransform(scrollYProgress, (val: number) => {
-    let p = val / 0.7;
+    let p = val;
     if (p < 0) p = 0;
     if (p > 1) p = 1;
     return (465 + (actualWidth - 1920) / 2) * p;
   });
-  const textOpacity = useTransform(scrollYProgress, [0.4, 0.7], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.57, 1], [1, 0]);
 
   const centerY = vh / 2;
   const leftTopY = centerY - 389;
