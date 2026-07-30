@@ -1670,11 +1670,34 @@ function Group6({
 }
 
 function useZoomScrollProgress(ref: React.RefObject<HTMLDivElement>) {
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
+  const { scrollY } = useScroll();
+  const [bounds, setBounds] = useState({ top: 0, distance: 1 });
+
+  useEffect(() => {
+    const updateBounds = () => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      const distance = Math.max(1, rect.height - window.innerHeight);
+      setBounds({ top, distance });
+    };
+
+    updateBounds();
+    // Re-calculate bounds slightly later to account for initial layout shifts (images, etc)
+    const timeout = setTimeout(updateBounds, 500);
+    window.addEventListener("resize", updateBounds);
+    
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", updateBounds);
+    };
+  }, [ref]);
+
+  return useTransform(scrollY, (y) => {
+    const traveled = y - bounds.top;
+    const p = traveled / bounds.distance;
+    return Math.max(0, Math.min(1, p));
   });
-  return scrollYProgress;
 }
 
 function ServicesCore() {
