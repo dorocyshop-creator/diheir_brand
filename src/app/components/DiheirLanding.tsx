@@ -18,7 +18,7 @@ function ScaledPCLayout({ children }: { children: React.ReactNode }) {
   const [contentHeight, setContentHeight] = useState(0);
 
   const updateScale = useCallback(() => {
-    setScale(Math.min(1, window.innerWidth / 1920));
+    setScale(window.innerWidth / 1920);
   }, []);
 
   useEffect(() => {

@@ -1713,7 +1713,7 @@ function ServicesCore() {
 
   useEffect(() => {
     const update = () => {
-      const scale = Math.min(1, window.innerWidth / 1920);
+      const scale = window.innerWidth / 1920;
       setVh(window.innerHeight / scale);
       setActualWidth(Math.max(1920, window.innerWidth));
     };
