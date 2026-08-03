@@ -81,6 +81,7 @@
 @theme inline {
   --font-sans: "DreamAvenue", "Pretendard", sans-serif;
   --font-serif: "DreamAvenue", "Big Caslon", serif;
+  --font-dream: "DreamAvenue", "Pretendard", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
