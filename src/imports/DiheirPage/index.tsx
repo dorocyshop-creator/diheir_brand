@@ -2980,22 +2980,20 @@ export function Diheirspace() {
 
               {/* Buttons */}
               <div className="flex justify-center gap-[60px] items-center w-full mt-[32px]">
-                <a
-                  href="https://map.naver.com/p/entry/place/2036509182"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#777569] flex h-[60px] items-center justify-center rounded-[30px] w-[209px] font-dream text-[24px] text-white hover:bg-[#5a5649] transition-colors cursor-pointer"
+                <button
+                  type="button"
+                  onClick={() => window.open("https://map.naver.com/p/entry/place/2036509182", "_blank")}
+                  className="bg-[#777569] flex h-[60px] items-center justify-center rounded-[30px] w-[209px] font-dream text-[24px] text-white hover:bg-[#5a5649] transition-colors cursor-pointer border-none m-0"
                 >
                   Map
-                </a>
-                <a
-                  href="https://booking.naver.com/booking/6/bizes/1551859"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#383629] flex h-[60px] items-center justify-center rounded-[30px] w-[209px] font-dream text-[24px] text-white hover:bg-black transition-colors cursor-pointer"
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.open("https://booking.naver.com/booking/6/bizes/1551859", "_blank")}
+                  className="bg-[#383629] flex h-[60px] items-center justify-center rounded-[30px] w-[209px] font-dream text-[24px] text-white hover:bg-black transition-colors cursor-pointer border-none m-0"
                 >
                   Reservation
-                </a>
+                </button>
               </div>
             </div>
           </div>
