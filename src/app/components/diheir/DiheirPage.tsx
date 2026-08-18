@@ -204,14 +204,17 @@ export function Nav({ hideLogo }: { hideLogo?: boolean }) {
         }`}>
           <div className="flex flex-col gap-4 bg-black/40 backdrop-blur-md px-[32px] py-[28px] rounded-2xl border border-white/10 shadow-xl min-w-[200px]">
             {["home", "brand", "Services", "Reservation"].map((item) => (
-              <a
+              <button
                 key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer`}
-                onClick={() => setMenuOpen(false)}
+                type="button"
+                className={`${SERIF} capitalize text-white hover:text-[#bdbea7] transition-colors text-[24px] tracking-[-0.48px] cursor-pointer bg-transparent border-none p-0 text-left`}
+                onClick={() => {
+                  setMenuOpen(false);
+                  document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 {item}
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -2599,11 +2602,10 @@ function DiheirSpace() {
 
               {/* Buttons */}
               <div className="flex gap-[60px] items-start">
-                <a
-                  href="https://map.naver.com/p/entry/place/2036509182"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer`}
+                <button
+                  type="button"
+                  onClick={() => window.open("https://map.naver.com/p/entry/place/2036509182", "_blank")}
+                  className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer border-none m-0`}
                   style={{
                     width: 209,
                     height: 60,
@@ -2611,12 +2613,11 @@ function DiheirSpace() {
                   }}
                 >
                   Map
-                </a>
-                <a
-                  href="https://booking.naver.com/booking/6/bizes/1551859"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer`}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.open("https://booking.naver.com/booking/6/bizes/1551859", "_blank")}
+                  className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer border-none m-0`}
                   style={{
                     width: 209,
                     height: 60,
@@ -2624,7 +2625,7 @@ function DiheirSpace() {
                   }}
                 >
                   Reservation
-                </a>
+                </button>
               </div>
               </div>
             </div>
@@ -2792,24 +2793,22 @@ function DiheirSpace() {
 
             {/* Buttons */}
             <div className="flex gap-[6vw] items-center">
-              <a
-                href="https://map.naver.com/p/entry/place/2036509182"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer px-[6vw] py-[2.5vw]`}
+              <button
+                type="button"
+                onClick={() => window.open("https://map.naver.com/p/entry/place/2036509182", "_blank")}
+                className={`${SERIF} bg-[#777569] text-white rounded-full flex items-center justify-center hover:bg-[#5a5649] transition-colors cursor-pointer px-[6vw] py-[2.5vw] border-none m-0`}
                 style={{ fontSize: "4vw" }}
               >
                 Map
-              </a>
-              <a
-                href="https://booking.naver.com/booking/6/bizes/1551859"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer px-[6vw] py-[2.5vw]`}
+              </button>
+              <button
+                type="button"
+                onClick={() => window.open("https://booking.naver.com/booking/6/bizes/1551859", "_blank")}
+                className={`${SERIF} bg-[#383629] text-white rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer px-[6vw] py-[2.5vw] border-none m-0`}
                 style={{ fontSize: "4vw" }}
               >
                 Reservation
-              </a>
+              </button>
             </div>
           </div>
         </FadeUp>
@@ -2917,9 +2916,9 @@ function Footer_save() {
             style={{ fontSize: "max(12px, clamp(min(24px,3.125vw),3vw,40px))" }}
           >
             {FOOTER_LINKS.map((link) => (
-              <a
+              <button
                 key={link}
-                href={(link.toLowerCase() === "home" || link.toLowerCase() === "information") ? undefined : "#"}
+                type="button"
                 onClick={(e) => {
                   e.preventDefault();
                   if (link.toLowerCase() === "home") {
@@ -2937,10 +2936,10 @@ function Footer_save() {
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className={`w-fit transition-opacity hover:opacity-70 cursor-pointer`}
+                className={`w-fit text-[#c1c4ad] hover:text-white transition-colors duration-300 cursor-pointer bg-transparent border-none p-0 text-left`}
               >
                 {link}
-              </a>
+              </button>
             ))}
           </nav>
         </FadeUp>
@@ -2953,10 +2952,10 @@ function Footer_save() {
               SNS
             </p>
             <div className="flex items-center gap-6">
-              <a href="https://www.youtube.com/@studio.dorocy" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+              <a href="https://www.youtube.com/@studio.dorocy" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity" style={{ textDecoration: 'none' }}>
                 <YoutubeIcon />
               </a>
-              <a href="https://www.instagram.com/dorocy_official_/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+              <a href="https://www.instagram.com/dorocy_official_/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity" style={{ textDecoration: 'none' }}>
                 <InstagramIcon />
               </a>
             </div>
