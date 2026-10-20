@@ -391,6 +391,7 @@ body{
 .benefits-accordion-section{
   background:var(--cream);
   padding:72px 32px;
+  scroll-margin-top:40px;
 }
 .benefits-accordion-inner{max-width:700px;margin:0 auto;}
 .acc-header{text-align:center;margin-bottom:36px;}
@@ -1405,7 +1406,8 @@ body{
 </div>
 
 <!-- ══ 혜택 아코디언 (폼 바로 위에 복사됨, 여기는 앵커용) ════ -->
-<div class="benefits-accordion-section" id="benefits-section">
+<div class="benefits-accordion-section" id="benefits">
+  <span id="benefits-section" style="display:block;position:relative;top:0;"></span>
   <div class="benefits-accordion-inner reveal">
     <div class="acc-header">
       <span class="acc-sub">BENEFITS</span>
@@ -1414,8 +1416,8 @@ body{
     </div>
     <div class="acc-list">
 
-      <div class="acc-item open">
-        <button type="button" class="acc-trigger">
+      <div class="acc-item open" data-benefit="consultation">
+        <button type="button" class="acc-trigger" aria-expanded="true">
           <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="acc-title-wrap">
             <div class="acc-title">상담 고객</div>
@@ -1430,8 +1432,8 @@ body{
         </div>
       </div>
 
-      <div class="acc-item">
-        <button type="button" class="acc-trigger">
+      <div class="acc-item" data-benefit="contract">
+        <button type="button" class="acc-trigger" aria-expanded="false">
           <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="acc-title-wrap">
             <div class="acc-title">계약 고객</div>
@@ -1446,8 +1448,8 @@ body{
         </div>
       </div>
 
-      <div class="acc-item">
-        <button type="button" class="acc-trigger">
+      <div class="acc-item" data-benefit="sameday">
+        <button type="button" class="acc-trigger" aria-expanded="false">
           <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="acc-title-wrap">
             <div class="acc-title">당일 계약 고객</div>
@@ -1463,8 +1465,8 @@ body{
         </div>
       </div>
 
-      <div class="acc-item">
-        <button type="button" class="acc-trigger">
+      <div class="acc-item" data-benefit="partner">
+        <button type="button" class="acc-trigger" aria-expanded="false">
           <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="acc-title-wrap">
             <div class="acc-title">디에르 제휴사 혜택 (택 1)</div>
@@ -2171,31 +2173,100 @@ document.querySelectorAll('.stat-num[data-target]').forEach(el => cntObs.observe
   }, 8000);
 })();
 
-/* ── 혜택 아코디언 (acc-item + acc-item2 모두) ── */
+/* ── 혜택 아코디언 (acc-item) & URL benefit 파라미터 / #benefits 연동 ── */
 (function(){
-  function bindAcc(selector) {
-    var items = document.querySelectorAll(selector);
-    items.forEach(function(item){
-      var trigger = item.querySelector('.acc-trigger');
-      var body    = item.querySelector('.acc-body');
-      if (!trigger || !body) return;
-      if (item.classList.contains('open')) body.style.maxHeight = body.scrollHeight + 'px';
-      trigger.addEventListener('click', function(){
-        var isOpen = item.classList.contains('open');
-        items.forEach(function(i){
-          i.classList.remove('open');
-          var b = i.querySelector('.acc-body');
-          if (b) b.style.maxHeight = '0';
-        });
-        if (!isOpen) {
-          item.classList.add('open');
-          body.style.maxHeight = body.scrollHeight + 'px';
-        }
-      });
+  var items = document.querySelectorAll('.acc-item');
+  if (!items.length) return;
+
+  function setItemState(item, open) {
+    var trigger = item.querySelector('.acc-trigger');
+    var body = item.querySelector('.acc-body');
+    if (!trigger || !body) return;
+    if (open) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      trigger.setAttribute('aria-expanded', 'true');
+    } else {
+      item.classList.remove('open');
+      body.style.maxHeight = '0';
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  function openItem(targetItem) {
+    items.forEach(function(i){
+      if (i === targetItem) {
+        setItemState(i, true);
+      } else {
+        setItemState(i, false);
+      }
     });
   }
-  bindAcc('.acc-item');
-  bindAcc('.acc-item2');
+
+  // 기본 클릭 이벤트 바인딩
+  items.forEach(function(item){
+    var trigger = item.querySelector('.acc-trigger');
+    var body = item.querySelector('.acc-body');
+    if (!trigger || !body) return;
+    if (item.classList.contains('open')) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      trigger.setAttribute('aria-expanded', 'true');
+    } else {
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    trigger.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      if (isOpen) {
+        setItemState(item, false);
+      } else {
+        openItem(item);
+      }
+    });
+  });
+
+  // URL 파라미터 & 해시 처리
+  function handleBenefitParam() {
+    var search = window.location.search;
+    var hash = window.location.hash;
+    var params = new URLSearchParams(search);
+    var benefitParam = params.get('benefit');
+
+    var benefitMap = {
+      'consultation': 0, 'consult': 0, 'counsel': 0, '1': 0,
+      'contract': 1, '2': 1,
+      'sameday': 2, 'same-day': 2, 'same_day': 2, '3': 2,
+      'partner': 3, 'partnership': 3, 'affiliate': 3, '4': 3
+    };
+
+    var targetIndex = -1;
+    if (benefitParam) {
+      var key = String(benefitParam).toLowerCase().trim();
+      if (key in benefitMap) {
+        targetIndex = benefitMap[key];
+      }
+    }
+
+    if (targetIndex >= 0 && targetIndex < items.length) {
+      openItem(items[targetIndex]);
+    }
+
+    // #benefits 해시 또는 혜택 지정 시 해당 영역으로 스크롤 이동
+    if (hash === '#benefits' || hash === '#benefits-section' || targetIndex >= 0) {
+      var sec = document.getElementById('benefits') || document.getElementById('benefits-section');
+      if (sec) {
+        setTimeout(function(){
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleBenefitParam);
+  } else {
+    handleBenefitParam();
+  }
+  window.addEventListener('hashchange', handleBenefitParam);
 })();
 
 /* ── 하단 고정 CTA: 히어로 통과 후 노출, 폼 섹션 진입 시 숨김 ── */
