@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DIHEIR — 나만의 다이아몬드 주얼리</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --gold:#B8965A;
+  --gold-light:#D4B07A;
+  --gold-pale:#F0E6CC;
+  --black:#0A0A0A;
+  --charcoal:#1C1A16;
+  --dark:#2A2520;
+  --mid:#6B5F53;
+  --muted:#9A8E84;
+  --cream:#FAF8F4;
+  --cream2:#F3EFE6;
+  --white:#FFFFFF;
+  --bg-section:#F7F4EE;
+  --border-gold:rgba(184,150,90,0.22);
+  --border-dark:rgba(184,150,90,0.18);
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans KR',sans-serif;
+  font-weight:300;
+  background:var(--cream);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  font-size:17px;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:580px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero-video-wrap{
+  position:absolute;inset:0;z-index:0;
+  background:var(--black);
+}
+.hero-video-wrap iframe{
+  position:absolute;
+  top:50%;left:50%;
+  width:100vw;height:56.25vw;
+  min-height:100vh;min-width:177.78vh;
+  transform:translate(-50%,-50%);
+  border:none;pointer-events:none;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    to bottom,
+    rgba(10,10,10,0.52) 0%,
+    rgba(10,10,10,0.3) 45%,
+    rgba(10,10,10,0.65) 100%
+  );
+}
+.hero-content{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 24px;width:100%;
+}
+.hero-logo-wrap{
+  margin-bottom:28px;
+  opacity:0;animation:fadeDown 0.9s 0.3s forwards;
+}
+.hero-logo-wrap img{
+  height:40px;
+  filter:brightness(0) invert(1);
+}
+.hero-tag{
+  font-size:12px;
+  letter-spacing:0.28em;
+  color:var(--gold-light);
+  text-transform:uppercase;
+  margin-bottom:20px;
+  opacity:0;animation:fadeUp 0.8s 0.6s forwards;
+}
+.hero-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,9vw,88px);
+  font-weight:300;
+  line-height:1.12;
+  color:var(--white);
+  margin-bottom:16px;
+  opacity:0;animation:fadeUp 0.9s 0.8s forwards;
+}
+.hero-headline em{
+  font-style:italic;
+  color:var(--gold-light);
+  display:block;
+}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,3.5vw,22px);
+  font-style:italic;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:44px;
+  letter-spacing:0.06em;
+  opacity:0;animation:fadeUp 0.9s 1.0s forwards;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold);
+  color:var(--black);
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:15px;font-weight:500;
+  letter-spacing:0.1em;
+  padding:18px 48px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+  opacity:0;animation:fadeUp 0.9s 1.2s forwards;
+  -webkit-tap-highlight-color:transparent;
+}
+.hero-cta:hover{background:var(--gold-light);transform:translateY(-2px);}
+.hero-cta:active{transform:scale(0.98);}
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeIn 1s 1.8s forwards;
+}
+.hero-scroll span{font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(184,150,90,0.8),transparent);animation:scrollPulse 2.2s 1.8s ease-in-out infinite;}
+
+/* ── TRUST STRIP ──────────────────────────────────── */
+.trust-strip{
+  background:var(--charcoal);
+  padding:16px 20px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  white-space:nowrap;
+  text-align:center;
+  scrollbar-width:none;
+}
+.trust-strip::-webkit-scrollbar{display:none;}
+.trust-item{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 20px;
+  color:rgba(255,255,255,0.6);
+  font-size:14px;letter-spacing:0.04em;
+  border-right:1px solid rgba(184,150,90,0.2);
+}
+.trust-item:last-child{border-right:none;}
+.trust-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* ── SECTION COMMON ──────────────────────────────── */
+.sec-eyebrow{
+  font-size:13px;letter-spacing:0.32em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:18px;
+  display:block;
+}
+.gold-line{width:36px;height:1px;background:var(--gold);margin:22px 0;}
+
+/* ── BRAND INTRO ──────────────────────────────────── */
+.brand-intro{
+  background:#F2EAD8;
+  padding:88px 40px 72px;
+  position:relative;
+  overflow:hidden;
+}
+.brand-intro::before{
+  content:'';
+  position:absolute;
+  right:-5%;top:50%;
+  transform:translateY(-50%);
+  width:55%;
+  height:110%;
+  background:url('https://dorocyshop.img9.kr/diheir/tree.png') center/contain no-repeat;
+  opacity:0.08;
+  pointer-events:none;
+}
+.brand-intro-inner{
+  max-width:960px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:center;
+  position:relative;z-index:1;
+}
+.intro-text h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4.5vw,52px);
+  font-weight:300;line-height:1.2;
+  color:var(--dark);margin-bottom:0;
+}
+.intro-text h2 em{font-style:italic;color:var(--gold);}
+.intro-text p{
+  font-size:17px;line-height:2.0;color:var(--mid);
+}
+.intro-image{
+  position:relative;
+  background:#F2EAD8;
+  display:flex;align-items:center;justify-content:center;
+  padding:32px;
+}
+.intro-image img{
+  width:100%;max-height:400px;
+  object-fit:contain;display:block;
+}
+
+/* ── STATS ───────────────────────────────────────── */
+.stats-section{
+  background:var(--dark);
+  padding:72px 32px;
+}
+.stats-inner{
+  max-width:880px;margin:0 auto;
+  display:flex;flex-wrap:wrap;justify-content:center;
+}
+.stat-item{
+  flex:1;min-width:140px;
+  text-align:center;padding:28px 16px;
+  border-right:1px solid rgba(184,150,90,0.18);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:52px;font-weight:300;
+  color:var(--gold-light);line-height:1;margin-bottom:10px;
+}
+.stat-label{
+  font-size:14px;letter-spacing:0.2em;
+  color:rgba(255,255,255,0.35);text-transform:uppercase;
+}
+
+/* ── BENEFITS ─────────────────────────────────────── */
+.benefits-section{
+  background:var(--bg-section);
+  padding:88px 40px;
+}
+.benefits-inner{max-width:1040px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:56px;}
+.section-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(30px,4.5vw,50px);
+  font-weight:300;color:var(--dark);line-height:1.25;
+}
+.section-header h2 em{font-style:italic;color:var(--gold);}
+.benefits-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border-gold);
+}
+.benefit-card{
+  padding:44px 24px;text-align:center;
+  border-right:1px solid var(--border-gold);
+  background:var(--white);
+  transition:background 0.3s;
+}
+.benefit-card:last-child{border-right:none;}
+.benefit-card:hover{background:var(--cream2);}
+.benefit-icon{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;color:var(--gold);
+  margin-bottom:16px;font-style:italic;line-height:1;
+}
+.benefit-title{
+  font-size:15px;font-weight:500;
+  letter-spacing:0.14em;color:var(--dark);
+  margin-bottom:12px;text-transform:uppercase;
+}
+.benefit-desc{font-size:16px;line-height:1.9;color:var(--muted);}
+
+/* ── EX IMAGES ───────────────────────────────────── */
+.ex-section{background:var(--charcoal);}
+.ex-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  max-width:1200px;margin:0 auto;
+}
+.ex-img-wrap{position:relative;overflow:hidden;height:500px;}
+.ex-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.6s ease;filter:brightness(0.82);
+}
+.ex-img-wrap:hover img{transform:scale(1.04);}
+.ex-img-label{position:absolute;bottom:28px;left:28px;}
+.ex-img-label span{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;font-style:italic;
+  color:rgba(255,255,255,0.6);letter-spacing:0.08em;
+}
+.ex-text-wrap{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:56px 60px;background:var(--charcoal);
+}
+.ex-text-wrap h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,3vw,40px);
+  font-weight:300;color:var(--white);
+  line-height:1.3;margin-bottom:22px;
+}
+.ex-text-wrap h3 em{font-style:italic;color:var(--gold-light);}
+.ex-text-wrap p{font-size:16px;line-height:2.0;color:rgba(255,255,255,0.42);}
+
+/* ── VIDEO 2 — autoplay loop muted ───────────────── */
+.video2-section{
+  background:#FFFFFF;
+  padding:88px 40px;
+  text-align:center;
+}
+.video2-content{max-width:820px;margin:0 auto;}
+.video2-content h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4.5vw,52px);
+  font-weight:300;color:var(--dark);
+  line-height:1.2;margin-bottom:14px;
+}
+.video2-content h2 em{font-style:italic;color:var(--gold);}
+.video2-content p{
+  font-size:17px;line-height:1.95;
+  color:var(--mid);margin-bottom:44px;
+}
+.video2-frame{
+  position:relative;width:100%;padding-top:56.25%;
+  background:#000;
+  border:none;
+  overflow:hidden;
+}
+.video2-frame iframe{
+  position:absolute;inset:0;
+  width:100%;height:100%;border:none;
+}
+
+/* ── STORE ───────────────────────────────────────── */
+.store-section{position:relative;overflow:hidden;}
+.store-bg{width:100%;height:460px;object-fit:cover;display:block;filter:brightness(0.42);}
+.store-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:32px 24px;
+}
+.store-overlay h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4.5vw,44px);
+  font-weight:300;color:var(--white);
+  margin-bottom:14px;line-height:1.2;
+}
+.store-overlay p{
+  font-size:16px;color:rgba(255,255,255,0.55);
+  line-height:2.0;margin-bottom:30px;
+}
+.store-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(184,150,90,0.6);
+  color:var(--gold-light);
+  font-size:14px;letter-spacing:0.18em;
+  padding:14px 36px;text-decoration:none;
+  text-transform:uppercase;
+  transition:background 0.2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.store-btn:hover{background:rgba(184,150,90,0.12);}
+
+/* ── 스크롤 마퀴 배너 ─────────────────────────────── */
+.marquee-wrap{
+  background:var(--gold);
+  overflow:hidden;white-space:nowrap;
+  padding:11px 0;
+}
+.marquee-track{
+  display:inline-block;
+  animation:marqueeScroll 22s linear infinite;
+  padding-left:100%;
+}
+.marquee-track span{
+  display:inline-block;
+  font-size:14px;font-weight:500;
+  color:var(--black);letter-spacing:0.06em;
+  padding:0 48px;
+}
+.marquee-track span::before{
+  content:'◆';margin-right:16px;opacity:0.6;
+}
+@keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── 혜택 아코디언 ─────────────────────────────────── */
+.benefits-accordion-section{
+  background:var(--cream);
+  padding:72px 32px;
+}
+.benefits-accordion-inner{max-width:700px;margin:0 auto;}
+.acc-header{text-align:center;margin-bottom:36px;}
+.acc-header .acc-sub{
+  font-size:14px;letter-spacing:0.2em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:12px;display:block;
+}
+.acc-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4vw,40px);
+  font-weight:300;color:var(--dark);line-height:1.25;
+}
+.acc-header h2 em{font-style:italic;color:var(--gold);}
+.acc-deadline{
+  display:inline-block;
+  font-size:13px;color:var(--mid);
+  background:rgba(184,150,90,0.1);
+  border:1px solid var(--border-gold);
+  padding:6px 16px;margin-top:14px;
+}
+.acc-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.acc-item{
+  background:var(--white);
+  border:1px solid var(--border-gold);
+  overflow:hidden;
+}
+.acc-trigger{
+  width:100%;display:flex;align-items:center;gap:14px;
+  padding:18px 20px;cursor:pointer;
+  background:none;border:none;text-align:left;
+  -webkit-tap-highlight-color:transparent;
+}
+.acc-check{
+  width:22px;height:22px;min-width:22px;
+  background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.acc-check svg{width:11px;height:11px;}
+.acc-title-wrap{flex:1;}
+.acc-title{
+  font-size:16px;font-weight:500;color:var(--dark);line-height:1.3;
+}
+.acc-sub-title{font-size:14px;color:var(--mid);margin-top:3px;}
+.acc-tag{
+  font-size:12px;color:var(--gold);
+  border:1px solid var(--border-gold);
+  padding:3px 10px;white-space:nowrap;flex-shrink:0;
+}
+.acc-arrow{
+  width:18px;height:18px;flex-shrink:0;
+  transition:transform 0.25s;
+  color:var(--muted);
+}
+.acc-item.open .acc-arrow{transform:rotate(180deg);}
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.3s ease;
+}
+.acc-body-inner{
+  padding:0 20px 18px 56px;
+  font-size:15px;line-height:1.9;color:var(--mid);
+  border-top:1px solid var(--border-gold);
+}
+.acc-note{
+  font-size:13px;color:var(--muted);
+  text-align:center;margin-top:8px;line-height:1.8;
+}
+.acc-note strong{color:var(--gold);}
+
+/* ── 폼 상단 신뢰 문구 ─────────────────────────────── */
+.form-trust-msg{
+  background:var(--dark);
+  padding:16px 24px;
+  font-size:15px;color:rgba(255,255,255,0.75);
+  text-align:center;line-height:1.7;
+  margin-bottom:28px;
+}
+.form-trust-msg strong{color:var(--gold-light);}
+
+/* ── 플로팅 혜택 배지 ──────────────────────────────── */
+.floating-badge{
+  position:fixed;
+  right:16px;bottom:80px;
+  z-index:999;
+  background:var(--gold);
+  color:var(--black);
+  font-size:13px;font-weight:500;
+  padding:12px 16px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  cursor:pointer;
+  text-align:center;
+  line-height:1.4;
+  -webkit-tap-highlight-color:transparent;
+  animation:floatBounce 3s ease-in-out infinite;
+}
+.floating-badge span{display:block;font-size:11px;opacity:0.75;margin-top:2px;}
+@keyframes floatBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+/* ── 하단 고정 CTA 바 ──────────────────────────────── */
+.sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:998;
+  background:var(--black);
+  padding:0;
+  display:flex;
+  align-items:center;
+  transform:translateY(100%);
+  transition:transform 0.35s ease;
+  box-shadow:0 -2px 20px rgba(0,0,0,0.3);
+}
+.sticky-cta.visible{transform:translateY(0);}
+.sticky-cta-live{
+  display:flex;align-items:center;gap:6px;
+  padding:0 16px;white-space:nowrap;
+  font-size:13px;color:rgba(255,255,255,0.55);
+  border-right:1px solid rgba(255,255,255,0.1);
+}
+.sticky-live-dot{
+  width:7px;height:7px;background:#5cb85c;border-radius:50%;
+  flex-shrink:0;animation:livePulse 1.8s ease-in-out infinite;
+}
+.sticky-cta-btn{
+  flex:1;background:var(--gold);
+  color:var(--black);
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:16px;font-weight:500;
+  letter-spacing:0.06em;
+  padding:18px 24px;
+  border:none;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.sticky-cta-btn:active{background:var(--gold-light);}
+
+/* ── 후킹 배너 ───────────────────────────────────── */
+.hook-banner{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;background:var(--dark);
+  padding:14px 24px;margin-bottom:28px;
+}
+.hook-item{display:flex;align-items:center;gap:8px;}
+.hook-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;color:var(--gold-light);line-height:1;
+}
+.hook-txt{font-size:14px;color:rgba(255,255,255,0.7);letter-spacing:0.02em;}
+.hook-divider{width:1px;height:28px;background:rgba(184,150,90,0.3);margin:0 24px;}
+.hook-dot-live{
+  width:8px;height:8px;background:#5cb85c;border-radius:50%;flex-shrink:0;
+  animation:livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(92,184,92,0.4);}50%{opacity:0.7;box-shadow:0 0 0 5px rgba(92,184,92,0);}}
+/* ── 신뢰 배지 ───────────────────────────────────── */
+.trust-badges{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;margin-bottom:28px;
+}
+.trust-badge{
+  background:var(--white);
+  border:1px solid var(--border-gold);
+  padding:16px 12px;text-align:center;
+}
+.tb-icon{
+  font-size:18px;color:var(--gold);margin-bottom:8px;
+}
+.tb-text{
+  font-size:13px;line-height:1.6;color:var(--mid);font-weight:400;
+}
+
+/* ── FORM ────────────────────────────────────────── */
+.form-section{
+  background:var(--bg-section);
+  padding:96px 24px;
+}
+.form-wrap{max-width:640px;margin:0 auto;text-align:center;}
+.form-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(30px,5.5vw,52px);
+  font-weight:300;color:var(--dark);
+  line-height:1.2;margin-bottom:16px;
+}
+.form-title em{font-style:italic;color:var(--gold);}
+.form-desc{
+  font-size:17px;line-height:2.0;
+  color:var(--mid);margin-bottom:36px;
+}
+.vip-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(184,150,90,0.4);
+  padding:11px 22px;margin-bottom:36px;
+  font-size:13px;letter-spacing:0.12em;color:var(--gold);
+  background:var(--white);
+}
+.vip-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+.consult-form{display:flex;flex-direction:column;gap:14px;text-align:left;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-field{display:flex;flex-direction:column;gap:7px;}
+.form-field label{
+  font-size:14px;letter-spacing:0.22em;
+  color:var(--mid);text-transform:uppercase;
+}
+.form-field input{
+  background:var(--white);
+  border:1px solid rgba(184,150,90,0.3);
+  color:var(--dark);
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:16px;font-weight:300;
+  padding:15px 16px;
+  outline:none;
+  transition:border-color 0.2s,background 0.2s;
+  -webkit-appearance:none;border-radius:0;
+  width:100%;
+}
+.form-field input:focus{border-color:var(--gold);background:#FFFDF8;}
+.form-field input::placeholder{color:var(--muted);}
+/* ── 버튼 탭 선택 UI ── */
+.dh-btn-group{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;
+}
+.dh-btn-group button{
+  background:var(--white);
+  border:1px solid rgba(184,150,90,0.35);
+  color:var(--mid);
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:14px;font-weight:300;
+  padding:10px 16px;
+  cursor:pointer;
+  transition:all 0.15s;
+  -webkit-tap-highlight-color:transparent;
+  border-radius:0;
+  letter-spacing:0.02em;
+  white-space:nowrap;
+}
+.dh-btn-group button:active{transform:scale(0.97);}
+.dh-btn-group button.dh-selected{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:var(--black);
+  font-weight:500;
+}
+.privacy-check{
+  display:flex;align-items:flex-start;gap:16px;
+  font-size:16px;color:var(--mid);
+  line-height:1.75;cursor:pointer;
+  padding:4px 0;
+}
+.privacy-check input[type="checkbox"]{
+  width:18px;height:18px;min-width:18px;margin-top:2px;
+  accent-color:var(--gold);flex-shrink:0;cursor:pointer;
+}
+.privacy-check a{color:var(--gold);text-decoration:none;}
+.submit-btn{
+  width:100%;background:var(--gold);
+  color:var(--black);
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:16px;font-weight:500;
+  letter-spacing:0.14em;
+  padding:20px;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+  margin-top:6px;
+  -webkit-tap-highlight-color:transparent;
+}
+.submit-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+.submit-btn:active{transform:scale(0.99);}
+.form-note{
+  font-size:15px;color:var(--muted);
+  margin-top:16px;line-height:1.85;text-align:center;
+}
+.gform-alt{
+  margin-top:28px;padding-top:28px;
+  border-top:1px solid var(--border-gold);
+  text-align:center;
+}
+.gform-alt p{font-size:13px;color:var(--muted);margin-bottom:12px;}
+.gform-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(184,150,90,0.4);
+  color:var(--gold);font-size:14px;letter-spacing:0.12em;
+  padding:14px 28px;text-decoration:none;
+  transition:background 0.2s;
+  background:var(--white);
+}
+.gform-btn:hover{background:var(--cream2);}
+
+/* ── FOOTER ──────────────────────────────────────── */
+.footer{
+  background:var(--charcoal);
+  padding:52px 24px 40px;text-align:center;
+}
+.footer-logo img{
+  height:26px;
+  filter:brightness(0) invert(1) opacity(0.3);
+  margin-bottom:18px;
+}
+.footer-store{
+  font-size:14px;color:rgba(255,255,255,0.3);
+  line-height:2.0;margin-bottom:14px;
+}
+.footer-info{font-size:12px;color:rgba(255,255,255,0.18);line-height:2.0;}
+
+/* ── LOGO TEXT REPLACE ────────────────────────────── */
+.logo-img{
+  display:inline-block;vertical-align:middle;
+}
+.logo-img img{
+  height:22px;
+  vertical-align:middle;
+}
+/* 어두운 배경용 */
+.logo-img.on-dark img{filter:brightness(0) invert(1);}
+/* 밝은 배경용 */
+.logo-img.on-light img{filter:none;}
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scrollPulse{0%,100%{opacity:.35;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.2);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:0.12s;}
+.reveal-d2{transition-delay:0.24s;}
+
+/* ── MOBILE FIRST ────────────────────────────────── */
+@media(max-width:768px){
+  /* brand intro */
+  .brand-intro{padding:56px 20px 48px;}
+  .brand-intro-inner{grid-template-columns:1fr;gap:0;}
+  .intro-text{padding-bottom:40px;}
+  .intro-text p{font-size:16px;line-height:1.95;}
+  .intro-image{padding:24px 32px 40px;border-radius:0;}
+  .intro-image img{max-height:280px;}
+
+  /* section 폰트 상향 */
+  .sec-eyebrow{font-size:13px;}
+  .benefit-title{font-size:14px;}
+  .benefit-desc{font-size:15px;line-height:1.85;}
+
+  /* benefits */
+  .benefits-section{padding:56px 20px;}
+  .benefits-grid{grid-template-columns:1fr 1fr;}
+  .benefit-card{padding:32px 16px;}
+
+  /* ex images */
+  .ex-inner{grid-template-columns:1fr;}
+  .ex-img-wrap{height:260px;}
+  .ex-text-wrap{padding:40px 24px;}
+  .ex-text-wrap p{font-size:15px;}
+  .ex-text-wrap h3{font-size:28px;}
+
+  /* video2 */
+  .video2-section{padding:56px 20px;}
+  .video2-content p{font-size:15px;}
+  .video2-content h2{font-size:28px;}
+
+  /* stats */
+  .stats-section{padding:56px 20px;}
+  .stat-item{min-width:50%;border-right:none;border-bottom:1px solid rgba(184,150,90,0.18);}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(184,150,90,0.18);}
+  .stat-item:nth-last-child(-n+2){border-bottom:none;}
+  .stat-num{font-size:44px;}
+  .stat-label{font-size:13px;}
+
+  /* store */
+  .store-bg{height:400px;}
+  .store-overlay p{font-size:15px;}
+  .store-overlay h3{font-size:28px;}
+
+  /* form */
+  .form-section{padding:56px 20px;}
+  .form-row{grid-template-columns:1fr;}
+  .form-title{font-size:32px;}
+  .form-desc{font-size:16px;}
+  .form-field label{font-size:13px;}
+  .form-field input,
+  .form-field select,
+  .form-field textarea{font-size:16px;padding:16px;}
+  .privacy-check{font-size:15px;}
+  .submit-btn{font-size:16px;padding:20px;}
+  .vip-badge{font-size:13px;}
+  .form-note{font-size:14px;}
+
+  /* trust */
+  .trust-strip{text-align:left;padding:14px 0;}
+  .trust-item{font-size:13px;}
+
+  /* hero */
+  .hero-tag{font-size:13px;}
+  .hero-sub{font-size:17px;}
+  .hero-cta{font-size:16px;padding:18px 36px;}
+}
+
+@media(max-width:768px){
+  .hook-banner{padding:12px 16px;gap:0;}
+  .hook-divider{margin:0 16px;}
+  .hook-txt{font-size:13px;}
+  .trust-badges{grid-template-columns:repeat(2,1fr);}
+  .tb-text{font-size:13px;}
+}
+@media(max-width:380px){
+  .hero-headline{font-size:36px;}
+  .benefits-grid{grid-template-columns:1fr;}
+  .benefit-card{border-right:none;border-bottom:1px solid var(--border-gold);}
+  .benefit-card:last-child{border-bottom:none;}
+  .intro-image img{max-height:220px;}
+}
+
+/* ── DIHEIR SPACE SECTION (Converted from React) ── */
+.diheirspace-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #383629;
+  padding: clamp(min(60px, 7.8125vw), 8vw, 120px) clamp(min(20px, 2.6042vw), 5vw, 60px);
+}
+.diheirspace-desktop { display: block; }
+.diheirspace-mobile { display: none; }
+
+@media (max-width: 768px) {
+  .diheirspace-desktop { display: none; }
+  .diheirspace-mobile { display: block; }
+}
+
+/* Animations */
+.ds-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ds-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ds-delay-02 { transition-delay: 0.2s; }
+
+/* Typography */
+.ds-serif { font-family: 'Cormorant Garamond', serif; }
+.ds-sans { font-family: 'Noto Sans KR', sans-serif; }
+
+/* Desktop Specific */
+.ds-bg-text-pc {
+  text-align: center;
+  text-transform: capitalize;
+  color: #9f9f8b;
+  opacity: 0.12;
+  font-size: 30vw;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+}
+.ds-main-img-wrap-pc {
+  position: relative;
+  margin: 0 auto;
+  margin-top: clamp(min(24px, 3.125vw), 4vw, 40px);
+  max-width: 1802px;
+}
+.ds-main-img-pc {
+  width: 100%;
+  aspect-ratio: 1802 / 945;
+  border-radius: 2px;
+  object-fit: cover;
+}
+.ds-card-wrap-pc {
+  position: relative;
+  margin-top: clamp(-80px, -6vw, -40px);
+}
+.ds-title-wrap-pc {
+  margin: 0 auto;
+  margin-top: clamp(min(40px, 5.2083vw), 6vw, 80px);
+  display: flex;
+  max-width: 1000px;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 clamp(0px, 4vw, 40px);
+}
+.ds-subtitle-pc {
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.8px;
+  font-size: clamp(min(28px, 3.6458vw), 3vw, 40px);
+  margin: 0;
+}
+.ds-title-pc {
+  text-transform: capitalize;
+  color: #f7f7ec;
+  letter-spacing: -1.6px;
+  font-size: clamp(min(40px, 5.2083vw), 7vw, 80px);
+  margin: 0;
+}
+
+/* Mobile Specific */
+.ds-title-wrap-mo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+.ds-subtitle-mo {
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.4px;
+  font-size: clamp(14px, 4.5vw, 20px);
+  margin: 0;
+}
+.ds-title-mo {
+  text-transform: capitalize;
+  color: #f7f7ec;
+  letter-spacing: -0.8px;
+  font-size: clamp(32px, 10vw, 48px);
+  margin: 0;
+}
+.ds-main-img-wrap-mo {
+  margin-top: clamp(24px, 10vw, 40px);
+  width: 100%;
+}
+.ds-main-img-mo {
+  width: 100%;
+  aspect-ratio: 404 / 454;
+  border-radius: 2px;
+  object-fit: cover;
+}
+.ds-bg-text-mo {
+  text-align: center;
+  text-transform: capitalize;
+  color: #9f9f8b;
+  opacity: 0.12;
+  font-size: 32vw;
+  letter-spacing: -0.02em;
+  margin-top: clamp(-40px, -10vw, -20px);
+  line-height: 1;
+}
+
+/* Reservation Card */
+.ds-card {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #f7f7ec;
+}
+.ds-card-pc {
+  max-width: 1000px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: clamp(min(40px, 5.2083vw), 6vw, 60px) clamp(min(60px, 7.8125vw), 8vw, 100px);
+}
+.ds-card-mo {
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: clamp(40px, 12vw, 60px) clamp(20px, 6vw, 40px);
+  margin-top: clamp(-20px, -5vw, -10px);
+}
+.ds-card-left-pc {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(min(20px, 2.6042vw), 3vw, 40px);
+}
+.ds-card-left-mo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.ds-card-tag {
+  letter-spacing: 0.28em;
+  color: #8c8c73;
+}
+.ds-card-tag-pc { font-size: clamp(min(12px, 1.5625vw), 1.8vw, 18px); }
+.ds-card-tag-mo { font-size: clamp(10px, 3.5vw, 14px); }
+.ds-card-divider {
+  width: 1px;
+  background-color: rgba(56, 54, 41, 0.2);
+}
+.ds-card-divider-pc { height: clamp(min(32px, 4.166vw), 5vw, 60px); }
+.ds-card-divider-mo { height: clamp(24px, 8vw, 40px); }
+.ds-card-address {
+  line-height: 1.6;
+  color: #383629;
+}
+.ds-card-address-pc { font-size: clamp(min(18px, 2.3438vw), 2.5vw, 28px); }
+.ds-card-address-mo { font-size: clamp(14px, 4.5vw, 18px); }
+.ds-card-right-pc {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(min(16px, 2.083vw), 2vw, 24px);
+  text-align: right;
+}
+.ds-card-right-mo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+  text-align: center;
+}
+.ds-info-item {
+  display: flex;
+  flex-direction: column;
+}
+.ds-info-item-pc { gap: clamp(min(4px, 0.5208vw), 1vw, 8px); }
+.ds-info-item-mo { gap: 4px; }
+.ds-info-title {
+  color: #8c8c73;
+}
+.ds-info-title-pc { font-size: clamp(min(14px, 1.8229vw), 2vw, 20px); }
+.ds-info-title-mo { font-size: clamp(12px, 3.5vw, 16px); }
+.ds-info-desc {
+  color: #383629;
+  line-height: 1.4;
+}
+.ds-info-desc-pc { font-size: clamp(min(16px, 2.083vw), 2.5vw, 24px); }
+.ds-info-desc-mo { font-size: clamp(14px, 4vw, 18px); }
+
+/* Form Styles */
+.ds-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.ds-form-pc { gap: clamp(min(24px, 3.125vw), 4vw, 40px); }
+.ds-form-mo { gap: 8vw; }
+.ds-form-rows {
+  display: flex;
+  flex-direction: column;
+}
+.ds-form-rows-pc {
+  gap: clamp(min(24px, 3.125vw), 4vw, 44px);
+  width: clamp(min(600px, 78.125vw), 80vw, 800px);
+}
+.ds-form-rows-mo {
+  gap: 32px;
+  width: 100%;
+}
+.ds-row {
+  display: flex;
+}
+.ds-row-pc {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.ds-row-mo {
+  flex-direction: column;
+  gap: 2vw;
+  width: 100%;
+}
+.ds-label {
+  color: #444429;
+}
+.ds-label-pc { font-size: clamp(min(18px, 2.34375vw), 3vw, 28px); }
+.ds-label-mo { font-size: clamp(20px, 5.5vw, 24px); }
+.ds-input {
+  border: none;
+  border-bottom: 1px solid rgba(56, 54, 41, 0.4);
+  background: transparent;
+  color: #444429;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.ds-input:focus { border-bottom-color: #383629; }
+.ds-input::placeholder { color: rgba(68, 68, 41, 0.4); }
+.ds-input-pc {
+  width: 64%;
+  padding-bottom: 10px;
+  font-size: clamp(min(16px, 2.083vw), 2.5vw, 24px);
+}
+.ds-input-pc:focus { border-bottom-width: 3px; padding-bottom: 8px; }
+.ds-input-mo {
+  width: 100%;
+  padding-bottom: 2vw;
+  font-size: clamp(14px, 3.9vw, 18px);
+}
+.ds-input-mo:focus { border-bottom-width: 2px; padding-bottom: calc(2vw - 1px); }
+
+.ds-agree-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+}
+.ds-agree-wrap-pc { gap: 12px; }
+.ds-agree-wrap-mo { gap: 3vw; }
+.ds-agree-row {
+  display: flex;
+  width: 100%;
+}
+.ds-agree-row-pc { align-items: center; gap: 12px; }
+.ds-agree-row-mo { align-items: center; gap: 12px; }
+.ds-checkbox {
+  accent-color: #383629;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ds-checkbox-pc { width: clamp(min(16px, 2.083vw), 2.5vw, 24px); height: clamp(min(16px, 2.083vw), 2.5vw, 24px); }
+.ds-checkbox-mo { width: 3vw; height: 3vw; }
+.ds-agree-text {
+  color: #444429;
+  display: flex;
+  align-items: center;
+}
+.ds-agree-text-pc { font-size: clamp(min(16px, 2.083vw), 2.5vw, 20px); }
+.ds-agree-text-mo { font-size: clamp(14px, 4.5vw, 18px); }
+.ds-agree-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+.ds-agree-link:hover { color: #000; }
+
+.ds-submit-btn {
+  background-color: #383629;
+  color: #fff;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.ds-submit-btn:hover { background-color: #000; }
+.ds-submit-btn-pc {
+  margin-top: clamp(40px, 6.94vw, 100px);
+  height: clamp(min(40px, 5.2083vw), 6vw, 60px);
+  padding: 0 clamp(min(24px, 3.125vw), 4vw, 40px);
+}
+.ds-submit-btn-pc span { font-size: clamp(min(16px, 2.083vw), 2.5vw, 24px); }
+.ds-submit-btn-mo {
+  width: 50%;
+  height: 11vw;
+  margin-top: 2vw;
+}
+.ds-submit-btn-mo span { font-size: 4vw; }
+
+/* Modal */
+.ds-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.ds-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.ds-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 672px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7ec;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.ds-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #8c8c73;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+.ds-modal-close:hover { color: #000; }
+.ds-modal-title {
+  font-size: 24px;
+  font-weight: 300;
+  color: #383629;
+  margin-bottom: 16px;
+  padding-right: 32px;
+  word-break: keep-all;
+}
+.ds-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #5c5c47;
+  white-space: pre-wrap;
+  padding-right: 8px;
+}
+
+</style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&display=swap');
+@font-face {
+    font-family: 'DreamAvenue';
+    src: url('./component/font/DreamAvenue/font.woff2') format('woff2'),
+         url('./component/font/DreamAvenue/font.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          serif: ['DreamAvenue', 'sans-serif'],
+          sans: ['"Noto Serif KR"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+  <style>
+    /* Diheir Theme for Flatpickr */
+    .flatpickr-calendar {
+      background: #f7f7ec !important;
+      border: 1px solid #383629 !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+      font-family: inherit !important;
+    }
+    .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+      background: #383629 !important;
+      border-color: #383629 !important;
+      color: #c8c9bc !important;
+    }
+    .flatpickr-day:hover {
+      background: rgba(56, 54, 41, 0.1) !important;
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month .numInputWrapper {
+      color: #383629 !important;
+    }
+    .flatpickr-day {
+      color: #383629;
+    }
+    span.flatpickr-weekday {
+      color: #383629 !important;
+      font-weight: 600;
+    }
+    .flatpickr-day.flatpickr-disabled {
+      color: rgba(56, 54, 41, 0.3) !important;
+    }
+    .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+      color: #383629 !important;
+      fill: #383629 !important;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <iframe
+      src="https://player.vimeo.com/video/1137982626?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=auto"
+      allow="autoplay; fullscreen"
+      title="DIHEIR brand video"
+    ></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="https://dorocyshop.img9.kr/diheir/diheir_logo.png" alt="DIHEIR" style="height:40px;filter:brightness(0) invert(1);">
+    </div>
+    <p class="hero-tag">디에르 청담 VIP 상담 · 커스터마이징 제작</p>
+    <h1 class="hero-headline">당신만을 위한<em>단 하나의 주얼리</em></h1>
+    <p class="hero-sub">Grace in Every Moment</p>
+    <button type="button" class="hero-cta" onclick="scrollToForm()">
+      무료 VIP 상담 신청하기
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ══ 마퀴 배너 ══════════════════════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>방문 상담 시 프리미엄 기프트 증정</span>
+    <span>GIA · IGI 국제 인증 다이아몬드 사용</span>
+    <span>디에르 전문 디자이너들의 디자인</span>
+    <span>커스터마이징 제작</span>
+    <span>주얼리 명장들의 정교한 세공</span>
+    <span>평생 무상 폴리싱 &amp; 클리닝 서비스</span>
+    <span>VIP 무료 상담 신청 - 24시간 내 연락</span>
+    <span>방문 상담 시 프리미엄 기프트 증정</span>
+    <span>GIA · IGI 국제 인증 다이아몬드 사용</span>
+    <span>디에르 전문 디자이너들의 디자인</span>
+    <span>커스터마이징 제작</span>
+    <span>주얼리 명장들의 정교한 세공</span>
+    <span>평생 무상 폴리싱 &amp; 클리닝 서비스</span>
+    <span>VIP 무료 상담 신청 - 24시간 내 연락</span>
+  </div>
+</div>
+
+<!-- ══ TRUST STRIP ════════════════════════════════════ -->
+<!-- 
+<div class="trust-strip">
+  <div class="trust-item"><div class="trust-dot"></div>GIA · IGI 국제 인증</div>
+  <div class="trust-item"><div class="trust-dot"></div>80년 주얼리 헤리티지</div>
+  <div class="trust-item"><div class="trust-dot"></div>평생 무상 A/S</div>
+  <div class="trust-item"><div class="trust-dot"></div>청담 오프라인 쇼룸</div>
+  <div class="trust-item"><div class="trust-dot"></div>커스터마이징 제작</div>
+</div>
+-->
+
+<!-- ══ BRAND INTRO ════════════════════════════════════ -->
+<div class="brand-intro">
+  <div class="brand-intro-inner">
+    <div class="intro-text reveal">
+      <span class="sec-eyebrow">
+        <img src="https://dorocyshop.img9.kr/diheir/diheir_logo.png" alt="DIHEIR" style="height:18px;vertical-align:middle;opacity:0.7;">
+      </span>
+      <h2>세월이 더할수록<br><em>깊어지는 가치</em></h2>
+      <div class="gold-line"></div>
+      <p>수백 년의 생명력을 품는 올리브 나무처럼,<br>세대를 넘어 전해지는 아름다운 연결.<br><br>사랑하는 이에게 전하는 소중한 마음을<br>변함없이 빛나는 디에르에 담아보세요.</p>
+    </div>
+    <div class="intro-image reveal reveal-d1">
+      <img src="https://dorocyshop.img9.kr/diheir/tree.png" alt="올리브 나무 — 디에르의 상징">
+    </div>
+  </div>
+</div>
+
+<!-- ══ STATS ══════════════════════════════════════════ -->
+<div class="stats-section">
+  <div class="stats-inner reveal" style="max-width:1200px;">
+    <div class="stat-item">
+      <div class="stat-num" data-target="3200">0</div>
+      <div class="stat-label">누적 상담 건</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">80<span style="font-size:30px">+</span></div>
+      <div class="stat-label">헤리티지 (년)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-family:'Noto Sans KR',sans-serif;font-size:24px;font-weight:400;">GIA · IGI</div>
+      <div class="stat-label">국제 인증 다이아몬드</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-family:'Noto Sans KR',sans-serif;font-size:20px;font-weight:400;letter-spacing:-0.03em;">디자인 · 커스터마이징</div>
+      <div class="stat-label">단 하나의 주얼리</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-family:'Noto Sans KR',sans-serif;font-size:22px;font-weight:400;">명장의 정교한 세공</div>
+      <div class="stat-label">기술력</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-family:'Noto Sans KR',sans-serif;font-size:22px;font-weight:400;">평생 무상 A/S</div>
+      <div class="stat-label">서비스</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BENEFITS ═══════════════════════════════════════ -->
+<div class="benefits-section">
+  <div class="benefits-inner">
+    <div class="section-header reveal">
+      <span class="sec-eyebrow">WHY
+        <img src="https://dorocyshop.img9.kr/diheir/diheir_logo.png" alt="DIHEIR" style="height:14px;vertical-align:middle;opacity:0.7;margin-left:4px;">
+      </span>
+      <h2>디에르 주얼리를 선택하는 <em>이유</em></h2>
+    </div>
+    <div class="benefits-grid reveal reveal-d1">
+      <div class="benefit-card">
+        <div class="benefit-icon">◇</div>
+        <div class="benefit-title">GIA · IGI 인증</div>
+        <div class="benefit-desc">국제 감정서로 인증된 다이아몬드만을 사용하여 품질에 대한 신뢰도를 보장합니다.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⬡</div>
+        <div class="benefit-title">디자인 · 커스터마이징</div>
+        <div class="benefit-desc">디에르 전문 주얼리 디자이너들의 예술적 디자인으로 단 하나뿐인 주얼리를 선보입니다.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">명장의 세공</div>
+        <div class="benefit-desc">주얼리 명장의 손을 거친 정교한 세공, 완벽한 합금 비율, 내구성 강화 기술로 오랜 시간 착용에도 최상의 편안함을 제공합니다.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">∞</div>
+        <div class="benefit-title">평생 A/S</div>
+        <div class="benefit-desc">무상 폴리싱 및 클리닝 서비스로 구매 후에도 고객님과의 소중한 인연을 이어갑니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 혜택 아코디언 (폼 바로 위에 복사됨, 여기는 앵커용) ════ -->
+<div class="benefits-accordion-section" id="benefits-section">
+  <div class="benefits-accordion-inner reveal">
+    <div class="acc-header">
+      <span class="acc-sub">BENEFITS</span>
+      <h2><img src="https://dorocyshop.img9.kr/diheir/diheir_logo.png" alt="DIHEIR" style="height:22px;vertical-align:middle;opacity:0.85;margin-right:8px;"><em>시크릿 혜택</em></h2>
+      <div class="acc-deadline">~ 2026년 8월 말까지 혜택이 제공되며, 조기 마감될 수 있습니다.</div>
+    </div>
+    <div class="acc-list">
+
+      <div class="acc-item open">
+        <button type="button" class="acc-trigger">
+          <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="acc-title-wrap">
+            <div class="acc-title">상담 고객</div>
+          </div>
+          <div class="acc-tag">~8.31</div>
+          <svg class="acc-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            • 디에르 벨벳 보석함 및 포레 베르테 룸 스프레이 증정
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button type="button" class="acc-trigger">
+          <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="acc-title-wrap">
+            <div class="acc-title">계약 고객</div>
+          </div>
+          <div class="acc-tag">~8.31</div>
+          <svg class="acc-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            • 고급 14K 골드 가드링 및 도로시 테디베어 키링 증정
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button type="button" class="acc-trigger">
+          <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="acc-title-wrap">
+            <div class="acc-title">당일 계약 고객</div>
+          </div>
+          <div class="acc-tag">~8.31</div>
+          <svg class="acc-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            • 20% 특별 할인 제공<br>
+            • 평일 방문 계약 시 10% 추가 할인 제공
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button type="button" class="acc-trigger">
+          <div class="acc-check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="acc-title-wrap">
+            <div class="acc-title">디에르 제휴사 혜택 (택 1)</div>
+          </div>
+          <div class="acc-tag">~8.31</div>
+          <svg class="acc-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            1. 쿠촐라테라짜 와인 또는 식사권 1매<br>
+            2. 더록시 프리미엄 에스테틱 1회 관리권 1매<br>
+            3. 이성민 한복 바우처 1매
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="acc-note">※ 해당 시크릿 혜택은 사정에 따라 변경될 수 있습니다.<br><strong>지금 신청하시면 모든 혜택이 제공됩니다.</strong></p>
+  </div>
+</div>
+
+<!-- ══ EX IMAGES ══════════════════════════════════════ -->
+<div class="ex-section">
+  <div class="ex-inner">
+    <div class="ex-img-wrap reveal">
+      <img src="https://dorocyshop.img9.kr/diheir/ex01.jpg" alt="디에르 주얼리 제작">
+      <div class="ex-img-label"><span>Crafted by Master Jewelers</span></div>
+    </div>
+    <div class="ex-text-wrap reveal reveal-d1">
+      <span class="sec-eyebrow" style="color:var(--gold);">CRAFTSMANSHIP</span>
+      <h3>한 땀 한 땀,<br><em>명인의 손에서</em><br>완성되는 작품</h3>
+      <p>조화로운 색 조합과 완벽한 합금 비율,<br>부드러운 곡면 처리와 내구성 강화 기술까지.<br>오랜 시간 착용에도 최상의 편안함을 제공합니다.</p>
+    </div>
+  </div>
+  <div class="ex-inner" style="direction:rtl">
+    <div class="ex-img-wrap reveal" style="direction:ltr">
+      <img src="https://dorocyshop.img9.kr/diheir/ex02.jpg" alt="디에르 다이아몬드">
+      <div class="ex-img-label"><span>GIA · IGI Certified Diamonds</span></div>
+    </div>
+    <div class="ex-text-wrap reveal reveal-d1" style="direction:ltr">
+      <span class="sec-eyebrow" style="color:var(--gold);">DIAMOND</span>
+      <h3>빛의 각도마다<br><em>다른 이야기를</em><br>담은 다이아몬드</h3>
+      <p>다양한 커팅 방식과 구조적 패턴으로<br>각각의 빛을 극대화하여<br>최상의 품격을 선보입니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VIDEO 2 — autoplay loop muted ══════════════════ -->
+<div class="video2-section">
+  <div class="video2-content reveal">
+    <span class="sec-eyebrow" style="color:var(--gold);">CUSTOMIZING</span>
+    <h2>"영원의 약속,<br><em>빛나는 순간</em>을 디자인합니다."</h2>
+    <p>커스터마이징 형식으로 제작되는 '우리'만의 스타일.<br>아름답게 피어난 꽃, 부드러운 곡선의 줄기, 섬세한 잎과 결<br>고귀한 자연의 아름다움을 담은 우아한 디자인을 선보입니다.</p>
+    <div class="video2-frame">
+      <iframe
+        src="https://player.vimeo.com/video/1139932724?autoplay=1&loop=1&muted=1&controls=0&background=1&playsinline=1"
+        allow="autoplay; fullscreen"
+        title="DIHEIR customizing"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DIHEIR SPACE (React Converted) ══════════════════════════════════════ -->
+
+<!-- ══ DIHEIR SPACE (React Converted) ══════════════════════════════════════ -->
+
+
+
+<style>
+  .ds-checkbox {
+    appearance: none;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ds-checkbox:checked {
+    background-color: #383629;
+    border-color: #383629;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+<section id="reservation" class="relative w-full overflow-hidden bg-[#383629] py-[10vw] md:py-[100px]" data-name="diheirspace">
+  
+  <!-- Container for relative positioning -->
+  <div class="relative w-full flex flex-col items-center pt-[60px] md:pt-[100px]">
+    
+    <!-- Background Text (Absolute to overlap image) -->
+    <div class="absolute top-0 md:top-[-20px] left-0 w-full flex justify-center z-[0] pointer-events-none reveal">
+      <p class="font-serif text-center capitalize text-[#9F9F8B] whitespace-nowrap leading-none" style="font-size: clamp(120px, 22vw, 300px); letter-spacing: -6px; opacity: 0.12;">Diheirspace</p>
+    </div>
+
+    <!-- Main Landscape Image -->
+    <div class="relative w-full max-w-[1400px] px-4 md:px-0 mt-[80px] md:mt-[120px] z-[5] reveal">
+      <img alt="디에르 청담 공간" src="./component/diheirspace/diheirspace.jpg" class="w-full h-auto object-cover" />
+    </div>
+
+    <!-- The unified Glass Card -->
+    <!-- Pulling it up heavily to match the visual alignment -->
+    <div class="relative mt-[-45vw] md:mt-[-550px] lg:mt-[-600px] w-full px-4 md:px-0 max-w-[850px] z-10 reveal">
+      
+      <div class="flex flex-col w-full rounded-[24px] md:rounded-[32px] border border-white/20 backdrop-blur-[16px] shadow-2xl px-[5vw] pt-[5vw] pb-[8vw] md:px-[58px] md:pt-[55px] md:pb-[60px]" style="background: rgba(170, 166, 128, 0.1);">
+        
+        <!-- Top Form Section (Beige) -->
+        <div class="bg-[#c8c9bc] w-full flex flex-col items-center pt-[10vw] pb-[10vw] md:pt-[100px] md:pb-[100px] px-[6vw] md:px-[80px] rounded-[12px] md:rounded-[16px]">
+          <p class="font-serif text-[#383629] mb-[8vw] md:mb-[50px] text-center leading-none tracking-tight" style="font-size: clamp(32px, 6vw, 48px);">Reserve Appointment</p>
+          
+          <iframe name="hidden_iframe_unified" id="hidden_iframe_unified" style="display:none;" onload=""></iframe>
+          <form action="https://docs.google.com/forms/d/e/1FAIpQLSdk6sZtR3D9WEqknpSOKANA-DxMfnszfjWW8VjwO4QopDwIOA/formResponse" method="POST" target="hidden_iframe_unified" class="flex flex-col items-center w-full gap-[6vw] md:gap-[40px]" onsubmit="handleDsSubmit(event, 'unified')">
+            
+            <div class="flex flex-col gap-[5vw] md:gap-[30px] w-full">
+              <!-- Row 1 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">이름</p>
+                <input required type="text" name="entry.1054060175" placeholder="입력해주세요." class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] placeholder:text-[#444429]/70" />
+              </div>
+              <!-- Row 2 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">연락처</p>
+                <input required type="tel" name="entry.2074802535" placeholder="입력해주세요." maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3').replace(/(\-{1,2})$/g, '');" class="phone-input-unified border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] placeholder:text-[#444429]/70" />
+              </div>
+              <!-- Row 3 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">방문일시</p>
+                <div class="flex items-end gap-3 w-full">
+                  <input required type="text" id="diheir-date-picker" placeholder="날짜 선택" class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] placeholder:text-[#444429]/70 cursor-pointer" readonly />
+                  <select required id="diheir-time-picker" class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-[110px] md:w-[130px] shrink-0 pb-2 text-[15px] md:text-[16px] focus:border-[#444429] cursor-pointer bg-no-repeat bg-right" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20fill%3D%22%23444429%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M7.247%2011.14L2.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%22%2F%3E%3C%2Fsvg%3E'); background-position-y: 6px; appearance: none; -webkit-appearance: none;">
+                    <option value="" disabled selected>시간 선택</option>
+                  </select>
+                </div>
+                <input type="hidden" name="entry.626727524_year" class="date-year-unified" />
+                <input type="hidden" name="entry.626727524_month" class="date-month-unified" />
+                <input type="hidden" name="entry.626727524_day" class="date-day-unified" />
+              </div>
+              <!-- Row 4 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">이메일</p>
+                <input required type="email" name="entry.134182212" placeholder="입력해주세요." class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] placeholder:text-[#444429]/70" />
+              </div>
+              <!-- Row: 유입 경로 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">유입 경로</p>
+                <select name="entry.146229832" class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] cursor-pointer bg-no-repeat bg-right" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20fill%3D%22%23444429%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M7.247%2011.14L2.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%22%2F%3E%3C%2Fsvg%3E'); background-position-y: 6px; appearance: none; -webkit-appearance: none;">
+                  <option value="" disabled selected>선택해주세요.</option>
+                  <option value="인스타그램">인스타그램</option>
+                  <option value="네이버 검색">네이버 검색</option>
+                  <option value="지인 추천">지인 추천</option>
+                  <option value="도로시 쇼핑몰">도로시 쇼핑몰</option>
+                  <option value="기타">기타</option>
+                </select>
+              </div>
+
+              <!-- Row: 관심 카테고리 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">관심분야</p>
+                <select name="entry.1755025064" class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] cursor-pointer bg-no-repeat bg-right" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20fill%3D%22%23444429%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M7.247%2011.14L2.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%22%2F%3E%3C%2Fsvg%3E'); background-position-y: 6px; appearance: none; -webkit-appearance: none;">
+                  <option value="" disabled selected>선택해주세요.</option>
+                  <option value="반지·프로포즈">반지·프로포즈</option>
+                  <option value="목걸이">목걸이</option>
+                  <option value="귀걸이">귀걸이</option>
+                  <option value="팔찌">팔찌</option>
+                  <option value="커스터마이징">커스터마이징</option>
+                  <option value="선물용">선물용</option>
+                </select>
+              </div>
+
+              <!-- Row: 예산 범위 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">예산 범위</p>
+                <select name="entry.339840614" class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] cursor-pointer bg-no-repeat bg-right" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20fill%3D%22%23444429%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M7.247%2011.14L2.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%22%2F%3E%3C%2Fsvg%3E'); background-position-y: 6px; appearance: none; -webkit-appearance: none;">
+                  <option value="" disabled selected>선택해주세요.</option>
+                  <option value="50만원 미만">50만원 미만</option>
+                  <option value="50만원 ~ 100만원">50만원 ~ 100만원</option>
+                  <option value="100만원 ~ 300만원">100만원 ~ 300만원</option>
+                  <option value="300만원 ~ 500만원">300만원 ~ 500만원</option>
+                  <option value="500만원 이상">500만원 이상</option>
+                  <option value="논의 후 결정">논의 후 결정</option>
+                </select>
+              </div>
+
+              <!-- Row 5 -->
+              <div class="flex items-end justify-between w-full">
+                <p class="font-sans text-[#444429] text-[15px] md:text-[17px] min-w-[70px] md:min-w-[90px] mb-2">요청사항</p>
+                <input type="text" name="entry.399277218" placeholder="입력해주세요." class="border-b border-[#444429]/40 bg-transparent text-[#444429] outline-none w-full pb-2 text-[15px] md:text-[16px] focus:border-[#444429] placeholder:text-[#444429]/70" />
+              </div>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="flex flex-col gap-4 w-full mt-[2vw] md:mt-[10px]">
+              <div class="flex items-center justify-start w-full gap-3">
+                <input id="privacy-agree-unified" required type="checkbox" name="entry.831169210" value="네" class="ds-checkbox shrink-0 mt-0.5" />
+                <div class="font-sans text-[#444429] flex items-center text-[13px] md:text-[14px]">
+                  <button type="button" onclick="openPrivacyModal()" class="hover:text-black transition-colors cursor-pointer underline underline-offset-4">개인정보 처리방침</button>
+                  <label for="privacy-agree-unified" class="cursor-pointer">에 동의</label>
+                </div>
+              </div>
+
+              <!-- Marketing Checkbox -->
+              <div class="flex items-start justify-start w-full gap-3">
+                <input type="hidden" name="entry.430492874" id="marketing-hidden" value="아니오" />
+                <input id="marketing-agree-unified" type="checkbox" onchange="document.getElementById('marketing-hidden').value = this.checked ? '네' : '아니오';" class="ds-checkbox shrink-0 mt-0.5" />
+                <div class="font-sans text-[#444429] flex items-center text-[13px] md:text-[14px]">
+                  <label for="marketing-agree-unified" class="cursor-pointer leading-[1.6] break-keep">(선택) 이메일, 문자(SMS), 전화 또는 기타 전자적 수단을 통해 디에르의 제품, 서비스, 전시·행사, 프로모션 및 각종 소식을 수신하는 데 동의합니다.</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="bg-[#383629] text-[#c8c9bc] rounded-full flex items-center justify-center hover:bg-black transition-colors h-[42px] md:h-[48px] w-[140px] md:w-[160px] mt-[8vw] md:mt-[100px]">
+              <span class="font-serif text-[15px] md:text-[17px] tracking-wide pt-0.5">Reservation</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Bottom Address Section -->
+        <div class="bg-transparent w-full flex flex-col pt-[8vw] md:pt-[70px] text-[rgba(255,255,255,0.7)]">
+          <p class="font-serif tracking-wide text-[20px] md:text-[24px] mb-3 text-[#f7f7ec]">DIHEIR Cheongdam</p>
+          <div class="font-sans flex flex-col md:flex-row justify-between gap-2 md:gap-8 text-[12px] md:text-[13px] tracking-tight">
+            <p class="leading-[1.6]">서울시 강남구 도산대로59길 16,<br />B1층 (청담동, 테이블2025)</p>
+            <p class="leading-[1.6] md:text-right">AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br />Tel. 0507-1339-2520</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Modal -->
+  <div id="ds-privacy-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm hidden" onclick="closePrivacyModal()">
+    <div class="relative w-full max-w-lg rounded-2xl bg-[#f7f7ec] p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
+      <button class="absolute right-4 top-4 text-2xl text-gray-500 hover:text-black" onclick="closePrivacyModal()">&times;</button>
+      <h3 class="mb-4 text-xl font-bold text-[#383629]">개인정보 수집 및 이용 동의</h3>
+      <div class="text-sm text-[#383629] space-y-4 leading-relaxed max-h-[70vh] overflow-y-auto">
+        <p>디에르는 쇼룸 방문 예약 접수 및 상담 진행을 위하여 아래와 같이 개인정보를 수집·이용합니다.</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>수집 항목:</strong> 이름, 연락처(전화번호), 이메일 주소, 희망 예약 일시, 문의 내용 및 요청사항</li>
+          <li><strong>수집·이용 목적:</strong> 방문 예약의 접수·확인 및 확정 안내, 예약 일정의 변경·취소 관련 연락, 상담 준비 및 문의 응대</li>
+          <li><strong>보유·이용 기간:</strong> 수집·이용 목적 달성 시까지. 단, 상법 및 기타 관련 법령에 따라 일정 기간 보관이 필요한 경우 해당 법적 목적의 범위 내에서만 안전하게 보관·이용합니다.</li>
+        </ul>
+        <p>귀하는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 다만, 동의를 거부할 경우 방문 예약 접수 및 상담 진행이 제한될 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- ══ 새 풋터 ══════════════════════════════════════════ -->
+<footer class="relative w-full bg-[#29281F] px-[8vw] md:px-[80px] lg:px-[120px] py-[10vw] md:py-[100px] flex flex-col md:flex-row justify-between items-start md:items-end gap-10 md:gap-0" data-name="footer" style="z-index: 10;">
+  <!-- Left Side: Company Info -->
+  <div class="flex flex-col gap-1 text-[#c1c4ad]/80 text-[12px] md:text-[14px] leading-relaxed font-sans tracking-tight ds-fade-up" style="transition-duration: 1.0s;">
+    <p>법인명(상호) : 디에르(DIHEIR)</p>
+    <p>대표자(성명) : 조윤경</p>
+    <p>사업자등록번호 : 758-26-01812 <a href="#" class="inline-block ml-1 opacity-80 hover:opacity-100 transition-opacity">[사업자정보확인]</a></p>
+    <p>책임자 : 조윤경</p>
+    <p>주소 : 서울특별시 강남구 도산대로59길 16, 지하 1층 (청담동, 테이블2025)</p>
+    <p>대표번호 : 010-8947-2520</p>
+    <p>개인정보 보호책임자 : 조상환</p>
+    
+    <p class="mt-6 md:mt-8 text-[#c1c4ad]/50 text-[11px] md:text-[13px] font-serif tracking-widest uppercase">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
+  </div>
+
+  <!-- Right Side: Logo -->
+  <div class="w-[180px] md:w-[250px] lg:w-[320px] shrink-0 ds-fade-up" style="transition-delay: 0.2s; transition-duration: 1.0s;">
+    <img alt="Diheir Logo" src="./component/diheirspace/diheir_logo.png" class="w-full object-contain md:object-right" />
+  </div>
+</footer>
+
+<!-- ══ 플로팅 혜택 배지 ══════════════════════════════════ -->
+<div class="floating-badge" onclick="scrollToBenefits()">
+  시크릿 혜택
+  <span>확인하기 →</span>
+</div>
+
+<!-- ══ 하단 고정 CTA ══════════════════════════════════════ -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="sticky-cta-live">
+    <div class="sticky-live-dot"></div>
+    <span id="sticky-count">23</span>명 신청중
+  </div>
+  <button type="button" class="sticky-cta-btn" onclick="scrollToForm()">
+    무료 VIP 상담 신청하기 →
+  </button>
+</div>
+
+
+
+<script>
+
+/* ── DIHEIR SPACE SECTION SCRIPTS ── */
+(function() {
+  // Fade up animation
+  const faders = document.querySelectorAll('.ds-fade-up');
+  const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+  faders.forEach(fader => appearOnScroll.observe(fader));
+
+  // Custom Date & Time Picker Logic (Flatpickr)
+  const timeSelect = document.getElementById('diheir-time-picker');
+  const allTimes = [
+    "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 
+    "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", 
+    "17:30", "18:00", "18:30", "19:00", "19:30"
+  ];
+
+  function populateTimes(selectedDateStr) {
+    timeSelect.innerHTML = '<option value="" disabled selected>시간 선택</option>';
+    if (!selectedDateStr) return;
+    
+    const selectedDate = new Date(selectedDateStr);
+    const now = new Date();
+    const isToday = selectedDate.toDateString() === now.toDateString();
+    const currentNum = now.getHours() * 100 + now.getMinutes();
+    
+    allTimes.forEach(t => {
+      const parts = t.split(':');
+      const hh = parseInt(parts[0], 10);
+      const mm = parseInt(parts[1], 10);
+      const tNum = hh * 100 + mm;
+      
+      if (isToday && tNum <= currentNum) {
+        return; // skip past times for today
+      }
+      
+      const ampm = hh < 12 ? '오전' : '오후';
+      const displayH = hh > 12 ? hh - 12 : hh;
+      const displayM = mm === 0 ? '00' : '30';
+      const option = document.createElement('option');
+      option.value = t;
+      option.textContent = `${ampm} ${displayH}:${displayM}`;
+      timeSelect.appendChild(option);
+    });
+  }
+
+  if (document.getElementById('diheir-date-picker')) {
+    flatpickr("#diheir-date-picker", {
+      locale: "ko",
+      minDate: "today",
+      disable: [
+        function(date) { return date.getDay() === 1; } // Disable Mondays
+      ],
+      onChange: function(selectedDates, dateStr, instance) {
+        // Set hidden fields for Google form
+        if (selectedDates.length > 0) {
+          const d = selectedDates[0];
+          document.querySelector('.date-year-unified').value = d.getFullYear();
+          document.querySelector('.date-month-unified').value = String(d.getMonth() + 1).padStart(2, '0');
+          document.querySelector('.date-day-unified').value = String(d.getDate()).padStart(2, '0');
+        }
+        // Update available times
+        populateTimes(dateStr);
+      }
+    });
+  }
+  
+  // Track selected time globally for submission
+  timeSelect?.addEventListener('change', function(e) {
+    e.target.closest('form').dataset.selectedTime = e.target.value;
+  });
+
+  // Phone input formatting
+  function formatPhone(e) {
+    let val = e.target.value.replace(/[^0-9]/g, "");
+    if (val.length > 3 && val.length <= 7) {
+      val = val.replace(/(\d{3})(\d+)/, "$1-$2");
+    } else if (val.length > 7) {
+      val = val.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
+    }
+    e.target.value = val;
+  }
+  document.querySelectorAll('.phone-input-pc, .phone-input-mo').forEach(el => el.addEventListener('input', formatPhone));
+
+  // Date constraints
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+  document.querySelectorAll('.date-input-pc, .date-input-mo').forEach(el => el.setAttribute('min', todayStr));
+
+  // Modal logic
+  window.openPrivacyModal = function() {
+    document.getElementById('ds-privacy-modal').classList.add('open');
+  };
+  window.closePrivacyModal = function() {
+    document.getElementById('ds-privacy-modal').classList.remove('open');
+  };
+
+  // Form Submit Logic
+  window.handleDateChange = function(e, type) {
+    const val = e.target.value;
+    if (val) {
+      const parts = val.split('-');
+      document.querySelector('.date-year-' + type).value = parts[0];
+      document.querySelector('.date-month-' + type).value = parts[1];
+      document.querySelector('.date-day-' + type).value = parts[2];
+    }
+  };
+
+  window.handleDsSubmit = function(e, type) {
+    const form = e.currentTarget;
+    
+    // Append time to notes
+    const time = form.dataset.selectedTime;
+    const notesInput = form.querySelector('input[name="entry.399277218"]');
+    if (time && notesInput && !notesInput.value.includes("[방문시간:")) {
+      notesInput.value = "[방문시간: " + time + "] " + notesInput.value;
+    }
+    
+    // Show alert immediately
+    alert("예약이 정상적으로 접수되었습니다.");
+    
+    // Reset form after a tiny delay to ensure POST finishes
+    setTimeout(() => {
+      form.reset();
+      document.querySelector('.date-year-' + type).value = "";
+      document.querySelector('.date-month-' + type).value = "";
+      document.querySelector('.date-day-' + type).value = "";
+      document.querySelector('.marketing-hidden-' + type).value = "아니오";
+    }, 100);
+  };
+})();
+
+const revEls = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+revEls.forEach(r => revObs.observe(r));
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  if(!target) return;
+  const dur = 2000, start = performance.now();
+  function step(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target).toLocaleString('ko-KR');
+    if(p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ animateCounter(e.target); cntObs.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => cntObs.observe(el));
+
+/* ── DIHEIR 폼 — 버튼 탭 방식, 보안 강화, 중복전송 방지 ── */
+(function() {
+  var GURL = 'https://docs.google.com/forms/d/e/1FAIpQLSe6JHUk21mJ7Ra3nmCix_KLCzSQbSqb8Gbjn5q-1JPw5P5l4A/formResponse';
+  var submitted = false; /* 중복 전송 완전 차단 플래그 */
+
+  /* XSS 방지용 텍스트 이스케이프 */
+  function escTxt(str) {
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* 스크롤 함수 */
+  window.scrollToForm = function() {
+    var sec = document.getElementById('consult');
+    if (!sec) return;
+    var top = sec.getBoundingClientRect().top + (window.pageYOffset || window.scrollY) - 20;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  };
+  window.scrollToBenefits = function() {
+    /* 폼 위 혜택 섹션으로 이동 */
+    var sec = document.getElementById('benefits-form-top') || document.getElementById('benefits-section');
+    if (!sec) return;
+    var top = sec.getBoundingClientRect().top + (window.pageYOffset || window.scrollY) - 20;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  };
+
+  /* 버튼 그룹 단일 선택 토글 */
+  function bindBtnGroup(groupId) {
+    var grp = document.getElementById(groupId);
+    if (!grp) return;
+    var btns = grp.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', (function(b, g) {
+        return function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var all = g.querySelectorAll('button');
+          for (var j = 0; j < all.length; j++) all[j].classList.remove('dh-selected');
+          b.classList.add('dh-selected');
+        };
+      })(btns[i], grp));
+    }
+  }
+
+  function getGroupVal(groupId) {
+    var grp = document.getElementById(groupId);
+    if (!grp) return '';
+    var sel = grp.querySelector('.dh-selected');
+    return sel ? (sel.getAttribute('data-val') || '') : '';
+  }
+
+  function iframeFallback(vals) {
+    if (submitted) return;
+    submitted = true; /* 플래그를 먼저 세워서 fetch .then과 중복 방지 */
+    var hf = document.createElement('form');
+    hf.method = 'POST';
+    hf.action = GURL;
+    hf.target = 'dh_gframe';
+    hf.style.cssText = 'display:none;position:fixed;top:-9999px;left:-9999px;';
+    var fields = [
+      ['entry.1781280018', vals.name],
+      ['entry.1672599391', vals.phone],
+      ['entry.663394179',  vals.channel],
+      ['entry.1832948341', vals.category],
+      ['entry.1465868753', vals.budget],
+      ['entry.1729764588', vals.agree]
+    ];
+    for (var i = 0; i < fields.length; i++) {
+      var inp = document.createElement('input');
+      inp.type  = 'hidden';
+      inp.name  = fields[i][0];
+      inp.value = fields[i][1];
+      hf.appendChild(inp);
+    }
+    document.body.appendChild(hf);
+    hf.submit();
+    setTimeout(function() {
+      try { document.body.removeChild(hf); } catch(x) {}
+      showDone();
+    }, 1500);
+  }
+
+  function showDone() {
+    /* submitted는 호출 전에 이미 true — 여기서는 UI만 처리 */
+    var wrap = document.getElementById('diheir-form-wrap');
+    var sb = wrap ? wrap.querySelector('.dh-submit-btn') : null;
+    if (sb) {
+      sb.textContent = '신청이 완료되었습니다 ✓';
+      sb.style.cssText = 'width:100%;background:#4a7c59;color:#fff;cursor:default;font-size:16px;padding:20px;border:none;letter-spacing:0.14em;opacity:1;margin-top:6px;';
+      sb.disabled = true;
+    }
+    if (wrap) {
+      var inputs = wrap.querySelectorAll('input');
+      for (var k = 0; k < inputs.length; k++) inputs[k].disabled = true;
+      var allBtns = wrap.querySelectorAll('.dh-btn-group button');
+      for (var m = 0; m < allBtns.length; m++) allBtns[m].disabled = true;
+    }
+    var note = document.getElementById('diheir-form-note');
+    if (note) {
+      note.textContent = '';
+      var strong = document.createElement('strong');
+      strong.style.color = '#B8965A';
+      strong.textContent = '감사합니다.';
+      note.appendChild(strong);
+      note.appendChild(document.createTextNode(' 24시간 이내에 전담 매니저가 연락드리겠습니다.'));
+    }
+  }
+
+  function init() {
+    bindBtnGroup('dh-channel');
+    bindBtnGroup('dh-category');
+    bindBtnGroup('dh-budget');
+
+    /* 전화번호 자동 하이픈 */
+    var phoneEl = document.getElementById('dh-phone');
+    if (phoneEl) {
+      phoneEl.addEventListener('input', function() {
+        var digits = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+        if (digits.length <= 3) {
+          this.value = digits;
+        } else if (digits.length <= 7) {
+          this.value = digits.slice(0,3) + '-' + digits.slice(3);
+        } else {
+          this.value = digits.slice(0,3) + '-' + digits.slice(3,7) + '-' + digits.slice(7);
+        }
+      });
+    }
+
+    var wrap = document.getElementById('diheir-form-wrap');
+    if (!wrap) return;
+    var sb = wrap.querySelector('.dh-submit-btn');
+    if (!sb) return;
+
+    sb.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (submitted) return; /* 중복 클릭 완전 차단 */
+
+      var nameEl2  = document.getElementById('dh-name');
+      var phoneEl2 = document.getElementById('dh-phone');
+      var agreeEl  = document.getElementById('dh-agree');
+
+      var nameVal  = nameEl2  ? nameEl2.value.trim()  : '';
+      var phoneRaw = phoneEl2 ? phoneEl2.value.trim() : '';
+
+      /* 검증 */
+      if (!nameVal) { alert('성함을 입력해 주세요.'); nameEl2 && nameEl2.focus(); return; }
+
+      var phoneDigits = phoneRaw.replace(/[^0-9]/g, '');
+      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+        alert('연락처를 정확히 입력해 주세요.');
+        phoneEl2 && phoneEl2.focus();
+        return;
+      }
+
+      if (!agreeEl || !agreeEl.checked) { alert('개인정보 처리방침에 동의해 주세요.'); return; }
+
+      /* 정규화 */
+      var phoneNorm = phoneDigits.length === 11
+        ? phoneDigits.slice(0,3)+'-'+phoneDigits.slice(3,7)+'-'+phoneDigits.slice(7)
+        : phoneDigits.slice(0,3)+'-'+phoneDigits.slice(3,6)+'-'+phoneDigits.slice(6);
+
+      var vals = {
+        name:     nameVal,
+        phone:    phoneNorm,
+        channel:  getGroupVal('dh-channel'),
+        category: getGroupVal('dh-category'),
+        budget:   getGroupVal('dh-budget'),
+        agree:    '개인정보 처리방침에 동의하며, 상담 목적으로 연락처를 수집하는 것에 동의합니다.'
+      };
+
+      sb.textContent = '전송 중...';
+      sb.disabled = true;
+      sb.style.opacity = '0.7';
+
+      /* fetch 실패 대비 타이머 — 3초 내 응답 없으면 iframe으로 전송 */
+      var fetchDone = false;
+      var fallbackTimer = setTimeout(function() {
+        if (!fetchDone && !submitted) {
+          fetchDone = true;
+          iframeFallback(vals);
+        }
+      }, 3000);
+
+      try {
+        fetch(GURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'entry.1781280018=' + encodeURIComponent(vals.name)
+              + '&entry.1672599391=' + encodeURIComponent(vals.phone)
+              + '&entry.663394179='  + encodeURIComponent(vals.channel)
+              + '&entry.1832948341=' + encodeURIComponent(vals.category)
+              + '&entry.1465868753=' + encodeURIComponent(vals.budget)
+              + '&entry.1729764588=' + encodeURIComponent(vals.agree)
+        })
+        .then(function() {
+          clearTimeout(fallbackTimer);
+          if (!fetchDone && !submitted) {
+            fetchDone = true;
+            submitted = true;
+            showDone();
+          }
+        })
+        .catch(function() {
+          clearTimeout(fallbackTimer);
+          if (!fetchDone && !submitted) {
+            fetchDone = true;
+            iframeFallback(vals);
+          }
+        });
+      } catch(err) {
+        clearTimeout(fallbackTimer);
+        if (!fetchDone && !submitted) {
+          fetchDone = true;
+          iframeFallback(vals);
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+/* ── 실시간 상담 카운터 ── */
+(function(){
+  var base = 18 + Math.floor(Math.random() * 12);
+  var els = [
+    document.getElementById('hook-count'),
+    document.getElementById('sticky-count')
+  ];
+  els.forEach(function(el){ if(el) el.textContent = base; });
+  setInterval(function(){
+    if (Math.random() > 0.7) { base += 1; els.forEach(function(el){ if(el) el.textContent = base; }); }
+  }, 8000);
+})();
+
+/* ── 혜택 아코디언 (acc-item + acc-item2 모두) ── */
+(function(){
+  function bindAcc(selector) {
+    var items = document.querySelectorAll(selector);
+    items.forEach(function(item){
+      var trigger = item.querySelector('.acc-trigger');
+      var body    = item.querySelector('.acc-body');
+      if (!trigger || !body) return;
+      if (item.classList.contains('open')) body.style.maxHeight = body.scrollHeight + 'px';
+      trigger.addEventListener('click', function(){
+        var isOpen = item.classList.contains('open');
+        items.forEach(function(i){
+          i.classList.remove('open');
+          var b = i.querySelector('.acc-body');
+          if (b) b.style.maxHeight = '0';
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+  bindAcc('.acc-item');
+  bindAcc('.acc-item2');
+})();
+
+/* ── 하단 고정 CTA: 히어로 통과 후 노출, 폼 섹션 진입 시 숨김 ── */
+(function(){
+  var stickyCta = document.getElementById('sticky-cta');
+  if (!stickyCta) return;
+  var hero   = document.querySelector('.hero');
+  var formSec = document.getElementById('consult');
+  function checkScroll(){
+    var heroH  = hero   ? (hero.getBoundingClientRect().bottom)   : -1;
+    var formT  = formSec ? formSec.getBoundingClientRect().top : 9999;
+    var winH   = window.innerHeight;
+    /* 히어로 지났고 + 폼 섹션이 아직 화면에 없을 때만 표시 */
+    if (heroH < 0 && formT > winH * 0.6) {
+      stickyCta.classList.add('visible');
+    } else {
+      stickyCta.classList.remove('visible');
+    }
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+})();
+</script>
+</body>
+</html>
