@@ -1,41 +1,3357 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디에르(DIHEIR)</title>
+<link rel="icon" type="image/png" sizes="16x16" href="component/img/icon/deheir_favicon.png">
+<link rel="shortcut icon" href="component/img/icon/deheir_favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="component/img/icon/deheir_favicon_i.png">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pvyub7lwfc"></script>
+<!-- ===================================================================
+  [메이크샵 삽입 범위 시작] 아래 <style> ~ 하단 <script> 까지가 deheir_page 본문 코드입니다.
+  메이크샵 적용 시 위 <head> 메타는 쇼핑몰 공통 템플릿 것을 사용하고,
+  <style>, #deheir_page 블록, <script> 만 본문 영역에 삽입합니다. (README.md 11항 참고)
+  모든 에셋 경로는 component/ 기준 상대경로입니다. 업로드 위치에 맞게 접두 경로를 교체하세요.
+=================================================================== -->
+<style>
+/* ---------- Fonts ---------- */
+/* DreamAvenue / Regular: not_found (폰트 파일 미제공).
+   존재하지 않는 파일을 요청하지 않도록 local() 만 선언합니다. 설치되어 있지 않으면 serif 로 대체됩니다.
+   라이선스 파일 확보 시 component/font/DreamAvenue/ 에 넣고 local() 뒤에 url(...) 을 추가하세요. (README.md 참고) */
+@font-face {
+  font-family: "DreamAvenue";
+  src: local("Dream Avenue"), local("DreamAvenue"), local("DreamAvenue-Regular");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Noto Serif KR: 가변 폰트(wght 축) 1개 파일로 300~700 굵기를 사용 */
+@font-face {
+  font-family: "NotoSerifKR";
+  src: url("component/font/NotoSerifKR/NotoSerifKR-VF.ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      <title>Generate HTML Code</title>
-      <meta name="description" content="Easily generate and customize HTML code for web projects, empowering developers and designers to streamline their workflow and enhance productivity." />
-      <meta name="robots" content="noindex, nofollow" />
-      <style>html, body { margin: 0; min-height: 100vh; } #root { min-height: 100vh; }</style>
-      <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pvyub7lwfc"></script>
-      <script type="module" crossorigin src="/diheir_brand/assets/index-BhpuPn5V.js"></script>
-      <link rel="stylesheet" crossorigin href="/diheir_brand/assets/index-Dz-chARO.css">
-    </head>
+/* 세로 스크롤바 숨김 (스크롤 동작 유지) */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
 
-    <body>
-      
-      <div id="root"></div>
-      <script>
-        document.addEventListener('gesturestart', function (e) {
-          e.preventDefault();
-        });
-        document.addEventListener('gesturechange', function (e) {
-          e.preventDefault();
-        });
-        document.addEventListener('gestureend', function (e) {
-          e.preventDefault();
-        });
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function (e) {
-          const now = (new Date()).getTime();
-          if (now - lastTouchEnd <= 300) {
+/* ---------- Scope & unit ----------
+  --u = 피그마 1px 이 현재 화면에서 갖는 크기.
+  PC(≥1024px): 1920 프레임 기준, 최대 1px.  모바일(<1024px): 768 프레임 기준.
+  .diheir-main 을 컨테이너로 지정해 스크롤바를 제외한 실제 본문 너비(cqw)로 계산합니다. */
+#deheir_page {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  --u: calc(min(100vw, 1920px) / 1920);
+  --uf: max(calc(min(100vw, 1920px) / 1920), 0.75px);
+  --diheir-en: "DreamAvenue", serif;
+  --diheir-ko: "NotoSerifKR", "Noto Serif KR", serif;
+  position: relative;
+  overflow-x: clip;
+  color: #383629;
+  background: #f7f7ec;
+  font-family: var(--diheir-ko);
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+#deheir_page::-webkit-scrollbar { display: none; width: 0; height: 0; }
+#deheir_page .diheir-main { container-type: inline-size; }
+@supports (width: 1cqw) {
+  #deheir_page .diheir-main { --u: calc(min(100cqw, 1920px) / 1920); }
+}
+#deheir_page *,
+#deheir_page *::before,
+#deheir_page *::after { box-sizing: border-box; }
+#deheir_page h1, #deheir_page h2, #deheir_page h3, #deheir_page p {
+  margin: 0; font-size: inherit; font-weight: inherit; line-height: inherit;
+}
+#deheir_page img { display: block; max-width: none; border: 0; }
+#deheir_page a { color: inherit; text-decoration: none; }
+#deheir_page strong { font-weight: 700; }
+#deheir_page button { font: inherit; color: inherit; margin: 0; }
+#deheir_page a:focus-visible,
+#deheir_page button:focus-visible,
+#deheir_page [tabindex]:focus-visible { outline: 2px solid #bdbea7; outline-offset: 3px; }
+
+#deheir_page .diheir-en { font-family: var(--diheir-en); font-weight: 400; }
+#deheir_page .diheir-cap { text-transform: capitalize; }
+#deheir_page .diheir-sec { position: relative; overflow: hidden; }
+#deheir_page .diheir-flow { position: relative; }
+#deheir_page .diheir-deco { position: absolute; pointer-events: none; user-select: none; }
+#deheir_page .diheir-deco img,
+#deheir_page .diheir-fill { width: 100%; height: 100%; }
+#deheir_page .diheir-cover { width: 100%; height: 100%; object-fit: cover; }
+#deheir_page .diheir-nowrap { white-space: nowrap; }
+#deheir_page br.diheir-mo { display: none; }
+#deheir_page .diheir-only-mo { display: none; }
+#deheir_page .diheir-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- nav ---------- */
+#deheir_page .diheir-nav {
+  /* 화면 상단 고정(fixed). .diheir-main(container-type)은 fixed 기준 박스를 만들기 때문에 nav는 그 바깥에 둔다 */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  /* 노치·Dynamic Island·상태 표시줄 영역(safe area)만큼 내용을 안쪽으로 밀어 겹치지 않게 함. 일반 화면에서는 0 */
+  padding: calc(16 * var(--u) + env(safe-area-inset-top, 0px))
+           calc(80 * var(--u) + env(safe-area-inset-right, 0px))
+           calc(16 * var(--u))
+           calc(80 * var(--u) + env(safe-area-inset-left, 0px));
+  background: transparent;
+}
+#deheir_page .diheir-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.20);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+  z-index: -1;
+  pointer-events: none;
+}
+#deheir_page .diheir-nav__logo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+#deheir_page .diheir-nav__logo {
+  position: relative;
+  display: inline-block;
+  width: calc(190 * var(--u));
+  height: calc(59 * var(--u));
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#deheir_page .diheir-nav__dropdown-wrap {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding-top: calc(36 * var(--u));
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(-8 * var(--u)));
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s;
+  pointer-events: none;
+}
+#deheir_page .diheir-nav__logo-wrap:hover .diheir-nav__dropdown-wrap,
+#deheir_page .diheir-nav__logo-wrap.is-open .diheir-nav__dropdown-wrap {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#deheir_page .diheir-nav__dropdown {
+  display: inline-flex;
+  padding: calc(40 * var(--u)) calc(60 * var(--u)) calc(40 * var(--u)) calc(32 * var(--u));
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: calc(16 * var(--u));
+  border-radius: calc(30 * var(--u));
+  background: rgba(255, 255, 255, 0.20);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 calc(20 * var(--u)) calc(45 * var(--u)) rgba(0, 0, 0, 0.15);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: backdrop-filter;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+#deheir_page .diheir-nav__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--u));
+}
+#deheir_page .diheir-nav__item {
+  display: block;
+  font-size: calc(32 * var(--u));
+  line-height: 1.25;
+  letter-spacing: calc(-0.64 * var(--u));
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: color 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+}
+#deheir_page .diheir-nav__item:hover {
+  color: #bdbea7;
+  transform: translateX(calc(4 * var(--u)));
+}
+#deheir_page .diheir-nav.is-dark-menu-text .diheir-nav__item {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+#deheir_page .diheir-nav.is-dark-menu-text .diheir-nav__item:hover {
+  color: #636148;
+}
+#deheir_page #home,
+#deheir_page #brand,
+#deheir_page #service,
+#deheir_page #collection,
+#deheir_page #reservation {
+  scroll-margin-top: calc(90 * var(--u));
+}
+#deheir_page .diheir-nav__logo-default,
+#deheir_page .diheir-nav__logo-identity {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+}
+#deheir_page .diheir-nav__logo-default img,
+#deheir_page .diheir-nav__logo-identity {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+#deheir_page .diheir-nav__logo-identity {
+  opacity: 0;
+  pointer-events: none;
+}
+#deheir_page .diheir-nav__logo-default {
+  opacity: 1;
+}
+#deheir_page .diheir-nav.is-identity .diheir-nav__logo-identity,
+#deheir_page .diheir-nav.is-heritage .diheir-nav__logo-identity,
+#deheir_page .diheir-nav.is-designer .diheir-nav__logo-identity,
+#deheir_page .diheir-nav.is-dark-logo .diheir-nav__logo-identity {
+  opacity: 1;
+  pointer-events: auto;
+}
+#deheir_page .diheir-nav.is-identity .diheir-nav__logo-default,
+#deheir_page .diheir-nav.is-heritage .diheir-nav__logo-default,
+#deheir_page .diheir-nav.is-designer .diheir-nav__logo-default,
+#deheir_page .diheir-nav.is-dark-logo .diheir-nav__logo-default {
+  opacity: 0;
+  pointer-events: none;
+}
+#deheir_page .diheir-nav__contact {
+  color: #fff; font-size: calc(32 * var(--u)); line-height: 1.3; letter-spacing: calc(-0.64 * var(--u));
+  transition: color 0.3s ease;
+}
+#deheir_page .diheir-nav.is-dark-menu-text .diheir-nav__contact,
+#deheir_page .diheir-nav.is-dark-text .diheir-nav__contact,
+#deheir_page .diheir-nav.is-identity .diheir-nav__contact,
+#deheir_page .diheir-nav.is-heritage .diheir-nav__contact,
+#deheir_page .diheir-nav.is-dark-logo .diheir-nav__contact {
+  color: #1a1a1a;
+}
+
+/* ---------- home ---------- */
+#deheir_page .diheir-home {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  height: calc(1080 * var(--u));
+  height: max(calc(1080 * var(--u)), 100svh);
+  padding: 0 calc(100 * var(--u)) calc(120 * var(--u));
+  background: #fff;
+}
+#deheir_page .diheir-home__bg { inset: 0; }
+#deheir_page .diheir-home__bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 49.838%, rgba(0,0,0,0.48) 69.38%),
+              linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2));
+}
+#deheir_page .diheir-home__box { display: flex; align-items: flex-end; gap: calc(60 * var(--u)); }
+#deheir_page .diheir-home__txt { width: calc(753 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u)); }
+#deheir_page .diheir-home__title { color: #f7f7ec; font-size: calc(120 * var(--u)); line-height: 1; white-space: nowrap; }
+#deheir_page .diheir-home__desc {
+  color: rgba(247,247,236,0.8); font-size: calc(24 * var(--u)); line-height: 1.6;
+  letter-spacing: calc(-0.48 * var(--u)); white-space: nowrap;
+}
+#deheir_page .diheir-home__cta { position: relative; flex-shrink: 0; display: block; width: calc(309 * var(--u)); height: calc(309 * var(--u)); }
+#deheir_page .diheir-home__circle { position: absolute; inset: 0; border-radius: 50%; background: rgba(159,159,139,0.4); }
+#deheir_page .diheir-home__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#deheir_page .diheir-home__ring text { font-family: var(--diheir-en); font-size: 30px; fill: rgba(255,255,255,0.6); }
+#deheir_page .diheir-home__label { position: absolute; left: calc(73 * var(--u)); top: calc(146 * var(--u)); width: calc(397 * var(--u)); }
+#deheir_page .diheir-home__line { width: calc(311.918 * var(--u)); height: calc(43.3975 * var(--u)); margin-top: calc(-0.4 * var(--u)); }
+#deheir_page .diheir-home__line--mo { display: none; }
+#deheir_page .diheir-home__ctatext {
+  position: absolute; left: 0; top: calc(-4 * var(--u)); width: 100%;
+  color: #fff; font-weight: 600; font-size: calc(28 * var(--u)); line-height: 1; white-space: nowrap;
+}
+
+/* ---------- brand_identity ---------- */
+#deheir_page .diheir-identity { background: #f7f7ec; padding: calc(200 * var(--u)) calc(97 * var(--u)) calc(350 * var(--u)) calc(100 * var(--u)); overflow-x: clip; }
+#deheir_page .diheir-identity__wm { left: calc(172 * var(--u)); top: calc(226 * var(--u)); width: calc(1748 * var(--u)); height: calc(634 * var(--u)); opacity: 0.24; }
+#deheir_page .diheir-identity__word {
+  font-size: calc(300 * var(--u)); line-height: 1; letter-spacing: calc(-6 * var(--u));
+  color: rgba(189,190,167,0.2); white-space: nowrap;
+}
+#deheir_page .diheir-identity__word--1 { left: calc(25 * var(--u)); top: calc(2088 * var(--u)); }
+#deheir_page .diheir-identity__word--2 { left: calc(360 * var(--u)); top: calc(2406 * var(--u)); }
+#deheir_page .diheir-identity__title { color: #383629; font-size: calc(220 * var(--u)); line-height: 1; white-space: nowrap; }
+#deheir_page .diheir-identity__title > span { display: block; }
+#deheir_page .diheir-identity__l2 { margin-left: calc(707 * var(--u)); }
+
+/* brand_identity 위치 모션 애니메이션 (PC: 거리 500, 지속 800ms, 천천히 나감) */
+#deheir_page.js-motion .diheir-identity__l1 {
+  transform: translate3d(calc(-500 * var(--u)), 0, 0);
+  opacity: 0;
+  transition: transform 800ms cubic-bezier(0, 0, 0.2, 1), opacity 800ms cubic-bezier(0, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+#deheir_page.js-motion .diheir-identity__l2 {
+  transform: translate3d(calc(500 * var(--u)), 0, 0);
+  opacity: 0;
+  transition: transform 800ms cubic-bezier(0, 0, 0.2, 1), opacity 800ms cubic-bezier(0, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+#deheir_page.js-motion .diheir-identity__title.is-inview .diheir-identity__l1,
+#deheir_page.js-motion .diheir-identity__title.is-inview .diheir-identity__l2 {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+#deheir_page .diheir-identity__title .is-light { color: #bdbea7; }
+#deheir_page .diheir-identity__title .is-plus { color: #8e8f6f; }
+#deheir_page .diheir-identity__grid {
+  display: grid; grid-template-columns: calc(774 * var(--u)) 1fr; column-gap: calc(40 * var(--u));
+  margin-top: calc(70 * var(--u));
+}
+#deheir_page .diheir-identity__col { display: flex; flex-direction: column; align-items: flex-start; }
+#deheir_page .diheir-identity__media { position: relative; }
+#deheir_page .diheir-identity__img40 { position: relative; width: calc(774 * var(--u)); height: calc(1030 * var(--u)); overflow: hidden; }
+#deheir_page .diheir-identity__img40 img { position: absolute; left: 0; top: 0; width: 100%; height: 112.84%; }
+#deheir_page .diheir-identity__img49 {
+  position: absolute; left: calc(498 * var(--u)); top: calc(728 * var(--u));
+  width: calc(448 * var(--u)); height: calc(448 * var(--u));
+}
+#deheir_page .diheir-identity__txt { font-size: calc(24 * var(--u)); line-height: 1.5; letter-spacing: calc(-0.48 * var(--u)); white-space: nowrap; }
+#deheir_page .diheir-identity__txt--1 { margin-top: calc(299 * var(--u)); }
+#deheir_page .diheir-identity__txt--2 { margin-top: calc(336 * var(--u)); align-self: flex-end; text-align: right; }
+#deheir_page .diheir-identity__txt--3 { margin-top: calc(146 * var(--u)); }
+#deheir_page .diheir-identity__txt--4 { margin-top: calc(201 * var(--u)); margin-right: calc(-273 * var(--u)); align-self: flex-end; text-align: right; }
+#deheir_page .diheir-identity__box {
+  margin-top: calc(195 * var(--u)); align-self: flex-end;
+  display: flex; align-items: center; justify-content: center;
+  width: calc(650 * var(--u)); height: calc(650 * var(--u)); padding: calc(120 * var(--u)); background: #bdbea7;
+}
+#deheir_page .diheir-identity__boxin { width: calc(388 * var(--u)); display: flex; flex-direction: column; align-items: center; gap: calc(20 * var(--u)); }
+#deheir_page .diheir-identity__boxlogo { width: 100%; display: flex; flex-direction: column; align-items: center; gap: calc(60 * var(--u)); }
+#deheir_page .diheir-identity__emblem { position: relative; width: calc(193 * var(--u)); height: calc(177 * var(--u)); opacity: 0.3; overflow: hidden; }
+#deheir_page .diheir-identity__emblem img { position: absolute; }
+#deheir_page .diheir-identity__emblem .g1 { inset: 0 0 32.23% 0; width: 100%; height: 67.77%; }
+#deheir_page .diheir-identity__emblem .g2 { left: 35.13%; top: 63.37%; width: 21.62%; height: 32.67%; }
+#deheir_page .diheir-identity__emblem .g3 { left: 38.52%; top: 73.12%; width: 19.84%; height: 25.03%; }
+#deheir_page .diheir-identity__emblem .g4 { left: 34.48%; top: 80.09%; width: 30.56%; height: 18.21%; }
+#deheir_page .diheir-identity__emblem .g5 { left: 1.16%; top: 6.75%; width: 95.73%; height: 93.26%; }
+#deheir_page .diheir-identity__wordmark { width: calc(388 * var(--u)); height: calc(119 * var(--u)); }
+#deheir_page .diheir-identity__wordmark--mo { display: none; }
+#deheir_page .diheir-identity__boxcap {
+  width: 100%; text-align: center; color: #383629; opacity: 0.3;
+  font-size: calc(30 * var(--u)); line-height: 1.3; letter-spacing: calc(-0.6 * var(--u));
+}
+
+/* ---------- brand_heritage ---------- */
+#deheir_page .diheir-heritage { background: #f7f7ec; padding: calc(171 * var(--u)) calc(102 * var(--u)) calc(225 * var(--u)); }
+#deheir_page .diheir-heritage__80,
+#deheir_page .diheir-heritage__years { color: #bdbea7; opacity: 0.24; line-height: 1.3; white-space: nowrap; transform: translateX(-50%); }
+#deheir_page .diheir-heritage__80 { left: calc(427 * var(--u)); top: calc(-31 * var(--u)); font-size: calc(820 * var(--u)); letter-spacing: calc(-41 * var(--u)); }
+#deheir_page .diheir-heritage__years { left: calc(1536.5 * var(--u)); top: calc(401 * var(--u)); font-size: calc(340 * var(--u)); }
+#deheir_page .diheir-heritage__legacy { text-align: right; color: #787957; font-size: calc(32 * var(--u)); line-height: 1.3; letter-spacing: calc(-0.64 * var(--u)); }
+#deheir_page .diheir-heritage__cards { display: flex; align-items: flex-start; gap: calc(18 * var(--u)); margin-top: calc(314 * var(--u)); }
+#deheir_page .diheir-heritage__card {
+  position: relative; flex-shrink: 0; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  width: calc(560 * var(--u)); height: calc(600 * var(--u));
+}
+#deheir_page .diheir-heritage__card--1 { order: 1; margin-top: calc(139 * var(--u)); }
+#deheir_page .diheir-heritage__card--3 { order: 2; }
+#deheir_page .diheir-heritage__card--2 { order: 3; margin-top: calc(138 * var(--u)); }
+#deheir_page .diheir-heritage__card > img,
+#deheir_page .diheir-heritage__card > picture > img { position: absolute; inset: 0; width: 100%; height: 100%; }
+#deheir_page .diheir-heritage__card--1 > picture > img { object-fit: fill; object-position: bottom; }
+#deheir_page .diheir-heritage__card--2 > img,
+#deheir_page .diheir-heritage__card--3 > img { object-fit: cover; }
+#deheir_page .diheir-heritage__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 65.017%, rgba(0,0,0,0.6) 100%); }
+#deheir_page .diheir-heritage__panel {
+  position: relative; width: 100%;
+  display: flex; flex-direction: column; gap: calc(8 * var(--u));
+  padding: calc(30 * var(--u)) calc(40 * var(--u)) calc(40 * var(--u));
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0);
+  border-radius: calc(20 * var(--u)) calc(20 * var(--u)) 0 0;
+  /* 배경 흐림: 렌더 화면 기준 추정값(피그마 export 코드에 수치 없음) */
+  -webkit-backdrop-filter: blur(calc(20 * var(--u)));
+  backdrop-filter: blur(calc(20 * var(--u)));
+}
+#deheir_page .diheir-heritage__card--3 .diheir-heritage__panel { padding-top: calc(32 * var(--u)); }
+#deheir_page .diheir-heritage__gen { color: #efefe1; font-size: calc(40 * var(--u)); line-height: 1.1; letter-spacing: calc(-0.8 * var(--u)); }
+#deheir_page .diheir-heritage__ko { color: #d4d4b9; font-weight: 500; font-size: max(11px, calc(18 * var(--u))); line-height: 1.1; letter-spacing: calc(-0.36 * var(--u)); }
+#deheir_page .diheir-heritage__en { color: #d4d4b9; font-size: max(10px, calc(16 * var(--u))); line-height: 1.1; letter-spacing: calc(-0.32 * var(--u)); }
+#deheir_page .diheir-heritage__dorocy {
+  position: relative; left: calc(14.5 * var(--u));
+  margin: calc(141 * var(--u)) calc(-102 * var(--u)) 0;
+  text-align: center; color: #9f9f8b; opacity: 0.24; white-space: nowrap;
+  font-size: calc(220 * var(--u)); line-height: 1.3; letter-spacing: calc(-4.4 * var(--u));
+}
+#deheir_page .diheir-heritage__intro { text-align: center; font-size: calc(26 * var(--u)); line-height: 1.5; letter-spacing: calc(-0.52 * var(--u)); }
+#deheir_page .diheir-heritage__intro--1 { margin-top: calc(22 * var(--u)); }
+#deheir_page .diheir-heritage__intro--2 { margin-top: calc(163 * var(--u)); }
+
+/* ---------- Services_core (스크롤 줌/확장 인터랙션) ---------- */
+#deheir_page .diheir-core {
+  position: relative;
+  width: 100%;
+  height: 3500px;
+  background: #9f9f8b;
+  padding: 0;
+  overflow: visible !important;
+}
+#deheir_page .diheir-core__sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #9f9f8b;
+  z-index: 10;
+}
+#deheir_page .diheir-core__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: var(--core-internal-vh, 1080px);
+  transform: translate(-50%, -50%) scale(var(--core-stage-scale, 1));
+  transform-origin: center center;
+  z-index: 5;
+  pointer-events: none;
+}
+#deheir_page .diheir-core__frame30 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(var(--core-frame-scale, 0.7));
+  transform-origin: center center;
+  width: var(--core-actual-w, 1920px);
+  height: var(--core-internal-vh, 1080px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+}
+#deheir_page .diheir-core__clip {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(var(--core-clip-top, 221.5px) var(--core-clip-x, 258px) var(--core-clip-top, 221.5px) var(--core-clip-x, 258px));
+  -webkit-clip-path: inset(var(--core-clip-top, 221.5px) var(--core-clip-x, 258px) var(--core-clip-top, 221.5px) var(--core-clip-x, 258px));
+  will-change: clip-path;
+  pointer-events: none;
+}
+#deheir_page .diheir-core__bg {
+  position: absolute;
+  inset: 0;
+  background: #d9d9d9;
+}
+#deheir_page .diheir-core__video-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+#deheir_page .diheir-core__video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.01);
+  width: max(100%, calc(var(--core-internal-vh, 1080px) * 16 / 9));
+  height: max(100%, calc(var(--core-actual-w, 1920px) * 9 / 16));
+  min-width: 100%;
+  min-height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+#deheir_page .diheir-core__overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1404 637' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.2'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(4.2985e-15 31.85 -70.2 1.9503e-15 702 318.5)'><stop stop-color='rgba(231,232,207,1)' offset='0'/><stop stop-color='rgba(231,232,207,0)' offset='0.65835'/></radialGradient></defs></svg>"), linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+}
+#deheir_page .diheir-core__quote-wrap {
+  position: relative;
+  z-index: 10;
+  opacity: var(--core-text-op, 1);
+  pointer-events: none;
+  will-change: opacity;
+}
+#deheir_page .diheir-core__quote {
+  width: 1042px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: center;
+  color: #e7e8cf;
+}
+#deheir_page .diheir-core__en {
+  font-family: var(--diheir-en);
+  font-size: 64px;
+  line-height: 1.3;
+  letter-spacing: -1.28px;
+}
+#deheir_page .diheir-core__en p { margin: 0; }
+#deheir_page .diheir-core__ko {
+  font-family: var(--diheir-ko);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.3;
+  letter-spacing: -0.64px;
+  margin: 0;
+}
+#deheir_page .diheir-core__side {
+  position: absolute;
+  width: 600px;
+  height: 360px;
+  will-change: transform;
+}
+#deheir_page .diheir-core__side--12 { left: 1515px; top: var(--core-rt-y, 132px); }
+#deheir_page .diheir-core__side--13 { left: 1515px; top: var(--core-rb-y, 587px); }
+#deheir_page .diheir-core__side--15 { left: -187px; top: var(--core-lt-y, 151px); }
+#deheir_page .diheir-core__side--14 { left: -187px; top: var(--core-lb-y, 569px); }
+#deheir_page .diheir-core__mo { display: none; }
+
+/* ---------- Services_Designer ---------- */
+#deheir_page .diheir-designer { background: #f7f7ec; padding: calc(171 * var(--u)) 0 calc(179 * var(--u)); }
+#deheir_page .diheir-designer__bg { inset: 0; }
+#deheir_page .diheir-designer__grad {
+  /* 섹션 높이가 달라져도 단차가 생기지 않도록 아래 끝은 섹션 바닥(bottom 0)에 고정.
+     페이드 구간은 시안 값(높이 1475 중 0%→28.757% = 424px) 그대로 유지 */
+  left: 0; right: 0; top: calc(849 * var(--u)); bottom: 0;
+  background: linear-gradient(180deg, rgba(193,196,173,0) 0, #c1c4ad calc(424 * var(--u)));
+}
+#deheir_page .diheir-designer__sketch1 { left: calc(620 * var(--u)); top: calc(406 * var(--u)); width: calc(372 * var(--u)); height: calc(443 * var(--u)); transform: scaleX(-1); opacity: 0.16; mix-blend-mode: darken; }
+#deheir_page .diheir-designer__sketch2 { left: calc(97.2 * var(--u)); top: calc(305.2 * var(--u)); width: calc(800.4 * var(--u)); height: calc(801.4 * var(--u)); transform: rotate(3.87deg); opacity: 0.2; mix-blend-mode: darken; }
+#deheir_page .diheir-designer__word { color: #9f9f8b; white-space: nowrap; line-height: 1.3; font-size: calc(230 * var(--u)); letter-spacing: calc(-4.6 * var(--u)); transform: translateX(-50%); }
+#deheir_page .diheir-designer__word--1 { left: calc(470.5 * var(--u)); top: calc(72 * var(--u)); opacity: 0.24; }
+#deheir_page .diheir-designer__word--2 { left: calc(1157.5 * var(--u)); top: calc(945 * var(--u)); opacity: 0.36; }
+#deheir_page .diheir-designer__lily { left: calc(1239.98 * var(--u)); top: calc(303.98 * var(--u)); width: calc(727.388 * var(--u)); height: calc(727.388 * var(--u)); transform: rotate(-163.62deg) scaleY(-1); opacity: 0.6; mix-blend-mode: multiply; }
+#deheir_page .diheir-designer__fly1 { left: calc(1542.95 * var(--u)); top: calc(44.95 * var(--u)); width: calc(270.14 * var(--u)); height: calc(270.14 * var(--u)); transform: rotate(-1.83deg); opacity: 0.5; mix-blend-mode: multiply; }
+#deheir_page .diheir-designer__fly2 { left: calc(1152.39 * var(--u)); top: calc(366.39 * var(--u)); width: calc(190.34 * var(--u)); height: calc(190.34 * var(--u)); transform: rotate(154.9deg) scaleY(-1); opacity: 0.5; mix-blend-mode: multiply; }
+#deheir_page .diheir-designer__ring { left: calc(633 * var(--u)); top: calc(568 * var(--u)); width: calc(1045 * var(--u)); height: calc(445 * var(--u)); overflow: hidden; }
+#deheir_page .diheir-designer__ring img { position: absolute; left: -38.85%; top: -250.08%; width: 178.03%; height: 627.26%; }
+#deheir_page .diheir-designer__head { display: flex; align-items: flex-start; }
+#deheir_page .diheir-designer__title {
+  width: calc(900 * var(--u)); margin-top: calc(51 * var(--u)); text-align: center; white-space: nowrap;
+  color: #383629; font-size: calc(60 * var(--u)); line-height: 1.3; letter-spacing: calc(-1.2 * var(--u));
+}
+#deheir_page .diheir-designer__desc { margin-left: calc(63 * var(--u)); font-size: calc(24 * var(--u)); line-height: 1.5; letter-spacing: calc(-0.48 * var(--u)); white-space: nowrap; }
+#deheir_page .diheir-designer__slider {
+  position: relative;
+  margin-top: calc(1186 * var(--u));
+  width: 100%;
+}
+#deheir_page .diheir-designer__track {
+  position: relative;
+  display: flex;
+  gap: calc(27 * var(--u));
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 calc(1140 * var(--u));
+  user-select: none;
+  -webkit-user-select: none;
+}
+#deheir_page .diheir-designer__track::-webkit-scrollbar { display: none; }
+#deheir_page .diheir-designer__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+#deheir_page .diheir-designer__card {
+  position: relative;
+  flex: 0 0 calc(490 * var(--u));
+  height: calc(680 * var(--u));
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: calc(100 * var(--u));
+  padding-left: calc(24 * var(--u));
+  padding-right: calc(24 * var(--u));
+  overflow: hidden;
+  border-radius: calc(400 * var(--u)) calc(400 * var(--u)) 0 0;
+  cursor: pointer;
+  background: #d9d9d9;
+}
+#deheir_page .diheir-designer__card-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+#deheir_page .diheir-designer__card-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-user-drag: none;
+}
+#deheir_page .diheir-designer__card-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+#deheir_page .diheir-designer__name {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  white-space: nowrap;
+  font-size: calc(40 * var(--u));
+  line-height: 1.3;
+  letter-spacing: calc(-0.8 * var(--u));
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+#deheir_page .diheir-designer__name p { margin: 0; }
+#deheir_page .diheir-designer__hover {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(32 * var(--u)) calc(36 * var(--u)) calc(40 * var(--u));
+  text-align: center;
+  border-radius: inherit;
+}
+#deheir_page .diheir-designer__hover-title {
+  font-family: var(--diheir-en);
+  color: #fff;
+  font-size: calc(32 * var(--u));
+  line-height: 1.25;
+  letter-spacing: calc(-0.64 * var(--u));
+  margin: 0 0 calc(20 * var(--u)) 0;
+}
+#deheir_page .diheir-designer__hover-desc {
+  font-family: var(--diheir-ko);
+  color: #d4d4b9;
+  font-weight: 300;
+  font-size: max(12px, calc(16 * var(--u)));
+  line-height: 1.6;
+  letter-spacing: calc(-0.32 * var(--u));
+  margin: 0;
+  word-break: keep-all;
+}
+#deheir_page .diheir-designer__card:hover .diheir-designer__card-bg img,
+#deheir_page .diheir-designer__card.is-active .diheir-designer__card-bg img {
+  transform: scale(1.05);
+}
+#deheir_page .diheir-designer__card:hover .diheir-designer__name,
+#deheir_page .diheir-designer__card.is-active .diheir-designer__name {
+  opacity: 0;
+}
+#deheir_page .diheir-designer__card:hover .diheir-designer__hover,
+#deheir_page .diheir-designer__card.is-active .diheir-designer__hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+#deheir_page .diheir-designer__nav { display: none; }
+
+/* ---------- collection (diheir.com 원본 동일 1920px 반응형 스테이지 & 폰트 14px 이상 절대 보호) ---------- */
+#deheir_page .diheir-collection {
+  position: relative;
+  width: 100%;
+  height: calc(1200px * var(--col-scale, 1));
+  background: #383629;
+  overflow: hidden;
+}
+#deheir_page .diheir-collection__stage {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1920px;
+  height: 1200px;
+  margin-left: -960px;
+  transform-origin: center top;
+  transform: scale(var(--col-scale, 1));
+  pointer-events: auto;
+}
+#deheir_page .diheir-collection__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+#deheir_page .diheir-collection__bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#deheir_page .diheir-collection__inner {
+  position: absolute;
+  left: 120px;
+  top: 130px;
+  width: 1680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  z-index: 1;
+}
+#deheir_page .diheir-collection__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  width: 100%;
+}
+#deheir_page .diheir-collection__titles {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+#deheir_page .diheir-collection__names {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+#deheir_page .diheir-collection__sub {
+  width: 100%;
+  color: #e5e5d4;
+  font-family: var(--diheir-en);
+  font-size: max(24px, calc(14px / var(--col-scale, 1)));
+  line-height: 1.2;
+  margin: 0;
+  min-height: 1.2em;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+#deheir_page .diheir-collection__title {
+  padding: 0 20px;
+  color: #e5e5d4;
+  font-family: var(--diheir-en);
+  font-size: max(80px, calc(14px / var(--col-scale, 1)));
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+#deheir_page .diheir-collection__ko {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: var(--diheir-ko);
+  font-weight: 300;
+  font-size: max(16px, calc(14px / var(--col-scale, 1)));
+  line-height: 1.5;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+#deheir_page .diheir-collection__en {
+  text-align: center;
+  color: #fff;
+  font-family: var(--diheir-en);
+  white-space: pre-wrap;
+  font-size: max(20px, calc(14px / var(--col-scale, 1)));
+  line-height: 1.3;
+  letter-spacing: -0.4px;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Interactive Gallery Stack */
+#deheir_page .diheir-collection__gallery-wrap {
+  position: relative;
+  width: 100%;
+  height: 606px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#deheir_page .diheir-collection__stack {
+  position: relative;
+  width: 560px;
+  height: 606px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#deheir_page .diheir-collection__card {
+  position: absolute;
+  width: 560px;
+  height: 606px;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  will-change: transform;
+  background: #2a2922;
+}
+#deheir_page .diheir-collection__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Glass Arrow Buttons */
+#deheir_page .diheir-collection__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  padding: 0;
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), right 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, filter 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+#deheir_page .diheir-collection__btn:hover {
+  transform: translateY(-50%) scale(1.06);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+/* 모여져 있을 때 (기본): 이미지 양옆 빨간색 표시 위치 */
+#deheir_page .diheir-collection__btn--prev {
+  left: calc(50% - 440px);
+}
+#deheir_page .diheir-collection__btn--next {
+  right: calc(50% - 440px);
+}
+/* 펼쳐졌을 때 (is-spread): 기존 외곽 위치(-40px)로 복귀 */
+#deheir_page .diheir-collection__gallery-wrap.is-spread .diheir-collection__btn--prev {
+  left: -40px;
+}
+#deheir_page .diheir-collection__gallery-wrap.is-spread .diheir-collection__btn--next {
+  right: -40px;
+}
+#deheir_page .diheir-collection__btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---------- diheirspace ---------- */
+#deheir_page .diheir-space { background: #383629; padding: calc(96 * var(--u)) 0 calc(134 * var(--u)); }
+#deheir_page .diheir-space__word {
+  text-align: center; color: #9f9f8b; opacity: 0.12; white-space: nowrap;
+  font-size: calc(300 * var(--u)); line-height: 1.3; letter-spacing: calc(-6 * var(--u));
+}
+#deheir_page .diheir-space__stage { position: relative; margin-top: calc(-69 * var(--u)); padding-top: calc(117 * var(--u)); }
+#deheir_page .diheir-space__landscape { left: calc(69 * var(--u)); top: 0; width: calc(1802 * var(--u)); height: calc(945 * var(--u)); }
+#deheir_page .diheir-space__glass {
+  position: relative; width: calc(1120 * var(--u)); margin-left: calc(447 * var(--u));
+  padding: calc(65 * var(--u)) calc(58 * var(--u)) calc(63 * var(--u));
+  background: rgba(170,166,128,0.2); border: 2px solid rgba(255,255,255,0); border-radius: calc(32 * var(--u));
+  /* 배경 흐림: 렌더 화면 기준 추정값(피그마 export 코드에 수치 없음) */
+  -webkit-backdrop-filter: blur(calc(20 * var(--u)));
+  backdrop-filter: blur(calc(20 * var(--u)));
+}
+#deheir_page .diheir-space__card { width: calc(1000 * var(--u)); padding: calc(100 * var(--u)); background: #c3c0b0; display: flex; flex-direction: column; align-items: center; gap: calc(60 * var(--u)); }
+#deheir_page .diheir-space__body { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: calc(40 * var(--u)); }
+#deheir_page .diheir-space__top { width: 100%; display: flex; flex-direction: column; align-items: center; gap: calc(40 * var(--u)); }
+#deheir_page .diheir-space__title { color: #444429; font-size: calc(80 * var(--u)); line-height: normal; text-align: center; white-space: nowrap; }
+#deheir_page .diheir-space__photo {
+  position: relative;
+  width: 100%;
+  height: calc(411 * var(--u));
+  background: #d9d9d9;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+#deheir_page .diheir-space__photo:active {
+  cursor: grabbing;
+}
+#deheir_page .diheir-space__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+#deheir_page .diheir-space__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+#deheir_page .diheir-space__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#deheir_page .diheir-space__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+#deheir_page .diheir-space__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(1.4);
+  transform-origin: center center;
+  z-index: 2;
+  width: calc(44 * var(--u));
+  height: calc(44 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0.85;
+}
+#deheir_page .diheir-space__arrow:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.6);
+}
+#deheir_page .diheir-space__arrow--prev {
+  left: calc(26 * var(--u));
+}
+#deheir_page .diheir-space__arrow--next {
+  right: calc(26 * var(--u));
+}
+#deheir_page .diheir-space__arrow img {
+  width: calc(24 * var(--u));
+  height: calc(24 * var(--u));
+  pointer-events: none;
+}
+#deheir_page .diheir-space__bars {
+  width: calc(500 * var(--u));
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(20 * var(--u));
+}
+#deheir_page .diheir-space__bar {
+  display: block;
+  height: calc(2 * var(--u));
+  min-height: 2px;
+  background: #8b8875;
+  width: calc(100 * var(--u));
+  flex: 0 0 calc(100 * var(--u));
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+#deheir_page .diheir-space__bar.is-active {
+  background: #27261d;
+  flex: 1 1 0;
+  width: auto;
+}
+#deheir_page .diheir-space__info { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: calc(40 * var(--u)); }
+#deheir_page .diheir-space__name { color: #444429; font-size: calc(40 * var(--u)); line-height: 1.3; letter-spacing: calc(-0.8 * var(--u)); }
+#deheir_page .diheir-space__tag { color: #79796b; font-size: max(11px, calc(18 * var(--u))); line-height: 1.3; letter-spacing: calc(-0.36 * var(--u)); }
+#deheir_page .diheir-space__detail { width: 100%; display: flex; flex-direction: column; gap: calc(80 * var(--u)); }
+#deheir_page .diheir-space__meta,
+#deheir_page .diheir-space__dir { color: #444429; font-size: calc(22 * var(--u)); line-height: 1.3; letter-spacing: calc(-0.44 * var(--u)); }
+#deheir_page .diheir-space__meta { width: 100%; display: flex; justify-content: space-between; align-items: center; white-space: nowrap; }
+#deheir_page .diheir-space__mapwrap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: calc(40 * var(--u)); }
+#deheir_page .diheir-space__mapbox { width: 100%; display: flex; align-items: center; justify-content: center; }
+#deheir_page .diheir-space__map {
+  display: block;
+  position: relative; overflow: hidden; width: 100%; height: calc(420 * var(--u));
+  box-sizing: border-box;
+  border: calc(30 * var(--u)) solid rgba(68,68,41,0.2); background: #d9d9d9; background-clip: padding-box;
+}
+#deheir_page .diheir-space__map-fallback { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
+#deheir_page .diheir-space__map-fallback img { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+#deheir_page .diheir-space__map-controls {
+  position: absolute;
+  bottom: calc(16 * var(--u));
+  right: calc(16 * var(--u));
+  display: flex;
+  flex-direction: column;
+  border-radius: calc(6 * var(--u));
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+#deheir_page .diheir-space__map-zoom {
+  width: calc(32 * var(--u));
+  height: calc(32 * var(--u));
+  border: 1px solid rgba(68,68,41,0.25);
+  background: rgba(255,255,255,0.92);
+  color: #444429;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition: background-color 0.15s ease;
+}
+#deheir_page .diheir-space__map-zoom:hover { background: #ffffff; }
+#deheir_page .diheir-space__map-zoom + .diheir-space__map-zoom { border-top: none; }
+#deheir_page .diheir-space__map-return {
+  position: absolute;
+  bottom: calc(16 * var(--u));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: calc(7 * var(--u)) calc(22 * var(--u));
+  background: rgba(68,68,41,0.88);
+  color: #ffffff;
+  border: none;
+  border-radius: calc(20 * var(--u));
+  font-size: max(14px, calc(14 * var(--u)));
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 10;
+  white-space: nowrap;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+#deheir_page .diheir-space__map-return:hover { background: #444429; }
+#deheir_page .diheir-space__dir { width: 100%; padding: calc(8 * var(--u)) 0; display: flex; flex-direction: column; gap: calc(16 * var(--u)); }
+#deheir_page .diheir-space__dir strong { font-weight: 600; display: block; }
+#deheir_page .diheir-space__btn {
+  display: flex; align-items: center; justify-content: center;
+  width: calc(251 * var(--u)); height: calc(72 * var(--u));
+  border-radius: calc(36 * var(--u)); background: #383629; color: #fff;
+  font-size: calc(29 * var(--u)); line-height: normal; white-space: nowrap;
+  text-decoration: none;
+}
+
+/* ---------- footer ---------- */
+#deheir_page .diheir-footer { background: #29281f; padding: calc(203 * var(--u)) calc(98 * var(--u)) calc(129 * var(--u)) calc(148 * var(--u)); }
+#deheir_page .diheir-footer__row { display: flex; align-items: flex-end; justify-content: space-between; }
+#deheir_page .diheir-footer__info { color: rgba(193,196,173,0.6); font-size: max(11px, calc(20 * var(--u))); line-height: 1.3; letter-spacing: calc(-0.4 * var(--u)); white-space: nowrap; }
+#deheir_page .diheir-footer__copy { margin-top: 1.3em; }
+#deheir_page .diheir-footer__logo { width: calc(544 * var(--u)); height: calc(198 * var(--u)); object-fit: cover; }
+
+/* ---------- 플로팅 배너 (diheir_floating) : diheir_landing 사양 1:1 고정 크기 유지 ---------- */
+#deheir_page .diheir-floating {
+  /* 내부 크기 고정: 가장 작은 글자(diheir-floating__t2--s, 12px)가 12px 아래로 내려가지 않도록 시안 크기(1px) 유지 */
+  --u: 1px;
+  --uf: 1px;
+  position: fixed;
+  bottom: 96px;
+  right: calc(50% - min(1px, calc(min(100vw, 1920px) / 1920)) * 880);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+}
+#deheir_page .diheir-floating__card,
+#deheir_page .diheir-floating__bene {
+  width: 180px;
+  height: 318px;
+  background: #171711;
+  border-radius: 40px 0 40px 40px;
+  overflow: hidden;
+  position: relative;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+#deheir_page .diheir-floating__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.8;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+#deheir_page .diheir-floating__slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #171711 26.113%, rgba(23, 23, 17, 0) 44.846%);
+}
+#deheir_page .diheir-floating__img,
+#deheir_page .diheir-floating__bene-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+#deheir_page .diheir-floating__txt,
+#deheir_page .diheir-floating__slide-head {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 24px 12px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+#deheir_page .diheir-floating__txt > p,
+#deheir_page .diheir-floating__slide-head > p,
+#deheir_page .diheir-floating__slide > p {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+#deheir_page .diheir-floating__t1,
+#deheir_page .diheir-floating__bene-title {
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.4px;
+  color: #fff;
+}
+#deheir_page .diheir-floating__t2,
+#deheir_page .diheir-floating__bene-text {
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.28px;
+  color: #a6a688;
+}
+#deheir_page .diheir-floating__t2--s,
+#deheir_page .diheir-floating__bene-text--s {
+  font-size: 12px;
+  letter-spacing: -0.24px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #deheir_page .diheir-floating__slide,
+  #deheir_page .diheir-floating__line span {
+    transition: none;
+  }
+}
+#deheir_page .diheir-floating__bar {
+  position: absolute;
+  z-index: 2;
+  left: 12px;
+  right: 12px;
+  bottom: 24px;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#deheir_page .diheir-floating__btn {
+  flex: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+#deheir_page .diheir-floating__bar img {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  display: block;
+}
+#deheir_page .diheir-floating__line {
+  position: relative;
+  flex: 1 1 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6);
+}
+#deheir_page .diheir-floating__line span {
+  position: absolute;
+  top: 0;
+  width: 38px;
+  height: 1px;
+  background: #191813;
+  left: calc((100% - 38px) * var(--diheir-float-pos, 0));
+  transition: left 0.5s ease;
+}
+#deheir_page .diheir-floating__pill,
+#deheir_page .diheir-floating__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 80px;
+  background: rgba(23, 23, 17, 0.6);
+  border-radius: 40px 0 40px 40px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+#deheir_page .diheir-floating__pillin {
+  position: relative;
+  width: 118px;
+  height: 32px;
+  margin-left: 6px;
+}
+#deheir_page .diheir-floating__benefit {
+  position: absolute;
+  left: -6px;
+  top: 0;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.76px;
+  white-space: nowrap;
+}
+#deheir_page .diheir-floating__chev {
+  position: absolute;
+  left: 112px;
+  top: 5px;
+  width: 12px;
+  height: 23px;
+}
+#deheir_page .diheir-floating__mo {
+  display: none;
+}
+
+/* =====================  MOBILE (768 프레임 기준, <1024px)  ===================== */
+@media (max-width: 1023px) {
+  #deheir_page { --u: calc(100vw / 768); --uf: max(calc(100vw / 768), 0.75px); }
+  @supports (width: 1cqw) {
+    #deheir_page .diheir-main { --u: calc(100cqw / 768); }
+  }
+  #deheir_page br.diheir-mo { display: inline; }
+  #deheir_page br.diheir-pc { display: none; }
+  #deheir_page .diheir-only-pc { display: none; }
+  #deheir_page .diheir-only-mo { display: block; }
+
+  /* nav */
+  #deheir_page .diheir-nav {
+    padding: calc(40 * var(--u) + env(safe-area-inset-top, 0px))
+             calc(32 * var(--u) + env(safe-area-inset-right, 0px))
+             calc(24 * var(--u))
+             calc(32 * var(--u) + env(safe-area-inset-left, 0px));
+  }
+  #deheir_page .diheir-nav__logo { width: calc(97 * var(--u)); height: calc(30 * var(--u)); }
+  #deheir_page .diheir-nav__dropdown-wrap { padding-top: calc(34 * var(--u)); }
+  #deheir_page .diheir-nav__dropdown {
+    width: auto;
+    padding: calc(28 * var(--u)) calc(42 * var(--u)) calc(28 * var(--u)) calc(22 * var(--u));
+    gap: calc(12 * var(--u));
+    border-radius: calc(22 * var(--u));
+  }
+  #deheir_page .diheir-nav__menu { gap: calc(12 * var(--u)); }
+  #deheir_page .diheir-nav__item {
+    font-size: max(16px, calc(24 * var(--u)));
+    letter-spacing: calc(-0.48 * var(--u));
+  }
+  #deheir_page #home,
+  #deheir_page #brand,
+  #deheir_page #service,
+  #deheir_page #collection,
+  #deheir_page #reservation {
+    scroll-margin-top: calc(70 * var(--u));
+  }
+  #deheir_page .diheir-nav__contact { font-size: max(15px, calc(30 * var(--u))); letter-spacing: calc(-0.6 * var(--u)); }
+
+  /* home (모바일 뷰포트 100vh 채움 & 진입 시 타이틀부터 CTA까지 모두 노출) */
+  #deheir_page .diheir-home {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: calc(90 * var(--u) + env(safe-area-inset-top, 0px))
+             calc(32 * var(--u) + env(safe-area-inset-right, 0px))
+             calc(60 * var(--u) + env(safe-area-inset-bottom, 0px))
+             calc(32 * var(--u) + env(safe-area-inset-left, 0px)) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  #deheir_page .diheir-home__bg::after {
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 9.6293%, rgba(0,0,0,0) 65.151%),
+                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2));
+  }
+  /* 시안: 높이 520 박스에서 txt(≈201.6)와 CTA(245) 사이 간격 ≈73.4.
+     실제 화면이 시안 비율보다 길어도 간격이 벌어지지 않도록 박스는 늘리지 않고 섹션 아래(pb 80)에 붙임 */
+  #deheir_page .diheir-home__box { flex: none; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: calc(40 * var(--u)); }
+  #deheir_page .diheir-home__txt { width: 100%; gap: calc(16 * var(--u)); }
+  #deheir_page .diheir-home__title { font-size: calc(64 * var(--u)); }
+  /* 시안 비율 유지(제목 64 : 설명 18). 최소 글자 크기 고정을 없애 비율대로 축소 */
+  #deheir_page .diheir-home__desc { font-size: calc(18 * var(--u)); letter-spacing: calc(-0.36 * var(--u)); white-space: normal; word-break: keep-all; }
+  #deheir_page .diheir-home__cta {
+    width: calc(308 * var(--u));
+    height: calc(245 * var(--u));
+  }
+  #deheir_page .diheir-home__circle {
+    inset: auto;
+    left: 0;
+    top: 0;
+    width: calc(245 * var(--u));
+    height: calc(245 * var(--u));
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), rgba(159,159,139,0.55);
+  }
+  #deheir_page .diheir-home__ring {
+    inset: auto;
+    left: 0;
+    top: 0;
+    width: calc(245 * var(--u));
+    height: calc(245 * var(--u));
+  }
+  #deheir_page .diheir-home__label { left: calc(60 * var(--u)); top: calc(106 * var(--u)); width: calc(248 * var(--u)); }
+  #deheir_page .diheir-home__line--pc { display: none; }
+  #deheir_page .diheir-home__line--mo { display: block; width: calc(240.534 * var(--u)); height: calc(33.254 * var(--u)); margin-top: calc(-0.25 * var(--u)); }
+  #deheir_page .diheir-home__ctatext { top: calc(-1 * var(--u)); font-size: calc(22 * var(--u)); }
+
+  /* brand_identity */
+  #deheir_page .diheir-identity { padding: calc(109 * var(--u)) 0 calc(258 * var(--u)); overflow-x: clip; }
+  #deheir_page .diheir-identity__wm { left: calc(88 * var(--u)); top: calc(139 * var(--u)); width: calc(684 * var(--u)); height: calc(248 * var(--u)); }
+  #deheir_page .diheir-identity__word { font-size: calc(120 * var(--u)); letter-spacing: calc(-2.4 * var(--u)); }
+  #deheir_page .diheir-identity__word--1 { left: calc(35 * var(--u)); top: calc(1944 * var(--u)); }
+  #deheir_page .diheir-identity__word--2 { left: calc(118 * var(--u)); top: calc(2104 * var(--u)); }
+  #deheir_page .diheir-identity__title { font-size: calc(100 * var(--u)); }
+  #deheir_page .diheir-identity__l1 { margin-left: calc(43 * var(--u)); }
+  #deheir_page .diheir-identity__l2 { margin: calc(29 * var(--u)) 0 0 calc(263 * var(--u)); }
+
+  /* brand_identity 위치 모션 애니메이션 (Mobile: 거리 300, 지속 600ms, 천천히 나감) */
+  #deheir_page.js-motion .diheir-identity__l1 {
+    transform: translate3d(calc(-300 * var(--u)), 0, 0);
+    opacity: 0;
+    transition: transform 600ms cubic-bezier(0, 0, 0.2, 1), opacity 600ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  #deheir_page.js-motion .diheir-identity__l2 {
+    transform: translate3d(calc(300 * var(--u)), 0, 0);
+    opacity: 0;
+    transition: transform 600ms cubic-bezier(0, 0, 0.2, 1), opacity 600ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  #deheir_page.js-motion .diheir-identity__title.is-inview .diheir-identity__l1,
+  #deheir_page.js-motion .diheir-identity__title.is-inview .diheir-identity__l2 {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  #deheir_page .diheir-identity__grid { display: flex; flex-direction: column; align-items: flex-start; margin-top: 0; }
+  #deheir_page .diheir-identity__col { display: contents; }
+  #deheir_page .diheir-identity__txt { font-size: max(13px, calc(18 * var(--u))); letter-spacing: calc(-0.36 * var(--u)); }
+  #deheir_page .diheir-identity__txt--1 { order: 1; margin: calc(120 * var(--u)) 0 0 calc(32 * var(--u)); }
+  #deheir_page .diheir-identity__media { order: 2; margin: calc(74 * var(--u)) 0 0 calc(153 * var(--u)); }
+  #deheir_page .diheir-identity__img40 { width: calc(480 * var(--u)); height: calc(638 * var(--u)); }
+  #deheir_page .diheir-identity__img49 { left: calc(286 * var(--u)); top: calc(468 * var(--u)); width: calc(268 * var(--u)); height: calc(268 * var(--u)); }
+  #deheir_page .diheir-identity__txt--2 { order: 3; margin: calc(132 * var(--u)) calc(32 * var(--u)) 0 0; }
+  #deheir_page .diheir-identity__box { order: 4; margin: calc(34 * var(--u)) calc(31 * var(--u)) 0 0; width: calc(332 * var(--u)); height: calc(332 * var(--u)); padding: calc(60 * var(--u)); }
+  #deheir_page .diheir-identity__txt--3 { order: 5; margin: calc(-18 * var(--u)) 0 0 calc(32 * var(--u)); }
+  #deheir_page .diheir-identity__txt--4 { order: 6; margin: calc(130 * var(--u)) calc(36 * var(--u)) 0 0; }
+  #deheir_page .diheir-identity__boxin { width: calc(238 * var(--u)); height: calc(238 * var(--u)); }
+  #deheir_page .diheir-identity__boxlogo { flex: 1 0 0; min-height: 0; gap: calc(20 * var(--u)); }
+  #deheir_page .diheir-identity__emblem { width: calc(118 * var(--u)); height: calc(108.2 * var(--u)); }
+  #deheir_page .diheir-identity__wordmark--pc { display: none; }
+  #deheir_page .diheir-identity__wordmark--mo { display: block; width: calc(226 * var(--u)); height: calc(69 * var(--u)); }
+  #deheir_page .diheir-identity__boxcap { font-size: calc(16 * var(--u)); letter-spacing: calc(-0.32 * var(--u)); }
+
+  /* brand_heritage */
+  #deheir_page .diheir-heritage { padding: calc(74 * var(--u)) calc(32 * var(--u)) calc(160 * var(--u)); }
+  #deheir_page .diheir-heritage__80 { left: calc(223 * var(--u)); top: calc(25 * var(--u)); font-size: calc(360 * var(--u)); letter-spacing: calc(-18 * var(--u)); }
+  #deheir_page .diheir-heritage__years { left: calc(548.5 * var(--u)); top: calc(219 * var(--u)); font-size: calc(140 * var(--u)); }
+  #deheir_page .diheir-heritage__legacy { font-size: max(12px, calc(20 * var(--u))); letter-spacing: calc(-0.4 * var(--u)); }
+  #deheir_page .diheir-heritage__cards { flex-direction: column; gap: calc(40 * var(--u)); margin: calc(219 * var(--u)) 0 0 calc(117 * var(--u)); }
+  #deheir_page .diheir-heritage__card { order: 0; margin-top: 0; width: calc(450 * var(--u)); height: calc(482 * var(--u)); }
+  #deheir_page .diheir-heritage__card--1,
+  #deheir_page .diheir-heritage__card--2,
+  #deheir_page .diheir-heritage__card--3 { order: 0; margin-top: 0; }
+  #deheir_page .diheir-heritage__gen { font-size: calc(32 * var(--u)); letter-spacing: calc(-0.64 * var(--u)); }
+  #deheir_page .diheir-heritage__ko { font-size: max(11px, calc(16 * var(--u))); letter-spacing: calc(-0.32 * var(--u)); }
+  #deheir_page .diheir-heritage__dorocy { left: calc(0.5 * var(--u)); margin: calc(127 * var(--u)) calc(-32 * var(--u)) 0; font-size: calc(80 * var(--u)); letter-spacing: calc(-1.6 * var(--u)); }
+  #deheir_page .diheir-heritage__intro { font-size: max(13px, calc(18 * var(--u))); letter-spacing: calc(-0.36 * var(--u)); word-break: keep-all; }
+  #deheir_page .diheir-heritage__intro--1 { margin-top: calc(-27 * var(--u)); }
+  #deheir_page .diheir-heritage__intro--2 { margin-top: calc(127 * var(--u)); }
+
+  /* Services_core */
+  #deheir_page .diheir-core { height: 500vh; padding: 0; overflow: visible !important; }
+  #deheir_page .diheir-core__stage { display: none; }
+  #deheir_page .diheir-core__mo {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #deheir_page .diheir-core__mo-cards {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    aspect-ratio: 700 / 780;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    background: #9f9f8b;
+  }
+  #deheir_page .diheir-core__mo-card {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    will-change: opacity;
+  }
+  #deheir_page .diheir-core__mo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #deheir_page .diheir-core__mo-video-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: calc(90vw * 780 / 700);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    background: #9f9f8b;
+    opacity: 0;
+    z-index: 10;
+    will-change: width, height, border-radius, opacity;
+  }
+  #deheir_page .diheir-core__mo-video-inner {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  #deheir_page .diheir-core__mo-video-inner iframe {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300%;
+    height: 300%;
+    border: 0;
+  }
+  #deheir_page .diheir-core__mo .diheir-core__quote {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(20 * var(--u));
+    padding: calc(30 * var(--u));
+    text-align: center;
+  }
+  #deheir_page .diheir-core__mo .diheir-core__en { font-size: calc(36 * var(--u)); letter-spacing: calc(-0.72 * var(--u)); }
+  #deheir_page .diheir-core__mo .diheir-core__ko { font-size: max(13px, calc(18 * var(--u))); letter-spacing: calc(-0.36 * var(--u)); }
+
+  /* Services_Designer */
+  #deheir_page .diheir-designer { padding: calc(97 * var(--u)) 0 calc(58 * var(--u)); }
+  /* 모바일 페이드 구간: 높이 1241 중 3.461%→20.145% = 43px→250px */
+  #deheir_page .diheir-designer__grad { top: calc(703 * var(--u)); bottom: 0; height: auto; background: linear-gradient(180deg, rgba(193,196,173,0) calc(43 * var(--u)), #c1c4ad calc(250 * var(--u))); }
+  #deheir_page .diheir-designer__sketch1 { left: calc(549 * var(--u)); top: calc(80.1 * var(--u)); width: calc(185 * var(--u)); height: calc(219.9 * var(--u)); }
+  #deheir_page .diheir-designer__sketch2 { left: calc(21.35 * var(--u)); top: calc(219.4 * var(--u)); width: calc(408.7 * var(--u)); height: calc(409.2 * var(--u)); }
+  #deheir_page .diheir-designer__word { font-size: calc(120 * var(--u)); letter-spacing: calc(-2.4 * var(--u)); }
+  #deheir_page .diheir-designer__word--1 { left: calc(283 * var(--u)); top: calc(18 * var(--u)); }
+  #deheir_page .diheir-designer__word--2 { left: calc(380 * var(--u)); top: calc(751 * var(--u)); }
+  #deheir_page .diheir-designer__lily { left: calc(335.39 * var(--u)); top: calc(384.39 * var(--u)); width: calc(475.476 * var(--u)); height: calc(475.476 * var(--u)); }
+  #deheir_page .diheir-designer__fly1 { left: calc(583.98 * var(--u)); top: calc(295.98 * var(--u)); width: calc(126.068 * var(--u)); height: calc(126.068 * var(--u)); }
+  #deheir_page .diheir-designer__fly2 { left: calc(386.65 * var(--u)); top: calc(426.65 * var(--u)); width: calc(88.827 * var(--u)); height: calc(88.827 * var(--u)); }
+  #deheir_page .diheir-designer__ring { left: calc(137 * var(--u)); top: calc(494 * var(--u)); width: calc(600 * var(--u)); height: calc(255 * var(--u)); }
+  #deheir_page .diheir-designer__head { flex-direction: column; }
+  #deheir_page .diheir-designer__title { width: calc(628 * var(--u)); margin-top: 0; font-size: calc(44 * var(--u)); letter-spacing: calc(-0.88 * var(--u)); }
+  #deheir_page .diheir-designer__desc { align-self: flex-end; margin: calc(62 * var(--u)) calc(32 * var(--u)) 0 0; text-align: right; font-size: max(13px, calc(20 * var(--u))); letter-spacing: calc(-0.4 * var(--u)); }
+  #deheir_page .diheir-designer__slider { margin-top: calc(720 * var(--u)); }
+  #deheir_page .diheir-designer__track { gap: calc(24 * var(--u)); padding: 0 calc(64 * var(--u)); scroll-snap-type: x mandatory; scroll-padding: 0 calc(64 * var(--u)); cursor: auto; }
+  #deheir_page .diheir-designer__card { flex-basis: calc(640 * var(--u)); height: calc(860 * var(--u)); scroll-snap-align: center; scroll-snap-stop: always; }
+  #deheir_page .diheir-designer__hover-title { font-size: calc(28 * var(--u)); letter-spacing: calc(-0.56 * var(--u)); margin-bottom: calc(16 * var(--u)); }
+  #deheir_page .diheir-designer__hover-desc { font-size: max(11px, calc(14 * var(--u))); letter-spacing: calc(-0.28 * var(--u)); line-height: 1.5; }
+  #deheir_page .diheir-designer__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    position: absolute;
+    top: calc(430 * var(--u));
+    left: calc(64 * var(--u));
+    right: calc(64 * var(--u));
+    transform: translateY(-50%);
+    z-index: 20;
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: max(38px, calc(68 * var(--u)));
+    height: max(38px, calc(68 * var(--u)));
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--prev {
+    transform: translateX(-50%);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--next {
+    transform: translateX(50%);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--prev:active {
+    transform: translateX(-50%) scale(0.92);
+    background: rgba(255, 255, 255, 0.45);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--next:active {
+    transform: translateX(50%) scale(0.92);
+    background: rgba(255, 255, 255, 0.45);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow img {
+    width: max(18px, calc(28 * var(--u)));
+    height: max(18px, calc(28 * var(--u)));
+    display: block;
+    pointer-events: none;
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--prev img {
+    transform: rotate(-90deg);
+  }
+  #deheir_page .diheir-designer__nav .diheir-arrow--next img {
+    transform: rotate(90deg);
+  }
+
+  /* collection (모바일 뷰포트 높이 100% 꽉 채움 & 14px 미만 절대 불가) */
+  #deheir_page .diheir-collection {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #deheir_page .diheir-collection__stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    left: 0;
+    margin: 0;
+    transform: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #deheir_page .diheir-collection__inner {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 92vw;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: clamp(14px, 3.2vh, 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  #deheir_page .diheir-collection__head {
+    gap: clamp(8px, 1.6vh, 16px);
+  }
+  #deheir_page .diheir-collection__titles {
+    gap: clamp(6px, 1.2vh, 12px);
+  }
+  #deheir_page .diheir-collection__names {
+    gap: 4px;
+  }
+  #deheir_page .diheir-collection__sub {
+    font-size: max(14px, calc(16 * var(--u)));
+    min-height: 1.2em;
+  }
+  #deheir_page .diheir-collection__title {
+    font-size: clamp(28px, 6vw, 42px);
+    white-space: normal;
+  }
+  #deheir_page .diheir-collection__ko {
+    font-size: max(14px, calc(15 * var(--u)));
+    padding: 0 12px;
+  }
+  #deheir_page .diheir-collection__en {
+    font-size: max(14px, calc(15 * var(--u)));
+    padding: 0 12px;
+  }
+  #deheir_page .diheir-collection__gallery-wrap {
+    height: auto;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #deheir_page .diheir-collection__stack {
+    height: clamp(290px, 46vh, 460px);
+    width: calc(clamp(290px, 46vh, 460px) * (560 / 606));
+    max-width: 82vw;
+  }
+  #deheir_page .diheir-collection__card {
+    width: 100%;
+    height: 100%;
+  }
+  #deheir_page .diheir-collection__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+  }
+  #deheir_page .diheir-collection__btn--prev,
+  #deheir_page .diheir-collection__gallery-wrap.is-spread .diheir-collection__btn--prev {
+    left: 4px;
+  }
+  #deheir_page .diheir-collection__btn--next,
+  #deheir_page .diheir-collection__gallery-wrap.is-spread .diheir-collection__btn--next {
+    right: 4px;
+  }
+
+  /* diheirspace */
+  #deheir_page .diheir-space { padding: calc(79 * var(--u)) 0 calc(86 * var(--u)); }
+  #deheir_page .diheir-space__word { font-size: calc(160 * var(--u)); letter-spacing: calc(-3.2 * var(--u)); }
+  #deheir_page .diheir-space__stage { margin-top: calc(-64 * var(--u)); padding-top: 0; }
+  #deheir_page .diheir-space__landscape { display: none; }
+  #deheir_page .diheir-space__glass {
+    width: calc(690 * var(--u)); margin-left: calc(39 * var(--u)); padding: 0;
+    background: none; border: 0; border-radius: 0; -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  #deheir_page .diheir-space__card { width: 100%; padding: calc(80 * var(--u)) calc(40 * var(--u)); border-radius: calc(32 * var(--u)); }
+  #deheir_page .diheir-space__photo { height: calc(360 * var(--u)); }
+  #deheir_page .diheir-space__arrow {
+    width: calc(48 * var(--u));
+    height: calc(48 * var(--u));
+    transform: translateY(-50%) scale(1.4);
+    transform-origin: center center;
+  }
+  #deheir_page .diheir-space__arrow--prev { left: calc(18 * var(--u)); }
+  #deheir_page .diheir-space__arrow--next { right: calc(18 * var(--u)); }
+  #deheir_page .diheir-space__meta,
+  #deheir_page .diheir-space__dir { font-size: max(13px, calc(22 * var(--u))); }
+  #deheir_page .diheir-space__mapwrap { width: 100%; min-height: auto; justify-content: center; }
+  #deheir_page .diheir-space__mapbox { width: 100%; flex: none; display: flex; align-items: center; justify-content: center; }
+  #deheir_page .diheir-space__map {
+    width: 100%;
+    height: calc(360 * var(--u));
+    box-sizing: border-box;
+    border: calc(24 * var(--u)) solid rgba(68,68,41,0.2);
+  }
+  #deheir_page .diheir-space__map-fallback img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+  #deheir_page .diheir-space__map-return {
+    padding: max(7px, calc(7 * var(--u))) max(18px, calc(22 * var(--u)));
+  }
+  #deheir_page .diheir-space__btn {
+    width: max(180px, calc(251 * var(--u))); height: max(53px, calc(72 * var(--u)));
+    border-radius: max(27px, calc(36 * var(--u))); font-size: max(20px, calc(29 * var(--u))); padding: 0;
+  }
+
+  /* footer */
+  #deheir_page .diheir-footer { padding: calc(126 * var(--u)) calc(60 * var(--u)) calc(63 * var(--u)); }
+  #deheir_page .diheir-footer__row { flex-direction: column; align-items: flex-start; gap: calc(40 * var(--u)); }
+  #deheir_page .diheir-footer__info { font-size: max(11px, calc(16 * var(--u))); letter-spacing: calc(-0.32 * var(--u)); }
+  #deheir_page .diheir-footer__logo { width: calc(400 * var(--u)); height: calc(145 * var(--u)); }
+
+  /* diheir_floating (mobile 형태: diheir_landing 동일) */
+  #deheir_page .diheir-floating {
+    position: fixed;
+    right: max(16px, calc(var(--u) * 32));
+    bottom: 40px;
+    width: 139px;
+    gap: 0;
+  }
+  #deheir_page .diheir-floating__card,
+  #deheir_page .diheir-floating__bene,
+  #deheir_page .diheir-floating__pill,
+  #deheir_page .diheir-floating__cta {
+    display: none;
+  }
+  #deheir_page .diheir-floating__mo {
+    display: block;
+    position: relative;
+    bottom: 40px;
+    width: 139px;
+    aspect-ratio: 139 / 122;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #deheir_page .diheir-floating__mo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+@media (max-width: 430px) {
+  #deheir_page .diheir-floating__mo {
+    width: 100px;
+    bottom: 40px;
+  }
+}
+
+/* 시안(768)보다 좁은 휴대폰: 최소 글자 크기 적용으로 길어진 문장은 줄바꿈 허용 */
+@media (max-width: 767px) {
+  #deheir_page .diheir-identity__txt,
+  #deheir_page .diheir-designer__desc,
+  #deheir_page .diheir-space__meta,
+  #deheir_page .diheir-footer__info,
+  #deheir_page .diheir-collection__en { white-space: normal; word-break: keep-all; }
+  #deheir_page .diheir-identity__txt--1,
+  #deheir_page .diheir-identity__txt--3 { margin-right: calc(32 * var(--u)); }
+  #deheir_page .diheir-identity__txt--2,
+  #deheir_page .diheir-identity__txt--4 { margin-left: calc(32 * var(--u)); }
+  #deheir_page .diheir-identity__txt--3 { margin-top: 16px; }
+  #deheir_page .diheir-designer__desc { margin-left: calc(32 * var(--u)); }
+  #deheir_page .diheir-core__quote { white-space: normal; word-break: keep-all; padding: 0 calc(32 * var(--u)); }
+}
+
+/* 768px ~ 1023px (태블릿/중간 구간): 768px 시안과 동일한 308px × 245px 고정 사이즈 유지 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #deheir_page .diheir-home__cta {
+    width: 308px !important;
+    height: 245px !important;
+  }
+  #deheir_page .diheir-home__circle {
+    width: 245px !important;
+    height: 245px !important;
+  }
+  #deheir_page .diheir-home__ring {
+    width: 245px !important;
+    height: 245px !important;
+  }
+  #deheir_page .diheir-home__label {
+    left: 60px !important;
+    top: 106px !important;
+    width: 248px !important;
+  }
+  #deheir_page .diheir-home__line--mo {
+    width: 240.534px !important;
+    height: 33.254px !important;
+    margin-top: -0.25px !important;
+  }
+  #deheir_page .diheir-home__ctatext {
+    top: -1px !important;
+    font-size: 22px !important;
+  }
+}
+</style>
+</head>
+<body style="margin:0">
+
+<div id="deheir_page">
+
+  <!-- nav (3:389 / 3:754) -->
+  <header class="diheir-nav">
+    <div class="diheir-nav__logo-wrap">
+      <div class="diheir-nav__logo" role="button" tabindex="0" aria-label="디에르 메뉴" aria-expanded="false" aria-haspopup="true">
+        <picture class="diheir-nav__logo-default">
+          <source media="(max-width: 1023px)" srcset="component/img/logo/logo_mo.svg">
+          <img src="component/img/logo/logo_pc.svg" width="190" height="59" alt="디에르(DIHEIR)">
+        </picture>
+        <img class="diheir-nav__logo-identity" src="component/img/logo/Diheir Logo.png" width="190" height="59" alt="디에르(DIHEIR)">
+      </div>
+      <!-- 로고 호버·클릭 드롭다운 네비게이션 (Drop_Menu) -->
+      <div class="diheir-nav__dropdown-wrap">
+        <nav class="diheir-nav__dropdown" aria-label="주요 메뉴">
+          <ul class="diheir-nav__menu">
+            <li><a class="diheir-nav__item diheir-en" href="#home">Home</a></li>
+            <li><a class="diheir-nav__item diheir-en" href="#brand">Brand</a></li>
+            <li><a class="diheir-nav__item diheir-en" href="#service">Service</a></li>
+            <li><a class="diheir-nav__item diheir-en" href="#collection">Collection</a></li>
+            <li><a class="diheir-nav__item diheir-en" href="#reservation">Reservation</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- 운영 사이트와 동일: diheirspace(#reservation) 영역으로 이동 -->
+    <a class="diheir-nav__contact diheir-en diheir-cap" href="#reservation">Contact</a>
+  </header>
+
+<div class="diheir-main">
+
+  <!-- 01 home (3:116 / 3:471) -->
+  <section id="home" class="diheir-home diheir-sec" aria-labelledby="diheir-home-title">
+    <div class="diheir-home__bg diheir-deco">
+      <img class="diheir-cover" src="component/img/01_home/home_img.jpg" width="4096" height="2730" alt="" fetchpriority="high">
+    </div>
+    <div class="diheir-home__box diheir-flow">
+      <div class="diheir-home__txt">
+        <h1 id="diheir-home-title" class="diheir-home__title diheir-en diheir-cap">Grace in<br>Every Moment</h1>
+        <p class="diheir-home__desc">세대를 지나 기억으로 남는 주얼리, 디에르.<br>청담 쇼룸에서 전속 디자이너와 만나보세요.</p>
+      </div>
+      <!-- 쇼룸 방문 예약하기: 네이버 예약 연결 -->
+      <a class="diheir-home__cta" href="https://booking.naver.com/booking/6/bizes/1551859" target="_blank" rel="noopener noreferrer">
+        <span class="diheir-home__circle"></span>
+        <!-- 원형 패스 텍스트: 피그마 export 미지원 요소 → 피그마 13:75 렌더 측정값으로 재현.
+             기준선 반지름 115(원 154.5 기준). 3시에서 시계방향 35° 지점에서 시작해 305° 구간에 한 줄로 배치
+             (오른쪽 340°~35° 사이만 비움). 경로를 시작점에서 출발하는 원으로 그려 글자가 경로 끝에서 잘리지 않게 함 -->
+        <svg class="diheir-home__ring" viewBox="0 0 309 309" aria-hidden="true" focusable="false">
+          <defs><path id="diheir-ring-path" d="M248.7 220.5A115 115 0 1 1 60.3 88.5A115 115 0 1 1 248.7 220.5"/></defs>
+          <text><textPath href="#diheir-ring-path" textLength="612.2" lengthAdjust="spacing">Grace In Every Moment Grace In Every Moment</textPath></text>
+        </svg>
+        <span class="diheir-home__label">
+          <img class="diheir-home__line diheir-home__line--pc" src="component/img/01_home/Group_6_pc.svg" alt="">
+          <img class="diheir-home__line diheir-home__line--mo" src="component/img/01_home/Group_6_mo.svg" alt="">
+          <span class="diheir-home__ctatext">쇼룸 방문 예약하기</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 02 brand_identity (3:132 / 3:485) -->
+  <section id="brand" class="diheir-identity diheir-sec" aria-label="Diamond + Heirloom">
+    <p class="diheir-identity__word diheir-identity__word--1 diheir-deco diheir-en diheir-cap" aria-hidden="true">Timeless</p>
+    <p class="diheir-identity__word diheir-identity__word--2 diheir-deco diheir-en diheir-cap" aria-hidden="true">Green Grove</p>
+    <div class="diheir-identity__wm diheir-deco">
+      <img class="diheir-cover" src="component/img/logo/Diheir_Logo_og.png" width="1130" height="410" alt="" loading="lazy">
+    </div>
+    <div class="diheir-flow">
+      <h2 class="diheir-identity__title diheir-en diheir-cap">
+        <span class="diheir-identity__l1">D<span class="is-light">iamond</span></span>
+        <span class="diheir-identity__l2"><span class="is-plus">+</span> Heir<span class="is-light">loom</span></span>
+      </h2>
+      <div class="diheir-identity__grid">
+        <div class="diheir-identity__col">
+          <div class="diheir-identity__media">
+            <div class="diheir-identity__img40">
+              <img src="component/img/02_brand_identity/image_40.png" width="736" height="1104" alt="노을 아래 언덕 위의 올리브나무" loading="lazy">
+            </div>
+            <img class="diheir-identity__img49 diheir-cover" src="component/img/02_brand_identity/image_49.png" width="2048" height="2048" alt="올리브나무 그루터기" loading="lazy">
+          </div>
+          <p class="diheir-identity__txt diheir-identity__txt--3">보석은 단순한 장신구가 아니라 <br class="diheir-mo">가족의 역사와 사랑의 시간을 담아<br>다음 세대로 이어지는 상징이 될 수 있다고 믿습니다.</p>
+          <p class="diheir-identity__txt diheir-identity__txt--4">시간이 흘러도 변하지 않는 감정과 가치, 디에르는 그 영속성을 이야기합니다.<br>디에르에 당신의 스토리가 담깁니다.</p>
+        </div>
+        <div class="diheir-identity__col">
+          <p class="diheir-identity__txt diheir-identity__txt--1">디에르는 가보라는 키워드에서 모티브를 얻어<br>세대를 넘어 이어지는 가치와 기억을 담기 위해 탄생한 브랜드입니다.</p>
+          <p class="diheir-identity__txt diheir-identity__txt--2">사계절 푸른 올리브나무는 강인한 생명력으로 <br class="diheir-mo">결실과 승리, 장수와 풍요를 상징합니다.<br>디에르는 올리브나무가 지닌 깊은 의미를 모든 디자인에 담아냅니다.<br>시간이 흘러도 변하지 않는 가치와 아름다움을 전하며,<br>사랑과 기억을 잇는 가보를 만들어갑니다.</p>
+          <div class="diheir-identity__box">
+            <div class="diheir-identity__boxin">
+              <div class="diheir-identity__boxlogo">
+                <div class="diheir-identity__emblem" role="img" aria-label="디에르 올리브나무 엠블럼">
+                  <img class="g1" src="component/img/02_brand_identity/Layer_1_Group_1.svg" alt="">
+                  <img class="g2" src="component/img/02_brand_identity/Layer_1_Group_2.svg" alt="">
+                  <img class="g3" src="component/img/02_brand_identity/Layer_1_Group_3.svg" alt="">
+                  <img class="g4" src="component/img/02_brand_identity/Layer_1_Group_4.svg" alt="">
+                  <img class="g5" src="component/img/02_brand_identity/Layer_1_Group_5.svg" alt="">
+                </div>
+                <img class="diheir-identity__wordmark diheir-identity__wordmark--pc" src="component/img/02_brand_identity/Layer_1_2_pc.svg" alt="Diheir">
+                <img class="diheir-identity__wordmark diheir-identity__wordmark--mo" src="component/img/02_brand_identity/Layer_1_2_mo.svg" alt="Diheir">
+              </div>
+              <p class="diheir-identity__boxcap diheir-en diheir-cap">Grace in every moment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 brand_heritage (3:248 / 3:601) -->
+  <section class="diheir-heritage diheir-sec" aria-label="A Family Legacy Crafted Over 80 Years">
+    <p class="diheir-heritage__80 diheir-deco diheir-en" aria-hidden="true">80</p>
+    <p class="diheir-heritage__years diheir-deco diheir-en diheir-cap" aria-hidden="true">years</p>
+    <div class="diheir-flow">
+      <p class="diheir-heritage__legacy diheir-en diheir-cap">A Family Legacy<br>Crafted Over 80 Years</p>
+      <div class="diheir-heritage__cards">
+        <article class="diheir-heritage__card diheir-heritage__card--1">
+          <picture>
+            <source media="(max-width: 1023px)" srcset="component/img/03_brand_heritage/Frame_11_mo.png">
+            <img src="component/img/03_brand_heritage/Frame_11_pc.png" width="683" height="1024" alt="" loading="lazy">
+          </picture>
+          <span class="diheir-heritage__shade"></span>
+          <div class="diheir-heritage__panel">
+            <h3 class="diheir-heritage__gen diheir-en diheir-cap">1st Generation</h3>
+            <p class="diheir-heritage__ko">외할아버지의 동광당(동대문)</p>
+            <p class="diheir-heritage__en diheir-en diheir-cap">Donggwangdang Jewelry (Dongdaemun)</p>
+          </div>
+        </article>
+        <article class="diheir-heritage__card diheir-heritage__card--2">
+          <img src="component/img/03_brand_heritage/Frame_12.png" width="820" height="1024" alt="" loading="lazy">
+          <span class="diheir-heritage__shade"></span>
+          <div class="diheir-heritage__panel">
+            <!-- 텍스트는 각 시안 원문 유지: PC "2nd Generation" / 모바일 "2st Generation" (README 15항 확인 필요) -->
+            <h3 class="diheir-heritage__gen diheir-en diheir-cap"><span class="diheir-only-pc">2nd Generation</span><span class="diheir-only-mo">2st Generation</span></h3>
+            <p class="diheir-heritage__ko">부모님의 삼정사(대구 교동시장 1호 금방)</p>
+            <p class="diheir-heritage__en diheir-en diheir-cap">Our Parents' Samjeongsa (The First Jewelry <br>Store in Daegu Gyodong Market)</p>
+          </div>
+        </article>
+        <article class="diheir-heritage__card diheir-heritage__card--3">
+          <img src="component/img/03_brand_heritage/Frame_10.jpg" width="4096" height="2731" alt="" loading="lazy">
+          <span class="diheir-heritage__shade"></span>
+          <div class="diheir-heritage__panel">
+            <h3 class="diheir-heritage__gen diheir-en diheir-cap">3st Generation</h3>
+            <p class="diheir-heritage__ko">3남매의 도로시(1등 주얼리 쇼핑몰)</p>
+            <p class="diheir-heritage__en diheir-en diheir-cap">Korea's Leading Online Jewelry Store</p>
+          </div>
+        </article>
+      </div>
+      <p class="diheir-heritage__dorocy diheir-en diheir-cap" aria-hidden="true">DIHEIR by DOROCY</p>
+      <p class="diheir-heritage__intro diheir-heritage__intro--1"><strong>디에르(DIHEIR)</strong>는<br>프리미엄 주얼리 디자인 하우스 ‘도로시(DOROCY)’에서 새롭게 전개하는<br><strong>하이 주얼리 브랜드</strong>입니다.</p>
+      <p class="diheir-heritage__intro diheir-heritage__intro--2">더 멋진 디자인과 더 높은 완성도의 작품을 만들고 싶다는<br>도로시의 순수 열정은 디에르를 탄생시킨 원동력이었습니다.</p>
+    </div>
+  </section>
+</div><!-- /.diheir-main (01~03) -->
+
+  <!-- 04 Services_core (3:273 / 3:626) -->
+  <section id="service" class="diheir-core diheir-sec" data-name="Services_core" aria-label="Jewelry becomes meaningful">
+    <div class="diheir-core__sticky">
+      <!-- PC layout (1024px 이상) -->
+      <div class="diheir-core__stage">
+        <!-- Frame30: Center Video + Quote -->
+        <div class="diheir-core__frame30">
+          <div class="diheir-core__clip">
+            <div class="diheir-core__bg"></div>
+            <div class="diheir-core__video-wrap">
+              <iframe class="diheir-core__video" src="https://player.vimeo.com/video/1211853153?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1" title="디에르 브랜드 영상" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
+            <div class="diheir-core__overlay"></div>
+          </div>
+          <div class="diheir-core__quote-wrap">
+            <div class="diheir-core__quote diheir-cap">
+              <div class="diheir-core__en diheir-en">
+                <p>“Jewelry becomes meaningful</p>
+                <p>When it carries memories beyond time”</p>
+              </div>
+              <p class="diheir-core__ko">세대를 지나 기억으로 남는 주얼리, 디에르.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Side Images (1920 base coordinates) -->
+        <div class="diheir-core__side diheir-core__side--12 diheir-deco"><img class="diheir-cover" src="component/img/04_Services_core/Rectangle_12.jpg" width="1456" height="816" alt="" loading="lazy"></div>
+        <div class="diheir-core__side diheir-core__side--13 diheir-deco"><img class="diheir-cover" src="component/img/04_Services_core/Rectangle_13.png" width="1456" height="816" alt="" loading="lazy"></div>
+        <div class="diheir-core__side diheir-core__side--15 diheir-deco"><img class="diheir-cover" src="component/img/04_Services_core/Rectangle_15.png" width="1456" height="816" alt="" loading="lazy"></div>
+        <div class="diheir-core__side diheir-core__side--14 diheir-deco"><img class="diheir-cover" src="component/img/04_Services_core/Rectangle_14.png" width="1456" height="816" alt="" loading="lazy"></div>
+      </div>
+
+      <!-- 모바일 layout (1023px 이하) -->
+      <div class="diheir-core__mo">
+        <div class="diheir-core__mo-cards">
+          <div class="diheir-core__mo-card diheir-core__mo-card--1"><img src="component/img/04_Services_core/Rectangle_15.png" alt="" loading="lazy"></div>
+          <div class="diheir-core__mo-card diheir-core__mo-card--2"><img src="component/img/04_Services_core/Rectangle_14.png" alt="" loading="lazy"></div>
+          <div class="diheir-core__mo-card diheir-core__mo-card--3"><img src="component/img/04_Services_core/Rectangle_12.jpg" alt="" loading="lazy"></div>
+          <div class="diheir-core__mo-card diheir-core__mo-card--4"><img src="component/img/04_Services_core/Rectangle_13.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="diheir-core__mo-video-box">
+          <div class="diheir-core__mo-video-inner">
+            <iframe class="diheir-core__video" src="https://player.vimeo.com/video/1211853153?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1" title="디에르 브랜드 영상 (모바일)" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <div class="diheir-core__overlay"></div>
+          </div>
+          <div class="diheir-core__quote diheir-cap">
+            <p class="diheir-core__en diheir-en">“Jewelry becomes meaningful<br>When it carries memories beyond time”</p>
+            <p class="diheir-core__ko">세대를 지나 기억으로 남는 주얼리, 디에르.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="diheir-main"><!-- /.diheir-main (05~08) -->
+
+  <!-- 05 Services_Designer (3:283 / 3:631) -->
+  <section class="diheir-designer diheir-sec" aria-labelledby="diheir-designer-title">
+    <div class="diheir-designer__bg diheir-deco"><img class="diheir-cover" src="component/img/05_Services_Designer/Services_Designer.jpg" width="1920" height="2816" alt="" loading="lazy"></div>
+    <div class="diheir-designer__grad diheir-deco"></div>
+    <div class="diheir-designer__sketch1 diheir-deco"><img src="component/img/05_Services_Designer/개체.png" width="592" height="705" alt="" loading="lazy"></div>
+    <div class="diheir-designer__sketch2 diheir-deco"><img src="component/img/05_Services_Designer/개체_2.png" width="1023" height="1024" alt="" loading="lazy"></div>
+    <p class="diheir-designer__word diheir-designer__word--1 diheir-deco diheir-en diheir-cap" aria-hidden="true">High-End</p>
+    <p class="diheir-designer__word diheir-designer__word--2 diheir-deco diheir-en diheir-cap" aria-hidden="true">Quality Jewelry</p>
+    <div class="diheir-designer__head diheir-flow">
+      <h2 id="diheir-designer-title" class="diheir-designer__title diheir-en diheir-cap">Personal Design Consultation</h2>
+      <p class="diheir-designer__desc">전속 디자이너가 매장에 상주하여<br>고객 한 분 한 분의 라이프스타일에 맞춘<br>큐레이션과 맞춤 제작(비스포크) 상담을 진행합니다.</p>
+    </div>
+    <div class="diheir-designer__slider diheir-flow" data-diheir-slider>
+      <div class="diheir-designer__track" tabindex="0" role="region" aria-label="Services 카드 목록 (좌우 스크롤)">
+        <!-- 01 The First Principle – Comfort Fit -->
+        <div class="diheir-designer__card">
+          <div class="diheir-designer__card-bg">
+            <img src="component/img/05_Services_Designer/Frame_13.png" width="803" height="1211" alt="" loading="lazy" draggable="false">
+            <div class="diheir-designer__card-dim"></div>
+          </div>
+          <div class="diheir-designer__name diheir-en diheir-cap">
+            <p>The First Principle</p>
+            <p>– Comfort Fit</p>
+          </div>
+          <div class="diheir-designer__hover">
+            <p class="diheir-designer__hover-title diheir-en diheir-cap">The First Principle<br>– Comfort Fit</p>
+            <p class="diheir-designer__hover-desc">“편안하지 않다면, 디에르는 디자인하지 않습니다.”<br>디에르가 가장 먼저 고민하는 것은 디자인 이전의 감각입니다.<br>손끝이 처음 반지를 마주하는 순간,<br>오랜 시간 함께했을 때의 편안함과 자연스러움<br>그리고 일상 속에서 잊은 듯 스며드는 착용감.<br>설계 기준 0.1mm의 차이에서 착용의 편안함이 완성됩니다.<br>디에르는 착용의 모든 순간을 설계합니다.</p>
+          </div>
+        </div>
+
+        <!-- 02 Jewelry Resetting Service -->
+        <div class="diheir-designer__card">
+          <div class="diheir-designer__card-bg">
+            <img src="component/img/05_Services_Designer/Frame_14.png" width="1122" height="1402" alt="" loading="lazy" draggable="false">
+            <div class="diheir-designer__card-dim"></div>
+          </div>
+          <div class="diheir-designer__name diheir-en diheir-cap">
+            <p>Jewelry Resetting</p>
+            <p>Service</p>
+          </div>
+          <div class="diheir-designer__hover">
+            <p class="diheir-designer__hover-title diheir-en diheir-cap">Jewelry Resetting<br>Service</p>
+            <p class="diheir-designer__hover-desc">디에르의 전문 주얼리 디자이너는<br>고객님의 의미 있는 보석이 더욱 가치 있도록<br>리세팅 서비스를 제공해 드립니다.<br>고객의 취향과 의미를 반영한<br>커스터마이징 서비스를 더해,<br>디에르 주얼리는 세대를 잇는 이야기로 완성됩니다.</p>
+          </div>
+        </div>
+
+        <!-- 03 Craftsmanship -->
+        <div class="diheir-designer__card">
+          <div class="diheir-designer__card-bg">
+            <img src="component/img/05_Services_Designer/Frame_15.png" width="1024" height="1536" alt="" loading="lazy" draggable="false">
+            <div class="diheir-designer__card-dim"></div>
+          </div>
+          <div class="diheir-designer__name diheir-en diheir-cap">
+            <p>Craftsmanship</p>
+          </div>
+          <div class="diheir-designer__hover">
+            <p class="diheir-designer__hover-title diheir-en diheir-cap">Craftsmanship</p>
+            <p class="diheir-designer__hover-desc">디에르의 작품들은<br>주얼리 명장님들의 정교한 세공을 통해 완성됩니다.<br>완벽한 비율과 균형,<br>섬세한 디테일.<br>편안한 착용감까지 아우르는 완성도.<br>세대를 이어 전해지는 작품들은<br>그 스토리와 사랑이 같이 전달되어야 합니다.<br>가보의 가치는 타협하지 않는 장인 정신을 통해 완성됩니다.</p>
+          </div>
+        </div>
+
+        <!-- 04 Jewelry as Legacy -->
+        <div class="diheir-designer__card">
+          <div class="diheir-designer__card-bg">
+            <img src="component/img/05_Services_Designer/Frame_16.png" width="960" height="1294" alt="" loading="lazy" draggable="false">
+            <div class="diheir-designer__card-dim"></div>
+          </div>
+          <div class="diheir-designer__name diheir-en diheir-cap">
+            <p>Jewelry as Legacy</p>
+          </div>
+          <div class="diheir-designer__hover">
+            <p class="diheir-designer__hover-title diheir-en diheir-cap">Jewelry as Legacy</p>
+            <p class="diheir-designer__hover-desc">디에르는 ‘유산’을 물질이 아닌 감정으로 바라봅니다.<br>부모에서 자녀로,<br>사랑하는 사람에게로 이어지는 이야기,<br>그리고 오래도록 기억으로 남는 순간들.<br>디에르는주얼리를 통해<br>사람과 사람 사이의 시간을 연결하고자 합니다.</p>
+          </div>
+        </div>
+
+        <!-- 05 Invisible Precision – Comfort Fit for Size -->
+        <div class="diheir-designer__card">
+          <div class="diheir-designer__card-bg">
+            <img src="component/img/05_Services_Designer/Frame_17.png" width="1500" height="2500" alt="" loading="lazy" draggable="false">
+            <div class="diheir-designer__card-dim"></div>
+          </div>
+          <div class="diheir-designer__name diheir-en diheir-cap">
+            <p>Invisible Precision</p>
+            <p>– Comfort Fit for Size</p>
+          </div>
+          <div class="diheir-designer__hover">
+            <p class="diheir-designer__hover-title diheir-en diheir-cap">Invisible Precision<br>– Comfort Fit for Size</p>
+            <p class="diheir-designer__hover-desc">- 총 180개의 14K 옐로우 골드 사이즈 링 -<br><br>2.5mm부터 5.0mm까지 7가지 폭의 밴드를 사이즈 반지로 제작하여,<br>고객이 가장 자연스러운 감각을 찾을 수 있도록 했습니다.<br>오랜 시간 곁에 머무를 반지와 함께할 고객님을 위한<br>디에르의 배려이자 철학입니다.</p>
+          </div>
+        </div>
+      </div>
+      <!-- 모바일 시안(3:647)에만 있는 이전/다음 버튼 -->
+      <div class="diheir-designer__nav">
+        <button type="button" class="diheir-arrow diheir-arrow--prev" data-dir="-1" aria-label="이전 카드"><img src="component/img/icon/bitcoin-icons_arrow-up-outline.svg" alt=""></button>
+        <button type="button" class="diheir-arrow diheir-arrow--next" data-dir="1" aria-label="다음 카드"><img src="component/img/icon/bitcoin-icons_arrow-up-outline.svg" alt=""></button>
+      </div>
+    </div>
+    <div class="diheir-designer__lily diheir-deco"><img class="diheir-cover" src="component/img/05_Services_Designer/ChatGPT_Image_2026년_7월_23일_오후_01_22_58_1.png" width="1024" height="1024" alt="" loading="lazy"></div>
+    <div class="diheir-designer__fly1 diheir-deco"><img class="diheir-cover" src="component/img/05_Services_Designer/ChatGPT_Image_2026년_7월_23일_오후_02_02_22_1.png" width="1024" height="1024" alt="" loading="lazy"></div>
+    <div class="diheir-designer__fly2 diheir-deco"><img class="diheir-cover" src="component/img/05_Services_Designer/ChatGPT_Image_2026년_7월_23일_오후_02_02_22_1.png" width="1024" height="1024" alt="" loading="lazy"></div>
+    <div class="diheir-designer__ring diheir-deco"><img src="component/img/05_Services_Designer/디에르_0379(m)_결_1.png" width="2731" height="4096" alt="" loading="lazy"></div>
+  </section>
+
+  <!-- 06 collection (3:308 / 3:654) — diheir.com 원본 1920px 반응형 스테이지 구조 -->
+  <section id="collection" class="diheir-collection diheir-sec" aria-labelledby="diheir-collection-title">
+    <div class="diheir-collection__stage">
+      <div class="diheir-collection__bg diheir-deco"><img src="component/img/06_collection/collection_bg.jpg" width="1920" height="1200" alt="" loading="lazy"></div>
+      <div class="diheir-collection__inner">
+        <div class="diheir-collection__head">
+          <div class="diheir-collection__titles">
+            <div class="diheir-collection__names">
+              <p class="diheir-collection__sub diheir-en" id="diheir-col-sub">Lily Of the Valley</p>
+              <h2 id="diheir-collection-title" class="diheir-collection__title diheir-en">LOV Collection</h2>
+            </div>
+            <p class="diheir-collection__ko" id="diheir-col-ko">은방울꽃의 꽃말, “틀림없이 행복해집니다”</p>
+          </div>
+          <p class="diheir-collection__en diheir-en" id="diheir-col-en">The Lily of the Valley symbolizes a promise:&#10;"Surely, Happiness Awaits You."</p>
+        </div>
+
+        <div class="diheir-collection__gallery-wrap">
+          <button type="button" class="diheir-collection__btn diheir-collection__btn--prev" id="diheir-col-prev" aria-label="이전 컬렉션">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+
+          <div class="diheir-collection__stack" id="diheir-col-stack" role="button" aria-label="컬렉션 카드 (클릭하여 펼치기)">
+            <div class="diheir-collection__card diheir-collection__card--1" data-card-idx="1" style="transform: translate3d(-15px, 0, 0) rotate(-3deg) scale(0.98); z-index: 10;">
+              <img src="component/img/06_collection/LOV_Collection_02.png" alt="LOV Collection 2" loading="eager" draggable="false">
+            </div>
+            <div class="diheir-collection__card diheir-collection__card--2" data-card-idx="2" style="transform: translate3d(15px, 0, 0) rotate(3deg) scale(0.98); z-index: 10;">
+              <img src="component/img/06_collection/LOV_Collection_03.png" alt="LOV Collection 3" loading="eager" draggable="false">
+            </div>
+            <div class="diheir-collection__card diheir-collection__card--0" data-card-idx="0" style="transform: translate3d(0, 0, 0) rotate(0deg) scale(1); z-index: 20;">
+              <img src="component/img/06_collection/LOV_Collection_01.png" alt="LOV Collection 1" loading="eager" draggable="false">
+            </div>
+          </div>
+
+          <button type="button" class="diheir-collection__btn diheir-collection__btn--next" id="diheir-col-next" aria-label="다음 컬렉션">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 diheirspace (3:330 / 3:676) — 내부 예약 영역 id="reservation" -->
+  <section id="reservation" class="diheir-space diheir-sec" aria-labelledby="diheir-space-title">
+    <p class="diheir-space__word diheir-en diheir-cap" aria-hidden="true">diheirspace</p>
+    <div class="diheir-space__stage">
+      <div class="diheir-space__landscape diheir-deco"><img class="diheir-cover" src="component/img/07_diheirspace/Rectangle_20.jpg" width="1456" height="816" alt="" loading="lazy"></div>
+      <div class="diheir-space__glass">
+        <div class="diheir-space__card">
+          <div class="diheir-space__body">
+            <div class="diheir-space__top">
+              <h2 id="diheir-space-title" class="diheir-space__title diheir-en">House of Diheir</h2>
+              <div class="diheir-space__photo" id="diheirSpacePhoto">
+                <div class="diheir-space__track" id="diheirSpaceTrack" style="transform: translate3d(-100%, 0, 0);">
+                  <!-- Clone of slide 3 for seamless backward loop -->
+                  <div class="diheir-space__slide" aria-hidden="true">
+                    <img class="diheir-cover" src="component/img/07_diheirspace/diheirspace_store_03.jpg" alt="" loading="lazy">
+                  </div>
+                  <!-- Real slide 1 -->
+                  <div class="diheir-space__slide">
+                    <img class="diheir-cover" src="component/img/07_diheirspace/diheirspace_store_01.jpg" alt="디에르 청담 매장 1" loading="lazy">
+                  </div>
+                  <!-- Real slide 2 -->
+                  <div class="diheir-space__slide">
+                    <img class="diheir-cover" src="component/img/07_diheirspace/diheirspace_store_02.jpg" alt="디에르 청담 매장 2" loading="lazy">
+                  </div>
+                  <!-- Real slide 3 -->
+                  <div class="diheir-space__slide">
+                    <img class="diheir-cover" src="component/img/07_diheirspace/diheirspace_store_03.jpg" alt="디에르 청담 매장 3" loading="lazy">
+                  </div>
+                  <!-- Clone of slide 1 for seamless forward loop -->
+                  <div class="diheir-space__slide" aria-hidden="true">
+                    <img class="diheir-cover" src="component/img/07_diheirspace/diheirspace_store_01.jpg" alt="" loading="lazy">
+                  </div>
+                </div>
+                <button type="button" class="diheir-space__arrow diheir-space__arrow--prev" id="diheirSpacePrev" aria-label="이전 매장 사진">
+                  <img src="component/img/icon/teenyicons_left-outline.svg" alt="">
+                </button>
+                <button type="button" class="diheir-space__arrow diheir-space__arrow--next" id="diheirSpaceNext" aria-label="다음 매장 사진">
+                  <img src="component/img/icon/teenyicons_right-outline.svg" alt="">
+                </button>
+              </div>
+            </div>
+            <div class="diheir-space__bars" id="diheirSpaceBars" aria-label="매장 사진 선택">
+              <button type="button" class="diheir-space__bar is-active" data-index="0" aria-label="1번 매장 사진 보기"></button>
+              <button type="button" class="diheir-space__bar" data-index="1" aria-label="2번 매장 사진 보기"></button>
+              <button type="button" class="diheir-space__bar" data-index="2" aria-label="3번 매장 사진 보기"></button>
+            </div>
+            <div class="diheir-space__info">
+              <div>
+                <p class="diheir-space__name diheir-en diheir-cap">DIHEIR Cheongdam</p>
+                <p class="diheir-space__tag">당신의 모든 순간을 빛내주는 하이 주얼리 브랜드 디에르(DIHEIR)</p>
+              </div>
+              <div class="diheir-space__detail">
+                <div class="diheir-space__meta">
+                  <p>서울시 강남구 도산대로59길 16,<br>B1층 (청담동, 테이블2025)</p>
+                  <p>AM 10:30 - PM 07:30 / 월·명절 연휴 휴무<br>Tel. 0507-1339-2520</p>
+                </div>
+                <div class="diheir-space__mapwrap">
+                  <div class="diheir-space__mapbox">
+                    <div class="diheir-space__map" id="naverMap">
+                      <!-- 네이버 지도 로드 전/실패 시 대체 정적 이미지 및 장소 링크 -->
+                      <a class="diheir-space__map-fallback" id="naverMapFallback" href="https://map.naver.com/p/entry/place/2036509182" target="_blank" rel="noopener noreferrer">
+                        <img src="component/img/07_diheirspace/Rectangle_36.png" width="581" height="601" alt="디에르 청담 매장 위치 지도" loading="lazy">
+                        <span class="diheir-sr"> (네이버 지도에서 보기, 새 창)</span>
+                      </a>
+                      <!-- 지도 확대/축소 컨트롤 -->
+                      <div class="diheir-space__map-controls" id="naverMapControls" style="display: none;">
+                        <button type="button" class="diheir-space__map-zoom" id="mapZoomIn" aria-label="지도 확대">
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                            <line x1="7" y1="2" x2="7" y2="12"></line>
+                            <line x1="2" y1="7" x2="12" y2="7"></line>
+                          </svg>
+                        </button>
+                        <button type="button" class="diheir-space__map-zoom" id="mapZoomOut" aria-label="지도 축소">
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                            <line x1="2" y1="7" x2="12" y2="7"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- 디에르 위치 복귀 버튼 -->
+                      <button type="button" class="diheir-space__map-return" id="mapReturnBtn" style="display: none;" aria-label="디에르 위치로 돌아가기">
+                        ↩ 디에르 위치로
+                      </button>
+                    </div>
+                  </div>
+                  <div class="diheir-space__dir">
+                    <p><strong>오시는길</strong>수인분당선 압구정로데오역 3번 출구에서 423m</p>
+                    <p><strong>주차</strong>본건물 '테이블2025' (서울 강남구 선릉로 152길 33)에 발렛 주차 하시면 2시간 이용 가능합니다. <br class="diheir-mo">주차후 계단으로 올라오시면 좌측으로 디에르 매장이 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 운영 사이트(diheir.com)에서 사용 중인 네이버 예약 URL, 새 창 -->
+          <a class="diheir-space__btn diheir-en" href="https://booking.naver.com/booking/6/bizes/1551859" target="_blank" rel="noopener noreferrer">Reservation<span class="diheir-sr"> (네이버 예약, 새 창)</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 footer (3:366 / 3:710) -->
+  <footer class="diheir-footer">
+    <div class="diheir-footer__row">
+      <div class="diheir-footer__info">
+        <p>법인명(상호) : 디에르(DIHEIR)</p>
+        <p>대표자(성명) : 조윤경</p>
+        <p>사업자등록번호 : 758-26-01812 [사업자정보확인]</p>
+        <p>개인정보 보호책임자 : 조윤경</p>
+        <p>주소 : 서울특별시 강남구 도산대로59길 16, 지하 1층 (청담동, 테이블2025)</p>
+        <p>대표번호 : 0507-1339-2520</p>
+        <p class="diheir-footer__copy">© 2026 DIHEIR. ALL RIGHTS RESERVED.</p>
+      </div>
+      <img class="diheir-footer__logo" src="component/img/logo/Diheir_Logo_og.png" width="1130" height="410" alt="디에르(DIHEIR)" loading="lazy">
+    </div>
+  </footer>
+
+</div><!-- /.diheir-main -->
+
+  <!-- diheir_floating (3:404 / 3:733): 플로팅 배너 및 예약 랜딩페이지 연결 -->
+  <aside class="diheir-floating" aria-label="상담 고객 혜택">
+    <div class="diheir-floating__card" role="button" tabindex="0" aria-label="시크릿 혜택 자세히 보기">
+      <div class="diheir-floating__slide" data-benefit="consultation">
+        <img class="diheir-floating__img" src="component/img/diheir_floating/img.jpg" width="1736" height="2320" alt="" loading="lazy">
+        <div class="diheir-floating__txt">
+          <p class="diheir-floating__t1">상담 고객</p>
+          <p class="diheir-floating__t2">벨벳 보석함 및<br>룸 스프레이 증정</p>
+        </div>
+      </div>
+      <div class="diheir-floating__slide" data-benefit="contract" aria-hidden="true">
+        <img class="diheir-floating__img" src="component/img/diheir_floating/Frame_99.png" width="1122" height="1402" alt="" loading="lazy">
+        <div class="diheir-floating__txt">
+          <p class="diheir-floating__t1">계약 고객</p>
+          <p class="diheir-floating__t2">14K 골드 가드링 및<br>테디베어 키링 증정</p>
+        </div>
+      </div>
+      <div class="diheir-floating__slide" data-benefit="sameday" aria-hidden="true">
+        <img class="diheir-floating__img" src="component/img/diheir_floating/Frame_100.jpg" width="4000" height="3000" alt="" loading="lazy">
+        <div class="diheir-floating__txt">
+          <p class="diheir-floating__t1">당일 계약 고객</p>
+          <p class="diheir-floating__t2 diheir-floating__t2--s">20% 특별 할인<br>평일 방문 계약 시<br>10% 추가 할인</p>
+        </div>
+      </div>
+      <div class="diheir-floating__slide" data-benefit="partner" aria-hidden="true">
+        <img class="diheir-floating__img" src="component/img/diheir_floating/Frame_101.jpg" width="2244" height="2804" alt="" loading="lazy">
+        <div class="diheir-floating__txt">
+          <p class="diheir-floating__t1">디에르<br>제휴사 혜택</p>
+          <p class="diheir-floating__t2 diheir-floating__t2--s">쿠촐라테라짜 와인·식사권 1매<br>더록시 에스테틱 관리권 1매<br>이성민 한복 바우처 1매</p>
+        </div>
+      </div>
+      <div class="diheir-floating__bar">
+        <button type="button" class="diheir-floating__btn" data-dir="-1" aria-label="이전 혜택"><img src="component/img/icon/teenyicons_left-outline_2.svg" alt=""></button>
+        <span class="diheir-floating__line" aria-hidden="true"><span></span></span>
+        <button type="button" class="diheir-floating__btn" data-dir="1" aria-label="다음 혜택"><img src="component/img/icon/teenyicons_right-outline_2.svg" alt=""></button>
+      </div>
+    </div>
+    <a class="diheir-floating__pill" href="https://www.diheir.com/board/board.html?code=diheir_board3&page=1&board_cate=&type=i&utm_source=diheir_web&utm_medium=referral&utm_campaign=reservation&utm_content=floating_banner" aria-label="시크릿 혜택 보기">
+      <span class="diheir-floating__pillin">
+        <span class="diheir-floating__benefit diheir-en">Benefit</span>
+        <img class="diheir-floating__chev" src="component/img/diheir_floating/Vector_pc.svg" alt="">
+      </span>
+    </a>
+    <a class="diheir-floating__mo" href="https://www.diheir.com/board/board.html?code=diheir_board3&page=1&board_cate=&type=i&utm_source=diheir_web&utm_medium=referral&utm_campaign=reservation&utm_content=floating_banner" aria-label="시크릿 혜택 보기"><img src="component/img/diheir_floating/diheir_floating_1.png" width="139" height="122" alt="시크릿 혜택 보기"></a>
+  </aside>
+</div><!-- /#deheir_page -->
+
+<script>
+/* deheir_page — Services_Designer 무한 슬라이더 & 카드 호버 인터랙션 (diheir.com 원본 동일 사양) */
+(function () {
+  var root = document.getElementById('deheir_page');
+  if (!root) return;
+  root.classList.add('js-motion');
+
+  /* 01-a nav 로고 호버·클릭 드롭다운 네비게이션 (Drop_Menu) */
+  var navLogoWrap = root.querySelector('.diheir-nav__logo-wrap');
+  var navLogoBtn = root.querySelector('.diheir-nav__logo');
+  if (navLogoWrap && navLogoBtn) {
+    navLogoBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = navLogoWrap.classList.toggle('is-open');
+      navLogoBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    navLogoBtn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        var isOpen = navLogoWrap.classList.toggle('is-open');
+        navLogoBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!navLogoWrap.contains(e.target)) {
+        navLogoWrap.classList.remove('is-open');
+        navLogoBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        navLogoWrap.classList.remove('is-open');
+        navLogoBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    navLogoWrap.querySelectorAll('.diheir-nav__item').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          var targetId = href.substring(1);
+          var targetEl = document.getElementById(targetId);
+          if (targetEl) {
             e.preventDefault();
+            navLogoWrap.classList.remove('is-open');
+            navLogoBtn.setAttribute('aria-expanded', 'false');
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+            if (history.pushState) {
+              history.pushState(null, '', href);
+            }
           }
-          lastTouchEnd = now;
-        }, false);
-      </script>
-    </body>
-  </html>
-  
+        }
+      });
+    });
+  }
+
+  /* 01-b nav 상태 전환:
+     - diheir-identity, diheir-heritage, diheir-designer: Diheir Logo.png 적용 & 드롭다운/Contact 텍스트 #1a1a1a 적용
+  */
+  var nav = root.querySelector('.diheir-nav');
+  var lightNavSections = root.querySelectorAll('.diheir-identity, .diheir-heritage, .diheir-designer');
+  var darkTextSections = root.querySelectorAll('.diheir-identity, .diheir-heritage, .diheir-designer');
+
+  if (nav && (lightNavSections.length || darkTextSections.length)) {
+    var updateNavThemeState = function () {
+      var navHeight = nav.offsetHeight || 60;
+
+      var isLightSection = false;
+      for (var i = 0; i < lightNavSections.length; i++) {
+        var rectL = lightNavSections[i].getBoundingClientRect();
+        if (rectL.top <= navHeight && rectL.bottom > 0) {
+          isLightSection = true;
+          break;
+        }
+      }
+      if (isLightSection) {
+        nav.classList.add('is-identity', 'is-heritage', 'is-designer', 'is-dark-logo');
+      } else {
+        nav.classList.remove('is-identity', 'is-heritage', 'is-designer', 'is-dark-logo');
+      }
+
+      var isDarkText = false;
+      for (var j = 0; j < darkTextSections.length; j++) {
+        var rectT = darkTextSections[j].getBoundingClientRect();
+        if (rectT.top <= navHeight && rectT.bottom > 0) {
+          isDarkText = true;
+          break;
+        }
+      }
+      if (isDarkText) {
+        nav.classList.add('is-dark-menu-text', 'is-dark-text');
+      } else {
+        nav.classList.remove('is-dark-menu-text', 'is-dark-text');
+      }
+    };
+    window.addEventListener('scroll', updateNavThemeState, { passive: true });
+    window.addEventListener('resize', updateNavThemeState, { passive: true });
+    updateNavThemeState();
+  }
+
+  /* 02 brand_identity 타이틀 슬라이드 인 위치 모션 (Figma 사양) */
+  var identityTitle = root.querySelector('.diheir-identity__title');
+  if (identityTitle && 'IntersectionObserver' in window) {
+    var identityObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          identityTitle.classList.add('is-inview');
+        } else {
+          identityTitle.classList.remove('is-inview');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -5% 0px'
+    });
+    identityObserver.observe(identityTitle);
+  } else if (identityTitle) {
+    identityTitle.classList.add('is-inview');
+  }
+  var designerSlider = root.querySelector('[data-diheir-slider]');
+  if (designerSlider) {
+    var dTrack = designerSlider.querySelector('.diheir-designer__track');
+    var originalCards = Array.from(dTrack.querySelectorAll('.diheir-designer__card'));
+
+    if (originalCards.length > 0) {
+      // 20세트 복제하여 끊김 없는 무한 스크롤 환경 구성 (총 100개 카드)
+      var cloneFragment = document.createDocumentFragment();
+      for (var r = 1; r < 20; r++) {
+        for (var c = 0; c < originalCards.length; c++) {
+          var clone = originalCards[c].cloneNode(true);
+          cloneFragment.appendChild(clone);
+        }
+      }
+      dTrack.appendChild(cloneFragment);
+
+      // 가운데(10번째 세트) 위치로 초기 스크롤 설정
+      function initDesignerScroll() {
+        var allCards = dTrack.querySelectorAll('.diheir-designer__card');
+        if (allCards.length < 10) return;
+        var targetCard = allCards[Math.floor(allCards.length / 2)];
+        dTrack.scrollLeft = targetCard.offsetLeft - (dTrack.clientWidth - targetCard.offsetWidth) / 2;
+      }
+
+      requestAnimationFrame(initDesignerScroll);
+      setTimeout(initDesignerScroll, 100);
+      setTimeout(initDesignerScroll, 500);
+
+      // 무한 루프 래핑: 스크롤이 양 끝 20% 구간에 도달하면 가운데 영역으로 감쪽같이 순환
+      function handleInfiniteScroll() {
+        var sLeft = dTrack.scrollLeft;
+        var sWidth = dTrack.scrollWidth;
+        var cWidth = dTrack.clientWidth;
+        if (sWidth <= cWidth) return;
+
+        var allCards = dTrack.querySelectorAll('.diheir-designer__card');
+        var setWidth = 0;
+        if (allCards.length >= 5) {
+          setWidth = allCards[5].offsetLeft - allCards[0].offsetLeft;
+        }
+        if (setWidth <= 0) return;
+
+        var shiftDistance = Math.round((sWidth * 0.4) / setWidth) * setWidth;
+        if (sLeft < sWidth * 0.2) {
+          dTrack.scrollLeft = sLeft + shiftDistance;
+        } else if (sLeft > sWidth * 0.8) {
+          dTrack.scrollLeft = sLeft - shiftDistance;
+        }
+      }
+
+      dTrack.addEventListener('scroll', handleInfiniteScroll, { passive: true });
+
+      // PC 마우스 드래그 가로 스크롤
+      var isDragging = false;
+      var startX = 0;
+      var startScrollLeft = 0;
+      var dragDistance = 0;
+
+      dTrack.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        isDragging = true;
+        dragDistance = 0;
+        startX = e.pageX - dTrack.offsetLeft;
+        startScrollLeft = dTrack.scrollLeft;
+        dTrack.classList.add('is-dragging');
+        dTrack.style.scrollSnapType = 'none';
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        var currentX = e.pageX - dTrack.offsetLeft;
+        var walk = (currentX - startX) * 1.5;
+        dragDistance = Math.abs(walk);
+        dTrack.scrollLeft = startScrollLeft - walk;
+      });
+
+      function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        dTrack.classList.remove('is-dragging');
+        dTrack.style.scrollSnapType = 'x mandatory';
+        requestAnimationFrame(function () {
+          dTrack.scrollBy({ left: 1, behavior: 'smooth' });
+        });
+      }
+
+      window.addEventListener('mouseup', stopDrag);
+      dTrack.addEventListener('mouseleave', stopDrag);
+
+      // 카드 클릭/터치 시 설명 토글 (드래그 중에는 클릭 무시)
+      dTrack.addEventListener('click', function (e) {
+        if (dragDistance > 5) {
+          e.preventDefault();
+          return;
+        }
+        var card = e.target.closest('.diheir-designer__card');
+        if (!card) return;
+        var isActive = card.classList.contains('is-active');
+        dTrack.querySelectorAll('.diheir-designer__card.is-active').forEach(function (c) {
+          c.classList.remove('is-active');
+        });
+        if (!isActive) card.classList.add('is-active');
+      });
+
+      // 모바일 이전/다음 버튼
+      designerSlider.querySelectorAll('[data-dir]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var allCards = dTrack.querySelectorAll('.diheir-designer__card');
+          var step = allCards.length > 1 ? allCards[1].offsetLeft - allCards[0].offsetLeft : 300;
+          var dir = Number(btn.getAttribute('data-dir'));
+          dTrack.scrollBy({ left: dir * step, behavior: 'smooth' });
+        });
+      });
+    }
+  }
+
+  /* ---------- Services_core 스크롤 인터랙션 (diheir.com 원본 동일 사양) ---------- */
+  var coreSec = root.querySelector('[data-name="Services_core"]');
+  if (coreSec) {
+    var stageEl = coreSec.querySelector('.diheir-core__stage');
+    var frame30El = coreSec.querySelector('.diheir-core__frame30');
+    var clipEl = coreSec.querySelector('.diheir-core__clip');
+    var quoteWrapEl = coreSec.querySelector('.diheir-core__quote-wrap');
+    var pcSideL = coreSec.querySelectorAll('.diheir-core__side--15, .diheir-core__side--14');
+    var pcSideR = coreSec.querySelectorAll('.diheir-core__side--12, .diheir-core__side--13');
+
+    var moCards = coreSec.querySelectorAll('.diheir-core__mo-card');
+    var moVideoBox = coreSec.querySelector('.diheir-core__mo-video-box');
+
+    function updateCoreScroll() {
+      var rect = coreSec.getBoundingClientRect();
+      var scrollDist = coreSec.offsetHeight - window.innerHeight;
+      if (scrollDist <= 0) return;
+      var progress = Math.max(0, Math.min(1, -rect.top / scrollDist));
+
+      var isMobile = window.innerWidth < 1024;
+      if (!isMobile) {
+        // diheir.com 원본 공식 기준:
+        // currentScale = Math.min(1, window.innerWidth / 1920)
+        // internalVh = window.innerHeight / currentScale
+        // actualWidth = Math.max(1920, window.innerWidth / currentScale)
+        var currentScale = Math.min(1, window.innerWidth / 1920);
+        var vh = window.innerHeight;
+        var internalVh = vh / currentScale;
+        var actualWidth = Math.max(1920, window.innerWidth / currentScale);
+
+        if (stageEl) {
+          stageEl.style.setProperty('--core-stage-scale', currentScale);
+          stageEl.style.setProperty('--core-internal-vh', internalVh + 'px');
+          stageEl.style.setProperty('--core-actual-w', actualWidth + 'px');
+        }
+
+        // Side images Y positions centered around internalVh / 2
+        var centerY = internalVh / 2;
+        var leftTopY = centerY - 389;
+        var leftBottomY = centerY + 29;
+        var rightTopY = centerY - 408;
+        var rightBottomY = centerY + 47;
+
+        if (stageEl) {
+          stageEl.style.setProperty('--core-lt-y', leftTopY + 'px');
+          stageEl.style.setProperty('--core-lb-y', leftBottomY + 'px');
+          stageEl.style.setProperty('--core-rt-y', rightTopY + 'px');
+          stageEl.style.setProperty('--core-rb-y', rightBottomY + 'px');
+        }
+
+        // Side images X translations:
+        // leftX = (-473 - (actualWidth - 1920) / 2) * progress
+        // rightX = (465 + (actualWidth - 1920) / 2) * progress
+        var leftX = (-473 - (actualWidth - 1920) / 2) * progress;
+        var rightX = (465 + (actualWidth - 1920) / 2) * progress;
+
+        pcSideL.forEach(function (el) { el.style.transform = 'translateX(' + leftX + 'px)'; });
+        pcSideR.forEach(function (el) { el.style.transform = 'translateX(' + rightX + 'px)'; });
+
+        // Center Frame30 scale: 0.7 -> 1.0 (시작 시 0.7 배율로 양옆 사진과 겹치지 않고 적정 여백 유지)
+        var frameScale = 0.7 + 0.3 * progress;
+        if (frame30El) {
+          frame30El.style.setProperty('--core-frame-scale', frameScale);
+        }
+
+        // Clip-path inset:
+        // at progress = 0: inset(startTop, horizontalInset, startTop, horizontalInset)
+        // at progress = 1: inset(0, 0, 0, 0)
+        var startTop = (internalVh - 637) / 2;
+        var horizontalInset = (actualWidth - 1404) / 2;
+        var clipTop = startTop * (1 - progress);
+        var clipX = horizontalInset * (1 - progress);
+
+        if (clipEl) {
+          var clipVal = 'inset(' + clipTop + 'px ' + clipX + 'px ' + clipTop + 'px ' + clipX + 'px)';
+          clipEl.style.clipPath = clipVal;
+          clipEl.style.webkitClipPath = clipVal;
+        }
+
+        // Text opacity: progress 0.57~1.0 -> 1 to 0
+        var textOp = progress < 0.57 ? 1 : Math.max(0, 1 - (progress - 0.57) / 0.43);
+        if (quoteWrapEl) {
+          quoteWrapEl.style.opacity = textOp;
+        }
+      } else {
+        // 모바일
+        function cardOpacity(p, start, peak1, peak2, end) {
+          if (p < start || p > end) return 0;
+          if (p < peak1) return (p - start) / (peak1 - start);
+          if (p <= peak2) return 1;
+          return 1 - (p - peak2) / (end - peak2);
+        }
+        if (moCards.length >= 4) {
+          moCards[0].style.opacity = cardOpacity(progress, 0, 0.05, 0.18, 0.2);
+          moCards[1].style.opacity = cardOpacity(progress, 0.2, 0.25, 0.38, 0.4);
+          moCards[2].style.opacity = cardOpacity(progress, 0.4, 0.45, 0.58, 0.6);
+          moCards[3].style.opacity = cardOpacity(progress, 0.6, 0.65, 0.78, 0.8);
+        }
+
+        // 0.8 이상에서 비디오 표시 및 0.9~1.0에서 화면 전체로 확대
+        var vOp = progress >= 0.8 ? 1 : 0;
+        if (moVideoBox) {
+          moVideoBox.style.opacity = vOp;
+          if (progress >= 0.9) {
+            var exp = (progress - 0.9) / 0.1;
+            moVideoBox.style.width = 'calc(90vw + ' + (10 * exp) + 'vw)';
+            moVideoBox.style.height = 'calc(100.28vw + (' + window.innerHeight + 'px - 100.28vw) * ' + exp + ')';
+            moVideoBox.style.borderRadius = (8 * (1 - exp)) + 'px';
+          } else {
+            moVideoBox.style.width = '90vw';
+            moVideoBox.style.height = '100.28vw';
+            moVideoBox.style.borderRadius = '8px';
+          }
+        }
+      }
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          updateCoreScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateCoreScroll);
+    updateCoreScroll();
+  }
+
+  /* ---------- PC 플로팅 혜택 카드: 좌우 버튼 · 드래그/스와이프 · 30초마다 다음 및 클릭 시 이동 ---------- */
+  var floatBox = root.querySelector('.diheir-floating__card');
+  if (floatBox) {
+    var floatSlides = floatBox.querySelectorAll('.diheir-floating__slide');
+    var floatLine = floatBox.querySelector('.diheir-floating__line');
+    var floatCount = floatSlides.length;
+    var floatIndex = 0;
+    var floatTimer;
+
+    function floatOffset(i) {
+      var off = (i - floatIndex + floatCount) % floatCount;
+      return off > floatCount / 2 ? off - floatCount : off;
+    }
+
+    function showFloat(index) {
+      var before = [];
+      floatSlides.forEach(function (s, i) { before[i] = floatOffset(i); });
+      floatIndex = (index + floatCount) % floatCount;
+      floatSlides.forEach(function (slide, i) {
+        var off = floatOffset(i);
+        if (Math.abs(off - before[i]) > 1) slide.style.transition = 'none';
+        slide.style.transform = 'translateX(' + off * 100 + '%)';
+        slide.offsetWidth;
+        slide.style.transition = '';
+        if (off === 0) slide.removeAttribute('aria-hidden');
+        else slide.setAttribute('aria-hidden', 'true');
+      });
+      if (floatLine) {
+        floatLine.style.setProperty('--diheir-float-pos', floatIndex / (floatCount - 1));
+      }
+      clearInterval(floatTimer);
+      floatTimer = setInterval(function () { showFloat(floatIndex + 1); }, 30000);
+    }
+
+    floatBox.querySelectorAll('.diheir-floating__btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        showFloat(floatIndex + Number(btn.getAttribute('data-dir')));
+      });
+    });
+
+    var floatStartX = null;
+    var floatMoved = false;
+    floatBox.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0 || e.target.closest('.diheir-floating__btn')) return;
+      floatStartX = e.clientX;
+      floatMoved = false;
+      floatBox.setPointerCapture(e.pointerId);
+    });
+
+    floatBox.addEventListener('pointermove', function (e) {
+      if (floatStartX === null) return;
+      var dx = e.clientX - floatStartX;
+      if (Math.abs(dx) > 6) floatMoved = true;
+      if (Math.abs(dx) < 40) return;
+      floatStartX = null;
+      showFloat(floatIndex + (dx < 0 ? 1 : -1));
+    });
+
+    function navigateToCardBenefit() {
+      var curSlide = floatSlides[floatIndex];
+      var benefitId = (curSlide && curSlide.getAttribute('data-benefit')) || 'consultation';
+      var targetUrl = 'https://www.diheir.com/board/board.html?code=diheir_board3&page=1&board_cate=&type=i&utm_source=diheir_web&utm_medium=referral&utm_campaign=reservation&utm_content=floating_banner&benefit=' + encodeURIComponent(benefitId) + '#benefits';
+      window.location.href = targetUrl;
+    }
+
+    function floatDragEnd(e) {
+      if (floatStartX !== null && !floatMoved) {
+        if (!e.target.closest('.diheir-floating__btn')) {
+          navigateToCardBenefit();
+        }
+      }
+      floatStartX = null;
+      floatMoved = false;
+    }
+
+    floatBox.addEventListener('pointerup', floatDragEnd);
+    floatBox.addEventListener('pointercancel', function () {
+      floatStartX = null;
+      floatMoved = false;
+    });
+
+    floatBox.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.diheir-floating__btn')) {
+        e.preventDefault();
+        navigateToCardBenefit();
+      }
+    });
+
+    showFloat(0);
+  }
+
+  /* ---------- collection 인터랙션 (4대 컬렉션 전환, 스택 펼침/스윕) ---------- */
+  var colSection = root.querySelector('.diheir-collection');
+  if (colSection) {
+    var colSub = colSection.querySelector('#diheir-col-sub');
+    var colTitle = colSection.querySelector('#diheir-collection-title');
+    var colKo = colSection.querySelector('#diheir-col-ko');
+    var colEn = colSection.querySelector('#diheir-col-en');
+    var colStack = colSection.querySelector('#diheir-col-stack');
+    var colPrevBtn = colSection.querySelector('#diheir-col-prev');
+    var colNextBtn = colSection.querySelector('#diheir-col-next');
+
+    var COLLECTIONS = [
+      {
+        subtitle: "Lily Of the Valley",
+        title: "LOV Collection",
+        desc1: "은방울꽃의 꽃말, “틀림없이 행복해집니다”",
+        desc2: "The Lily of the Valley symbolizes a promise:\n\"Surely, Happiness Awaits You.\"",
+        images: [
+          "component/img/06_collection/LOV_Collection_01.png",
+          "component/img/06_collection/LOV_Collection_02.png",
+          "component/img/06_collection/LOV_Collection_03.png"
+        ]
+      },
+      {
+        subtitle: "Heirloom + bound",
+        title: "Heirbound Collection",
+        desc1: "두 끝을 하나로 묶어내는 리본",
+        desc2: "A sculptural design expressing the moment\nwhen time flows toward one another.",
+        images: [
+          "component/img/06_collection/Heirbound_Collection_01.png",
+          "component/img/06_collection/Heirbound_Collection_02.png"
+        ]
+      },
+      {
+        subtitle: "Concord + Core",
+        title: "CONCORE Collection",
+        desc1: "마음과 요소가 조용히 맞닿는 조화로운 일치",
+        desc2: "The Concord Collection embodies a harmonious union \nat the heart of a relationship,",
+        images: [
+          "component/img/06_collection/CONCORE_Collection_01.png",
+          "component/img/06_collection/CONCORE_Collection_02.png"
+        ]
+      },
+      {
+        subtitle: "",
+        title: "SPIRAL Collection",
+        desc1: "확장하는 곡선이 만드는 새로운 질서",
+        desc2: "A sculptural expression of the journey through time and \nthe growth shaped along the way.",
+        images: [
+          "component/img/06_collection/SPIRAL_Collection_01.png",
+          "component/img/06_collection/SPIRAL_Collection_02.png"
+        ]
+      }
+    ];
+
+    var curColIdx = 0;
+    var isSpread = false;
+    var previewIndex = 0;
+
+    function renderCollection(idx) {
+      var item = COLLECTIONS[idx];
+      isSpread = false;
+      previewIndex = 0;
+
+      // 텍스트 페이드 전환
+      var textEls = [colSub, colTitle, colKo, colEn];
+      textEls.forEach(function (el) {
+        if (el) el.style.opacity = '0';
+      });
+
+      setTimeout(function () {
+        if (colSub) colSub.textContent = item.subtitle;
+        if (colTitle) colTitle.textContent = item.title;
+        if (colKo) colKo.textContent = item.desc1;
+        if (colEn) colEn.textContent = item.desc2;
+        textEls.forEach(function (el) {
+          if (el) el.style.opacity = '1';
+        });
+      }, 200);
+
+      // 카드 렌더링
+      if (colStack) {
+        colStack.innerHTML = '';
+        var renderOrder = item.images.length === 3 ? [1, 2, 0] : [1, 0];
+        renderOrder.forEach(function (i) {
+          var src = item.images[i];
+          var card = document.createElement('div');
+          card.className = 'diheir-collection__card diheir-collection__card--' + i;
+          card.setAttribute('data-card-idx', i);
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = item.title + ' ' + (i + 1);
+          img.loading = 'eager';
+          img.draggable = false;
+          card.appendChild(img);
+          colStack.appendChild(card);
+        });
+
+        updateCardPositions();
+      }
+    }
+
+    function updateCollectionScale() {
+      var isMobile = window.innerWidth < 1024;
+      if (!isMobile) {
+        var scale = Math.min(1, window.innerWidth / 1920);
+        colSection.style.setProperty('--col-scale', scale);
+      } else {
+        colSection.style.removeProperty('--col-scale');
+      }
+      updateCardPositions();
+    }
+
+    function updateCardPositions() {
+      if (!colStack) return;
+      var cards = colStack.querySelectorAll('.diheir-collection__card');
+      var total = cards.length;
+      var isMobile = window.innerWidth < 1024;
+      var colGalleryWrap = colSection.querySelector('.diheir-collection__gallery-wrap');
+
+      if (colGalleryWrap) {
+        if (!isMobile && isSpread) {
+          colGalleryWrap.classList.add('is-spread');
+        } else {
+          colGalleryWrap.classList.remove('is-spread');
+        }
+      }
+
+      if (!isMobile) {
+        if (total === 3) {
+          cards.forEach(function (c) {
+            var i = Number(c.getAttribute('data-card-idx'));
+            if (isSpread) {
+              if (i === 1) { // Left
+                c.style.transform = 'translate3d(-580px, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '10';
+              } else if (i === 2) { // Right
+                c.style.transform = 'translate3d(580px, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '10';
+              } else { // Center
+                c.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '20';
+              }
+            } else {
+              if (i === 1) {
+                c.style.transform = 'translate3d(-15px, 0, 0) rotate(-3deg) scale(0.98)';
+                c.style.zIndex = '10';
+              } else if (i === 2) {
+                c.style.transform = 'translate3d(15px, 0, 0) rotate(3deg) scale(0.98)';
+                c.style.zIndex = '10';
+              } else {
+                c.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '20';
+              }
+            }
+          });
+        } else if (total === 2) {
+          cards.forEach(function (c) {
+            var i = Number(c.getAttribute('data-card-idx'));
+            if (isSpread) {
+              if (i === 1) { // Left
+                c.style.transform = 'translate3d(-290px, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '10';
+              } else { // Right
+                c.style.transform = 'translate3d(290px, 0, 0) rotate(0deg) scale(1)';
+                c.style.zIndex = '20';
+              }
+            } else {
+              if (i === 1) {
+                c.style.transform = 'translate3d(-10px, 0, 0) rotate(-2deg) scale(0.98)';
+                c.style.zIndex = '10';
+              } else {
+                c.style.transform = 'translate3d(10px, 0, 0) rotate(2deg) scale(1)';
+                c.style.zIndex = '20';
+              }
+            }
+          });
+        }
+      } else {
+        cards.forEach(function (c) {
+          var i = Number(c.getAttribute('data-card-idx'));
+          var pos = (i - previewIndex + total) % total;
+          if (pos === 0) {
+            c.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
+            c.style.zIndex = '30';
+          } else if (pos === total - 1) {
+            c.style.transform = 'translate3d(10px, 0, 0) rotate(3deg) scale(0.98)';
+            c.style.zIndex = '10';
+          } else {
+            c.style.transform = 'translate3d(-10px, 0, 0) rotate(-3deg) scale(0.98)';
+            c.style.zIndex = '10';
+          }
+        });
+      }
+    }
+
+    if (colStack) {
+      colStack.addEventListener('click', function () {
+        var isMobile = window.innerWidth < 1024;
+        var cards = colStack.querySelectorAll('.diheir-collection__card');
+        if (cards.length === 0) return;
+
+        if (isMobile) {
+          var topCard = colStack.querySelector('[data-card-idx="' + previewIndex + '"]');
+          if (topCard) {
+            topCard.style.transform = 'translate3d(100%, 0, 0) rotate(10deg) scale(1)';
+            setTimeout(function () {
+              previewIndex = (previewIndex + 1) % cards.length;
+              updateCardPositions();
+            }, 200);
+          }
+        } else {
+          isSpread = !isSpread;
+          updateCardPositions();
+        }
+      });
+    }
+
+    function prevCollection() {
+      curColIdx = (curColIdx - 1 + COLLECTIONS.length) % COLLECTIONS.length;
+      renderCollection(curColIdx);
+    }
+    function nextCollection() {
+      curColIdx = (curColIdx + 1) % COLLECTIONS.length;
+      renderCollection(curColIdx);
+    }
+
+    if (colPrevBtn) colPrevBtn.addEventListener('click', prevCollection);
+    if (colNextBtn) colNextBtn.addEventListener('click', nextCollection);
+
+    if (colStack) {
+      var colTouchStartX = 0;
+      colStack.addEventListener('touchstart', function (e) {
+        colTouchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      colStack.addEventListener('touchend', function (e) {
+        var diff = e.changedTouches[0].clientX - colTouchStartX;
+        if (diff > 50) {
+          prevCollection();
+        } else if (diff < -50) {
+          nextCollection();
+        }
+      });
+    }
+
+    window.addEventListener('resize', updateCollectionScale);
+    updateCollectionScale();
+    renderCollection(0);
+  }
+
+  /* 07 diheirspace 매장 사진 무한 루프 슬라이더 (화살표 / 드래그 / 스와이프 / 인디케이터 바) */
+  var spacePhoto = document.getElementById('diheirSpacePhoto');
+  var spaceTrack = document.getElementById('diheirSpaceTrack');
+  var spacePrev = document.getElementById('diheirSpacePrev');
+  var spaceNext = document.getElementById('diheirSpaceNext');
+  var spaceBarsWrap = document.getElementById('diheirSpaceBars');
+
+  if (spacePhoto && spaceTrack) {
+    var spaceBars = spaceBarsWrap ? spaceBarsWrap.querySelectorAll('.diheir-space__bar') : [];
+    // 트랙 구성: [Clone of 3, Slide 1, Slide 2, Slide 3, Clone of 1]
+    // index 0: Clone 3, index 1: Slide 1, index 2: Slide 2, index 3: Slide 3, index 4: Clone 1
+    var trackIndex = 1;
+    var isAnimating = false;
+
+    function getRealIndex(tIdx) {
+      if (tIdx <= 0) return 2;
+      if (tIdx >= 4) return 0;
+      return tIdx - 1;
+    }
+
+    function updateBars(realIdx) {
+      for (var i = 0; i < spaceBars.length; i++) {
+        if (i === realIdx) {
+          spaceBars[i].classList.add('is-active');
+        } else {
+          spaceBars[i].classList.remove('is-active');
+        }
+      }
+    }
+
+    function moveToTrackIndex(tIdx, animated) {
+      trackIndex = tIdx;
+      if (animated) {
+        isAnimating = true;
+        spaceTrack.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+      } else {
+        spaceTrack.style.transition = 'none';
+      }
+      spaceTrack.style.transform = 'translate3d(-' + (trackIndex * 100) + '%, 0, 0)';
+      updateBars(getRealIndex(trackIndex));
+    }
+
+    function handleLoopReset() {
+      isAnimating = false;
+      if (trackIndex >= 4) {
+        // 3번 사진 다음 1번 복제본으로 넘어간 후, 실제 1번 슬라이드로 트랜지션 없이 전환
+        moveToTrackIndex(1, false);
+        void spaceTrack.offsetHeight;
+      } else if (trackIndex <= 0) {
+        // 1번 사진 이전 3번 복제본으로 넘어간 후, 실제 3번 슬라이드로 트랜지션 없이 전환
+        moveToTrackIndex(3, false);
+        void spaceTrack.offsetHeight;
+      }
+    }
+
+    spaceTrack.addEventListener('transitionend', function (e) {
+      if (e.target !== spaceTrack || e.propertyName !== 'transform') return;
+      handleLoopReset();
+    });
+
+    if (spaceNext) {
+      spaceNext.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (isAnimating) return;
+        moveToTrackIndex(trackIndex + 1, true);
+      });
+    }
+
+    if (spacePrev) {
+      spacePrev.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (isAnimating) return;
+        moveToTrackIndex(trackIndex - 1, true);
+      });
+    }
+
+    if (spaceBarsWrap) {
+      for (var b = 0; b < spaceBars.length; b++) {
+        (function (barIdx) {
+          spaceBars[barIdx].addEventListener('click', function (e) {
+            e.preventDefault();
+            if (isAnimating) return;
+            var currentReal = getRealIndex(trackIndex);
+            if (currentReal === barIdx) return;
+            if (currentReal === 2 && barIdx === 0) {
+              // 3번에서 1번으로 클릭 시 자연스럽게 앞으로 진행
+              moveToTrackIndex(4, true);
+            } else if (currentReal === 0 && barIdx === 2) {
+              // 1번에서 3번으로 클릭 시 자연스럽게 뒤로 진행
+              moveToTrackIndex(0, true);
+            } else {
+              moveToTrackIndex(barIdx + 1, true);
+            }
+          });
+        })(b);
+      }
+    }
+
+    /* 마우스 드래그 */
+    var isMouseDragging = false;
+    var mouseStartX = 0;
+    var mouseCurrentX = 0;
+
+    spacePhoto.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.diheir-space__arrow')) return;
+      handleLoopReset();
+      isMouseDragging = true;
+      mouseStartX = e.clientX;
+      mouseCurrentX = e.clientX;
+      spaceTrack.style.transition = 'none';
+      spacePhoto.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isMouseDragging) return;
+      mouseCurrentX = e.clientX;
+      var deltaX = mouseCurrentX - mouseStartX;
+      var width = spacePhoto.getBoundingClientRect().width || 1;
+      var basePercent = -trackIndex * 100;
+      var dragPercent = (deltaX / width) * 100;
+      spaceTrack.style.transform = 'translate3d(' + (basePercent + dragPercent) + '%, 0, 0)';
+    });
+
+    window.addEventListener('mouseup', function (e) {
+      if (!isMouseDragging) return;
+      isMouseDragging = false;
+      spacePhoto.style.cursor = '';
+      var deltaX = mouseCurrentX - mouseStartX;
+      var width = spacePhoto.getBoundingClientRect().width || 1;
+      var threshold = Math.max(45, width * 0.12);
+
+      if (deltaX < -threshold) {
+        moveToTrackIndex(trackIndex + 1, true);
+      } else if (deltaX > threshold) {
+        moveToTrackIndex(trackIndex - 1, true);
+      } else {
+        moveToTrackIndex(trackIndex, true);
+      }
+    });
+
+    /* 터치 스와이프 */
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchCurrentX = 0;
+    var isTouching = false;
+    var isHorizontalSwipe = null;
+
+    spacePhoto.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      handleLoopReset();
+      isTouching = true;
+      isHorizontalSwipe = null;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchCurrentX = touchStartX;
+      spaceTrack.style.transition = 'none';
+    }, { passive: true });
+
+    spacePhoto.addEventListener('touchmove', function (e) {
+      if (!isTouching) return;
+      touchCurrentX = e.touches[0].clientX;
+      var deltaX = touchCurrentX - touchStartX;
+      var deltaY = e.touches[0].clientY - touchStartY;
+
+      if (isHorizontalSwipe === null) {
+        if (Math.abs(deltaX) > 7 || Math.abs(deltaY) > 7) {
+          isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
+        }
+      }
+
+      if (isHorizontalSwipe) {
+        if (e.cancelable) e.preventDefault();
+        var width = spacePhoto.getBoundingClientRect().width || 1;
+        var basePercent = -trackIndex * 100;
+        var dragPercent = (deltaX / width) * 100;
+        spaceTrack.style.transform = 'translate3d(' + (basePercent + dragPercent) + '%, 0, 0)';
+      }
+    }, { passive: false });
+
+    spacePhoto.addEventListener('touchend', function (e) {
+      if (!isTouching) return;
+      isTouching = false;
+      if (isHorizontalSwipe) {
+        var deltaX = touchCurrentX - touchStartX;
+        var width = spacePhoto.getBoundingClientRect().width || 1;
+        var threshold = Math.max(40, width * 0.12);
+        if (deltaX < -threshold) {
+          moveToTrackIndex(trackIndex + 1, true);
+        } else if (deltaX > threshold) {
+          moveToTrackIndex(trackIndex - 1, true);
+        } else {
+          moveToTrackIndex(trackIndex, true);
+        }
+      } else {
+        moveToTrackIndex(trackIndex, true);
+      }
+    });
+
+    spacePhoto.addEventListener('touchcancel', function () {
+      if (!isTouching) return;
+      isTouching = false;
+      moveToTrackIndex(trackIndex, true);
+    });
+  }
+
+  /* 네이버 지도 API (Web Dynamic Map v3) 초기화 */
+  function initNaverMap() {
+    var mapContainer = document.getElementById('naverMap');
+    if (!mapContainer) return;
+    if (typeof window.naver === 'undefined' || !window.naver.maps) return;
+
+    var fallback = document.getElementById('naverMapFallback');
+    if (fallback) fallback.style.display = 'none';
+
+    // 디에르 청담점 위치: 서울시 강남구 도산대로59길 16 (테이블2025 B1)
+    var diheirPos = new window.naver.maps.LatLng(37.524778, 127.042392);
+    var initialZoom = 17;
+
+    var map = new window.naver.maps.Map(mapContainer, {
+      center: diheirPos,
+      zoom: initialZoom,
+      minZoom: 7,
+      zoomControl: false,
+      scrollWheel: true
+    });
+
+    var marker = new window.naver.maps.Marker({
+      position: diheirPos,
+      map: map,
+      title: '디에르 청담 (DIHEIR)'
+    });
+
+    // 마커 클릭 시 네이버 지도 장소 상세페이지 새 창 열기
+    window.naver.maps.Event.addListener(marker, 'click', function () {
+      window.open('https://map.naver.com/p/entry/place/2036509182', '_blank');
+    });
+
+    // 커스텀 줌 및 복귀 컨트롤
+    var controlsWrap = document.getElementById('naverMapControls');
+    var zoomInBtn = document.getElementById('mapZoomIn');
+    var zoomOutBtn = document.getElementById('mapZoomOut');
+    var returnBtn = document.getElementById('mapReturnBtn');
+
+    if (controlsWrap) controlsWrap.style.display = 'flex';
+
+    if (zoomInBtn) {
+      zoomInBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        map.setZoom(map.getZoom() + 1);
+      });
+    }
+
+    if (zoomOutBtn) {
+      zoomOutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        map.setZoom(map.getZoom() - 1);
+      });
+    }
+
+    if (returnBtn) {
+      returnBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        map.setCenter(diheirPos);
+        map.setZoom(initialZoom);
+        returnBtn.style.display = 'none';
+      });
+
+      window.naver.maps.Event.addListener(map, 'idle', function () {
+        var bounds = map.getBounds();
+        var isVisible = bounds && bounds.hasPoint ? bounds.hasPoint(diheirPos) : true;
+        returnBtn.style.display = isVisible ? 'none' : 'block';
+      });
+    }
+  }
+
+  // 스크립트 로드 타이밍 대응 (즉시 또는 로드 완료 후 실행)
+  if (typeof window.naver !== 'undefined' && window.naver.maps) {
+    initNaverMap();
+  } else {
+    var checkMapTimer = setInterval(function () {
+      if (typeof window.naver !== 'undefined' && window.naver.maps) {
+        clearInterval(checkMapTimer);
+        initNaverMap();
+      }
+    }, 100);
+    window.addEventListener('load', function () {
+      clearInterval(checkMapTimer);
+      initNaverMap();
+    });
+  }
+})();
+</script>
+<!-- [메이크샵 삽입 범위 끝] -->
+</body>
+</html>
